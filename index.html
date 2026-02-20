@@ -37,7 +37,7 @@
       --r2:28px;
       --max: 1160px;
 
-      /* Toggle feel (Fake Darkmode Toggle -> Theme Shift) */
+      /* Theme Shift (Fake Darkmode Toggle) */
       --accentGlow: rgba(255,122,24,.18);
       --accentGlow2: rgba(168,85,247,.18);
       --accentGlow3: rgba(46,229,157,.10);
@@ -554,7 +554,7 @@
     }
     .sound-hint b{color:#fff}
 
-    /* ----------------- NEW SECTIONS (copy/paste integrated) ----------------- */
+    /* ----------------- NEW SECTIONS ----------------- */
     .reveal{opacity:0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease}
     .reveal.show{opacity:1; transform:none}
 
@@ -753,7 +753,7 @@
       100%{transform: translateY(0px); opacity:.55}
     }
 
-    /* Fake Darkmode toggle button */
+    /* Theme toggle button */
     .theme-toggle{
       display:inline-flex; align-items:center; gap:10px;
       padding: 10px 12px;
@@ -837,7 +837,8 @@
           <span class="sw" aria-hidden="true"><span class="knob"></span></span>
           <small id="themeLabel">Neon</small>
         </button>
-        <a class="btn primary glow" id="joinTop" href="#discord">Bot holen</a>
+        <!-- ✅ Direkt Discord öffnen -->
+        <a class="btn primary glow" id="joinTop" href="#" target="_blank" rel="noreferrer">Bot holen</a>
       </div>
     </div>
   </div>
@@ -934,7 +935,7 @@
     </div>
   </section>
 
-  <!-- ✅ #2 Animated Stats Counter + Social Proof -->
+  <!-- ✅ Social Proof + Animated Counters -->
   <section id="proof">
     <div class="container">
       <div class="section-head reveal">
@@ -991,18 +992,18 @@
       </div>
 
       <div style="margin-top:12px; color:var(--faint); font-weight:900; line-height:1.55" class="reveal">
-        ImBurni sein Ziel, den besten Bot auf ganz Twitch erstellen.
+        Hinweis: Zahlen sind Showcase/Beispielwerte (du kannst sie oben in <b>CONFIG.counters</b> anpassen).
       </div>
     </div>
   </section>
 
-  <!-- ✅ #3 Feature Preview Animation (Discord Mock) -->
+  <!-- ✅ Feature Preview Animation (Discord Mock) -->
   <section id="preview">
     <div class="container">
       <div class="section-head reveal">
         <div>
           <h2>Preview</h2>
-          <p class="hint">So fühlt es sich an, wenn Follow, Ticket und Timeout clean durchlaufen.</p>
+          <p class="hint">So fühlt es sich an, wenn Follow, Ticket und Timeout clean durchlaufen – ohne Tokens auf der Website.</p>
         </div>
       </div>
 
@@ -1043,12 +1044,12 @@
       </div>
 
       <div style="margin-top:12px; color:var(--faint); font-weight:850; line-height:1.55" class="reveal">
-        Tipp: Der Bot arbeitet mit Echtzeit Daten, Timeouts und Follows werden direkt verarbeitet.
+        Tipp: Wenn du echte Screenshots willst, sag Bescheid — dann bauen wir dir eine „Gallery“-Section wie bei SaaS-Seiten.
       </div>
     </div>
   </section>
 
-  <!-- ✅ #6 Roadmap / Premium Feeling -->
+  <!-- ✅ Roadmap / Premium Feeling -->
   <section id="roadmap">
     <div class="container">
       <div class="section-head reveal">
@@ -1084,7 +1085,7 @@
     </div>
   </section>
 
-  <!-- ✅ #4 Owner / Creator (ohne Bild) -->
+  <!-- ✅ Owner / Creator (ohne Bild) -->
   <section id="owner">
     <div class="container">
       <div class="section-head reveal">
@@ -1140,13 +1141,13 @@
     </div>
   </section>
 
-  <!-- ✅ Streamer System (mit Live Twitch Embed #1) -->
+  <!-- ✅ Streamer System (mit Live Twitch Embed) -->
   <section id="streamer">
     <div class="container">
       <div class="section-head reveal">
         <div>
           <h2>Streamer, die den Bot nutzen</h2>
-          <p class="hint">Mit Profilbild + Live/Offline + Twitch Embed wenn live.</p>
+          <p class="hint">Mit Profilbild + Live/Offline + Twitch Embed wenn live (funktioniert ohne Tokens).</p>
         </div>
       </div>
 
@@ -1256,16 +1257,7 @@
   </div>
 
   <script>
-    /* ---------- Basic init ---------- */
-    document.getElementById('navName').textContent = CONFIG.botName;
-    document.getElementById('footName').textContent = CONFIG.botName;
-    document.getElementById('trustedBy').textContent = CONFIG.trustedByText;
-
-    ["discordBtn1","discordBtn2","discordBtn3"].forEach(id=>{
-      document.getElementById(id).href = CONFIG.discordInvite;
-    });
-    document.getElementById('year').textContent = new Date().getFullYear();
-
+    /* ---------- Helpers ---------- */
     function toast(msg){
       const t = document.createElement('div');
       t.textContent = msg;
@@ -1286,12 +1278,32 @@
       setTimeout(()=>{ t.style.opacity='0'; t.style.transition='opacity .25s ease'; }, 1200);
       setTimeout(()=>{ t.remove(); }, 1500);
     }
+
     async function copyText(text){
       try{ await navigator.clipboard.writeText(text); toast("Invite kopiert ✅"); }
       catch{ toast("Kopieren nicht möglich ❌"); }
     }
+
+    /* ---------- Basic init (Discord Buttons + Copy Buttons) ---------- */
+    document.getElementById('navName').textContent = CONFIG.botName;
+    document.getElementById('footName').textContent = CONFIG.botName;
+    document.getElementById('trustedBy').textContent = CONFIG.trustedByText;
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // ✅ Discord links überall setzen (inkl. Navbar Button)
+    ["discordBtn1","discordBtn2","discordBtn3","joinTop"].forEach(id=>{
+      const el = document.getElementById(id);
+      if(el){
+        el.href = CONFIG.discordInvite;
+        el.target = "_blank";
+        el.rel = "noreferrer";
+      }
+    });
+
+    // ✅ Copy buttons überall setzen
     ["copyDiscord","copyDiscord2","copyDiscord3"].forEach(id=>{
-      document.getElementById(id).addEventListener('click', ()=>copyText(CONFIG.discordInvite));
+      const el = document.getElementById(id);
+      if(el) el.addEventListener('click', ()=>copyText(CONFIG.discordInvite));
     });
 
     /* ---------- Micro detail: tiny click sound (WebAudio) ---------- */
@@ -1321,7 +1333,6 @@
       audio.volume = 0.85;
       audio.loop = true;
 
-      // start muted (allowed)
       window.addEventListener("load", async () => {
         try{
           audio.muted = true;
@@ -1346,11 +1357,9 @@
         }
       }
 
-      // TRY ON SCROLL/WHEEL first
       const onWheel = async () => { await unlockSound(); };
       const onScroll = async () => { await unlockSound(); };
 
-      // SAFE FALLBACK on real gestures
       const onPointer = async () => { await unlockSound(); };
       const onTouch = async () => { await unlockSound(); };
       const onKey = async () => { await unlockSound(); };
@@ -1463,7 +1472,7 @@
       tick();
     })();
 
-    /* ---------- #9 Fake Darkmode toggle (Theme Shift) ---------- */
+    /* ---------- Theme toggle ---------- */
     (function(){
       const btn = document.getElementById('themeToggle');
       const label = document.getElementById('themeLabel');
@@ -1491,7 +1500,7 @@
       });
     })();
 
-    /* ---------- #8 Scroll reveal ---------- */
+    /* ---------- Scroll reveal ---------- */
     (function(){
       const els = Array.from(document.querySelectorAll('.reveal'));
       const io = new IntersectionObserver((entries)=>{
@@ -1505,14 +1514,11 @@
       els.forEach(el=>io.observe(el));
     })();
 
-    /* ---------- #2 Animated counters ---------- */
+    /* ---------- Animated counters ---------- */
     (function(){
       const targets = CONFIG.counters || {};
       const nodes = Array.from(document.querySelectorAll('[data-count]'));
-      const fmt = (n)=>{
-        // deutsche Tausender-Punkte
-        return Number(n).toLocaleString('de-DE');
-      };
+      const fmt = (n)=> Number(n).toLocaleString('de-DE');
 
       let started = false;
       function run(){
@@ -1586,7 +1592,6 @@
     }
 
     function twitchPlayerSrc(login){
-      // Twitch Embed braucht parent=hostname
       const parent = encodeURIComponent(location.hostname || "localhost");
       return `https://player.twitch.tv/?channel=${encodeURIComponent(login)}&parent=${parent}&muted=true`;
     }
@@ -1631,7 +1636,7 @@
           : ``;
 
         return `
-          <div class="streamer-card reveal show" data-login="${escapeHtml(loginLower)}">
+          <div class="streamer-card" data-login="${escapeHtml(loginLower)}">
             <div class="streamer-top">
               <div class="streamer-left">
                 <div class="avatar">${avatar}</div>
