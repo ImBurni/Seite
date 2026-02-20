@@ -25,8 +25,8 @@
       --glass: rgba(255,255,255,.06);
       --glass2: rgba(255,255,255,.085);
 
-      --brand:#ff7a18;    /* fire */
-      --brand2:#a855f7;   /* neon purple */
+      --brand:#ff7a18;
+      --brand2:#a855f7;
       --ok:#2ee59d;
       --off: rgba(238,240,255,.35);
 
@@ -55,7 +55,6 @@
     a{color:inherit;text-decoration:none}
     .container{width:min(var(--max), calc(100% - 40px)); margin:0 auto}
 
-    /* Animated glow with parallax (CSS variables updated in JS) */
     .glow{
       position:fixed; inset:-260px;
       background: conic-gradient(from 180deg,
@@ -75,7 +74,6 @@
       to{transform: translate3d(var(--gx, 0px), var(--gy, 0px), 0) rotate(360deg)}
     }
 
-    /* Subtle noise overlay */
     .noise{
       position:fixed; inset:0;
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.12'/%3E%3C/svg%3E");
@@ -85,7 +83,6 @@
       z-index:-2;
     }
 
-    /* Particles canvas sits behind content, above glow */
     #particles{
       position:fixed;
       inset:0;
@@ -94,7 +91,6 @@
       opacity:.55;
     }
 
-    /* NAV */
     .nav{
       position:sticky; top:0; z-index:50;
       backdrop-filter: blur(14px);
@@ -128,7 +124,6 @@
     .nav-links a:hover{background: rgba(255,255,255,.06); color:var(--text)}
     .nav-actions{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
 
-    /* Buttons */
     .btn{
       display:inline-flex; align-items:center; justify-content:center; gap:10px;
       padding:12px 14px;
@@ -152,7 +147,6 @@
     .btn.primary:hover{transform: translateY(-2px); filter:saturate(1.06)}
     .btn.ghost{background:transparent; box-shadow:none}
 
-    /* Pill */
     .pill{
       display:inline-flex; align-items:center; gap:10px;
       padding:10px 14px;
@@ -170,7 +164,6 @@
       box-shadow: 0 0 0 7px rgba(46,229,157,.14);
     }
 
-    /* HERO */
     header.hero{padding: 46px 0 26px}
     .hero-grid{
       display:grid;
@@ -192,7 +185,6 @@
       color: transparent;
     }
 
-    /* animated underline for keywords */
     .shine-underline{
       position:relative;
       display:inline-block;
@@ -293,7 +285,6 @@
     .chip small{color: var(--muted); font-weight:850}
     .chip b{font-size: 14px}
 
-    /* SECTIONS */
     section{padding: 36px 0}
     .section-head{display:flex; align-items:flex-end; justify-content:space-between; gap: 16px; margin-bottom: 16px}
     h2{margin:0; font-size: clamp(22px, 2.2vw, 34px); letter-spacing:-.5px}
@@ -324,7 +315,6 @@
     .card h3{margin:0 0 10px; font-size: 18px; letter-spacing:-.2px}
     .card p{margin:0; color: var(--muted); line-height:1.65; font-weight:750}
 
-    /* Gate */
     .gate{
       border-radius: 32px;
       border:1px solid rgba(255,255,255,.16);
@@ -342,7 +332,6 @@
     .gate p{margin:8px 0 0; color: var(--muted); font-weight:900; line-height:1.6}
     .gate-actions{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end}
 
-    /* FAQ */
     .faq{display:grid; grid-template-columns: 1fr 1fr; gap:14px}
     details{
       border:1px solid rgba(255,255,255,.12);
@@ -354,7 +343,6 @@
     summary{cursor:pointer; font-weight:950}
     details p{margin:10px 0 0; color: var(--muted); line-height:1.65; font-weight:750}
 
-    /* Streamer section */
     .streamer-controls{
       display:flex; gap:12px; align-items:center; flex-wrap:wrap;
       margin: 12px 0 10px;
@@ -502,7 +490,6 @@
       max-width: 56ch;
     }
 
-    /* Footer */
     footer{padding: 28px 0 44px; color: var(--muted); font-weight:900}
     .foot{
       display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;
@@ -510,7 +497,6 @@
       padding-top: 18px;
     }
 
-    /* Responsive */
     @media (max-width: 940px){
       .hero-grid{grid-template-columns: 1fr}
       .grid3{grid-template-columns: 1fr}
@@ -519,6 +505,34 @@
       .gate{flex-direction:column; align-items:flex-start}
       .gate-actions{justify-content:flex-start}
       .streamer-grid{grid-template-columns: 1fr}
+    }
+
+    /* ---- Music overlay polish (uses your palette) ---- */
+    .music-overlay{
+      position:fixed; inset:0;
+      display:none; align-items:center; justify-content:center;
+      background:rgba(0,0,0,.70);
+      z-index:99999;
+      padding:24px;
+      backdrop-filter: blur(10px);
+    }
+    .music-card{
+      width:min(520px,100%);
+      border-radius:22px;
+      border:1px solid rgba(255,255,255,.16);
+      background:rgba(10,10,16,.88);
+      box-shadow:0 18px 60px rgba(0,0,0,.55);
+      padding:18px;
+    }
+    .music-card h2{margin:0 0 8px; font-size:20px; letter-spacing:-.2px}
+    .music-card p{margin:0 0 14px; color:rgba(238,240,255,.75); font-weight:900; line-height:1.55}
+    .music-row{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
+    .music-mini{
+      margin-top:10px;
+      color:rgba(238,240,255,.55);
+      font-weight:900;
+      font-size:12px;
+      line-height:1.5;
     }
   </style>
 </head>
@@ -529,16 +543,13 @@
   <canvas id="particles" aria-hidden="true"></canvas>
 
   <script>
-    // ✅ Nur öffentliche Infos (kein Code, keine Tokens)
     const CONFIG = {
       botName: "ImBurni_Bot_v1",
       discordInvite: "https://discord.gg/v8BSRq8C8C",
-      // Streamer-Liste: einfach weitere Twitch-Namen ergänzen
       streamers: ["Tricck17"]
     };
   </script>
 
-  <!-- NAV -->
   <div class="nav">
     <div class="container nav-inner">
       <a class="brand" href="#top" aria-label="Start">
@@ -563,7 +574,6 @@
     </div>
   </div>
 
-  <!-- HERO -->
   <header class="hero" id="top">
     <div class="container">
       <div class="pill">
@@ -599,7 +609,6 @@
         <div class="hero-card" aria-label="ImBurni_Bot Artwork">
           <div class="hero-media">
             <div class="img-wrap">
-              <!-- ✅ Lege dein Bild als imburni_bot.png neben diese Datei -->
               <img src="imburni_bot.png" alt="ImBurni_Bot_v1 Artwork" />
             </div>
             <div class="mini">
@@ -614,7 +623,6 @@
     </div>
   </header>
 
-  <!-- FEATURES -->
   <section id="features">
     <div class="container">
       <div class="section-head">
@@ -653,7 +661,6 @@
     </div>
   </section>
 
-  <!-- HOW TO GET BOT -->
   <section id="zugang">
     <div class="container">
       <div class="section-head">
@@ -685,7 +692,6 @@
     </div>
   </section>
 
-  <!-- STREAMERS -->
   <section id="streamer">
     <div class="container">
       <div class="section-head">
@@ -723,7 +729,6 @@
     </div>
   </section>
 
-  <!-- FAQ -->
   <section id="faq">
     <div class="container">
       <div class="section-head">
@@ -764,7 +769,6 @@
     </div>
   </section>
 
-  <!-- DISCORD CTA -->
   <section id="discord">
     <div class="container">
       <div class="gate">
@@ -793,28 +797,21 @@
     </div>
   </footer>
 
-  <!-- 🎵 MUSIC: File must be next to this HTML as "Song.mp3" -->
-  <audio id="bgm" src="Song.mp3" preload="auto" loop></audio>
+  <!-- 🎵 AUDIO (Song.mp3 muss neben index.html liegen) -->
+  <audio id="bgm" src="Song.mp3" preload="auto" loop muted></audio>
 
-  <!-- Autoplay-Fallback Overlay -->
-  <div id="musicOverlay" style="
-    position:fixed; inset:0; display:none; align-items:center; justify-content:center;
-    background:rgba(0,0,0,.70); z-index:99999; padding:24px; backdrop-filter: blur(10px);
-  ">
-    <div style="
-      width:min(520px,100%);
-      border-radius:22px;
-      border:1px solid rgba(255,255,255,.16);
-      background:rgba(10,10,16,.85);
-      box-shadow:0 18px 60px rgba(0,0,0,.55);
-      padding:18px;
-    ">
-      <div style="font-weight:950; font-size:20px; margin-bottom:8px;">🎵 Musik starten</div>
-      <div style="color:rgba(238,240,255,.75); font-weight:900; line-height:1.55; margin-bottom:14px;">
-        Dein Browser blockiert Autoplay mit Ton. Ein Klick reicht, dann läuft der Song.
+  <!-- 🎵 Overlay (ein Klick → Sound an) -->
+  <div id="musicOverlay" class="music-overlay" aria-hidden="true">
+    <div class="music-card">
+      <h2>🎵 Musik starten</h2>
+      <p>Browser blockiert Autoplay mit Ton. Ein Klick reicht – dann läuft der Song.</p>
+      <div class="music-row">
+        <button id="musicPlayBtn" class="btn primary" type="button">▶ Abspielen (mit Ton)</button>
+        <button id="musicMuteBtn" class="btn" type="button">🔇 Ohne Ton</button>
       </div>
-      <button id="musicPlayBtn" class="btn primary" type="button">▶ Abspielen</button>
-      <button id="musicMuteBtn" class="btn" type="button" style="margin-left:10px;">🔇 Stumm</button>
+      <div class="music-mini">
+        Tipp: Wenn du irgendwo auf der Seite klickst/tappst, wird die Musik auch automatisch freigeschaltet.
+      </div>
     </div>
   </div>
 
@@ -827,20 +824,6 @@
     });
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // smooth scroll
-    document.querySelectorAll('a[href^="#"]').forEach(a=>{
-      a.addEventListener('click', (e)=>{
-        const id = a.getAttribute('href');
-        if(!id || id === '#') return;
-        const el = document.querySelector(id);
-        if(el){
-          e.preventDefault();
-          el.scrollIntoView({behavior:'smooth', block:'start'});
-        }
-      });
-    });
-
-    // toast
     function toast(msg){
       const t = document.createElement('div');
       t.textContent = msg;
@@ -869,59 +852,55 @@
       document.getElementById(id).addEventListener('click', ()=>copyText(CONFIG.discordInvite));
     });
 
-    /* ---------- 🎵 Music Autoplay w/ Fallback ---------- */
+    /* ---------- 🎵 Musik: maximal kompatibel ---------- */
     (function(){
       const audio = document.getElementById('bgm');
       const overlay = document.getElementById('musicOverlay');
       const playBtn = document.getElementById('musicPlayBtn');
       const muteBtn = document.getElementById('musicMuteBtn');
 
-      audio.volume = 0.6;
-      audio.muted = false;
+      audio.volume = 0.65;
+      audio.loop = true;
 
       function showOverlay(show){
         overlay.style.display = show ? 'flex' : 'none';
+        overlay.setAttribute('aria-hidden', show ? 'false' : 'true');
       }
 
-      async function tryAutoplay(){
-        try{
-          await audio.play();
-          showOverlay(false);
-        }catch{
-          showOverlay(true);
-        }
-      }
-
-      playBtn.addEventListener('click', async () => {
-        try{
-          audio.muted = false;
-          await audio.play();
-          showOverlay(false);
-        }catch{
-          alert('Wiedergabe blockiert. Bitte Autoplay im Browser erlauben.');
-        }
-      });
-
-      muteBtn.addEventListener('click', async () => {
+      // Beim Laden: stumm starten (wird meist erlaubt), dann Overlay zeigen für Ton
+      window.addEventListener('load', async () => {
         try{
           audio.muted = true;
-          await audio.play(); // stumm klappt fast immer
-          showOverlay(false);
-        }catch{
-          showOverlay(true);
-        }
+          await audio.play();
+        }catch{}
+        showOverlay(true);
       });
 
-      window.addEventListener('load', tryAutoplay);
+      // Klick: mit Ton starten (User-Gesture)
+      playBtn.addEventListener('click', () => {
+        audio.muted = false;
+        audio.play()
+          .then(()=>showOverlay(false))
+          .catch(()=> {
+            // Falls Browser wirklich hart blockt: stumm weiterlaufen
+            audio.muted = true;
+            audio.play().then(()=>showOverlay(false)).catch(()=>showOverlay(true));
+          });
+      });
 
-      // Extra: erster Klick irgendwo startet Musik (falls Overlay nervt)
-      window.addEventListener('click', async () => {
-        if (!audio.paused) return;
-        try{
-          await audio.play();
-          showOverlay(false);
-        }catch{}
-      }, { once:true });
+      // Ohne Ton
+      muteBtn.addEventListener('click', () => {
+        audio.muted = true;
+        audio.play().then(()=>showOverlay(false)).catch(()=>showOverlay(true));
+      });
+
+      // Zusätzlich: erster Klick irgendwo auf der Seite schaltet Ton frei
+      const unlock = () => {
+        audio.muted = false;
+        audio.play().then(()=>showOverlay(false)).catch(()=>{});
+      };
+      document.addEventListener('click', unlock, { once:true });
+      document.addEventListener('touchstart', unlock, { once:true, passive:true });
     })();
 
     /* ---------- Parallax Glow ---------- */
@@ -1017,7 +996,7 @@
       tick();
     })();
 
-    /* ---------- Streamer list (Avatar + Live/Offline via simple uptime check) ---------- */
+    /* ---------- Streamer list (Avatar + Live/Offline) ---------- */
     const streamerGrid = document.getElementById('streamerGrid');
     const streamerCount = document.getElementById('streamerCount');
     const streamerUpdated = document.getElementById('streamerUpdated');
@@ -1025,13 +1004,11 @@
     const filterWrap = document.getElementById('streamerFilter');
     const refreshBtn = document.getElementById('streamerRefresh');
 
-    // third-party endpoints (no tokens, works on GitHub Pages)
     const endpoints = {
       uptime: (login) => `https://decapi.me/twitch/uptime/${encodeURIComponent(login)}`,
       avatar: (login) => `https://decapi.me/twitch/avatar/${encodeURIComponent(login)}`
     };
 
-    // local state
     const state = {
       items: CONFIG.streamers.map(n => ({
         login: String(n || '').trim(),
