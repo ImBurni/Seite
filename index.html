@@ -22,8 +22,6 @@
 
       --stroke: rgba(255,255,255,.12);
       --stroke2: rgba(255,255,255,.18);
-      --glass: rgba(255,255,255,.06);
-      --glass2: rgba(255,255,255,.085);
 
       --brand:#ff7a18;
       --brand2:#a855f7;
@@ -128,7 +126,7 @@
       display:inline-flex; align-items:center; justify-content:center; gap:10px;
       padding:12px 14px;
       border-radius:14px;
-      border:1px solid var(--stroke);
+      border:1px solid rgba(255,255,255,.12);
       background: linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.02));
       font-weight:950;
       cursor:pointer;
@@ -145,7 +143,6 @@
       box-shadow: 0 18px 55px rgba(255,122,24,.20);
     }
     .btn.primary:hover{transform: translateY(-2px); filter:saturate(1.06)}
-    .btn.ghost{background:transparent; box-shadow:none}
 
     .pill{
       display:inline-flex; align-items:center; gap:10px;
@@ -184,7 +181,6 @@
       background-clip:text;
       color: transparent;
     }
-
     .shine-underline{
       position:relative;
       display:inline-block;
@@ -507,7 +503,7 @@
       .streamer-grid{grid-template-columns: 1fr}
     }
 
-    /* ---- Music overlay polish (uses your palette) ---- */
+    /* ---- Music overlay polish ---- */
     .music-overlay{
       position:fixed; inset:0;
       display:none; align-items:center; justify-content:center;
@@ -797,21 +793,30 @@
     </div>
   </footer>
 
-  <!-- 🎵 AUDIO (Song.mp3 muss neben index.html liegen) -->
-  <!-- playsinline hilft besonders auf iOS/Safari -->
+  <!-- 🎵 AUDIO: Song.mp3 muss neben index.html liegen (exakt gleiche Schreibweise!) -->
   <audio id="bgm" src="Song.mp3" preload="auto" loop muted playsinline></audio>
 
-  <!-- 🎵 Overlay (ein Klick → Sound an) -->
+  <!-- 🎵 Overlay: jetzt mit X-Button + Fehleranzeige -->
   <div id="musicOverlay" class="music-overlay" aria-hidden="true">
     <div class="music-card">
-      <h2>🎵 Musik starten</h2>
-      <p>Browser blockiert Autoplay mit Ton. Ein Klick reicht – dann läuft der Song.</p>
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
+        <h2 style="margin:0">🎵 Musik starten</h2>
+        <button id="musicCloseBtn" class="btn" type="button" style="padding:10px 12px;">✖</button>
+      </div>
+
+      <p style="margin:10px 0 14px;">
+        Browser blockiert Autoplay mit Ton. Ein Klick reicht – dann läuft der Song.
+      </p>
+
       <div class="music-row">
         <button id="musicPlayBtn" class="btn primary" type="button">▶ Abspielen (mit Ton)</button>
         <button id="musicMuteBtn" class="btn" type="button">🔇 Ohne Ton</button>
       </div>
+
+      <div id="musicErr" class="music-mini" style="margin-top:12px;color:rgba(255,150,150,.9);display:none"></div>
+
       <div class="music-mini">
-        Tipp: Wenn du irgendwo auf der Seite klickst/tappst oder eine Taste drückst, wird die Musik automatisch freigeschaltet.
+        Tipp: Klick/Tap/Keydown irgendwo schaltet frei. Wenn’s nicht geht: Datei/Hosting prüfen.
       </div>
     </div>
   </div>
@@ -853,12 +858,19 @@
       document.getElementById(id).addEventListener('click', ()=>copyText(CONFIG.discordInvite));
     });
 
-    /* ---------- 🎵 Musik: FIX (maximale Kompatibilität) ---------- */
+    /* ---------- 🎵 MUSIK FIX: funktioniert auch wenn andere Scripts crashten ---------- */
     (function(){
-      const audio   = document.getElementById('bgm');
-      const overlay = document.getElementById('musicOverlay');
-      const playBtn = document.getElementById('musicPlayBtn');
-      const muteBtn = document.getElementById('musicMuteBtn');
+      const audio    = document.getElementById('bgm');
+      const overlay  = document.getElementById('musicOverlay');
+      const playBtn  = document.getElementById('musicPlayBtn');
+      const muteBtn  = document.getElementById('musicMuteBtn');
+      const closeBtn = document.getElementById('musicCloseBtn');
+      const errBox   = document.getElementById('musicErr');
+
+      if(!audio || !overlay || !playBtn || !muteBtn || !closeBtn){
+        console.error("[MUSIC] Missing elements", {audio, overlay, playBtn, muteBtn, closeBtn});
+        return;
+      }
 
       audio.setAttribute('playsinline', '');
       audio.setAttribute('webkit-playsinline', '');
@@ -871,25 +883,39 @@
         overlay.setAttribute('aria-hidden', show ? 'false' : 'true');
       }
 
-      async function safePlay(){
-        try { await audio.play(); return true; }
-        catch { return false; }
+      function showErr(msg){
+        console.error("[MUSIC]", msg);
+        if(errBox){
+          errBox.style.display = 'block';
+          errBox.textContent = "Fehler: " + msg;
+        }
       }
 
-      // Beim Laden: stumm starten (Autoplay-friendly) + Overlay anzeigen
+      async function safePlay(){
+        try{
+          await audio.play();
+          return true;
+        }catch(e){
+          showErr((e && e.message) ? e.message : "Audio play() wurde blockiert");
+          return false;
+        }
+      }
+
+      // Overlay sicher klickbar machen (damit es nicht "tot" wirkt)
+      overlay.style.pointerEvents = 'auto';
+
+      // Beim Laden: stumm starten (autoplay-friendly) + Overlay zeigen
       window.addEventListener('load', async () => {
         audio.muted = true;
-        await safePlay();
+        await safePlay();       // stumm startet fast immer
         showOverlay(true);
       });
 
       async function unlockWithSound(){
         audio.muted = false;
-        // Manche Browser mögen ein "touch" von currentTime
-        try { if (audio.currentTime === 0) audio.currentTime = 0.0001; } catch {}
+        try{ if (audio.currentTime === 0) audio.currentTime = 0.0001; }catch{}
         const ok = await safePlay();
         if(ok) showOverlay(false);
-        return ok;
       }
 
       async function keepMuted(){
@@ -898,36 +924,43 @@
         if(ok) showOverlay(false);
       }
 
-      playBtn.addEventListener('click', unlockWithSound);
-      muteBtn.addEventListener('click', keepMuted);
+      // Buttons
+      playBtn.addEventListener('click', (e)=>{ e.preventDefault(); e.stopPropagation(); unlockWithSound(); });
+      muteBtn.addEventListener('click', (e)=>{ e.preventDefault(); e.stopPropagation(); keepMuted(); });
+      closeBtn.addEventListener('click', (e)=>{ e.preventDefault(); e.stopPropagation(); showOverlay(false); });
 
-      // Erster echter User-Input irgendwo → Sound freischalten (zuverlässiger als nur click)
+      // Klick auf dunklen Bereich: Overlay schließen (optional)
+      overlay.addEventListener('click', (e)=>{
+        if(e.target === overlay) showOverlay(false);
+      });
+
+      // Erstes User-Event irgendwo: Sound freischalten (sehr zuverlässig)
       const onceUnlock = async () => {
         await unlockWithSound();
         cleanup();
       };
-
       function cleanup(){
         window.removeEventListener('pointerdown', onceUnlock, true);
         window.removeEventListener('keydown', onceUnlock, true);
         window.removeEventListener('touchstart', onceUnlock, true);
       }
-
       window.addEventListener('pointerdown', onceUnlock, true);
       window.addEventListener('keydown', onceUnlock, true);
       window.addEventListener('touchstart', onceUnlock, true);
 
-      // Wenn Tab/Browser zurückkommt: falls Audio pausiert wurde, erneut starten
+      // Wenn Tab wieder aktiv wird: falls pausiert, neu starten
       document.addEventListener('visibilitychange', async () => {
         if(!document.hidden){
           await safePlay();
         }
       });
 
-      // Klick auf den dunklen Hintergrund vom Overlay soll auch entsperren
-      overlay.addEventListener('click', (e)=>{
-        if(e.target === overlay) unlockWithSound();
+      // Wenn mp3 nicht gefunden wird, siehst du es sofort
+      audio.addEventListener('error', () => {
+        showErr("Song.mp3 konnte nicht geladen werden (Pfad/Name/Hosting prüfen).");
       });
+
+      console.log("[MUSIC] init ok");
     })();
 
     /* ---------- Parallax Glow ---------- */
@@ -1023,7 +1056,7 @@
       tick();
     })();
 
-    /* ---------- Streamer list (Avatar + Live/Offline) ---------- */
+    /* ---------- Streamer list ---------- */
     const streamerGrid = document.getElementById('streamerGrid');
     const streamerCount = document.getElementById('streamerCount');
     const streamerUpdated = document.getElementById('streamerUpdated');
@@ -1070,6 +1103,7 @@
       streamerGrid.innerHTML = filtered.map(it => {
         const loginLower = it.login.toLowerCase();
         const display = escapeHtml(it.login);
+
         const liveBadge = it.live === true
           ? `<span class="badge live"><span class="live-dot"></span>LIVE</span>`
           : it.live === false
