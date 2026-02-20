@@ -2,322 +2,78 @@
 <html lang="de">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>ImBurni_Bot_v1 — Twitch ✕ Discord Bot</title>
-  <meta name="description" content="ImBurni_Bot_v1: Twitch Follow Bot, Punkte/Lurk System, Support-Tickets mit Buttons & ID-Timeout System. Zugang nur via Discord." />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ImBurni_Bot_v1</title>
 
   <style>
-    :root{
-      --bg0:#050509; --bg1:#090914; --bg2:#0d0d1b;
-      --text:#eef0ff; --muted: rgba(238,240,255,.72);
-      --stroke: rgba(255,255,255,.12);
-      --brand:#ff7a18; --brand2:#a855f7; --ok:#2ee59d;
-      --shadow: 0 18px 60px rgba(0,0,0,.65);
-      --shadow2: 0 10px 28px rgba(0,0,0,.35);
-      --r2:28px; --max: 1160px;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
     body{
-      margin:0; color:var(--text);
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-      background:
-        radial-gradient(1100px 700px at 14% 10%, rgba(168,85,247,.18), transparent 58%),
-        radial-gradient(900px 650px at 82% 18%, rgba(255,122,24,.18), transparent 58%),
-        radial-gradient(900px 650px at 55% 94%, rgba(46,229,157,.10), transparent 58%),
-        linear-gradient(180deg, var(--bg0), var(--bg1) 35%, var(--bg2));
-      overflow-x:hidden;
-    }
-    a{color:inherit;text-decoration:none}
-    .container{width:min(var(--max), calc(100% - 40px)); margin:0 auto}
-
-    .nav{position:sticky; top:0; z-index:50; backdrop-filter: blur(14px);
-      background: linear-gradient(180deg, rgba(6,6,12,.78), rgba(6,6,12,.36));
-      border-bottom:1px solid rgba(255,255,255,.06);
-    }
-    .nav-inner{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:14px 0;}
-    .brand{display:flex; align-items:center; gap:12px}
-    .logo{width:40px; height:40px; border-radius:16px;
-      background: radial-gradient(circle at 30% 20%, rgba(255,255,255,.35), transparent 45%),
-                  linear-gradient(135deg, var(--brand), var(--brand2));
-      border:1px solid rgba(255,255,255,.18);
-      box-shadow: 0 18px 38px rgba(168,85,247,.22);
-    }
-    .brand-title{display:flex; flex-direction:column; line-height:1.05}
-    .brand-title b{font-size:14px; letter-spacing:.2px}
-    .brand-title span{font-size:12px; color:var(--muted); font-weight:900; margin-top:5px}
-
-    .btn{
-      display:inline-flex; align-items:center; justify-content:center; gap:10px;
-      padding:12px 14px; border-radius:14px;
-      border:1px solid var(--stroke);
-      background: linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.02));
-      font-weight:950; cursor:pointer;
-      transition: transform .12s ease, border-color .2s ease, filter .2s ease;
-      user-select:none; box-shadow: var(--shadow2); white-space:nowrap;
-    }
-    .btn:hover{transform: translateY(-1px); border-color: rgba(255,255,255,.22)}
-    .btn.primary{
-      border-color: rgba(255,122,24,.42);
-      background: linear-gradient(135deg, rgba(255,122,24,.96), rgba(168,85,247,.92));
-      color:#0b0b12;
-      box-shadow: 0 18px 55px rgba(255,122,24,.20);
+      margin:0;
+      font-family:system-ui;
+      background:#0b0b12;
+      color:#eef0ff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      height:100vh;
+      flex-direction:column;
+      gap:20px;
     }
 
-    header{padding: 46px 0 26px}
-    .h1{font-size: clamp(36px, 4.5vw, 64px); line-height:1.02; margin: 14px 0 14px; letter-spacing:-1px;}
-    .sub{font-size: clamp(16px, 1.2vw, 18px); line-height:1.65; color: var(--muted); margin:0 0 18px; max-width: 64ch;}
-    .hero-cta{display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin: 14px 0 12px}
-    .card{
-      border-radius: var(--r2);
-      border:1px solid rgba(255,255,255,.12);
-      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.02));
-      padding: 18px; box-shadow: var(--shadow2);
+    h1{
+      margin:0;
+      font-size:32px;
     }
 
-    /* Music overlay */
-    .music-overlay{
-      position:fixed; inset:0;
-      display:flex; align-items:center; justify-content:center;
-      background:rgba(0,0,0,.70);
-      z-index:99999; padding:24px; backdrop-filter: blur(10px);
+    button{
+      padding:14px 20px;
+      border-radius:12px;
+      border:1px solid #333;
+      background:linear-gradient(135deg,#ff7a18,#a855f7);
+      color:#000;
+      font-weight:900;
+      cursor:pointer;
+      font-size:16px;
     }
-    .music-card{
-      width:min(620px,100%);
-      border-radius:22px;
-      border:1px solid rgba(255,255,255,.16);
-      background:rgba(10,10,16,.92);
-      box-shadow:0 18px 60px rgba(0,0,0,.55);
-      padding:18px;
+
+    button:hover{
+      transform:scale(1.05);
     }
-    .music-card h2{margin:0; font-size:20px; letter-spacing:-.2px}
-    .music-card p{margin:10px 0 14px; color:rgba(238,240,255,.75); font-weight:900; line-height:1.55}
-    .music-row{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
-    .msg{
-      margin-top:12px; padding:10px 12px; border-radius:14px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.06);
-      color: rgba(238,240,255,.88);
-      font-weight:900; line-height:1.45; white-space:pre-wrap;
-      display:none;
+
+    .hint{
+      color:#9aa0ff;
+      font-size:14px;
     }
-    .msg.err{border-color: rgba(255,120,120,.35); background: rgba(255,120,120,.10); color: rgba(255,210,210,.95);}
-    .msg.ok{border-color: rgba(46,229,157,.35); background: rgba(46,229,157,.10); color: rgba(210,255,235,.95);}
   </style>
 </head>
 
 <body>
-  <script>
-    const CONFIG = {
-      botName: "ImBurni_Bot_v1",
-      discordInvite: "https://discord.gg/v8BSRq8C8C"
-    };
-  </script>
 
-  <div class="nav">
-    <div class="container nav-inner">
-      <a class="brand" href="#top" aria-label="Start">
-        <div class="logo" aria-hidden="true"></div>
-        <div class="brand-title">
-          <b id="navName">ImBurni_Bot_v1</b>
-          <span>Twitch ✕ Discord Bridge</span>
-        </div>
-      </a>
-      <div>
-        <a class="btn primary" id="discordTop" href="#" target="_blank" rel="noreferrer">💬 Discord</a>
-      </div>
-    </div>
-  </div>
+<h1>🎵 Musik Test</h1>
 
-  <header id="top">
-    <div class="container">
-      <div class="h1">Feuer für deinen Chat.</div>
-      <p class="sub">
-        Diese Version enthält einen robusten Musik-Start. Ton startet nur nach echter Interaktion (Browser-Regel).
-      </p>
-      <div class="hero-cta">
-        <button class="btn primary" id="playNow">▶ Musik starten (Ton)</button>
-        <button class="btn" id="muteNow">🔇 Musik stumm starten</button>
-      </div>
+<!-- AUDIO ELEMENT -->
+<audio id="bgm" src="Song.mp3"></audio>
 
-      <div class="card">
-        <b>Debug:</b> Wenn es nicht spielt, steht unten der echte Fehler (z.B. NotAllowedError / Codec / etc.).
-        <div id="debug" class="msg err"></div>
-        <div id="debugOk" class="msg ok"></div>
-      </div>
-    </div>
-  </header>
+<!-- BUTTON STARTET TON -->
+<button onclick="playMusic()">
+  ▶ Jetzt mit Ton abspielen
+</button>
 
-  <!-- ✅ AUDIO: Song.mp3 muss im gleichen veröffentlichten Ordner liegen wie index.html -->
-  <audio id="bgm" preload="auto" loop muted playsinline>
-    <source src="Song.mp3" type="audio/mpeg">
-  </audio>
+<div class="hint">
+Song.mp3 muss im selben Ordner liegen wie index.html
+</div>
 
-  <!-- Overlay: bleibt bis Sound erfolgreich läuft ODER du bewusst "stumm" wählst -->
-  <div id="musicOverlay" class="music-overlay" aria-hidden="false">
-    <div class="music-card">
-      <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
-        <h2>🎵 Musik starten</h2>
-        <button id="closeOverlay" class="btn" type="button" style="padding:10px 12px;">✖</button>
-      </div>
+<script>
+function playMusic(){
+  const audio = document.getElementById("bgm");
 
-      <p>
-        Ton geht nur nach einem echten Klick/Touch/Taste (Browser-Regel).<br>
-        Der Button unten ist ein echter User-Gesture und startet sofort.
-      </p>
+  audio.muted = false;
+  audio.volume = 1;
 
-      <div class="music-row">
-        <button id="overlayPlay" class="btn primary" type="button">▶ Start mit Ton</button>
-        <button id="overlayMute" class="btn" type="button">🔇 Stumm lassen</button>
-      </div>
+  audio.play().catch(e=>{
+    alert("Fehler beim Abspielen: " + e.message);
+  });
+}
+</script>
 
-      <div id="overlayMsg" class="msg err"></div>
-      <div id="overlayOk" class="msg ok"></div>
-    </div>
-  </div>
-
-  <script>
-    // Basic init
-    document.getElementById('navName').textContent = CONFIG.botName;
-    document.getElementById('discordTop').href = CONFIG.discordInvite;
-
-    const audio = document.getElementById('bgm');
-    const overlay = document.getElementById('musicOverlay');
-
-    const debug = document.getElementById('debug');
-    const debugOk = document.getElementById('debugOk');
-    const overlayMsg = document.getElementById('overlayMsg');
-    const overlayOk = document.getElementById('overlayOk');
-
-    const show = (el, text) => { el.textContent = text; el.style.display = 'block'; };
-    const hide = (el) => { el.style.display = 'none'; el.textContent = ''; };
-
-    function hideOverlay(){ overlay.style.display = 'none'; overlay.setAttribute('aria-hidden','true'); }
-    function showOverlay(){ overlay.style.display = 'flex'; overlay.setAttribute('aria-hidden','false'); }
-
-    function explainError(e){
-      const name = e?.name || "Error";
-      const msg  = e?.message || String(e);
-      return `${name}: ${msg}
-
-Wenn NotAllowedError:
-→ Ton erst nach Klick/Touch/Taste.
-
-Wenn NotSupportedError oder "no supported sources":
-→ MP3 ist kaputt / kein echtes MP3 / falsches Format / falscher MIME-Type.
-
-Wenn 404:
-→ Song.mp3 liegt nicht im veröffentlichten Ordner oder heißt anders (Groß/Klein!).`;
-    }
-
-    async function headCheck(){
-      // Diagnose: ist Song.mp3 wirklich erreichbar?
-      try{
-        const res = await fetch('Song.mp3', { method:'HEAD', cache:'no-store' });
-        if(res.ok){
-          hide(debug); hide(overlayMsg);
-          show(debugOk, `MP3 gefunden ✅ (HTTP ${res.status})`);
-          show(overlayOk, `MP3 gefunden ✅ (HTTP ${res.status})`);
-          return true;
-        } else {
-          hide(debugOk); hide(overlayOk);
-          show(debug, `MP3 NICHT gefunden ❌ (HTTP ${res.status})\nFix: Song.mp3 in denselben veröffentlichten Ordner wie index.html legen.`);
-          show(overlayMsg, `MP3 NICHT gefunden ❌ (HTTP ${res.status})\nFix: Song.mp3 in denselben veröffentlichten Ordner wie index.html legen.`);
-          return false;
-        }
-      }catch(e){
-        // Manche Hosts blocken HEAD, dann machen wir GET
-        try{
-          const res2 = await fetch('Song.mp3', { method:'GET', cache:'no-store' });
-          if(res2.ok){
-            hide(debug); hide(overlayMsg);
-            show(debugOk, `MP3 gefunden ✅ (HTTP ${res2.status})`);
-            show(overlayOk, `MP3 gefunden ✅ (HTTP ${res2.status})`);
-            return true;
-          } else {
-            hide(debugOk); hide(overlayOk);
-            show(debug, `MP3 NICHT gefunden ❌ (HTTP ${res2.status})`);
-            show(overlayMsg, `MP3 NICHT gefunden ❌ (HTTP ${res2.status})`);
-            return false;
-          }
-        }catch(e2){
-          hide(debugOk); hide(overlayOk);
-          show(debug, `Kann Song.mp3 nicht prüfen.\nFehler: ${e2?.message || e2}`);
-          show(overlayMsg, `Kann Song.mp3 nicht prüfen.\nFehler: ${e2?.message || e2}`);
-          return false;
-        }
-      }
-    }
-
-    async function playMuted(){
-      try{
-        audio.muted = true;
-        await audio.play();
-        hideOverlay();
-      }catch(e){
-        hide(debugOk); hide(overlayOk);
-        show(debug, explainError(e));
-        show(overlayMsg, explainError(e));
-      }
-    }
-
-    async function playWithSound(){
-      try{
-        // iOS/Chrome safe pattern: muted play -> unmute play
-        audio.muted = true;
-        await audio.play();
-
-        audio.muted = false;
-        await audio.play();
-
-        hideOverlay();
-      }catch(e){
-        hide(debugOk); hide(overlayOk);
-        show(debug, explainError(e));
-        show(overlayMsg, explainError(e));
-      }
-    }
-
-    // Buttons
-    document.getElementById('overlayPlay').addEventListener('click', (e)=>{ e.preventDefault(); playWithSound(); });
-    document.getElementById('overlayMute').addEventListener('click', (e)=>{ e.preventDefault(); playMuted(); });
-    document.getElementById('closeOverlay').addEventListener('click', (e)=>{ e.preventDefault(); hideOverlay(); });
-
-    document.getElementById('playNow').addEventListener('click', (e)=>{ e.preventDefault(); playWithSound(); });
-    document.getElementById('muteNow').addEventListener('click', (e)=>{ e.preventDefault(); playMuted(); });
-
-    // Optional: erster echter Gesture irgendwo startet Ton automatisch
-    let armed = true;
-    const autoUnlock = async () => {
-      if(!armed) return;
-      armed = false;
-      await playWithSound();
-      cleanup();
-    };
-    function cleanup(){
-      window.removeEventListener('pointerdown', autoUnlock, true);
-      window.removeEventListener('touchstart', autoUnlock, true);
-      window.removeEventListener('keydown', autoUnlock, true);
-    }
-    window.addEventListener('pointerdown', autoUnlock, true);
-    window.addEventListener('touchstart', autoUnlock, { capture:true, passive:true });
-    window.addEventListener('keydown', autoUnlock, true);
-
-    // Audio errors
-    audio.addEventListener('error', () => {
-      const mediaErr = audio.error ? `${audio.error.code}` : "unknown";
-      show(debug, `Audio error event (code ${mediaErr}).\nWenn MP3 gefunden (HTTP 200) aber trotzdem error:\n→ Datei ist evtl. kein echtes MP3 oder kaputt.`);
-      showOverlay();
-    });
-
-    // On load: diagnose + try muted autoplay (harmlos)
-    window.addEventListener('load', async () => {
-      await headCheck();
-      // stumm versuchen (darf scheitern, ist okay)
-      try { audio.muted = true; await audio.play(); } catch {}
-      // Overlay bleibt sichtbar bis User startet oder stumm wählt
-      showOverlay();
-    });
-  </script>
 </body>
 </html>
