@@ -1,1 +1,761 @@
-Hallo Internet das ist ein test
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ImBurni_Bot — Twitch Bot</title>
+  <meta name="description" content="ImBurni_Bot – dein moderner Twitch Bot für Moderation, Chat-Features und Stream-Tools." />
+
+  <!-- Optional: Social Preview (wenn du online hostest) -->
+  <meta property="og:title" content="ImBurni_Bot — Twitch Bot" />
+  <meta property="og:description" content="Moderation, Chat-Commands, Stream-Tools – alles in einem Bot." />
+  <meta property="og:type" content="website" />
+  <!-- <meta property="og:image" content="https://deine-domain.de/imburni_bot.png" /> -->
+
+  <style>
+    :root{
+      --bg0:#07070a;
+      --bg1:#0b0b12;
+      --card: rgba(255,255,255,.06);
+      --card2: rgba(255,255,255,.085);
+      --stroke: rgba(255,255,255,.12);
+      --text:#eaeaf2;
+      --muted: rgba(234,234,242,.72);
+      --brand:#ff7a18;
+      --brand2:#a855f7;
+      --ok:#2ee59d;
+      --shadow: 0 18px 55px rgba(0,0,0,.55);
+      --radius: 18px;
+      --radius2: 26px;
+      --max: 1120px;
+    }
+
+    [data-theme="light"]{
+      --bg0:#f7f7fb;
+      --bg1:#ffffff;
+      --card: rgba(10,10,20,.06);
+      --card2: rgba(10,10,20,.085);
+      --stroke: rgba(10,10,20,.12);
+      --text:#101022;
+      --muted: rgba(16,16,34,.72);
+      --shadow: 0 18px 55px rgba(10,10,30,.18);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--text);
+      background:
+        radial-gradient(1100px 700px at 15% 10%, rgba(168,85,247,.18), transparent 55%),
+        radial-gradient(900px 650px at 80% 20%, rgba(255,122,24,.18), transparent 55%),
+        radial-gradient(900px 650px at 60% 95%, rgba(46,229,157,.10), transparent 55%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      overflow-x:hidden;
+    }
+
+    a{color:inherit; text-decoration:none}
+    .container{width:min(var(--max), calc(100% - 40px)); margin-inline:auto}
+    .pill{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:10px 14px;
+      border:1px solid var(--stroke);
+      border-radius:999px;
+      background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.02));
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 30px rgba(0,0,0,.15);
+      font-weight:600;
+      color:var(--muted);
+    }
+    .dot{width:10px; height:10px; border-radius:50%; background:var(--ok); box-shadow:0 0 0 6px rgba(46,229,157,.18)}
+    .glow{
+      position:absolute; inset:-200px;
+      background: conic-gradient(from 180deg,
+        rgba(255,122,24,.18),
+        rgba(168,85,247,.18),
+        rgba(46,229,157,.14),
+        rgba(255,122,24,.18));
+      filter: blur(90px);
+      opacity:.35;
+      animation: spin 22s linear infinite;
+      pointer-events:none;
+    }
+    @keyframes spin{to{transform: rotate(360deg)}}
+
+    /* Navbar */
+    .nav{
+      position:sticky; top:0; z-index:40;
+      backdrop-filter: blur(12px);
+      background: linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,0));
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    [data-theme="light"] .nav{
+      background: linear-gradient(180deg, rgba(255,255,255,.7), rgba(255,255,255,0));
+      border-bottom:1px solid rgba(10,10,20,.08);
+    }
+    .nav-inner{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 0;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px; font-weight:900; letter-spacing:.2px;
+    }
+    .logo{
+      width:38px; height:38px; border-radius:14px;
+      background:
+        radial-gradient(circle at 30% 20%, rgba(255,255,255,.35), transparent 45%),
+        linear-gradient(135deg, var(--brand), var(--brand2));
+      box-shadow: 0 16px 30px rgba(168,85,247,.22);
+      border:1px solid rgba(255,255,255,.18);
+    }
+    .nav-links{display:flex; gap:18px; align-items:center}
+    .nav-links a{
+      padding:10px 12px;
+      border-radius:12px;
+      color:var(--muted);
+      font-weight:700;
+      transition:.2s ease;
+    }
+    .nav-links a:hover{background: rgba(255,255,255,.06); color:var(--text)}
+    .nav-actions{display:flex; gap:10px; align-items:center}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:10px;
+      padding:12px 14px;
+      border-radius:14px;
+      border:1px solid var(--stroke);
+      background: linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.02));
+      color:var(--text);
+      font-weight:800;
+      box-shadow: 0 12px 28px rgba(0,0,0,.18);
+      cursor:pointer;
+      transition: transform .12s ease, background .2s ease, border-color .2s ease;
+      user-select:none;
+    }
+    .btn:hover{transform: translateY(-1px); border-color: rgba(255,255,255,.22)}
+    .btn.primary{
+      border-color: rgba(255,122,24,.35);
+      background: linear-gradient(135deg, rgba(255,122,24,.95), rgba(168,85,247,.9));
+      color: #0b0b12;
+      box-shadow: 0 18px 45px rgba(255,122,24,.22);
+    }
+    .btn.primary:hover{transform: translateY(-2px)}
+    .btn.ghost{
+      background: transparent;
+      box-shadow:none;
+    }
+
+    /* Hero */
+    header.hero{
+      position:relative;
+      padding: 44px 0 24px;
+      overflow:hidden;
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 26px;
+      align-items:center;
+      padding: 36px 0 10px;
+    }
+    .h1{
+      font-size: clamp(36px, 4.2vw, 58px);
+      line-height:1.02;
+      margin: 14px 0 14px;
+      letter-spacing:-.8px;
+    }
+    .grad{
+      background: linear-gradient(135deg, var(--brand), var(--brand2));
+      -webkit-background-clip:text;
+      background-clip:text;
+      color: transparent;
+    }
+    .sub{
+      font-size: clamp(16px, 1.25vw, 18px);
+      line-height:1.6;
+      color: var(--muted);
+      margin:0 0 22px;
+      max-width: 56ch;
+    }
+    .hero-cta{
+      display:flex; gap:12px; flex-wrap:wrap; align-items:center;
+      margin-bottom: 16px;
+    }
+    .stats{
+      display:grid; grid-template-columns: repeat(3, minmax(0,1fr));
+      gap:12px;
+      margin-top: 18px;
+    }
+    .stat{
+      border:1px solid var(--stroke);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.02));
+      padding: 14px 14px;
+      box-shadow: var(--shadow);
+    }
+    .stat strong{display:block; font-size: 18px}
+    .stat span{display:block; color: var(--muted); font-weight:700; margin-top:6px; font-size: 13px}
+
+    .hero-card{
+      position:relative;
+      border-radius: var(--radius2);
+      border:1px solid rgba(255,255,255,.14);
+      background: linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.03));
+      overflow:hidden;
+      box-shadow: var(--shadow);
+    }
+    .hero-card::before{
+      content:"";
+      position:absolute; inset:0;
+      background: radial-gradient(600px 300px at 20% 10%, rgba(255,122,24,.24), transparent 55%),
+                  radial-gradient(600px 300px at 90% 25%, rgba(168,85,247,.24), transparent 55%);
+      opacity:.75;
+      pointer-events:none;
+    }
+    .hero-media{
+      position:relative;
+      padding: 16px;
+      display:grid;
+      gap: 12px;
+    }
+    .img-wrap{
+      border-radius: 22px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.25);
+      aspect-ratio: 1 / 1;
+    }
+    .img-wrap img{
+      width:100%;
+      height:100%;
+      object-fit: cover;
+      display:block;
+      transform: scale(1.02);
+      filter: saturate(1.05) contrast(1.05);
+    }
+    .mini{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+    }
+    .chip{
+      border:1px solid var(--stroke);
+      border-radius: 18px;
+      background: rgba(255,255,255,.05);
+      padding: 12px 12px;
+      font-weight:800;
+      color: var(--text);
+      display:flex; flex-direction:column; gap:6px;
+    }
+    .chip small{color: var(--muted); font-weight:700}
+    .chip b{font-size: 14px}
+
+    /* Sections */
+    section{
+      padding: 34px 0;
+    }
+    .section-head{
+      display:flex; align-items:flex-end; justify-content:space-between;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    h2{
+      margin:0;
+      font-size: clamp(22px, 2.2vw, 30px);
+      letter-spacing:-.4px;
+    }
+    .hint{
+      color: var(--muted);
+      font-weight:700;
+      max-width: 62ch;
+      margin: 8px 0 0;
+      line-height:1.6;
+    }
+
+    .grid3{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 14px;
+    }
+    .card{
+      border-radius: var(--radius2);
+      border:1px solid var(--stroke);
+      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.02));
+      padding: 18px;
+      box-shadow: var(--shadow);
+      position:relative;
+      overflow:hidden;
+      min-height: 160px;
+    }
+    .card::after{
+      content:"";
+      position:absolute; inset:-60px;
+      background: radial-gradient(260px 180px at 20% 10%, rgba(255,122,24,.16), transparent 60%),
+                  radial-gradient(260px 180px at 90% 30%, rgba(168,85,247,.16), transparent 60%);
+      filter: blur(16px);
+      opacity:.7;
+      pointer-events:none;
+    }
+    .card > *{position:relative}
+    .card h3{margin:0 0 10px; font-size: 18px}
+    .card p{margin:0; color: var(--muted); line-height:1.6; font-weight:650}
+
+    /* Commands */
+    .split{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      align-items:start;
+    }
+    .codebox{
+      border-radius: var(--radius2);
+      border:1px solid var(--stroke);
+      background: rgba(0,0,0,.35);
+      padding: 14px;
+      box-shadow: var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+    [data-theme="light"] .codebox{background: rgba(10,10,20,.06)}
+    pre{
+      margin:0;
+      white-space: pre-wrap;
+      word-break: break-word;
+      color: var(--text);
+      font-weight:700;
+      font-size: 13.5px;
+      line-height:1.55;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+    .copy-row{
+      display:flex; justify-content:space-between; align-items:center;
+      margin-bottom: 10px;
+      gap: 10px;
+    }
+    .tag{
+      font-weight:900;
+      letter-spacing:.25px;
+      color: var(--muted);
+      display:inline-flex; align-items:center; gap:8px;
+    }
+    .tag .tiny{width:8px; height:8px; border-radius:99px; background: linear-gradient(135deg, var(--brand), var(--brand2))}
+    .copy{
+      padding:10px 12px;
+      border-radius: 14px;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      font-weight:900;
+      cursor:pointer;
+      transition:.15s ease;
+    }
+    .copy:hover{transform: translateY(-1px)}
+    .note{
+      color: var(--muted);
+      font-weight:700;
+      line-height:1.55;
+      margin: 10px 0 0;
+      font-size: 14px;
+    }
+
+    /* CTA */
+    .cta{
+      border-radius: 32px;
+      border:1px solid rgba(255,255,255,.16);
+      background:
+        radial-gradient(900px 420px at 10% 10%, rgba(255,122,24,.22), transparent 60%),
+        radial-gradient(900px 420px at 85% 35%, rgba(168,85,247,.22), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+      padding: 22px;
+      box-shadow: var(--shadow);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 14px;
+      overflow:hidden;
+      position:relative;
+    }
+    .cta h3{margin:0; font-size: 20px}
+    .cta p{margin:6px 0 0; color: var(--muted); font-weight:700; line-height:1.5}
+    footer{
+      padding: 28px 0 44px;
+      color: var(--muted);
+      font-weight:700;
+    }
+    .foot{
+      display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;
+      border-top: 1px solid rgba(255,255,255,.08);
+      padding-top: 18px;
+    }
+
+    /* Responsive */
+    @media (max-width: 940px){
+      .hero-grid{grid-template-columns: 1fr; padding-top: 22px}
+      .stats{grid-template-columns: 1fr}
+      .grid3{grid-template-columns: 1fr}
+      .split{grid-template-columns: 1fr}
+      .nav-links{display:none}
+    }
+  </style>
+</head>
+
+<body data-theme="dark">
+  <div class="glow" aria-hidden="true"></div>
+
+  <!-- NAV -->
+  <div class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="#top" aria-label="ImBurni_Bot Start">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <div style="font-size:14px; line-height:1; opacity:.9">ImBurni_Bot</div>
+          <div style="font-size:12px; color:var(--muted); font-weight:800; margin-top:4px">Twitch Bot</div>
+        </div>
+      </a>
+
+      <div class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#commands">Commands</a>
+        <a href="#setup">Setup</a>
+        <a href="#status">Status</a>
+      </div>
+
+      <div class="nav-actions">
+        <button class="btn ghost" id="themeBtn" type="button" title="Theme wechseln">🌙</button>
+        <a class="btn primary" href="#setup">Bot hinzufügen</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <header class="hero" id="top">
+    <div class="container">
+      <div class="pill">
+        <span class="dot" aria-hidden="true"></span>
+        <span>Live-ready • Moderation • Chat-Power</span>
+      </div>
+
+      <div class="hero-grid">
+        <div>
+          <div class="h1">
+            Bring <span class="grad">Feuer</span> in deinen Chat.<br />
+            <span style="opacity:.9">ImBurni_Bot</span>
+          </div>
+
+          <p class="sub">
+            Moderation, Commands, Tools und Stream-Extras in einem Bot — clean, schnell,
+            modern. Perfekt für deinen Kanal & deine Community.
+          </p>
+
+          <div class="hero-cta">
+            <a class="btn primary" href="#setup">🚀 Jetzt starten</a>
+            <a class="btn" href="#commands">⚡ Commands ansehen</a>
+            <button class="btn" type="button" id="copyInvite">📋 Invite kopieren</button>
+          </div>
+
+          <div class="stats">
+            <div class="stat">
+              <strong>Auto-Mod</strong>
+              <span>Blacklist / Links / Spam</span>
+            </div>
+            <div class="stat">
+              <strong>Chat-Commands</strong>
+              <span>Custom Commands & Aliases</span>
+            </div>
+            <div class="stat">
+              <strong>Stream-Tools</strong>
+              <span>Alerts, Timer, Giveaways</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-card" aria-label="Bot Bild und Highlights">
+          <div class="hero-media">
+            <div class="img-wrap">
+              <!-- ✅ Hier dein Bild eintragen -->
+              <img src="imburni_bot.png" alt="ImBurni_Bot Artwork" />
+            </div>
+            <div class="mini">
+              <div class="chip">
+                <small>Style</small>
+                <b>Cyber • Neon • Fire</b>
+              </div>
+              <div class="chip">
+                <small>Reaktion</small>
+                <b>Instant Replies</b>
+              </div>
+              <div class="chip">
+                <small>Modus</small>
+                <b>Safe Chat Shield</b>
+              </div>
+              <div class="chip">
+                <small>Power</small>
+                <b>Always On*</b>
+              </div>
+            </div>
+            <div class="note">*Platzhalter — Status unten kann an deine echte Bot-Uptime/Host angepasst werden.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- FEATURES -->
+  <section id="features">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>Features, die knallen</h2>
+          <p class="hint">Modernes Setup, cleanes UI, direkt verständlich — damit dein Bot „pro“ wirkt.</p>
+        </div>
+      </div>
+
+      <div class="grid3">
+        <div class="card">
+          <h3>🛡️ Smart Moderation</h3>
+          <p>Auto-Filter für Spam, Caps, Links, Toxic-Words, Rate-Limit & Warnsystem. Optional mit Whitelist.</p>
+        </div>
+        <div class="card">
+          <h3>⚙️ Custom Commands</h3>
+          <p>Eigene Commands, Cooldowns, Rollen/Permissions, Variablen (User, Zeit, Punkte) und Responses.</p>
+        </div>
+        <div class="card">
+          <h3>🎁 Giveaways & Mini-Games</h3>
+          <p>Giveaways, Raffles, Punkte-System, kleine Games — Community-Boost ohne Stress.</p>
+        </div>
+        <div class="card">
+          <h3>⏱️ Timer & Automationen</h3>
+          <p>Automatische Nachrichten (Discord, Socials, Regeln), Timer-Posts und wiederkehrende Aktionen.</p>
+        </div>
+        <div class="card">
+          <h3>📊 Stats & Insights</h3>
+          <p>Top Chatter, Commands-Usage, Mod-Events — alles für deinen Stream-Feinschliff.</p>
+        </div>
+        <div class="card">
+          <h3>✨ Branding & Theme</h3>
+          <p>Farben, Texte, Buttons — perfekt auf dein „Fire/Neon“-Design abgestimmt, inkl. Dark/Light Toggle.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMMANDS -->
+  <section id="commands">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>Commands (Beispiele)</h2>
+          <p class="hint">Passe die Liste easy an. Copy-Buttons sind schon drin.</p>
+        </div>
+      </div>
+
+      <div class="split">
+        <div class="codebox">
+          <div class="copy-row">
+            <div class="tag"><span class="tiny"></span>Chat Commands</div>
+            <button class="copy" data-copy="#cmds1">Kopieren</button>
+          </div>
+          <pre id="cmds1">!help            → zeigt Command-Übersicht
+!socials         → Links zu TikTok/YouTube/Discord
+!uptime          → Stream-Uptime
+!rank            → deine Punkte / Level
+!quote           → random Quote (Chat / Stream)
+!clip            → erstellt Clip (wenn möglich)</pre>
+          <p class="note">Tipp: Mach 3–5 „Signature Commands“, die zu deinem Stream passen (z.B. !fire, !burni, !hype).</p>
+        </div>
+
+        <div class="codebox">
+          <div class="copy-row">
+            <div class="tag"><span class="tiny"></span>Mod Commands</div>
+            <button class="copy" data-copy="#cmds2">Kopieren</button>
+          </div>
+          <pre id="cmds2">!permit @user 60      → erlaubt Links für 60s
+!warn @user Grund      → Warnung + Log
+!mute @user 300        → Timeout 5min
+!purge 20              → löscht letzte 20 Messages
+!lockchat              → Chat nur für Subs/Mods
+!unlockchat            → Chat normal</pre>
+          <p class="note">Permissions: Mods/Editor/Streamer. So bleibt’s safe.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SETUP -->
+  <section id="setup">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>Setup in 2 Minuten</h2>
+          <p class="hint">Hier stehen Platzhalter-Links. Trage deine echten Links/Infos ein, sobald der Bot live ist.</p>
+        </div>
+      </div>
+
+      <div class="split">
+        <div class="card" style="min-height:auto">
+          <h3>1) Bot einladen</h3>
+          <p>Füge den Bot als Moderator hinzu, gib ihm die nötigen Rechte und starte den Stream. Danach kann er Commands ausführen.</p>
+          <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap">
+            <a class="btn primary" id="inviteBtn" href="#" target="_blank" rel="noreferrer">🔗 Invite Link</a>
+            <button class="btn" type="button" id="copyInvite2">📋 Invite kopieren</button>
+          </div>
+          <p class="note"><b>Platzhalter:</b> Ersetze den Invite-Link mit deinem echten OAuth/Join-Link (oder Discord/Website Link).</p>
+        </div>
+
+        <div class="codebox">
+          <div class="copy-row">
+            <div class="tag"><span class="tiny"></span>Quick Config (Beispiel)</div>
+            <button class="copy" data-copy="#cfg">Kopieren</button>
+          </div>
+          <pre id="cfg">BOT_NAME=ImBurni_Bot
+PREFIX=!
+LANG=de
+MOD_LINK_FILTER=true
+SPAM_LIMIT=5/10s
+WELCOME_MSG=true
+POINTS_ENABLED=true</pre>
+          <p class="note">Wenn du willst, bau ich dir als nächstes eine „Dashboard“-Seite, wo du das alles per UI einstellen kannst.</p>
+        </div>
+      </div>
+
+      <div class="cta" style="margin-top:16px">
+        <div>
+          <h3>Mach’s offiziell: „ImBurni_Bot“ als Brand</h3>
+          <p>Nutze die Seite als Landingpage, pack sie in deinen Twitch Panels & in deine Bio.</p>
+        </div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap">
+          <a class="btn primary" href="#top">🔥 Zurück nach oben</a>
+          <a class="btn" href="#status">📡 Status</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATUS -->
+  <section id="status">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>Status</h2>
+          <p class="hint">Wenn du später eine API hast, kann man hier Live-Uptime/Latency anzeigen.</p>
+        </div>
+      </div>
+
+      <div class="grid3">
+        <div class="card">
+          <h3>🟢 Bot Online</h3>
+          <p id="statusText">Aktuell: <b>ONLINE</b> (Demo)</p>
+        </div>
+        <div class="card">
+          <h3>⚡ Latency</h3>
+          <p>~ <span id="latency">42</span> ms (Demo)</p>
+        </div>
+        <div class="card">
+          <h3>🧾 Last Update</h3>
+          <p id="lastUpdate">—</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="foot">
+        <div>© <span id="year"></span> ImBurni_Bot • Made for Twitch</div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap">
+          <a class="btn" href="#features">Features</a>
+          <a class="btn" href="#commands">Commands</a>
+          <a class="btn" href="#setup">Setup</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Smooth anchor scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', (e)=>{
+        const id = a.getAttribute('href');
+        if(!id || id === '#') return;
+        const el = document.querySelector(id);
+        if(el){
+          e.preventDefault();
+          el.scrollIntoView({behavior:'smooth', block:'start'});
+        }
+      });
+    });
+
+    // Theme toggle (dark/light)
+    const themeBtn = document.getElementById('themeBtn');
+    const root = document.body;
+
+    function setTheme(t){
+      root.setAttribute('data-theme', t);
+      themeBtn.textContent = (t === 'dark') ? '🌙' : '☀️';
+      localStorage.setItem('imburni_theme', t);
+    }
+    setTheme(localStorage.getItem('imburni_theme') || 'dark');
+
+    themeBtn.addEventListener('click', ()=>{
+      const cur = root.getAttribute('data-theme') || 'dark';
+      setTheme(cur === 'dark' ? 'light' : 'dark');
+    });
+
+    // Copy helpers
+    async function copyText(text){
+      try{
+        await navigator.clipboard.writeText(text);
+        toast("Kopiert ✅");
+      }catch{
+        toast("Konnte nicht kopieren ❌");
+      }
+    }
+    function toast(msg){
+      const t = document.createElement('div');
+      t.textContent = msg;
+      t.style.position = 'fixed';
+      t.style.left = '50%';
+      t.style.bottom = '26px';
+      t.style.transform = 'translateX(-50%)';
+      t.style.padding = '12px 14px';
+      t.style.borderRadius = '14px';
+      t.style.border = '1px solid rgba(255,255,255,.16)';
+      t.style.background = 'rgba(0,0,0,.65)';
+      t.style.color = 'white';
+      t.style.fontWeight = '900';
+      t.style.zIndex = 9999;
+      t.style.backdropFilter = 'blur(10px)';
+      t.style.boxShadow = '0 16px 40px rgba(0,0,0,.35)';
+      document.body.appendChild(t);
+      setTimeout(()=>{ t.style.opacity='0'; t.style.transition='opacity .25s ease'; }, 1200);
+      setTimeout(()=>{ t.remove(); }, 1500);
+    }
+
+    document.querySelectorAll('.copy[data-copy]').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const target = document.querySelector(btn.dataset.copy);
+        if(target) copyText(target.textContent.trim());
+      });
+    });
+
+    // Invite placeholder (ändern!)
+    const INVITE_LINK = "https://example.com/invite"; // <-- HIER deinen echten Link rein
+    const inviteBtn = document.getElementById('inviteBtn');
+    inviteBtn.href = INVITE_LINK;
+
+    document.getElementById('copyInvite').addEventListener('click', ()=>copyText(INVITE_LINK));
+    document.getElementById('copyInvite2').addEventListener('click', ()=>copyText(INVITE_LINK));
+
+    // Fake status demo
+    document.getElementById('year').textContent = new Date().getFullYear();
+    document.getElementById('lastUpdate').textContent = new Date().toLocaleString('de-DE');
+    const latencyEl = document.getElementById('latency');
+    setInterval(()=>{
+      const ms = Math.max(18, Math.round(30 + Math.random()*40));
+      latencyEl.textContent = ms;
+      document.getElementById('lastUpdate').textContent = new Date().toLocaleString('de-DE');
+    }, 2500);
+  </script>
+</body>
+</html>
