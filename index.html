@@ -793,6 +793,31 @@
     </div>
   </footer>
 
+  <!-- 🎵 MUSIC: File must be next to this HTML as "Song.mp3" -->
+  <audio id="bgm" src="Song.mp3" preload="auto" loop></audio>
+
+  <!-- Autoplay-Fallback Overlay -->
+  <div id="musicOverlay" style="
+    position:fixed; inset:0; display:none; align-items:center; justify-content:center;
+    background:rgba(0,0,0,.70); z-index:99999; padding:24px; backdrop-filter: blur(10px);
+  ">
+    <div style="
+      width:min(520px,100%);
+      border-radius:22px;
+      border:1px solid rgba(255,255,255,.16);
+      background:rgba(10,10,16,.85);
+      box-shadow:0 18px 60px rgba(0,0,0,.55);
+      padding:18px;
+    ">
+      <div style="font-weight:950; font-size:20px; margin-bottom:8px;">🎵 Musik starten</div>
+      <div style="color:rgba(238,240,255,.75); font-weight:900; line-height:1.55; margin-bottom:14px;">
+        Dein Browser blockiert Autoplay mit Ton. Ein Klick reicht, dann läuft der Song.
+      </div>
+      <button id="musicPlayBtn" class="btn primary" type="button">▶ Abspielen</button>
+      <button id="musicMuteBtn" class="btn" type="button" style="margin-left:10px;">🔇 Stumm</button>
+    </div>
+  </div>
+
   <script>
     /* ---------- Basic init ---------- */
     document.getElementById('navName').textContent = CONFIG.botName;
@@ -843,6 +868,61 @@
     ["copyDiscord","copyDiscord2","copyDiscord3"].forEach(id=>{
       document.getElementById(id).addEventListener('click', ()=>copyText(CONFIG.discordInvite));
     });
+
+    /* ---------- 🎵 Music Autoplay w/ Fallback ---------- */
+    (function(){
+      const audio = document.getElementById('bgm');
+      const overlay = document.getElementById('musicOverlay');
+      const playBtn = document.getElementById('musicPlayBtn');
+      const muteBtn = document.getElementById('musicMuteBtn');
+
+      audio.volume = 0.6;
+      audio.muted = false;
+
+      function showOverlay(show){
+        overlay.style.display = show ? 'flex' : 'none';
+      }
+
+      async function tryAutoplay(){
+        try{
+          await audio.play();
+          showOverlay(false);
+        }catch{
+          showOverlay(true);
+        }
+      }
+
+      playBtn.addEventListener('click', async () => {
+        try{
+          audio.muted = false;
+          await audio.play();
+          showOverlay(false);
+        }catch{
+          alert('Wiedergabe blockiert. Bitte Autoplay im Browser erlauben.');
+        }
+      });
+
+      muteBtn.addEventListener('click', async () => {
+        try{
+          audio.muted = true;
+          await audio.play(); // stumm klappt fast immer
+          showOverlay(false);
+        }catch{
+          showOverlay(true);
+        }
+      });
+
+      window.addEventListener('load', tryAutoplay);
+
+      // Extra: erster Klick irgendwo startet Musik (falls Overlay nervt)
+      window.addEventListener('click', async () => {
+        if (!audio.paused) return;
+        try{
+          await audio.play();
+          showOverlay(false);
+        }catch{}
+      }, { once:true });
+    })();
 
     /* ---------- Parallax Glow ---------- */
     (function(){
@@ -900,7 +980,6 @@
       function tick(){
         ctx.clearRect(0,0,W,H);
 
-        // particles
         for(const s of p){
           s.x += s.vx; s.y += s.vy;
           if(s.x < -20) s.x = W+20;
@@ -915,7 +994,6 @@
           ctx.fill();
         }
 
-        // subtle lines
         ctx.globalAlpha = 0.06;
         for(let i=0;i<p.length;i++){
           for(let j=i+1;j<p.length;j++){
@@ -957,7 +1035,7 @@
     const state = {
       items: CONFIG.streamers.map(n => ({
         login: String(n || '').trim(),
-        live: null,          // true/false/null
+        live: null,
         uptimeText: 'Status wird geladen…',
         avatarUrl: null
       })).filter(x => x.login.length > 0),
@@ -1031,16 +1109,13 @@
     async function updateOne(it){
       const login = it.login;
 
-      // avatar (best-effort)
       if(!it.avatarUrl){
-        // decapi returns direct image URL as text
         try{
           const avatarText = (await fetchText(endpoints.avatar(login))).trim();
           if(avatarText.startsWith('http')) it.avatarUrl = avatarText;
         }catch{}
       }
 
-      // uptime → determines live/offline
       try{
         const t = (await fetchText(endpoints.uptime(login))).trim();
         it.uptimeText = t || 'Unbekannt';
@@ -1061,7 +1136,6 @@
       streamerUpdated.textContent = 'Aktualisiere…';
       render();
 
-      // update sequentially (gentle)
       for(const it of state.items){
         await updateOne(it);
         render();
@@ -1070,13 +1144,11 @@
       streamerUpdated.textContent = 'Zuletzt aktualisiert: ' + new Date().toLocaleString('de-DE');
     }
 
-    // search
     streamerSearch.addEventListener('input', ()=>{
       state.query = streamerSearch.value || '';
       render();
     });
 
-    // filter buttons
     filterWrap.querySelectorAll('button[data-filter]').forEach(btn=>{
       btn.addEventListener('click', ()=>{
         filterWrap.querySelectorAll('button[data-filter]').forEach(b=>b.classList.remove('active'));
@@ -1088,7 +1160,6 @@
 
     refreshBtn.addEventListener('click', refreshAll);
 
-    // initial
     render();
     refreshAll();
     setInterval(refreshAll, 60000);
