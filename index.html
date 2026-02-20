@@ -6,40 +6,20 @@
   <title>ImBurni_Bot_v1 — Twitch ✕ Discord Bot</title>
   <meta name="description" content="ImBurni_Bot_v1: Twitch Follow Bot, Punkte/Lurk System, Support-Tickets mit Buttons & ID-Timeout System. Zugang nur via Discord." />
 
-  <meta property="og:title" content="ImBurni_Bot_v1 — Twitch ✕ Discord Bot" />
-  <meta property="og:description" content="Punkte, Lurk, Support-Tickets mit Buttons & Mod-Timeouts. Zugang nur via Discord." />
-  <meta property="og:type" content="website" />
-
   <style>
     :root{
-      --bg0:#050509;
-      --bg1:#090914;
-      --bg2:#0d0d1b;
-
-      --text:#eef0ff;
-      --muted: rgba(238,240,255,.72);
-      --faint: rgba(238,240,255,.52);
-
+      --bg0:#050509; --bg1:#090914; --bg2:#0d0d1b;
+      --text:#eef0ff; --muted: rgba(238,240,255,.72);
       --stroke: rgba(255,255,255,.12);
-
-      --brand:#ff7a18;
-      --brand2:#a855f7;
-      --ok:#2ee59d;
-      --off: rgba(238,240,255,.35);
-
+      --brand:#ff7a18; --brand2:#a855f7; --ok:#2ee59d;
       --shadow: 0 18px 60px rgba(0,0,0,.65);
       --shadow2: 0 10px 28px rgba(0,0,0,.35);
-
-      --r:18px;
-      --r2:28px;
-      --max: 1160px;
+      --r2:28px; --max: 1160px;
     }
-
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
-      margin:0;
-      color:var(--text);
+      margin:0; color:var(--text);
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
       background:
         radial-gradient(1100px 700px at 14% 10%, rgba(168,85,247,.18), transparent 58%),
@@ -48,91 +28,33 @@
         linear-gradient(180deg, var(--bg0), var(--bg1) 35%, var(--bg2));
       overflow-x:hidden;
     }
-
     a{color:inherit;text-decoration:none}
     .container{width:min(var(--max), calc(100% - 40px)); margin:0 auto}
 
-    .glow{
-      position:fixed; inset:-260px;
-      background: conic-gradient(from 180deg,
-        rgba(255,122,24,.22),
-        rgba(168,85,247,.22),
-        rgba(46,229,157,.14),
-        rgba(255,122,24,.22));
-      filter: blur(100px);
-      opacity:.30;
-      animation: spin 26s linear infinite;
-      pointer-events:none;
-      z-index:-3;
-      transform: translate3d(var(--gx, 0px), var(--gy, 0px), 0);
-      will-change: transform;
-    }
-    @keyframes spin{
-      to{transform: translate3d(var(--gx, 0px), var(--gy, 0px), 0) rotate(360deg)}
-    }
-
-    .noise{
-      position:fixed; inset:0;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.12'/%3E%3C/svg%3E");
-      opacity:.22;
-      mix-blend-mode: overlay;
-      pointer-events:none;
-      z-index:-2;
-    }
-
-    #particles{
-      position:fixed;
-      inset:0;
-      z-index:-1;
-      pointer-events:none;
-      opacity:.55;
-    }
-
-    .nav{
-      position:sticky; top:0; z-index:50;
-      backdrop-filter: blur(14px);
+    .nav{position:sticky; top:0; z-index:50; backdrop-filter: blur(14px);
       background: linear-gradient(180deg, rgba(6,6,12,.78), rgba(6,6,12,.36));
       border-bottom:1px solid rgba(255,255,255,.06);
     }
-    .nav-inner{
-      display:flex; align-items:center; justify-content:space-between;
-      gap:12px; padding:14px 0;
-    }
+    .nav-inner{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:14px 0;}
     .brand{display:flex; align-items:center; gap:12px}
-    .logo{
-      width:40px; height:40px; border-radius:16px;
-      background:
-        radial-gradient(circle at 30% 20%, rgba(255,255,255,.35), transparent 45%),
-        linear-gradient(135deg, var(--brand), var(--brand2));
+    .logo{width:40px; height:40px; border-radius:16px;
+      background: radial-gradient(circle at 30% 20%, rgba(255,255,255,.35), transparent 45%),
+                  linear-gradient(135deg, var(--brand), var(--brand2));
       border:1px solid rgba(255,255,255,.18);
       box-shadow: 0 18px 38px rgba(168,85,247,.22);
     }
     .brand-title{display:flex; flex-direction:column; line-height:1.05}
     .brand-title b{font-size:14px; letter-spacing:.2px}
     .brand-title span{font-size:12px; color:var(--muted); font-weight:900; margin-top:5px}
-    .nav-links{display:flex; align-items:center; gap:10px; flex-wrap:wrap}
-    .nav-links a{
-      padding:10px 12px;
-      border-radius:12px;
-      color:var(--muted);
-      font-weight:950;
-      transition: .18s ease;
-    }
-    .nav-links a:hover{background: rgba(255,255,255,.06); color:var(--text)}
-    .nav-actions{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
 
     .btn{
       display:inline-flex; align-items:center; justify-content:center; gap:10px;
-      padding:12px 14px;
-      border-radius:14px;
+      padding:12px 14px; border-radius:14px;
       border:1px solid var(--stroke);
       background: linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.02));
-      font-weight:950;
-      cursor:pointer;
+      font-weight:950; cursor:pointer;
       transition: transform .12s ease, border-color .2s ease, filter .2s ease;
-      user-select:none;
-      box-shadow: var(--shadow2);
-      white-space:nowrap;
+      user-select:none; box-shadow: var(--shadow2); white-space:nowrap;
     }
     .btn:hover{transform: translateY(-1px); border-color: rgba(255,255,255,.22)}
     .btn.primary{
@@ -141,278 +63,54 @@
       color:#0b0b12;
       box-shadow: 0 18px 55px rgba(255,122,24,.20);
     }
-    .btn.primary:hover{transform: translateY(-2px); filter:saturate(1.06)}
 
-    .pill{
-      display:inline-flex; align-items:center; gap:10px;
-      padding:10px 14px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.14);
-      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.02));
-      backdrop-filter: blur(10px);
-      box-shadow: var(--shadow2);
-      color: var(--muted);
-      font-weight:950;
-    }
-    .dot{
-      width:10px; height:10px; border-radius:50%;
-      background: var(--ok);
-      box-shadow: 0 0 0 7px rgba(46,229,157,.14);
-    }
-
-    header.hero{padding: 46px 0 26px}
-    .hero-grid{
-      display:grid;
-      grid-template-columns: 1.05fr .95fr;
-      gap: 26px;
-      align-items:center;
-      padding: 26px 0 10px;
-    }
-    .h1{
-      font-size: clamp(36px, 4.5vw, 64px);
-      line-height:1.02;
-      margin: 14px 0 14px;
-      letter-spacing:-1px;
-    }
-    .grad{
-      background: linear-gradient(135deg, var(--brand), var(--brand2));
-      -webkit-background-clip:text;
-      background-clip:text;
-      color: transparent;
-    }
-
-    .shine-underline{
-      position:relative;
-      display:inline-block;
-      padding-bottom: 6px;
-    }
-    .shine-underline::after{
-      content:"";
-      position:absolute;
-      left:0;
-      bottom:0;
-      height:3px;
-      width:100%;
-      border-radius:999px;
-      background: linear-gradient(90deg, rgba(255,122,24,.0), rgba(255,122,24,.95), rgba(168,85,247,.95), rgba(255,122,24,.0));
-      filter: blur(.2px);
-      opacity:.9;
-    }
-    .shine-underline::before{
-      content:"";
-      position:absolute;
-      left:-20%;
-      bottom:-7px;
-      width:40%;
-      height:14px;
-      border-radius:999px;
-      background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.22), rgba(255,255,255,0));
-      filter: blur(2px);
-      opacity:.85;
-      animation: sweep 2.8s ease-in-out infinite;
-    }
-    @keyframes sweep{
-      0%{transform: translateX(0); opacity:.0}
-      20%{opacity:.9}
-      50%{transform: translateX(220%); opacity:.85}
-      100%{transform: translateX(220%); opacity:0}
-    }
-
-    .sub{
-      font-size: clamp(16px, 1.2vw, 18px);
-      line-height:1.65;
-      color: var(--muted);
-      margin:0 0 18px;
-      max-width: 64ch;
-    }
+    header{padding: 46px 0 26px}
+    .h1{font-size: clamp(36px, 4.5vw, 64px); line-height:1.02; margin: 14px 0 14px; letter-spacing:-1px;}
+    .sub{font-size: clamp(16px, 1.2vw, 18px); line-height:1.65; color: var(--muted); margin:0 0 18px; max-width: 64ch;}
     .hero-cta{display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin: 14px 0 12px}
-
-    .alert{
-      border:1px solid rgba(255,122,24,.25);
-      background: rgba(255,122,24,.08);
-      border-radius: 18px;
-      padding: 12px 14px;
-      font-weight:950;
-      line-height:1.55;
-      color: rgba(238,240,255,.92);
-    }
-    .alert b{color: rgba(255,255,255,.95)}
-
-    .hero-card{
-      border-radius: var(--r2);
-      border:1px solid rgba(255,255,255,.14);
-      background: linear-gradient(180deg, rgba(255,255,255,.085), rgba(255,255,255,.02));
-      overflow:hidden;
-      box-shadow: var(--shadow);
-      position:relative;
-    }
-    .hero-card::before{
-      content:"";
-      position:absolute; inset:0;
-      background:
-        radial-gradient(600px 320px at 18% 10%, rgba(255,122,24,.26), transparent 60%),
-        radial-gradient(600px 320px at 92% 26%, rgba(168,85,247,.26), transparent 60%);
-      opacity:.78;
-      pointer-events:none;
-    }
-    .hero-media{position:relative; padding: 16px; display:grid; gap: 12px}
-    .img-wrap{
-      border-radius: 24px;
-      overflow:hidden;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.28);
-      aspect-ratio: 1 / 1;
-    }
-    .img-wrap img{
-      width:100%; height:100%;
-      object-fit: cover; display:block;
-      transform: scale(1.03);
-      filter: saturate(1.06) contrast(1.06);
-    }
-    .mini{display:grid; grid-template-columns: 1fr 1fr; gap:12px}
-    .chip{
-      border:1px solid rgba(255,255,255,.12);
-      border-radius: 18px;
-      background: rgba(255,255,255,.05);
-      padding: 12px 12px;
-      font-weight:950;
-      display:flex; flex-direction:column; gap:6px;
-    }
-    .chip small{color: var(--muted); font-weight:850}
-    .chip b{font-size: 14px}
-
-    section{padding: 36px 0}
-    .section-head{display:flex; align-items:flex-end; justify-content:space-between; gap: 16px; margin-bottom: 16px}
-    h2{margin:0; font-size: clamp(22px, 2.2vw, 34px); letter-spacing:-.5px}
-    .hint{color: var(--muted); font-weight:850; max-width: 78ch; margin: 8px 0 0; line-height:1.65}
-
-    .grid3{display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 14px}
     .card{
       border-radius: var(--r2);
       border:1px solid rgba(255,255,255,.12);
       background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.02));
-      padding: 18px;
-      box-shadow: var(--shadow2);
-      position:relative;
-      overflow:hidden;
-      min-height: 156px;
-    }
-    .card::after{
-      content:"";
-      position:absolute; inset:-70px;
-      background:
-        radial-gradient(260px 180px at 18% 12%, rgba(255,122,24,.16), transparent 62%),
-        radial-gradient(260px 180px at 92% 30%, rgba(168,85,247,.16), transparent 62%);
-      filter: blur(18px);
-      opacity:.75;
-      pointer-events:none;
-    }
-    .card > *{position:relative}
-    .card h3{margin:0 0 10px; font-size: 18px; letter-spacing:-.2px}
-    .card p{margin:0; color: var(--muted); line-height:1.65; font-weight:750}
-
-    .gate{
-      border-radius: 32px;
-      border:1px solid rgba(255,255,255,.16);
-      background:
-        radial-gradient(900px 440px at 10% 10%, rgba(255,122,24,.22), transparent 60%),
-        radial-gradient(900px 440px at 85% 35%, rgba(168,85,247,.22), transparent 60%),
-        linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
-      padding: 18px;
-      box-shadow: var(--shadow);
-      display:flex; align-items:center; justify-content:space-between; gap: 14px;
-      overflow:hidden;
-      position:relative;
-    }
-    .gate h3{margin:0; font-size: 20px; letter-spacing:-.2px}
-    .gate p{margin:8px 0 0; color: var(--muted); font-weight:900; line-height:1.6}
-    .gate-actions{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end}
-
-    .faq{display:grid; grid-template-columns: 1fr 1fr; gap:14px}
-    details{
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.05);
-      border-radius: 18px;
-      padding: 14px 14px;
-      box-shadow: var(--shadow2);
-    }
-    summary{cursor:pointer; font-weight:950}
-    details p{margin:10px 0 0; color: var(--muted); line-height:1.65; font-weight:750}
-
-    footer{padding: 28px 0 44px; color: var(--muted); font-weight:900}
-    .foot{
-      display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;
-      border-top: 1px solid rgba(255,255,255,.08);
-      padding-top: 18px;
+      padding: 18px; box-shadow: var(--shadow2);
     }
 
-    @media (max-width: 940px){
-      .hero-grid{grid-template-columns: 1fr}
-      .grid3{grid-template-columns: 1fr}
-      .faq{grid-template-columns: 1fr}
-      .nav-links{display:none}
-      .gate{flex-direction:column; align-items:flex-start}
-      .gate-actions{justify-content:flex-start}
-    }
-
-    /* ---- Music overlay ---- */
+    /* Music overlay */
     .music-overlay{
       position:fixed; inset:0;
-      display:none; align-items:center; justify-content:center;
+      display:flex; align-items:center; justify-content:center;
       background:rgba(0,0,0,.70);
-      z-index:99999;
-      padding:24px;
-      backdrop-filter: blur(10px);
+      z-index:99999; padding:24px; backdrop-filter: blur(10px);
     }
     .music-card{
-      width:min(560px,100%);
+      width:min(620px,100%);
       border-radius:22px;
       border:1px solid rgba(255,255,255,.16);
-      background:rgba(10,10,16,.88);
+      background:rgba(10,10,16,.92);
       box-shadow:0 18px 60px rgba(0,0,0,.55);
       padding:18px;
     }
     .music-card h2{margin:0; font-size:20px; letter-spacing:-.2px}
     .music-card p{margin:10px 0 14px; color:rgba(238,240,255,.75); font-weight:900; line-height:1.55}
     .music-row{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
-    .music-mini{
-      margin-top:10px;
-      color:rgba(238,240,255,.55);
-      font-weight:900;
-      font-size:12px;
-      line-height:1.5;
-    }
-    .music-error{
-      margin-top:12px;
-      padding:10px 12px;
-      border-radius:14px;
-      border:1px solid rgba(255,120,120,.35);
-      background: rgba(255,120,120,.10);
-      color: rgba(255,200,200,.95);
-      display:none;
-      font-weight:900;
-      line-height:1.45;
-      white-space:pre-wrap;
-    }
-    .music-ok{
-      border-color: rgba(46,229,157,.35);
-      background: rgba(46,229,157,.10);
-      color: rgba(210,255,235,.95);
+    .msg{
+      margin-top:12px; padding:10px 12px; border-radius:14px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color: rgba(238,240,255,.88);
+      font-weight:900; line-height:1.45; white-space:pre-wrap;
       display:none;
     }
+    .msg.err{border-color: rgba(255,120,120,.35); background: rgba(255,120,120,.10); color: rgba(255,210,210,.95);}
+    .msg.ok{border-color: rgba(46,229,157,.35); background: rgba(46,229,157,.10); color: rgba(210,255,235,.95);}
   </style>
 </head>
 
 <body>
-  <div class="glow" aria-hidden="true"></div>
-  <div class="noise" aria-hidden="true"></div>
-  <canvas id="particles" aria-hidden="true"></canvas>
-
   <script>
     const CONFIG = {
       botName: "ImBurni_Bot_v1",
-      discordInvite: "https://discord.gg/v8BSRq8C8C",
-      streamers: ["Tricck17"]
+      discordInvite: "https://discord.gg/v8BSRq8C8C"
     };
   </script>
 
@@ -425,466 +123,201 @@
           <span>Twitch ✕ Discord Bridge</span>
         </div>
       </a>
-
-      <div class="nav-links">
-        <a href="#features">Features</a>
-        <a href="#zugang">Bot bekommen</a>
-        <a href="#faq">FAQ</a>
-        <a href="#discord">Discord</a>
-      </div>
-
-      <div class="nav-actions">
-        <a class="btn primary" id="joinTop" href="#discord">Bot holen</a>
+      <div>
+        <a class="btn primary" id="discordTop" href="#" target="_blank" rel="noreferrer">💬 Discord</a>
       </div>
     </div>
   </div>
 
-  <header class="hero" id="top">
+  <header id="top">
     <div class="container">
-      <div class="pill">
-        <span class="dot" aria-hidden="true"></span>
-        <span>Live-ready • Tickets • ID-Timeouts • Punkte • Lurk</span>
+      <div class="h1">Feuer für deinen Chat.</div>
+      <p class="sub">
+        Diese Version enthält einen robusten Musik-Start. Ton startet nur nach echter Interaktion (Browser-Regel).
+      </p>
+      <div class="hero-cta">
+        <button class="btn primary" id="playNow">▶ Musik starten (Ton)</button>
+        <button class="btn" id="muteNow">🔇 Musik stumm starten</button>
       </div>
 
-      <div class="hero-grid">
-        <div>
-          <div class="h1">
-            <span class="shine-underline"><span class="grad">Feuer</span></span> für deinen Chat.<br />
-            Support über <span class="shine-underline"><span class="grad">Discord</span></span>.
-          </div>
-
-          <p class="sub">
-            <b>ImBurni_Bot_v1</b> verbindet Twitch & Discord: Follow-Alerts als Discord-Embed,
-            Punkte-System, Lurk-Rewards, Support-Tickets mit Buttons und ein Mod-Timeout-System
-            mit festen Gründen (IDs) – sauber, schnell, modern.
-          </p>
-
-          <div class="hero-cta">
-            <a class="btn primary" id="discordBtn1" href="#" target="_blank" rel="noreferrer">💬 Discord beitreten</a>
-            <a class="btn" href="#features">⚡ Features</a>
-            <button class="btn" type="button" id="copyDiscord">📋 Invite kopieren</button>
-          </div>
-
-          <div class="alert">
-            🔒 <b>Zugang nur via Discord:</b> Den Bot bekommt man nicht automatisch. Im Discord läuft
-            Freischaltung/Setup + Support (Ticketsystem).
-          </div>
-        </div>
-
-        <div class="hero-card" aria-label="ImBurni_Bot Artwork">
-          <div class="hero-media">
-            <div class="img-wrap">
-              <img src="imburni_bot.png" alt="ImBurni_Bot_v1 Artwork" />
-            </div>
-            <div class="mini">
-              <div class="chip"><small>Bridge</small><b>Twitch ↔ Discord</b></div>
-              <div class="chip"><small>Support</small><b>Tickets + Buttons</b></div>
-              <div class="chip"><small>Mods</small><b>ID-Timeout System</b></div>
-              <div class="chip"><small>Community</small><b>Punkte + Lurk</b></div>
-            </div>
-          </div>
-        </div>
+      <div class="card">
+        <b>Debug:</b> Wenn es nicht spielt, steht unten der echte Fehler (z.B. NotAllowedError / Codec / etc.).
+        <div id="debug" class="msg err"></div>
+        <div id="debugOk" class="msg ok"></div>
       </div>
     </div>
   </header>
 
-  <section id="features">
-    <div class="container">
-      <div class="section-head">
-        <div>
-          <h2>Features</h2>
-          <p class="hint">Hier steht bewusst kein Code. Nur die Funktionen – klar & professionell.</p>
-        </div>
-      </div>
-
-      <div class="grid3">
-        <div class="card">
-          <h3>🎉 Follow Alerts → Discord</h3>
-          <p>Neue Follower werden automatisch als stylisches Embed im Discord gepostet (Queue/Worker).</p>
-        </div>
-        <div class="card">
-          <h3>💰 Punkte System</h3>
-          <p>Chat-Aktivität gibt Punkte. Commands: <b>!punkte</b>, <b>!top</b>. Perfekt für Engagement.</p>
-        </div>
-        <div class="card">
-          <h3>😴 Lurk Rewards</h3>
-          <p><b>!lurk</b> startet Lurk, Rewards laufen weiter. <b>!lurkliste</b> zeigt aktive Lurker.</p>
-        </div>
-        <div class="card">
-          <h3>🎫 Support Tickets (Discord)</h3>
-          <p>Ticket-Channel wird erstellt, Buttons: <b>In Bearbeitung</b>, <b>Beantwortet</b>, <b>Schließen</b>.</p>
-        </div>
-        <div class="card">
-          <h3>⏱️ Timeout System (IDs)</h3>
-          <p><b>!reasons</b> listet Gründe, <b>!timeout @user ID</b> setzt Timeouts – nur Mods/Broadcaster.</p>
-        </div>
-        <div class="card">
-          <h3>📊 Stats & Persistenz</h3>
-          <p>Stats (Nachrichten/Lurk/Timeouts/Starts) werden gespeichert – stabil für lange Streams.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="zugang">
-    <div class="container">
-      <div class="section-head">
-        <div>
-          <h2>So bekommst du den Bot</h2>
-          <p class="hint">Kurz & eindeutig: Der Bot wird über Discord freigeschaltet/eingerichtet.</p>
-        </div>
-      </div>
-
-      <div class="gate">
-        <div>
-          <h3>✅ Ablauf</h3>
-          <p>
-            1) Discord joinen<br/>
-            2) Ticket / Anfrage öffnen (Bot für deinen Channel)<br/>
-            3) Support richtet Setup ein oder schaltet dich frei
-          </p>
-        </div>
-        <div class="gate-actions">
-          <a class="btn primary" id="discordBtn2" href="#" target="_blank" rel="noreferrer">💬 Discord joinen</a>
-          <button class="btn" type="button" id="copyDiscord2">📋 Invite kopieren</button>
-          <a class="btn" href="#faq">❓ FAQ</a>
-        </div>
-      </div>
-
-      <div style="margin-top:14px; color:var(--muted); font-weight:900; line-height:1.65">
-        Tipp: Pack den Discord-Link in deine Twitch Panels, damit Interessenten sofort wissen, wo sie den Bot bekommen.
-      </div>
-    </div>
-  </section>
-
-  <section id="faq">
-    <div class="container">
-      <div class="section-head">
-        <div>
-          <h2>FAQ</h2>
-          <p class="hint">Kurz beantwortet – damit jeder es direkt versteht.</p>
-        </div>
-      </div>
-
-      <div class="faq">
-        <details>
-          <summary>Warum ist Discord Pflicht?</summary>
-          <p>
-            Weil der Bot nicht öffentlich „für jeden“ automatisch verfügbar ist.
-            Discord ist der zentrale Ort für Support, Freischaltung und das Ticketsystem.
-          </p>
-        </details>
-        <details>
-          <summary>Wird irgendwo Bot-Code oder Tokens gezeigt?</summary>
-          <p>
-            Nein. Auf dieser Website wird <b>kein Code</b> angezeigt – keine Tokens, keine Keys, kein Python.
-            Nur Features & wie du Zugang bekommst.
-          </p>
-        </details>
-        <details>
-          <summary>Wer kann Tickets erstellen und Timeouts nutzen?</summary>
-          <p>
-            Tickets und Timeouts sind für Broadcaster/Mods gedacht. Damit bleibt alles kontrolliert und sicher.
-          </p>
-        </details>
-        <details>
-          <summary>Kann ich auch auf die Streamer-Liste?</summary>
-          <p>
-            Ja. Join den Discord und stelle eine Anfrage – dann wird dein Kanal hinzugefügt (wenn du den Bot nutzt).
-          </p>
-        </details>
-      </div>
-    </div>
-  </section>
-
-  <section id="discord">
-    <div class="container">
-      <div class="gate">
-        <div>
-          <h3>🔥 Ready? Hol dir ImBurni_Bot_v1 im Discord</h3>
-          <p>Join → Anfrage/Ticket → Freischaltung/Setup. Danach läuft Twitch ✕ Discord clean.</p>
-        </div>
-        <div class="gate-actions">
-          <a class="btn primary" id="discordBtn3" href="#" target="_blank" rel="noreferrer">💬 Zum Discord</a>
-          <button class="btn" type="button" id="copyDiscord3">📋 Invite kopieren</button>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <footer>
-    <div class="container">
-      <div class="foot">
-        <div>© <span id="year"></span> <span id="footName">ImBurni</span> • Darkmode • Beta Version V1</div>
-        <div style="display:flex; gap:10px; flex-wrap:wrap">
-          <a class="btn" href="#features">Features</a>
-          <a class="btn" href="#zugang">Bot bekommen</a>
-          <a class="btn" href="#faq">FAQ</a>
-        </div>
-      </div>
-    </div>
-  </footer>
-
-  <!-- ✅ AUDIO: muss im gleichen veröffentlichten Ordner liegen wie index.html -->
+  <!-- ✅ AUDIO: Song.mp3 muss im gleichen veröffentlichten Ordner liegen wie index.html -->
   <audio id="bgm" preload="auto" loop muted playsinline>
     <source src="Song.mp3" type="audio/mpeg">
   </audio>
 
-  <!-- Overlay -->
-  <div id="musicOverlay" class="music-overlay" aria-hidden="true">
+  <!-- Overlay: bleibt bis Sound erfolgreich läuft ODER du bewusst "stumm" wählst -->
+  <div id="musicOverlay" class="music-overlay" aria-hidden="false">
     <div class="music-card">
       <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
         <h2>🎵 Musik starten</h2>
-        <button id="musicCloseBtn" class="btn" type="button" style="padding:10px 12px;">✖</button>
+        <button id="closeOverlay" class="btn" type="button" style="padding:10px 12px;">✖</button>
       </div>
 
       <p>
-        Beim ersten Klick/Scroll/Taste wird der Ton freigeschaltet (Browser-Regel).
+        Ton geht nur nach einem echten Klick/Touch/Taste (Browser-Regel).<br>
+        Der Button unten ist ein echter User-Gesture und startet sofort.
       </p>
 
       <div class="music-row">
-        <button id="musicPlayBtn" class="btn primary" type="button">▶ Ton an</button>
-        <button id="musicMuteBtn" class="btn" type="button">🔇 Stumm lassen</button>
+        <button id="overlayPlay" class="btn primary" type="button">▶ Start mit Ton</button>
+        <button id="overlayMute" class="btn" type="button">🔇 Stumm lassen</button>
       </div>
 
-      <div id="musicOk" class="music-error music-ok"></div>
-      <div id="musicErr" class="music-error"></div>
-
-      <div class="music-mini">
-        Diagnose: Wenn hier „404“ steht, liegt die MP3 nicht im veröffentlichten Ordner oder heißt anders (Groß/Klein!).
-      </div>
+      <div id="overlayMsg" class="msg err"></div>
+      <div id="overlayOk" class="msg ok"></div>
     </div>
   </div>
 
   <script>
-    /* ---------- Basic init ---------- */
+    // Basic init
     document.getElementById('navName').textContent = CONFIG.botName;
-    document.getElementById('footName').textContent = CONFIG.botName;
-    ["discordBtn1","discordBtn2","discordBtn3"].forEach(id=>{
-      document.getElementById(id).href = CONFIG.discordInvite;
-    });
-    document.getElementById('year').textContent = new Date().getFullYear();
+    document.getElementById('discordTop').href = CONFIG.discordInvite;
 
-    async function copyText(text){
-      try{ await navigator.clipboard.writeText(text); }
-      catch{}
+    const audio = document.getElementById('bgm');
+    const overlay = document.getElementById('musicOverlay');
+
+    const debug = document.getElementById('debug');
+    const debugOk = document.getElementById('debugOk');
+    const overlayMsg = document.getElementById('overlayMsg');
+    const overlayOk = document.getElementById('overlayOk');
+
+    const show = (el, text) => { el.textContent = text; el.style.display = 'block'; };
+    const hide = (el) => { el.style.display = 'none'; el.textContent = ''; };
+
+    function hideOverlay(){ overlay.style.display = 'none'; overlay.setAttribute('aria-hidden','true'); }
+    function showOverlay(){ overlay.style.display = 'flex'; overlay.setAttribute('aria-hidden','false'); }
+
+    function explainError(e){
+      const name = e?.name || "Error";
+      const msg  = e?.message || String(e);
+      return `${name}: ${msg}
+
+Wenn NotAllowedError:
+→ Ton erst nach Klick/Touch/Taste.
+
+Wenn NotSupportedError oder "no supported sources":
+→ MP3 ist kaputt / kein echtes MP3 / falsches Format / falscher MIME-Type.
+
+Wenn 404:
+→ Song.mp3 liegt nicht im veröffentlichten Ordner oder heißt anders (Groß/Klein!).`;
     }
-    ["copyDiscord","copyDiscord2","copyDiscord3"].forEach(id=>{
-      const el = document.getElementById(id);
-      if(el) el.addEventListener('click', ()=>copyText(CONFIG.discordInvite));
+
+    async function headCheck(){
+      // Diagnose: ist Song.mp3 wirklich erreichbar?
+      try{
+        const res = await fetch('Song.mp3', { method:'HEAD', cache:'no-store' });
+        if(res.ok){
+          hide(debug); hide(overlayMsg);
+          show(debugOk, `MP3 gefunden ✅ (HTTP ${res.status})`);
+          show(overlayOk, `MP3 gefunden ✅ (HTTP ${res.status})`);
+          return true;
+        } else {
+          hide(debugOk); hide(overlayOk);
+          show(debug, `MP3 NICHT gefunden ❌ (HTTP ${res.status})\nFix: Song.mp3 in denselben veröffentlichten Ordner wie index.html legen.`);
+          show(overlayMsg, `MP3 NICHT gefunden ❌ (HTTP ${res.status})\nFix: Song.mp3 in denselben veröffentlichten Ordner wie index.html legen.`);
+          return false;
+        }
+      }catch(e){
+        // Manche Hosts blocken HEAD, dann machen wir GET
+        try{
+          const res2 = await fetch('Song.mp3', { method:'GET', cache:'no-store' });
+          if(res2.ok){
+            hide(debug); hide(overlayMsg);
+            show(debugOk, `MP3 gefunden ✅ (HTTP ${res2.status})`);
+            show(overlayOk, `MP3 gefunden ✅ (HTTP ${res2.status})`);
+            return true;
+          } else {
+            hide(debugOk); hide(overlayOk);
+            show(debug, `MP3 NICHT gefunden ❌ (HTTP ${res2.status})`);
+            show(overlayMsg, `MP3 NICHT gefunden ❌ (HTTP ${res2.status})`);
+            return false;
+          }
+        }catch(e2){
+          hide(debugOk); hide(overlayOk);
+          show(debug, `Kann Song.mp3 nicht prüfen.\nFehler: ${e2?.message || e2}`);
+          show(overlayMsg, `Kann Song.mp3 nicht prüfen.\nFehler: ${e2?.message || e2}`);
+          return false;
+        }
+      }
+    }
+
+    async function playMuted(){
+      try{
+        audio.muted = true;
+        await audio.play();
+        hideOverlay();
+      }catch(e){
+        hide(debugOk); hide(overlayOk);
+        show(debug, explainError(e));
+        show(overlayMsg, explainError(e));
+      }
+    }
+
+    async function playWithSound(){
+      try{
+        // iOS/Chrome safe pattern: muted play -> unmute play
+        audio.muted = true;
+        await audio.play();
+
+        audio.muted = false;
+        await audio.play();
+
+        hideOverlay();
+      }catch(e){
+        hide(debugOk); hide(overlayOk);
+        show(debug, explainError(e));
+        show(overlayMsg, explainError(e));
+      }
+    }
+
+    // Buttons
+    document.getElementById('overlayPlay').addEventListener('click', (e)=>{ e.preventDefault(); playWithSound(); });
+    document.getElementById('overlayMute').addEventListener('click', (e)=>{ e.preventDefault(); playMuted(); });
+    document.getElementById('closeOverlay').addEventListener('click', (e)=>{ e.preventDefault(); hideOverlay(); });
+
+    document.getElementById('playNow').addEventListener('click', (e)=>{ e.preventDefault(); playWithSound(); });
+    document.getElementById('muteNow').addEventListener('click', (e)=>{ e.preventDefault(); playMuted(); });
+
+    // Optional: erster echter Gesture irgendwo startet Ton automatisch
+    let armed = true;
+    const autoUnlock = async () => {
+      if(!armed) return;
+      armed = false;
+      await playWithSound();
+      cleanup();
+    };
+    function cleanup(){
+      window.removeEventListener('pointerdown', autoUnlock, true);
+      window.removeEventListener('touchstart', autoUnlock, true);
+      window.removeEventListener('keydown', autoUnlock, true);
+    }
+    window.addEventListener('pointerdown', autoUnlock, true);
+    window.addEventListener('touchstart', autoUnlock, { capture:true, passive:true });
+    window.addEventListener('keydown', autoUnlock, true);
+
+    // Audio errors
+    audio.addEventListener('error', () => {
+      const mediaErr = audio.error ? `${audio.error.code}` : "unknown";
+      show(debug, `Audio error event (code ${mediaErr}).\nWenn MP3 gefunden (HTTP 200) aber trotzdem error:\n→ Datei ist evtl. kein echtes MP3 oder kaputt.`);
+      showOverlay();
     });
 
-    /* ---------- 🎵 MUSIC: stumm starten + unlock bei Klick ODER Scroll ---------- */
-    (function(){
-      const audio    = document.getElementById('bgm');
-      const overlay  = document.getElementById('musicOverlay');
-      const playBtn  = document.getElementById('musicPlayBtn');
-      const muteBtn  = document.getElementById('musicMuteBtn');
-      const closeBtn = document.getElementById('musicCloseBtn');
-      const okBox    = document.getElementById('musicOk');
-      const errBox   = document.getElementById('musicErr');
-
-      function showOverlay(show){
-        overlay.style.display = show ? 'flex' : 'none';
-        overlay.setAttribute('aria-hidden', show ? 'false' : 'true');
-      }
-      function showOk(msg){
-        okBox.textContent = msg;
-        okBox.style.display = 'block';
-      }
-      function showErr(msg){
-        errBox.textContent = msg;
-        errBox.style.display = 'block';
-      }
-      function clearMsg(){
-        okBox.style.display = 'none';
-        errBox.style.display = 'none';
-        okBox.textContent = '';
-        errBox.textContent = '';
-      }
-
-      async function checkSong(){
-        // Checkt ob Song.mp3 wirklich erreichbar ist (zeigt dir 404 sofort)
-        try{
-          const res = await fetch('Song.mp3', { method: 'HEAD', cache: 'no-store' });
-          if(!res.ok){
-            showErr(`MP3 nicht gefunden: Song.mp3\nHTTP Status: ${res.status}\n\nFix: Song.mp3 in denselben veröffentlichten Ordner wie index.html legen (Root oder /docs). Groß/Klein exakt!`);
-          } else {
-            showOk(`MP3 gefunden ✅ (HTTP ${res.status})`);
-          }
-        }catch(e){
-          // Manche Hosts blocken HEAD – dann versuchen wir GET ganz kurz
-          try{
-            const res2 = await fetch('Song.mp3', { method: 'GET', cache: 'no-store' });
-            if(!res2.ok){
-              showErr(`MP3 nicht gefunden: Song.mp3\nHTTP Status: ${res2.status}\n\nFix: Song.mp3 in denselben veröffentlichten Ordner wie index.html legen (Root oder /docs). Groß/Klein exakt!`);
-            } else {
-              showOk(`MP3 gefunden ✅ (HTTP ${res2.status})`);
-            }
-          }catch(e2){
-            showErr(`Kann Song.mp3 nicht prüfen.\nWenn du lokal über file:/// öffnest: nutze einen Server (localhost).\nFehler: ${e2?.message || e2}`);
-          }
-        }
-      }
-
-      async function safePlay(){
-        try { await audio.play(); return true; }
-        catch(e){ return false; }
-      }
-
-      // Show overlay on start + diagnose file
-      window.addEventListener('load', async () => {
-        clearMsg();
-        showOverlay(true);
-        await checkSong();
-
-        // stumm starten (autoplay-friendly)
-        audio.muted = true;
-        await safePlay(); // wenn blockiert: egal, unlock kommt bei Input
-      });
-
-      async function unlockWithSound(){
-        audio.muted = false;
-        const ok = await safePlay();
-        if(ok) showOverlay(false);
-        else {
-          // Wenn das fehlschlägt, ist es meistens: keine User-Geste (dann hat Event nicht gezündet)
-          // oder MP3 nicht erreichbar (siehe Diagnose)
-        }
-      }
-
-      async function keepMuted(){
-        audio.muted = true;
-        await safePlay();
-        showOverlay(false);
-      }
-
-      // Buttons
-      playBtn.addEventListener('click', (e)=>{ e.preventDefault(); e.stopPropagation(); unlockWithSound(); });
-      muteBtn.addEventListener('click', (e)=>{ e.preventDefault(); e.stopPropagation(); keepMuted(); });
-      closeBtn.addEventListener('click', (e)=>{ e.preventDefault(); e.stopPropagation(); showOverlay(false); });
-
-      // Klick auf Hintergrund = schließen
-      overlay.addEventListener('click', (e)=>{
-        if(e.target === overlay) showOverlay(false);
-      });
-
-      // ✅ UNLOCK Trigger: Klick ODER Scroll ODER Taste
-      const onceUnlock = async () => {
-        await unlockWithSound();
-        cleanup();
-      };
-
-      function cleanup(){
-        window.removeEventListener('pointerdown', onceUnlock, true);
-        window.removeEventListener('keydown', onceUnlock, true);
-        window.removeEventListener('touchstart', onceUnlock, true);
-        window.removeEventListener('wheel', onceUnlock, { capture:true });
-      }
-
-      window.addEventListener('pointerdown', onceUnlock, true);
-      window.addEventListener('keydown', onceUnlock, true);
-      window.addEventListener('touchstart', onceUnlock, true);
-      window.addEventListener('wheel', onceUnlock, { capture:true, passive:true });
-
-      // Zeig klar, wenn Audio selbst sagt "keine Quelle"
-      audio.addEventListener('error', () => {
-        showErr(`Audio-Fehler: Browser kann die Quelle nicht laden/abspielen.\nMeistens: Song.mp3 nicht gefunden oder falscher Ordner.\nTeste: Öffne direkt https://DEINE-PAGES-URL/Song.mp3`);
-      });
-    })();
-
-    /* ---------- Parallax Glow ---------- */
-    (function(){
-      const root = document.documentElement;
-      let tx = 0, ty = 0, cx = 0, cy = 0;
-      function update(){
-        cx += (tx - cx) * 0.08;
-        cy += (ty - cy) * 0.08;
-        root.style.setProperty('--gx', cx.toFixed(2) + 'px');
-        root.style.setProperty('--gy', cy.toFixed(2) + 'px');
-        requestAnimationFrame(update);
-      }
-      update();
-
-      function handle(x, y){
-        const w = window.innerWidth || 1;
-        const h = window.innerHeight || 1;
-        tx = ((x / w) - 0.5) * 60;
-        ty = ((y / h) - 0.5) * 60;
-      }
-      window.addEventListener('mousemove', (e)=>handle(e.clientX, e.clientY), {passive:true});
-      window.addEventListener('touchmove', (e)=>{
-        if(!e.touches || !e.touches[0]) return;
-        handle(e.touches[0].clientX, e.touches[0].clientY);
-      }, {passive:true});
-    })();
-
-    /* ---------- Particles ---------- */
-    (function(){
-      const c = document.getElementById('particles');
-      const ctx = c.getContext('2d', { alpha: true });
-      let W = 0, H = 0, dpr = Math.min(2, window.devicePixelRatio || 1);
-
-      function resize(){
-        W = window.innerWidth; H = window.innerHeight;
-        c.width = Math.floor(W * dpr);
-        c.height = Math.floor(H * dpr);
-        c.style.width = W + 'px';
-        c.style.height = H + 'px';
-        ctx.setTransform(dpr,0,0,dpr,0,0);
-      }
-      window.addEventListener('resize', resize, {passive:true});
-      resize();
-
-      const N = Math.round(Math.min(90, Math.max(45, W/18)));
-      const p = Array.from({length:N}).map(()=>({
-        x: Math.random()*W,
-        y: Math.random()*H,
-        r: 0.8 + Math.random()*1.8,
-        vx: (-0.25 + Math.random()*0.5),
-        vy: (-0.18 + Math.random()*0.36),
-        a: 0.15 + Math.random()*0.35
-      }));
-
-      function tick(){
-        ctx.clearRect(0,0,W,H);
-
-        for(const s of p){
-          s.x += s.vx; s.y += s.vy;
-          if(s.x < -20) s.x = W+20;
-          if(s.x > W+20) s.x = -20;
-          if(s.y < -20) s.y = H+20;
-          if(s.y > H+20) s.y = -20;
-
-          ctx.beginPath();
-          ctx.globalAlpha = s.a;
-          ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
-          ctx.fillStyle = 'white';
-          ctx.fill();
-        }
-
-        ctx.globalAlpha = 0.06;
-        for(let i=0;i<p.length;i++){
-          for(let j=i+1;j<p.length;j++){
-            const dx = p[i].x - p[j].x;
-            const dy = p[i].y - p[j].y;
-            const dist = Math.sqrt(dx*dx + dy*dy);
-            if(dist < 120){
-              ctx.beginPath();
-              ctx.moveTo(p[i].x, p[i].y);
-              ctx.lineTo(p[j].x, p[j].y);
-              ctx.strokeStyle = 'white';
-              ctx.lineWidth = 1;
-              ctx.stroke();
-            }
-          }
-        }
-
-        ctx.globalAlpha = 1;
-        requestAnimationFrame(tick);
-      }
-      tick();
-    })();
+    // On load: diagnose + try muted autoplay (harmlos)
+    window.addEventListener('load', async () => {
+      await headCheck();
+      // stumm versuchen (darf scheitern, ist okay)
+      try { audio.muted = true; await audio.play(); } catch {}
+      // Overlay bleibt sichtbar bis User startet oder stumm wählt
+      showOverlay();
+    });
   </script>
 </body>
 </html>
