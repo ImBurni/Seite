@@ -21,7 +21,6 @@
       --faint: rgba(238,240,255,.52);
 
       --stroke: rgba(255,255,255,.12);
-      --stroke2: rgba(255,255,255,.18);
 
       --brand:#ff7a18;
       --brand2:#a855f7;
@@ -126,7 +125,7 @@
       display:inline-flex; align-items:center; justify-content:center; gap:10px;
       padding:12px 14px;
       border-radius:14px;
-      border:1px solid rgba(255,255,255,.12);
+      border:1px solid var(--stroke);
       background: linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.02));
       font-weight:950;
       cursor:pointer;
@@ -181,6 +180,7 @@
       background-clip:text;
       color: transparent;
     }
+
     .shine-underline{
       position:relative;
       display:inline-block;
@@ -339,153 +339,6 @@
     summary{cursor:pointer; font-weight:950}
     details p{margin:10px 0 0; color: var(--muted); line-height:1.65; font-weight:750}
 
-    .streamer-controls{
-      display:flex; gap:12px; align-items:center; flex-wrap:wrap;
-      margin: 12px 0 10px;
-    }
-    .field{
-      display:flex; align-items:center; gap:10px;
-      padding: 12px 14px;
-      border-radius: 16px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.05);
-      box-shadow: var(--shadow2);
-      min-width: min(520px, 100%);
-      flex: 1;
-    }
-    .field input{
-      width:100%;
-      border:0;
-      outline:none;
-      background:transparent;
-      color: var(--text);
-      font-weight:950;
-      font-size: 14px;
-    }
-    .field input::placeholder{color: rgba(238,240,255,.46); font-weight:850}
-
-    .seg{
-      display:flex; gap:8px; flex-wrap:wrap;
-      padding: 8px;
-      border-radius: 16px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.04);
-      box-shadow: var(--shadow2);
-    }
-    .seg button{
-      border:1px solid transparent;
-      background: transparent;
-      color: var(--muted);
-      font-weight:950;
-      padding: 10px 12px;
-      border-radius: 14px;
-      cursor:pointer;
-      transition:.15s ease;
-    }
-    .seg button:hover{background: rgba(255,255,255,.06); color: var(--text)}
-    .seg button.active{
-      background: linear-gradient(135deg, rgba(255,122,24,.20), rgba(168,85,247,.20));
-      border-color: rgba(255,255,255,.14);
-      color: var(--text);
-    }
-
-    .streamer-meta{
-      display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;
-      color: var(--faint);
-      font-weight:950;
-      margin-bottom: 10px;
-    }
-
-    .streamer-grid{
-      display:grid;
-      grid-template-columns: repeat(3, minmax(0,1fr));
-      gap: 14px;
-    }
-    .streamer-card{
-      border-radius: var(--r2);
-      border:1px solid rgba(255,255,255,.12);
-      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.02));
-      box-shadow: var(--shadow2);
-      overflow:hidden;
-      position:relative;
-      padding: 16px;
-      min-height: 170px;
-    }
-    .streamer-card::after{
-      content:"";
-      position:absolute; inset:-70px;
-      background:
-        radial-gradient(260px 180px at 18% 12%, rgba(255,122,24,.14), transparent 62%),
-        radial-gradient(260px 180px at 92% 30%, rgba(168,85,247,.14), transparent 62%);
-      filter: blur(18px);
-      opacity:.75;
-      pointer-events:none;
-    }
-    .streamer-card > *{position:relative}
-
-    .streamer-top{
-      display:flex; align-items:center; justify-content:space-between; gap:12px;
-      margin-bottom: 12px;
-    }
-    .streamer-left{display:flex; align-items:center; gap:12px; min-width:0}
-    .avatar{
-      width:46px; height:46px;
-      border-radius: 16px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.25);
-      overflow:hidden;
-      flex: 0 0 auto;
-    }
-    .avatar img{width:100%; height:100%; object-fit:cover; display:block}
-    .sname{
-      display:flex; flex-direction:column;
-      min-width:0;
-    }
-    .sname b{
-      font-size: 16px;
-      letter-spacing:-.2px;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-    .sname span{font-size: 12px; color: var(--muted); font-weight:950}
-
-    .badge{
-      display:inline-flex; align-items:center; gap:8px;
-      padding: 8px 10px;
-      border-radius: 999px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.05);
-      font-weight:950;
-      color: var(--muted);
-      white-space:nowrap;
-    }
-    .live-dot{
-      width:9px; height:9px; border-radius:50%;
-      background: var(--off);
-      box-shadow: none;
-    }
-    .badge.live{
-      border-color: rgba(46,229,157,.25);
-      background: rgba(46,229,157,.10);
-      color: rgba(238,240,255,.90);
-    }
-    .badge.live .live-dot{
-      background: var(--ok);
-      box-shadow: 0 0 0 7px rgba(46,229,157,.12);
-    }
-
-    .streamer-bottom{
-      display:flex; align-items:flex-end; justify-content:space-between; gap:12px;
-      margin-top: 6px;
-    }
-    .uptime{
-      color: var(--muted);
-      font-weight:900;
-      line-height:1.55;
-      max-width: 56ch;
-    }
-
     footer{padding: 28px 0 44px; color: var(--muted); font-weight:900}
     .foot{
       display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;
@@ -500,10 +353,9 @@
       .nav-links{display:none}
       .gate{flex-direction:column; align-items:flex-start}
       .gate-actions{justify-content:flex-start}
-      .streamer-grid{grid-template-columns: 1fr}
     }
 
-    /* ---- Music overlay polish ---- */
+    /* ---- Music overlay ---- */
     .music-overlay{
       position:fixed; inset:0;
       display:none; align-items:center; justify-content:center;
@@ -513,15 +365,15 @@
       backdrop-filter: blur(10px);
     }
     .music-card{
-      width:min(520px,100%);
+      width:min(560px,100%);
       border-radius:22px;
       border:1px solid rgba(255,255,255,.16);
       background:rgba(10,10,16,.88);
       box-shadow:0 18px 60px rgba(0,0,0,.55);
       padding:18px;
     }
-    .music-card h2{margin:0 0 8px; font-size:20px; letter-spacing:-.2px}
-    .music-card p{margin:0 0 14px; color:rgba(238,240,255,.75); font-weight:900; line-height:1.55}
+    .music-card h2{margin:0; font-size:20px; letter-spacing:-.2px}
+    .music-card p{margin:10px 0 14px; color:rgba(238,240,255,.75); font-weight:900; line-height:1.55}
     .music-row{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
     .music-mini{
       margin-top:10px;
@@ -529,6 +381,24 @@
       font-weight:900;
       font-size:12px;
       line-height:1.5;
+    }
+    .music-error{
+      margin-top:12px;
+      padding:10px 12px;
+      border-radius:14px;
+      border:1px solid rgba(255,120,120,.35);
+      background: rgba(255,120,120,.10);
+      color: rgba(255,200,200,.95);
+      display:none;
+      font-weight:900;
+      line-height:1.45;
+      white-space:pre-wrap;
+    }
+    .music-ok{
+      border-color: rgba(46,229,157,.35);
+      background: rgba(46,229,157,.10);
+      color: rgba(210,255,235,.95);
+      display:none;
     }
   </style>
 </head>
@@ -559,7 +429,6 @@
       <div class="nav-links">
         <a href="#features">Features</a>
         <a href="#zugang">Bot bekommen</a>
-        <a href="#streamer">Streamer</a>
         <a href="#faq">FAQ</a>
         <a href="#discord">Discord</a>
       </div>
@@ -688,43 +557,6 @@
     </div>
   </section>
 
-  <section id="streamer">
-    <div class="container">
-      <div class="section-head">
-        <div>
-          <h2>Streamer, die den Bot nutzen</h2>
-          <p class="hint">Mit Profilbild + Live/Offline. Funktioniert auf GitHub Pages ohne Tokens.</p>
-        </div>
-      </div>
-
-      <div class="streamer-controls">
-        <div class="field">
-          <span aria-hidden="true">🔎</span>
-          <input id="streamerSearch" type="text" placeholder="Streamer suchen (z.B. tricck17)…" />
-        </div>
-
-        <div class="seg" id="streamerFilter">
-          <button type="button" class="active" data-filter="all">Alle</button>
-          <button type="button" data-filter="live">🟢 Live</button>
-          <button type="button" data-filter="offline">⚫ Offline</button>
-        </div>
-
-        <button class="btn" id="streamerRefresh" type="button">🔁 Aktualisieren</button>
-      </div>
-
-      <div class="streamer-meta">
-        <div id="streamerCount">—</div>
-        <div id="streamerUpdated">—</div>
-      </div>
-
-      <div class="streamer-grid" id="streamerGrid"></div>
-
-      <div style="margin-top:12px; color:var(--faint); font-weight:850; line-height:1.55">
-        Hinweis: Live-Status basiert auf einem einfachen Uptime-Check (kann minimal verzögert sein).
-      </div>
-    </div>
-  </section>
-
   <section id="faq">
     <div class="container">
       <div class="section-head">
@@ -787,36 +619,39 @@
         <div style="display:flex; gap:10px; flex-wrap:wrap">
           <a class="btn" href="#features">Features</a>
           <a class="btn" href="#zugang">Bot bekommen</a>
-          <a class="btn" href="#streamer">Streamer</a>
+          <a class="btn" href="#faq">FAQ</a>
         </div>
       </div>
     </div>
   </footer>
 
-  <!-- 🎵 AUDIO: Song.mp3 muss neben index.html liegen (exakt gleiche Schreibweise!) -->
-  <audio id="bgm" src="Song.mp3" preload="auto" loop muted playsinline></audio>
+  <!-- ✅ AUDIO: muss im gleichen veröffentlichten Ordner liegen wie index.html -->
+  <audio id="bgm" preload="auto" loop muted playsinline>
+    <source src="Song.mp3" type="audio/mpeg">
+  </audio>
 
-  <!-- 🎵 Overlay: jetzt mit X-Button + Fehleranzeige -->
+  <!-- Overlay -->
   <div id="musicOverlay" class="music-overlay" aria-hidden="true">
     <div class="music-card">
       <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
-        <h2 style="margin:0">🎵 Musik starten</h2>
+        <h2>🎵 Musik starten</h2>
         <button id="musicCloseBtn" class="btn" type="button" style="padding:10px 12px;">✖</button>
       </div>
 
-      <p style="margin:10px 0 14px;">
-        Browser blockiert Autoplay mit Ton. Ein Klick reicht – dann läuft der Song.
+      <p>
+        Beim ersten Klick/Scroll/Taste wird der Ton freigeschaltet (Browser-Regel).
       </p>
 
       <div class="music-row">
-        <button id="musicPlayBtn" class="btn primary" type="button">▶ Abspielen (mit Ton)</button>
-        <button id="musicMuteBtn" class="btn" type="button">🔇 Ohne Ton</button>
+        <button id="musicPlayBtn" class="btn primary" type="button">▶ Ton an</button>
+        <button id="musicMuteBtn" class="btn" type="button">🔇 Stumm lassen</button>
       </div>
 
-      <div id="musicErr" class="music-mini" style="margin-top:12px;color:rgba(255,150,150,.9);display:none"></div>
+      <div id="musicOk" class="music-error music-ok"></div>
+      <div id="musicErr" class="music-error"></div>
 
       <div class="music-mini">
-        Tipp: Klick/Tap/Keydown irgendwo schaltet frei. Wenn’s nicht geht: Datei/Hosting prüfen.
+        Diagnose: Wenn hier „404“ steht, liegt die MP3 nicht im veröffentlichten Ordner oder heißt anders (Groß/Klein!).
       </div>
     </div>
   </div>
@@ -830,98 +665,98 @@
     });
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    function toast(msg){
-      const t = document.createElement('div');
-      t.textContent = msg;
-      t.style.position='fixed';
-      t.style.left='50%';
-      t.style.bottom='26px';
-      t.style.transform='translateX(-50%)';
-      t.style.padding='12px 14px';
-      t.style.borderRadius='14px';
-      t.style.border='1px solid rgba(255,255,255,.16)';
-      t.style.background='rgba(0,0,0,.68)';
-      t.style.color='white';
-      t.style.fontWeight='950';
-      t.style.zIndex=9999;
-      t.style.backdropFilter='blur(10px)';
-      t.style.boxShadow='0 16px 40px rgba(0,0,0,.38)';
-      document.body.appendChild(t);
-      setTimeout(()=>{ t.style.opacity='0'; t.style.transition='opacity .25s ease'; }, 1200);
-      setTimeout(()=>{ t.remove(); }, 1500);
-    }
     async function copyText(text){
-      try{ await navigator.clipboard.writeText(text); toast("Invite kopiert ✅"); }
-      catch{ toast("Kopieren nicht möglich ❌"); }
+      try{ await navigator.clipboard.writeText(text); }
+      catch{}
     }
     ["copyDiscord","copyDiscord2","copyDiscord3"].forEach(id=>{
-      document.getElementById(id).addEventListener('click', ()=>copyText(CONFIG.discordInvite));
+      const el = document.getElementById(id);
+      if(el) el.addEventListener('click', ()=>copyText(CONFIG.discordInvite));
     });
 
-    /* ---------- 🎵 MUSIK FIX: funktioniert auch wenn andere Scripts crashten ---------- */
+    /* ---------- 🎵 MUSIC: stumm starten + unlock bei Klick ODER Scroll ---------- */
     (function(){
       const audio    = document.getElementById('bgm');
       const overlay  = document.getElementById('musicOverlay');
       const playBtn  = document.getElementById('musicPlayBtn');
       const muteBtn  = document.getElementById('musicMuteBtn');
       const closeBtn = document.getElementById('musicCloseBtn');
+      const okBox    = document.getElementById('musicOk');
       const errBox   = document.getElementById('musicErr');
-
-      if(!audio || !overlay || !playBtn || !muteBtn || !closeBtn){
-        console.error("[MUSIC] Missing elements", {audio, overlay, playBtn, muteBtn, closeBtn});
-        return;
-      }
-
-      audio.setAttribute('playsinline', '');
-      audio.setAttribute('webkit-playsinline', '');
-      audio.preload = 'auto';
-      audio.loop = true;
-      audio.volume = 0.65;
 
       function showOverlay(show){
         overlay.style.display = show ? 'flex' : 'none';
         overlay.setAttribute('aria-hidden', show ? 'false' : 'true');
       }
-
+      function showOk(msg){
+        okBox.textContent = msg;
+        okBox.style.display = 'block';
+      }
       function showErr(msg){
-        console.error("[MUSIC]", msg);
-        if(errBox){
-          errBox.style.display = 'block';
-          errBox.textContent = "Fehler: " + msg;
+        errBox.textContent = msg;
+        errBox.style.display = 'block';
+      }
+      function clearMsg(){
+        okBox.style.display = 'none';
+        errBox.style.display = 'none';
+        okBox.textContent = '';
+        errBox.textContent = '';
+      }
+
+      async function checkSong(){
+        // Checkt ob Song.mp3 wirklich erreichbar ist (zeigt dir 404 sofort)
+        try{
+          const res = await fetch('Song.mp3', { method: 'HEAD', cache: 'no-store' });
+          if(!res.ok){
+            showErr(`MP3 nicht gefunden: Song.mp3\nHTTP Status: ${res.status}\n\nFix: Song.mp3 in denselben veröffentlichten Ordner wie index.html legen (Root oder /docs). Groß/Klein exakt!`);
+          } else {
+            showOk(`MP3 gefunden ✅ (HTTP ${res.status})`);
+          }
+        }catch(e){
+          // Manche Hosts blocken HEAD – dann versuchen wir GET ganz kurz
+          try{
+            const res2 = await fetch('Song.mp3', { method: 'GET', cache: 'no-store' });
+            if(!res2.ok){
+              showErr(`MP3 nicht gefunden: Song.mp3\nHTTP Status: ${res2.status}\n\nFix: Song.mp3 in denselben veröffentlichten Ordner wie index.html legen (Root oder /docs). Groß/Klein exakt!`);
+            } else {
+              showOk(`MP3 gefunden ✅ (HTTP ${res2.status})`);
+            }
+          }catch(e2){
+            showErr(`Kann Song.mp3 nicht prüfen.\nWenn du lokal über file:/// öffnest: nutze einen Server (localhost).\nFehler: ${e2?.message || e2}`);
+          }
         }
       }
 
       async function safePlay(){
-        try{
-          await audio.play();
-          return true;
-        }catch(e){
-          showErr((e && e.message) ? e.message : "Audio play() wurde blockiert");
-          return false;
-        }
+        try { await audio.play(); return true; }
+        catch(e){ return false; }
       }
 
-      // Overlay sicher klickbar machen (damit es nicht "tot" wirkt)
-      overlay.style.pointerEvents = 'auto';
-
-      // Beim Laden: stumm starten (autoplay-friendly) + Overlay zeigen
+      // Show overlay on start + diagnose file
       window.addEventListener('load', async () => {
-        audio.muted = true;
-        await safePlay();       // stumm startet fast immer
+        clearMsg();
         showOverlay(true);
+        await checkSong();
+
+        // stumm starten (autoplay-friendly)
+        audio.muted = true;
+        await safePlay(); // wenn blockiert: egal, unlock kommt bei Input
       });
 
       async function unlockWithSound(){
         audio.muted = false;
-        try{ if (audio.currentTime === 0) audio.currentTime = 0.0001; }catch{}
         const ok = await safePlay();
         if(ok) showOverlay(false);
+        else {
+          // Wenn das fehlschlägt, ist es meistens: keine User-Geste (dann hat Event nicht gezündet)
+          // oder MP3 nicht erreichbar (siehe Diagnose)
+        }
       }
 
       async function keepMuted(){
         audio.muted = true;
-        const ok = await safePlay();
-        if(ok) showOverlay(false);
+        await safePlay();
+        showOverlay(false);
       }
 
       // Buttons
@@ -929,38 +764,33 @@
       muteBtn.addEventListener('click', (e)=>{ e.preventDefault(); e.stopPropagation(); keepMuted(); });
       closeBtn.addEventListener('click', (e)=>{ e.preventDefault(); e.stopPropagation(); showOverlay(false); });
 
-      // Klick auf dunklen Bereich: Overlay schließen (optional)
+      // Klick auf Hintergrund = schließen
       overlay.addEventListener('click', (e)=>{
         if(e.target === overlay) showOverlay(false);
       });
 
-      // Erstes User-Event irgendwo: Sound freischalten (sehr zuverlässig)
+      // ✅ UNLOCK Trigger: Klick ODER Scroll ODER Taste
       const onceUnlock = async () => {
         await unlockWithSound();
         cleanup();
       };
+
       function cleanup(){
         window.removeEventListener('pointerdown', onceUnlock, true);
         window.removeEventListener('keydown', onceUnlock, true);
         window.removeEventListener('touchstart', onceUnlock, true);
+        window.removeEventListener('wheel', onceUnlock, { capture:true });
       }
+
       window.addEventListener('pointerdown', onceUnlock, true);
       window.addEventListener('keydown', onceUnlock, true);
       window.addEventListener('touchstart', onceUnlock, true);
+      window.addEventListener('wheel', onceUnlock, { capture:true, passive:true });
 
-      // Wenn Tab wieder aktiv wird: falls pausiert, neu starten
-      document.addEventListener('visibilitychange', async () => {
-        if(!document.hidden){
-          await safePlay();
-        }
-      });
-
-      // Wenn mp3 nicht gefunden wird, siehst du es sofort
+      // Zeig klar, wenn Audio selbst sagt "keine Quelle"
       audio.addEventListener('error', () => {
-        showErr("Song.mp3 konnte nicht geladen werden (Pfad/Name/Hosting prüfen).");
+        showErr(`Audio-Fehler: Browser kann die Quelle nicht laden/abspielen.\nMeistens: Song.mp3 nicht gefunden oder falscher Ordner.\nTeste: Öffne direkt https://DEINE-PAGES-URL/Song.mp3`);
       });
-
-      console.log("[MUSIC] init ok");
     })();
 
     /* ---------- Parallax Glow ---------- */
@@ -1055,152 +885,6 @@
       }
       tick();
     })();
-
-    /* ---------- Streamer list ---------- */
-    const streamerGrid = document.getElementById('streamerGrid');
-    const streamerCount = document.getElementById('streamerCount');
-    const streamerUpdated = document.getElementById('streamerUpdated');
-    const streamerSearch = document.getElementById('streamerSearch');
-    const filterWrap = document.getElementById('streamerFilter');
-    const refreshBtn = document.getElementById('streamerRefresh');
-
-    const endpoints = {
-      uptime: (login) => `https://decapi.me/twitch/uptime/${encodeURIComponent(login)}`,
-      avatar: (login) => `https://decapi.me/twitch/avatar/${encodeURIComponent(login)}`
-    };
-
-    const state = {
-      items: CONFIG.streamers.map(n => ({
-        login: String(n || '').trim(),
-        live: null,
-        uptimeText: 'Status wird geladen…',
-        avatarUrl: null
-      })).filter(x => x.login.length > 0),
-      filter: 'all',
-      query: ''
-    };
-
-    function escapeHtml(s){
-      return String(s).replace(/[&<>"']/g, m => ({
-        '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
-      }[m]));
-    }
-
-    function render(){
-      const q = state.query.toLowerCase().trim();
-      const filtered = state.items.filter(it => {
-        const matchesQuery = !q || it.login.toLowerCase().includes(q);
-        const matchesFilter =
-          state.filter === 'all' ? true :
-          state.filter === 'live' ? it.live === true :
-          state.filter === 'offline' ? it.live === false :
-          true;
-        return matchesQuery && matchesFilter;
-      });
-
-      streamerCount.textContent = `${filtered.length} Streamer angezeigt • ${state.items.length} gesamt`;
-
-      streamerGrid.innerHTML = filtered.map(it => {
-        const loginLower = it.login.toLowerCase();
-        const display = escapeHtml(it.login);
-
-        const liveBadge = it.live === true
-          ? `<span class="badge live"><span class="live-dot"></span>LIVE</span>`
-          : it.live === false
-            ? `<span class="badge"><span class="live-dot"></span>OFFLINE</span>`
-            : `<span class="badge"><span class="live-dot"></span>CHECK…</span>`;
-
-        const uptime = escapeHtml(it.uptimeText || '');
-        const avatar = it.avatarUrl
-          ? `<img src="${it.avatarUrl}" alt="${display} Profilbild" loading="lazy" />`
-          : `<img src="https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_70x70.png" alt="${display} Profilbild" loading="lazy" />`;
-
-        return `
-          <div class="streamer-card" data-login="${escapeHtml(loginLower)}">
-            <div class="streamer-top">
-              <div class="streamer-left">
-                <div class="avatar">${avatar}</div>
-                <div class="sname">
-                  <b>${display}</b>
-                  <span>twitch.tv/${escapeHtml(loginLower)}</span>
-                </div>
-              </div>
-              ${liveBadge}
-            </div>
-
-            <div class="uptime">${it.live === true ? `🟢 Live seit: <b>${uptime}</b>` : it.live === false ? `⚫ Offline` : `⏳ ${uptime}`}</div>
-
-            <div class="streamer-bottom">
-              <div style="color: var(--faint); font-weight:900">Bot-Nutzer</div>
-              <a class="btn primary" href="https://twitch.tv/${escapeHtml(loginLower)}" target="_blank" rel="noreferrer">Zum Stream</a>
-            </div>
-          </div>
-        `;
-      }).join('');
-    }
-
-    async function fetchText(url){
-      const res = await fetch(url, { cache: 'no-store' });
-      return await res.text();
-    }
-
-    async function updateOne(it){
-      const login = it.login;
-
-      if(!it.avatarUrl){
-        try{
-          const avatarText = (await fetchText(endpoints.avatar(login))).trim();
-          if(avatarText.startsWith('http')) it.avatarUrl = avatarText;
-        }catch{}
-      }
-
-      try{
-        const t = (await fetchText(endpoints.uptime(login))).trim();
-        it.uptimeText = t || 'Unbekannt';
-        if((t || '').toLowerCase().includes('offline')){
-          it.live = false;
-        } else if(t){
-          it.live = true;
-        } else {
-          it.live = null;
-        }
-      }catch{
-        it.live = null;
-        it.uptimeText = 'Status unbekannt';
-      }
-    }
-
-    async function refreshAll(){
-      streamerUpdated.textContent = 'Aktualisiere…';
-      render();
-
-      for(const it of state.items){
-        await updateOne(it);
-        render();
-      }
-
-      streamerUpdated.textContent = 'Zuletzt aktualisiert: ' + new Date().toLocaleString('de-DE');
-    }
-
-    streamerSearch.addEventListener('input', ()=>{
-      state.query = streamerSearch.value || '';
-      render();
-    });
-
-    filterWrap.querySelectorAll('button[data-filter]').forEach(btn=>{
-      btn.addEventListener('click', ()=>{
-        filterWrap.querySelectorAll('button[data-filter]').forEach(b=>b.classList.remove('active'));
-        btn.classList.add('active');
-        state.filter = btn.dataset.filter || 'all';
-        render();
-      });
-    });
-
-    refreshBtn.addEventListener('click', refreshAll);
-
-    render();
-    refreshAll();
-    setInterval(refreshAll, 60000);
   </script>
 </body>
 </html>
