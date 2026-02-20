@@ -555,8 +555,15 @@
     .sound-hint b{color:#fff}
 
     /* ----------------- NEW SECTIONS ----------------- */
-    .reveal{opacity:0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease}
-    .reveal.show{opacity:1; transform:none}
+
+    /* ✅ FIX: Reveal nur, wenn JS aktiv ist (sonst bleibt alles sichtbar) */
+    .reveal{opacity:1; transform:none}
+    html.js .reveal{
+      opacity:0;
+      transform: translateY(14px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    html.js .reveal.show{opacity:1; transform:none}
 
     .kpi-grid{display:grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap:14px}
     @media (max-width: 940px){ .kpi-grid{grid-template-columns:1fr 1fr} }
@@ -784,11 +791,13 @@
     }
     body.theme-calm .theme-toggle .knob{left: 22px}
     .theme-toggle small{color: var(--faint); font-weight:900}
-
   </style>
 </head>
 
 <body>
+  <!-- ✅ FIX: Markiere HTML als "JS aktiv", damit Reveal nicht alles versteckt, wenn JS mal nicht greift -->
+  <script>document.documentElement.classList.add('js');</script>
+
   <div class="glow" aria-hidden="true"></div>
   <div class="noise" aria-hidden="true"></div>
   <canvas id="particles" aria-hidden="true"></canvas>
@@ -837,7 +846,6 @@
           <span class="sw" aria-hidden="true"><span class="knob"></span></span>
           <small id="themeLabel">Neon</small>
         </button>
-        <!-- ✅ Direkt Discord öffnen -->
         <a class="btn primary glow" id="joinTop" href="#" target="_blank" rel="noreferrer">Bot holen</a>
       </div>
     </div>
@@ -935,7 +943,6 @@
     </div>
   </section>
 
-  <!-- ✅ Social Proof + Animated Counters -->
   <section id="proof">
     <div class="container">
       <div class="section-head reveal">
@@ -997,7 +1004,6 @@
     </div>
   </section>
 
-  <!-- ✅ Feature Preview Animation (Discord Mock) -->
   <section id="preview">
     <div class="container">
       <div class="section-head reveal">
@@ -1049,7 +1055,6 @@
     </div>
   </section>
 
-  <!-- ✅ Roadmap / Premium Feeling -->
   <section id="roadmap">
     <div class="container">
       <div class="section-head reveal">
@@ -1085,7 +1090,6 @@
     </div>
   </section>
 
-  <!-- ✅ Owner / Creator (ohne Bild) -->
   <section id="owner">
     <div class="container">
       <div class="section-head reveal">
@@ -1141,7 +1145,6 @@
     </div>
   </section>
 
-  <!-- ✅ Streamer System (mit Live Twitch Embed) -->
   <section id="streamer">
     <div class="container">
       <div class="section-head reveal">
@@ -1248,7 +1251,6 @@
     </div>
   </footer>
 
-  <!-- 🎵 MUSIC (legal autoplay feel): starts muted; tries unmute on scroll; fallback to click/touch/key -->
   <audio id="bgm" src="Song.mp3" preload="auto" loop muted playsinline></audio>
 
   <div class="sound-hint" id="soundHint">
@@ -1257,7 +1259,6 @@
   </div>
 
   <script>
-    /* ---------- Helpers ---------- */
     function toast(msg){
       const t = document.createElement('div');
       t.textContent = msg;
@@ -1284,13 +1285,11 @@
       catch{ toast("Kopieren nicht möglich ❌"); }
     }
 
-    /* ---------- Basic init (Discord Buttons + Copy Buttons) ---------- */
     document.getElementById('navName').textContent = CONFIG.botName;
     document.getElementById('footName').textContent = CONFIG.botName;
     document.getElementById('trustedBy').textContent = CONFIG.trustedByText;
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // ✅ Discord links überall setzen (inkl. Navbar Button)
     ["discordBtn1","discordBtn2","discordBtn3","joinTop"].forEach(id=>{
       const el = document.getElementById(id);
       if(el){
@@ -1300,13 +1299,12 @@
       }
     });
 
-    // ✅ Copy buttons überall setzen
     ["copyDiscord","copyDiscord2","copyDiscord3"].forEach(id=>{
       const el = document.getElementById(id);
       if(el) el.addEventListener('click', ()=>copyText(CONFIG.discordInvite));
     });
 
-    /* ---------- Micro detail: tiny click sound (WebAudio) ---------- */
+    /* Click tick */
     let audioCtx = null;
     function clickTick(){
       try{
@@ -1326,7 +1324,7 @@
       if(el) clickTick();
     }, {capture:true, passive:true});
 
-    /* ---------- 🎵 Music: muted autoplay + try unmute on scroll + fallback click ---------- */
+    /* Music unlock */
     (function(){
       const audio = document.getElementById("bgm");
       const hint = document.getElementById("soundHint");
@@ -1341,7 +1339,6 @@
       });
 
       let unlocked = false;
-
       async function unlockSound(){
         if(unlocked) return true;
         try{
@@ -1359,7 +1356,6 @@
 
       const onWheel = async () => { await unlockSound(); };
       const onScroll = async () => { await unlockSound(); };
-
       const onPointer = async () => { await unlockSound(); };
       const onTouch = async () => { await unlockSound(); };
       const onKey = async () => { await unlockSound(); };
@@ -1379,7 +1375,7 @@
       document.addEventListener("keydown", onKey, true);
     })();
 
-    /* ---------- Parallax Glow ---------- */
+    /* Parallax glow */
     (function(){
       const root = document.documentElement;
       let tx = 0, ty = 0, cx = 0, cy = 0;
@@ -1405,7 +1401,7 @@
       }, {passive:true});
     })();
 
-    /* ---------- Particles ---------- */
+    /* Particles */
     (function(){
       const c = document.getElementById('particles');
       const ctx = c.getContext('2d', { alpha: true });
@@ -1472,7 +1468,7 @@
       tick();
     })();
 
-    /* ---------- Theme toggle ---------- */
+    /* Theme toggle */
     (function(){
       const btn = document.getElementById('themeToggle');
       const label = document.getElementById('themeLabel');
@@ -1500,7 +1496,7 @@
       });
     })();
 
-    /* ---------- Scroll reveal ---------- */
+    /* Scroll reveal */
     (function(){
       const els = Array.from(document.querySelectorAll('.reveal'));
       const io = new IntersectionObserver((entries)=>{
@@ -1514,7 +1510,7 @@
       els.forEach(el=>io.observe(el));
     })();
 
-    /* ---------- Animated counters ---------- */
+    /* Animated counters */
     (function(){
       const targets = CONFIG.counters || {};
       const nodes = Array.from(document.querySelectorAll('[data-count]'));
@@ -1549,7 +1545,7 @@
       if(proof) io.observe(proof);
     })();
 
-    /* ---------- Preview: rotate follower names ---------- */
+    /* Preview rotate follower */
     (function(){
       const el = document.getElementById('mockFollower');
       if(!el) return;
@@ -1561,7 +1557,7 @@
       }, 2200);
     })();
 
-    /* ---------- Streamer list (Avatar + Live/Offline + Live Twitch embed) ---------- */
+    /* Streamer list */
     const streamerGrid = document.getElementById('streamerGrid');
     const streamerCount = document.getElementById('streamerCount');
     const streamerUpdated = document.getElementById('streamerUpdated');
