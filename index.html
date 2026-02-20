@@ -37,7 +37,6 @@
       --r2:28px;
       --max: 1160px;
 
-      /* Toggle feel (Fake Darkmode Toggle -> Theme Shift) */
       --accentGlow: rgba(255,122,24,.18);
       --accentGlow2: rgba(168,85,247,.18);
       --accentGlow3: rgba(46,229,157,.10);
@@ -507,7 +506,6 @@
       max-width: 56ch;
     }
 
-    /* Twitch embed (only when live) */
     .twitch-embed{
       margin-top: 12px;
       border-radius: 18px;
@@ -535,7 +533,6 @@
       .streamer-grid{grid-template-columns: 1fr}
     }
 
-    /* Sound hint */
     .sound-hint{
       position: fixed;
       left: 18px;
@@ -554,7 +551,6 @@
     }
     .sound-hint b{color:#fff}
 
-    /* ----------------- NEW SECTIONS (copy/paste integrated) ----------------- */
     .reveal{opacity:0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease}
     .reveal.show{opacity:1; transform:none}
 
@@ -684,7 +680,6 @@
     .tag.wip{border-color: rgba(168,85,247,.22); background: rgba(168,85,247,.10); color: rgba(238,240,255,.90)}
     .tag.future{border-color: rgba(46,229,157,.18); background: rgba(46,229,157,.08); color: rgba(238,240,255,.90)}
 
-    /* Feature preview "Discord" mock */
     .preview{
       border-radius: var(--r2);
       border:1px solid rgba(255,255,255,.12);
@@ -753,7 +748,6 @@
       100%{transform: translateY(0px); opacity:.55}
     }
 
-    /* Fake Darkmode toggle button */
     .theme-toggle{
       display:inline-flex; align-items:center; gap:10px;
       padding: 10px 12px;
@@ -784,7 +778,6 @@
     }
     body.theme-calm .theme-toggle .knob{left: 22px}
     .theme-toggle small{color: var(--faint); font-weight:900}
-
   </style>
 </head>
 
@@ -798,15 +791,8 @@
       botName: "ImBurni_Bot_v1",
       discordInvite: "https://discord.gg/v8BSRq8C8C",
       streamers: ["Tricck17"],
-
-      // Social proof / counters (du kannst das jederzeit ändern)
       trustedByText: "Trusted by Streamer & Mods",
-      counters: {
-        messages: 124832,
-        points: 1200000,
-        tickets: 863,
-        timeouts: 2194
-      }
+      counters: { messages: 124832, points: 1200000, tickets: 863, timeouts: 2194 }
     };
   </script>
 
@@ -837,7 +823,12 @@
           <span class="sw" aria-hidden="true"><span class="knob"></span></span>
           <small id="themeLabel">Neon</small>
         </button>
-        <a class="btn primary glow" id="joinTop" href="#discord">Bot holen</a>
+
+        <!-- FIX: Direkt auf Discord -->
+        <a class="btn primary glow" id="joinTop"
+           href="https://discord.gg/v8BSRq8C8C"
+           target="_blank"
+           rel="noopener noreferrer">Bot holen</a>
       </div>
     </div>
   </div>
@@ -863,7 +854,12 @@
           </p>
 
           <div class="hero-cta">
-            <a class="btn primary glow" id="discordBtn1" href="#" target="_blank" rel="noreferrer">💬 Discord beitreten</a>
+            <!-- FIX: Direkt auf Discord -->
+            <a class="btn primary glow" id="discordBtn1"
+               href="https://discord.gg/v8BSRq8C8C"
+               target="_blank"
+               rel="noopener noreferrer">💬 Discord beitreten</a>
+
             <a class="btn glow" href="#features">⚡ Features</a>
             <button class="btn glow" type="button" id="copyDiscord">📋 Invite kopieren</button>
           </div>
@@ -934,7 +930,6 @@
     </div>
   </section>
 
-  <!-- ✅ #2 Animated Stats Counter + Social Proof -->
   <section id="proof">
     <div class="container">
       <div class="section-head reveal">
@@ -967,36 +962,12 @@
         </div>
       </div>
 
-      <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap; align-items:center" class="reveal">
-        <span class="proof-badge"><i aria-hidden="true"></i><span>„Plug-in & läuft“ statt „Setup-Hölle“</span></span>
-        <span style="color:var(--faint); font-weight:950">• klare Regeln • weniger Spam • schneller Support</span>
-      </div>
-
-      <div class="quote-grid" style="margin-top:14px">
-        <div class="quote reveal">
-          <p>„Tickets mit Buttons ist pures Gold. Kein Chaos mehr in DMs oder Chat.“</p>
-          <div class="who">Streamer</div>
-          <div class="meta">Discord Support / Ticket-System</div>
-        </div>
-        <div class="quote reveal">
-          <p>„Timeout-IDs sparen Zeit. Ein Grund, ein Befehl – fertig.“</p>
-          <div class="who">Moderator</div>
-          <div class="meta">ID-Timeout System</div>
-        </div>
-        <div class="quote reveal">
-          <p>„Punkte + Lurk motiviert die Leute krass. Engagement ist spürbar höher.“</p>
-          <div class="who">Streamer</div>
-          <div class="meta">Punkte & Lurk Rewards</div>
-        </div>
-      </div>
-
       <div style="margin-top:12px; color:var(--faint); font-weight:900; line-height:1.55" class="reveal">
-        Hinweis: Zahlen sind Showcase/Beispielwerte (du kannst sie oben in <b>CONFIG.counters</b> anpassen).
+        Hinweis: Zahlen sind Showcase/Beispielwerte.
       </div>
     </div>
   </section>
 
-  <!-- ✅ #3 Feature Preview Animation (Discord Mock) -->
   <section id="preview">
     <div class="container">
       <div class="section-head reveal">
@@ -1041,14 +1012,9 @@
           </div>
         </div>
       </div>
-
-      <div style="margin-top:12px; color:var(--faint); font-weight:850; line-height:1.55" class="reveal">
-        Tipp: Wenn du echte Screenshots willst, sag Bescheid — dann bauen wir dir eine „Gallery“-Section wie bei SaaS-Seiten.
-      </div>
     </div>
   </section>
 
-  <!-- ✅ #6 Roadmap / Premium Feeling -->
   <section id="roadmap">
     <div class="container">
       <div class="section-head reveal">
@@ -1084,7 +1050,6 @@
     </div>
   </section>
 
-  <!-- ✅ #4 Owner / Creator (ohne Bild) -->
   <section id="owner">
     <div class="container">
       <div class="section-head reveal">
@@ -1128,19 +1093,19 @@
           </p>
         </div>
         <div class="gate-actions">
-          <a class="btn primary glow" id="discordBtn2" href="#" target="_blank" rel="noreferrer">💬 Discord joinen</a>
+          <!-- FIX: Direkt auf Discord -->
+          <a class="btn primary glow" id="discordBtn2"
+             href="https://discord.gg/v8BSRq8C8C"
+             target="_blank"
+             rel="noopener noreferrer">💬 Discord joinen</a>
+
           <button class="btn glow" type="button" id="copyDiscord2">📋 Invite kopieren</button>
           <a class="btn glow" href="#faq">❓ FAQ</a>
         </div>
       </div>
-
-      <div style="margin-top:14px; color:var(--muted); font-weight:900; line-height:1.65" class="reveal">
-        Tipp: Pack den Discord-Link in deine Twitch Panels, damit Interessenten sofort wissen, wo sie den Bot bekommen.
-      </div>
     </div>
   </section>
 
-  <!-- ✅ Streamer System (mit Live Twitch Embed #1) -->
   <section id="streamer">
     <div class="container">
       <div class="section-head reveal">
@@ -1171,10 +1136,6 @@
       </div>
 
       <div class="streamer-grid" id="streamerGrid"></div>
-
-      <div style="margin-top:12px; color:var(--faint); font-weight:850; line-height:1.55" class="reveal">
-        Hinweis: Live-Status basiert auf einem einfachen Uptime-Check (kann minimal verzögert sein).
-      </div>
     </div>
   </section>
 
@@ -1226,7 +1187,12 @@
           <p>Join → Anfrage/Ticket → Freischaltung/Setup. Danach läuft Twitch ✕ Discord clean.</p>
         </div>
         <div class="gate-actions">
-          <a class="btn primary glow" id="discordBtn3" href="#" target="_blank" rel="noreferrer">💬 Zum Discord</a>
+          <!-- FIX: Direkt auf Discord -->
+          <a class="btn primary glow" id="discordBtn3"
+             href="https://discord.gg/v8BSRq8C8C"
+             target="_blank"
+             rel="noopener noreferrer">💬 Zum Discord</a>
+
           <button class="btn glow" type="button" id="copyDiscord3">📋 Invite kopieren</button>
         </div>
       </div>
@@ -1247,7 +1213,6 @@
     </div>
   </footer>
 
-  <!-- 🎵 MUSIC (legal autoplay feel): starts muted; tries unmute on scroll; fallback to click/touch/key -->
   <audio id="bgm" src="Song.mp3" preload="auto" loop muted playsinline></audio>
 
   <div class="sound-hint" id="soundHint">
@@ -1260,10 +1225,6 @@
     document.getElementById('navName').textContent = CONFIG.botName;
     document.getElementById('footName').textContent = CONFIG.botName;
     document.getElementById('trustedBy').textContent = CONFIG.trustedByText;
-
-    ["discordBtn1","discordBtn2","discordBtn3"].forEach(id=>{
-      document.getElementById(id).href = CONFIG.discordInvite;
-    });
     document.getElementById('year').textContent = new Date().getFullYear();
 
     function toast(msg){
@@ -1291,7 +1252,8 @@
       catch{ toast("Kopieren nicht möglich ❌"); }
     }
     ["copyDiscord","copyDiscord2","copyDiscord3"].forEach(id=>{
-      document.getElementById(id).addEventListener('click', ()=>copyText(CONFIG.discordInvite));
+      const el = document.getElementById(id);
+      if(el) el.addEventListener('click', ()=>copyText(CONFIG.discordInvite));
     });
 
     /* ---------- Micro detail: tiny click sound (WebAudio) ---------- */
@@ -1318,10 +1280,10 @@
     (function(){
       const audio = document.getElementById("bgm");
       const hint = document.getElementById("soundHint");
+      if(!audio) return;
       audio.volume = 0.85;
       audio.loop = true;
 
-      // start muted (allowed)
       window.addEventListener("load", async () => {
         try{
           audio.muted = true;
@@ -1330,7 +1292,6 @@
       });
 
       let unlocked = false;
-
       async function unlockSound(){
         if(unlocked) return true;
         try{
@@ -1346,11 +1307,8 @@
         }
       }
 
-      // TRY ON SCROLL/WHEEL first
       const onWheel = async () => { await unlockSound(); };
       const onScroll = async () => { await unlockSound(); };
-
-      // SAFE FALLBACK on real gestures
       const onPointer = async () => { await unlockSound(); };
       const onTouch = async () => { await unlockSound(); };
       const onKey = async () => { await unlockSound(); };
@@ -1399,6 +1357,7 @@
     /* ---------- Particles ---------- */
     (function(){
       const c = document.getElementById('particles');
+      if(!c) return;
       const ctx = c.getContext('2d', { alpha: true });
       let W = 0, H = 0, dpr = Math.min(2, window.devicePixelRatio || 1);
 
@@ -1463,10 +1422,11 @@
       tick();
     })();
 
-    /* ---------- #9 Fake Darkmode toggle (Theme Shift) ---------- */
+    /* ---------- Theme toggle ---------- */
     (function(){
       const btn = document.getElementById('themeToggle');
       const label = document.getElementById('themeLabel');
+      if(!btn || !label) return;
       const key = "imburni_theme";
       const saved = localStorage.getItem(key);
 
@@ -1479,7 +1439,6 @@
           label.textContent = "Neon";
         }
       }
-
       apply(saved || "neon");
 
       btn.addEventListener('click', ()=>{
@@ -1491,7 +1450,7 @@
       });
     })();
 
-    /* ---------- #8 Scroll reveal ---------- */
+    /* ---------- Scroll reveal ---------- */
     (function(){
       const els = Array.from(document.querySelectorAll('.reveal'));
       const io = new IntersectionObserver((entries)=>{
@@ -1505,14 +1464,11 @@
       els.forEach(el=>io.observe(el));
     })();
 
-    /* ---------- #2 Animated counters ---------- */
+    /* ---------- Animated counters ---------- */
     (function(){
       const targets = CONFIG.counters || {};
       const nodes = Array.from(document.querySelectorAll('[data-count]'));
-      const fmt = (n)=>{
-        // deutsche Tausender-Punkte
-        return Number(n).toLocaleString('de-DE');
-      };
+      const fmt = (n)=> Number(n).toLocaleString('de-DE');
 
       let started = false;
       function run(){
@@ -1569,7 +1525,7 @@
     };
 
     const streamerState = {
-      items: CONFIG.streamers.map(n => ({
+      items: (CONFIG.streamers || []).map(n => ({
         login: String(n || '').trim(),
         live: null,
         uptimeText: 'Status wird geladen…',
@@ -1586,13 +1542,14 @@
     }
 
     function twitchPlayerSrc(login){
-      // Twitch Embed braucht parent=hostname
       const parent = encodeURIComponent(location.hostname || "localhost");
       return `https://player.twitch.tv/?channel=${encodeURIComponent(login)}&parent=${parent}&muted=true`;
     }
 
     function renderStreamers(){
-      const q = streamerState.query.toLowerCase().trim();
+      if(!streamerGrid || !streamerCount) return;
+
+      const q = (streamerState.query || '').toLowerCase().trim();
       const filtered = streamerState.items.filter(it => {
         const matchesQuery = !q || it.login.toLowerCase().includes(q);
         const matchesFilter =
@@ -1691,7 +1648,7 @@
     }
 
     async function refreshStreamers(){
-      streamerUpdated.textContent = 'Aktualisiere…';
+      if(streamerUpdated) streamerUpdated.textContent = 'Aktualisiere…';
       renderStreamers();
 
       for(const it of streamerState.items){
@@ -1699,24 +1656,28 @@
         renderStreamers();
       }
 
-      streamerUpdated.textContent = 'Zuletzt aktualisiert: ' + new Date().toLocaleString('de-DE');
+      if(streamerUpdated) streamerUpdated.textContent = 'Zuletzt aktualisiert: ' + new Date().toLocaleString('de-DE');
     }
 
-    streamerSearch.addEventListener('input', ()=>{
-      streamerState.query = streamerSearch.value || '';
-      renderStreamers();
-    });
-
-    filterWrap.querySelectorAll('button[data-filter]').forEach(btn=>{
-      btn.addEventListener('click', ()=>{
-        filterWrap.querySelectorAll('button[data-filter]').forEach(b=>b.classList.remove('active'));
-        btn.classList.add('active');
-        streamerState.filter = btn.dataset.filter || 'all';
+    if(streamerSearch){
+      streamerSearch.addEventListener('input', ()=>{
+        streamerState.query = streamerSearch.value || '';
         renderStreamers();
       });
-    });
+    }
 
-    refreshBtn.addEventListener('click', refreshStreamers);
+    if(filterWrap){
+      filterWrap.querySelectorAll('button[data-filter]').forEach(btn=>{
+        btn.addEventListener('click', ()=>{
+          filterWrap.querySelectorAll('button[data-filter]').forEach(b=>b.classList.remove('active'));
+          btn.classList.add('active');
+          streamerState.filter = btn.dataset.filter || 'all';
+          renderStreamers();
+        });
+      });
+    }
+
+    if(refreshBtn) refreshBtn.addEventListener('click', refreshStreamers);
 
     renderStreamers();
     refreshStreamers();
