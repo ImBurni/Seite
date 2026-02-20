@@ -798,7 +798,8 @@
   </footer>
 
   <!-- 🎵 AUDIO (Song.mp3 muss neben index.html liegen) -->
-  <audio id="bgm" src="Song.mp3" preload="auto" loop muted></audio>
+  <!-- playsinline hilft besonders auf iOS/Safari -->
+  <audio id="bgm" src="Song.mp3" preload="auto" loop muted playsinline></audio>
 
   <!-- 🎵 Overlay (ein Klick → Sound an) -->
   <div id="musicOverlay" class="music-overlay" aria-hidden="true">
@@ -810,7 +811,7 @@
         <button id="musicMuteBtn" class="btn" type="button">🔇 Ohne Ton</button>
       </div>
       <div class="music-mini">
-        Tipp: Wenn du irgendwo auf der Seite klickst/tappst, wird die Musik auch automatisch freigeschaltet.
+        Tipp: Wenn du irgendwo auf der Seite klickst/tappst oder eine Taste drückst, wird die Musik automatisch freigeschaltet.
       </div>
     </div>
   </div>
@@ -852,55 +853,81 @@
       document.getElementById(id).addEventListener('click', ()=>copyText(CONFIG.discordInvite));
     });
 
-    /* ---------- 🎵 Musik: maximal kompatibel ---------- */
+    /* ---------- 🎵 Musik: FIX (maximale Kompatibilität) ---------- */
     (function(){
-      const audio = document.getElementById('bgm');
+      const audio   = document.getElementById('bgm');
       const overlay = document.getElementById('musicOverlay');
       const playBtn = document.getElementById('musicPlayBtn');
       const muteBtn = document.getElementById('musicMuteBtn');
 
-      audio.volume = 0.65;
+      audio.setAttribute('playsinline', '');
+      audio.setAttribute('webkit-playsinline', '');
+      audio.preload = 'auto';
       audio.loop = true;
+      audio.volume = 0.65;
 
       function showOverlay(show){
         overlay.style.display = show ? 'flex' : 'none';
         overlay.setAttribute('aria-hidden', show ? 'false' : 'true');
       }
 
-      // Beim Laden: stumm starten (wird meist erlaubt), dann Overlay zeigen für Ton
+      async function safePlay(){
+        try { await audio.play(); return true; }
+        catch { return false; }
+      }
+
+      // Beim Laden: stumm starten (Autoplay-friendly) + Overlay anzeigen
       window.addEventListener('load', async () => {
-        try{
-          audio.muted = true;
-          await audio.play();
-        }catch{}
+        audio.muted = true;
+        await safePlay();
         showOverlay(true);
       });
 
-      // Klick: mit Ton starten (User-Gesture)
-      playBtn.addEventListener('click', () => {
+      async function unlockWithSound(){
         audio.muted = false;
-        audio.play()
-          .then(()=>showOverlay(false))
-          .catch(()=> {
-            // Falls Browser wirklich hart blockt: stumm weiterlaufen
-            audio.muted = true;
-            audio.play().then(()=>showOverlay(false)).catch(()=>showOverlay(true));
-          });
-      });
+        // Manche Browser mögen ein "touch" von currentTime
+        try { if (audio.currentTime === 0) audio.currentTime = 0.0001; } catch {}
+        const ok = await safePlay();
+        if(ok) showOverlay(false);
+        return ok;
+      }
 
-      // Ohne Ton
-      muteBtn.addEventListener('click', () => {
+      async function keepMuted(){
         audio.muted = true;
-        audio.play().then(()=>showOverlay(false)).catch(()=>showOverlay(true));
+        const ok = await safePlay();
+        if(ok) showOverlay(false);
+      }
+
+      playBtn.addEventListener('click', unlockWithSound);
+      muteBtn.addEventListener('click', keepMuted);
+
+      // Erster echter User-Input irgendwo → Sound freischalten (zuverlässiger als nur click)
+      const onceUnlock = async () => {
+        await unlockWithSound();
+        cleanup();
+      };
+
+      function cleanup(){
+        window.removeEventListener('pointerdown', onceUnlock, true);
+        window.removeEventListener('keydown', onceUnlock, true);
+        window.removeEventListener('touchstart', onceUnlock, true);
+      }
+
+      window.addEventListener('pointerdown', onceUnlock, true);
+      window.addEventListener('keydown', onceUnlock, true);
+      window.addEventListener('touchstart', onceUnlock, true);
+
+      // Wenn Tab/Browser zurückkommt: falls Audio pausiert wurde, erneut starten
+      document.addEventListener('visibilitychange', async () => {
+        if(!document.hidden){
+          await safePlay();
+        }
       });
 
-      // Zusätzlich: erster Klick irgendwo auf der Seite schaltet Ton frei
-      const unlock = () => {
-        audio.muted = false;
-        audio.play().then(()=>showOverlay(false)).catch(()=>{});
-      };
-      document.addEventListener('click', unlock, { once:true });
-      document.addEventListener('touchstart', unlock, { once:true, passive:true });
+      // Klick auf den dunklen Hintergrund vom Overlay soll auch entsperren
+      overlay.addEventListener('click', (e)=>{
+        if(e.target === overlay) unlockWithSound();
+      });
     })();
 
     /* ---------- Parallax Glow ---------- */
