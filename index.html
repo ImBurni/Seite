@@ -22,7 +22,6 @@
 
       --stroke: rgba(255,255,255,.12);
       --stroke2: rgba(255,255,255,.18);
-
       --glass: rgba(255,255,255,.06);
       --glass2: rgba(255,255,255,.085);
 
@@ -145,8 +144,6 @@
       color:#0b0b12;
       box-shadow: 0 18px 55px rgba(255,122,24,.20);
     }
-    .btn.primary:hover{transform: translateY(-2px); filter:saturate(1.06)}
-    .btn.ghost{background:transparent; box-shadow:none}
 
     .pill{
       display:inline-flex; align-items:center; gap:10px;
@@ -185,44 +182,6 @@
       background-clip:text;
       color: transparent;
     }
-
-    .shine-underline{
-      position:relative;
-      display:inline-block;
-      padding-bottom: 6px;
-    }
-    .shine-underline::after{
-      content:"";
-      position:absolute;
-      left:0;
-      bottom:0;
-      height:3px;
-      width:100%;
-      border-radius:999px;
-      background: linear-gradient(90deg, rgba(255,122,24,.0), rgba(255,122,24,.95), rgba(168,85,247,.95), rgba(255,122,24,.0));
-      filter: blur(.2px);
-      opacity:.9;
-    }
-    .shine-underline::before{
-      content:"";
-      position:absolute;
-      left:-20%;
-      bottom:-7px;
-      width:40%;
-      height:14px;
-      border-radius:999px;
-      background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.22), rgba(255,255,255,0));
-      filter: blur(2px);
-      opacity:.85;
-      animation: sweep 2.8s ease-in-out infinite;
-    }
-    @keyframes sweep{
-      0%{transform: translateX(0); opacity:.0}
-      20%{opacity:.9}
-      50%{transform: translateX(220%); opacity:.85}
-      100%{transform: translateX(220%); opacity:0}
-    }
-
     .sub{
       font-size: clamp(16px, 1.2vw, 18px);
       line-height:1.65;
@@ -250,15 +209,6 @@
       overflow:hidden;
       box-shadow: var(--shadow);
       position:relative;
-    }
-    .hero-card::before{
-      content:"";
-      position:absolute; inset:0;
-      background:
-        radial-gradient(600px 320px at 18% 10%, rgba(255,122,24,.26), transparent 60%),
-        radial-gradient(600px 320px at 92% 26%, rgba(168,85,247,.26), transparent 60%);
-      opacity:.78;
-      pointer-events:none;
     }
     .hero-media{position:relative; padding: 16px; display:grid; gap: 12px}
     .img-wrap{
@@ -302,17 +252,6 @@
       overflow:hidden;
       min-height: 156px;
     }
-    .card::after{
-      content:"";
-      position:absolute; inset:-70px;
-      background:
-        radial-gradient(260px 180px at 18% 12%, rgba(255,122,24,.16), transparent 62%),
-        radial-gradient(260px 180px at 92% 30%, rgba(168,85,247,.16), transparent 62%);
-      filter: blur(18px);
-      opacity:.75;
-      pointer-events:none;
-    }
-    .card > *{position:relative}
     .card h3{margin:0 0 10px; font-size: 18px; letter-spacing:-.2px}
     .card p{margin:0; color: var(--muted); line-height:1.65; font-weight:750}
 
@@ -344,153 +283,6 @@
     summary{cursor:pointer; font-weight:950}
     details p{margin:10px 0 0; color: var(--muted); line-height:1.65; font-weight:750}
 
-    .streamer-controls{
-      display:flex; gap:12px; align-items:center; flex-wrap:wrap;
-      margin: 12px 0 10px;
-    }
-    .field{
-      display:flex; align-items:center; gap:10px;
-      padding: 12px 14px;
-      border-radius: 16px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.05);
-      box-shadow: var(--shadow2);
-      min-width: min(520px, 100%);
-      flex: 1;
-    }
-    .field input{
-      width:100%;
-      border:0;
-      outline:none;
-      background:transparent;
-      color: var(--text);
-      font-weight:950;
-      font-size: 14px;
-    }
-    .field input::placeholder{color: rgba(238,240,255,.46); font-weight:850}
-
-    .seg{
-      display:flex; gap:8px; flex-wrap:wrap;
-      padding: 8px;
-      border-radius: 16px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.04);
-      box-shadow: var(--shadow2);
-    }
-    .seg button{
-      border:1px solid transparent;
-      background: transparent;
-      color: var(--muted);
-      font-weight:950;
-      padding: 10px 12px;
-      border-radius: 14px;
-      cursor:pointer;
-      transition:.15s ease;
-    }
-    .seg button:hover{background: rgba(255,255,255,.06); color: var(--text)}
-    .seg button.active{
-      background: linear-gradient(135deg, rgba(255,122,24,.20), rgba(168,85,247,.20));
-      border-color: rgba(255,255,255,.14);
-      color: var(--text);
-    }
-
-    .streamer-meta{
-      display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;
-      color: var(--faint);
-      font-weight:950;
-      margin-bottom: 10px;
-    }
-
-    .streamer-grid{
-      display:grid;
-      grid-template-columns: repeat(3, minmax(0,1fr));
-      gap: 14px;
-    }
-    .streamer-card{
-      border-radius: var(--r2);
-      border:1px solid rgba(255,255,255,.12);
-      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.02));
-      box-shadow: var(--shadow2);
-      overflow:hidden;
-      position:relative;
-      padding: 16px;
-      min-height: 170px;
-    }
-    .streamer-card::after{
-      content:"";
-      position:absolute; inset:-70px;
-      background:
-        radial-gradient(260px 180px at 18% 12%, rgba(255,122,24,.14), transparent 62%),
-        radial-gradient(260px 180px at 92% 30%, rgba(168,85,247,.14), transparent 62%);
-      filter: blur(18px);
-      opacity:.75;
-      pointer-events:none;
-    }
-    .streamer-card > *{position:relative}
-
-    .streamer-top{
-      display:flex; align-items:center; justify-content:space-between; gap:12px;
-      margin-bottom: 12px;
-    }
-    .streamer-left{display:flex; align-items:center; gap:12px; min-width:0}
-    .avatar{
-      width:46px; height:46px;
-      border-radius: 16px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.25);
-      overflow:hidden;
-      flex: 0 0 auto;
-    }
-    .avatar img{width:100%; height:100%; object-fit:cover; display:block}
-    .sname{
-      display:flex; flex-direction:column;
-      min-width:0;
-    }
-    .sname b{
-      font-size: 16px;
-      letter-spacing:-.2px;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-    .sname span{font-size: 12px; color: var(--muted); font-weight:950}
-
-    .badge{
-      display:inline-flex; align-items:center; gap:8px;
-      padding: 8px 10px;
-      border-radius: 999px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.05);
-      font-weight:950;
-      color: var(--muted);
-      white-space:nowrap;
-    }
-    .live-dot{
-      width:9px; height:9px; border-radius:50%;
-      background: var(--off);
-      box-shadow: none;
-    }
-    .badge.live{
-      border-color: rgba(46,229,157,.25);
-      background: rgba(46,229,157,.10);
-      color: rgba(238,240,255,.90);
-    }
-    .badge.live .live-dot{
-      background: var(--ok);
-      box-shadow: 0 0 0 7px rgba(46,229,157,.12);
-    }
-
-    .streamer-bottom{
-      display:flex; align-items:flex-end; justify-content:space-between; gap:12px;
-      margin-top: 6px;
-    }
-    .uptime{
-      color: var(--muted);
-      font-weight:900;
-      line-height:1.55;
-      max-width: 56ch;
-    }
-
     footer{padding: 28px 0 44px; color: var(--muted); font-weight:900}
     .foot{
       display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;
@@ -505,29 +297,26 @@
       .nav-links{display:none}
       .gate{flex-direction:column; align-items:flex-start}
       .gate-actions{justify-content:flex-start}
-      .streamer-grid{grid-template-columns: 1fr}
     }
 
-    /* Floating music button */
-    .music-fab{
+    /* Tiny hint shown until first interaction */
+    .sound-hint{
       position: fixed;
-      right: 18px;
+      left: 18px;
       bottom: 18px;
       z-index: 9999;
-      display: flex;
-      gap: 10px;
-      align-items: center;
-    }
-    .music-status{
       padding: 10px 12px;
       border-radius: 14px;
       border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.40);
+      background: rgba(0,0,0,.42);
       backdrop-filter: blur(10px);
-      color: rgba(238,240,255,.78);
-      font-weight: 950;
       box-shadow: var(--shadow2);
+      color: rgba(238,240,255,.85);
+      font-weight: 950;
+      line-height: 1.35;
+      max-width: min(520px, calc(100% - 36px));
     }
+    .sound-hint b{color: rgba(255,255,255,.95)}
   </style>
 </head>
 
@@ -557,7 +346,6 @@
       <div class="nav-links">
         <a href="#features">Features</a>
         <a href="#zugang">Bot bekommen</a>
-        <a href="#streamer">Streamer</a>
         <a href="#faq">FAQ</a>
         <a href="#discord">Discord</a>
       </div>
@@ -578,8 +366,8 @@
       <div class="hero-grid">
         <div>
           <div class="h1">
-            <span class="shine-underline"><span class="grad">Feuer</span></span> für deinen Chat.<br />
-            Support über <span class="shine-underline"><span class="grad">Discord</span></span>.
+            <span class="grad">Feuer</span> für deinen Chat.<br />
+            Support über <span class="grad">Discord</span>.
           </div>
 
           <p class="sub">
@@ -592,14 +380,10 @@
             <a class="btn primary" id="discordBtn1" href="#" target="_blank" rel="noreferrer">💬 Discord beitreten</a>
             <a class="btn" href="#features">⚡ Features</a>
             <button class="btn" type="button" id="copyDiscord">📋 Invite kopieren</button>
-
-            <!-- ✅ MUSIC BUTTON (reliable: user click) -->
-            <button class="btn primary" type="button" id="musicHeroBtn">🎵 Musik: Play</button>
           </div>
 
           <div class="alert">
-            🔒 <b>Zugang nur via Discord:</b> Den Bot bekommt man nicht automatisch. Im Discord läuft
-            Freischaltung/Setup + Support (Ticketsystem).
+            🔒 <b>Zugang nur via Discord:</b> Der Bot wird über Discord freigeschaltet/eingerichtet.
           </div>
         </div>
 
@@ -636,7 +420,7 @@
         </div>
         <div class="card">
           <h3>💰 Punkte System</h3>
-          <p>Chat-Aktivität gibt Punkte. Commands: <b>!punkte</b>, <b>!top</b>. Perfekt für Engagement.</p>
+          <p>Chat-Aktivität gibt Punkte. Commands: <b>!punkte</b>, <b>!top</b>.</p>
         </div>
         <div class="card">
           <h3>😴 Lurk Rewards</h3>
@@ -652,7 +436,7 @@
         </div>
         <div class="card">
           <h3>📊 Stats & Persistenz</h3>
-          <p>Stats (Nachrichten/Lurk/Timeouts/Starts) werden gespeichert – stabil für lange Streams.</p>
+          <p>Stats werden gespeichert – stabil für lange Streams.</p>
         </div>
       </div>
     </div>
@@ -672,7 +456,7 @@
           <h3>✅ Ablauf</h3>
           <p>
             1) Discord joinen<br/>
-            2) Ticket / Anfrage öffnen (Bot für deinen Channel)<br/>
+            2) Ticket / Anfrage öffnen<br/>
             3) Support richtet Setup ein oder schaltet dich frei
           </p>
         </div>
@@ -681,47 +465,6 @@
           <button class="btn" type="button" id="copyDiscord2">📋 Invite kopieren</button>
           <a class="btn" href="#faq">❓ FAQ</a>
         </div>
-      </div>
-
-      <div style="margin-top:14px; color:var(--muted); font-weight:900; line-height:1.65">
-        Tipp: Pack den Discord-Link in deine Twitch Panels, damit Interessenten sofort wissen, wo sie den Bot bekommen.
-      </div>
-    </div>
-  </section>
-
-  <section id="streamer">
-    <div class="container">
-      <div class="section-head">
-        <div>
-          <h2>Streamer, die den Bot nutzen</h2>
-          <p class="hint">Mit Profilbild + Live/Offline. Funktioniert auf GitHub Pages ohne Tokens.</p>
-        </div>
-      </div>
-
-      <div class="streamer-controls">
-        <div class="field">
-          <span aria-hidden="true">🔎</span>
-          <input id="streamerSearch" type="text" placeholder="Streamer suchen (z.B. tricck17)…" />
-        </div>
-
-        <div class="seg" id="streamerFilter">
-          <button type="button" class="active" data-filter="all">Alle</button>
-          <button type="button" data-filter="live">🟢 Live</button>
-          <button type="button" data-filter="offline">⚫ Offline</button>
-        </div>
-
-        <button class="btn" id="streamerRefresh" type="button">🔁 Aktualisieren</button>
-      </div>
-
-      <div class="streamer-meta">
-        <div id="streamerCount">—</div>
-        <div id="streamerUpdated">—</div>
-      </div>
-
-      <div class="streamer-grid" id="streamerGrid"></div>
-
-      <div style="margin-top:12px; color:var(--faint); font-weight:850; line-height:1.55">
-        Hinweis: Live-Status basiert auf einem einfachen Uptime-Check (kann minimal verzögert sein).
       </div>
     </div>
   </section>
@@ -738,29 +481,19 @@
       <div class="faq">
         <details>
           <summary>Warum ist Discord Pflicht?</summary>
-          <p>
-            Weil der Bot nicht öffentlich „für jeden“ automatisch verfügbar ist.
-            Discord ist der zentrale Ort für Support, Freischaltung und das Ticketsystem.
-          </p>
+          <p>Discord ist der zentrale Ort für Support, Freischaltung und das Ticketsystem.</p>
         </details>
         <details>
           <summary>Wird irgendwo Bot-Code oder Tokens gezeigt?</summary>
-          <p>
-            Nein. Auf dieser Website wird <b>kein Code</b> angezeigt – keine Tokens, keine Keys, kein Python.
-            Nur Features & wie du Zugang bekommst.
-          </p>
+          <p>Nein. Kein Code, keine Tokens/Keys – nur Features & Ablauf.</p>
         </details>
         <details>
           <summary>Wer kann Tickets erstellen und Timeouts nutzen?</summary>
-          <p>
-            Tickets und Timeouts sind für Broadcaster/Mods gedacht. Damit bleibt alles kontrolliert und sicher.
-          </p>
+          <p>Tickets und Timeouts sind für Broadcaster/Mods gedacht.</p>
         </details>
         <details>
           <summary>Kann ich auch auf die Streamer-Liste?</summary>
-          <p>
-            Ja. Join den Discord und stelle eine Anfrage – dann wird dein Kanal hinzugefügt (wenn du den Bot nutzt).
-          </p>
+          <p>Ja. Join den Discord und stelle eine Anfrage.</p>
         </details>
       </div>
     </div>
@@ -771,7 +504,7 @@
       <div class="gate">
         <div>
           <h3>🔥 Ready? Hol dir ImBurni_Bot_v1 im Discord</h3>
-          <p>Join → Anfrage/Ticket → Freischaltung/Setup. Danach läuft Twitch ✕ Discord clean.</p>
+          <p>Join → Anfrage/Ticket → Freischaltung/Setup.</p>
         </div>
         <div class="gate-actions">
           <a class="btn primary" id="discordBtn3" href="#" target="_blank" rel="noreferrer">💬 Zum Discord</a>
@@ -788,19 +521,18 @@
         <div style="display:flex; gap:10px; flex-wrap:wrap">
           <a class="btn" href="#features">Features</a>
           <a class="btn" href="#zugang">Bot bekommen</a>
-          <a class="btn" href="#streamer">Streamer</a>
+          <a class="btn" href="#faq">FAQ</a>
         </div>
       </div>
     </div>
   </footer>
 
-  <!-- ✅ MUSIC: SIMPLE + RELIABLE (plays only on user click) -->
-  <audio id="bgm" src="Song.mp3" loop playsinline></audio>
+  <!-- ✅ MUSIC: "autoplay feeling" but browser-legal -->
+  <audio id="bgm" src="Song.mp3" preload="auto" loop muted playsinline></audio>
 
-  <!-- Floating music controls (works everywhere) -->
-  <div class="music-fab">
-    <div class="music-status" id="musicState">🎵 Musik: aus</div>
-    <button class="btn primary" id="musicBtn" type="button">▶ Play</button>
+  <!-- Small hint until first interaction -->
+  <div class="sound-hint" id="soundHint">
+    🔈 <b>Sound wird beim ersten Klick aktiviert.</b> (Browser-Regel)
   </div>
 
   <script>
@@ -840,42 +572,48 @@
       document.getElementById(id).addEventListener('click', ()=>copyText(CONFIG.discordInvite));
     });
 
-    /* ---------- 🎵 MUSIC (simple + reliable) ---------- */
+    /* ---------- Music: start muted on load, unmute on first user interaction ---------- */
     (function(){
       const audio = document.getElementById("bgm");
-      const btn = document.getElementById("musicBtn");
-      const heroBtn = document.getElementById("musicHeroBtn");
-      const state = document.getElementById("musicState");
+      const hint = document.getElementById("soundHint");
 
-      function render(){
-        const playing = !audio.paused && !audio.ended;
-        state.textContent = playing ? "🎵 Musik: läuft" : "🎵 Musik: aus";
-        btn.textContent = playing ? "⏸ Pause" : "▶ Play";
-        if(heroBtn) heroBtn.textContent = playing ? "🎵 Musik: Pause" : "🎵 Musik: Play";
-      }
+      audio.volume = 0.85;
+      audio.loop = true;
 
-      async function toggle(){
+      // Try to start muted on load (often allowed)
+      window.addEventListener("load", async () => {
         try{
-          if(audio.paused){
-            audio.muted = false;
-            audio.volume = 1;
-            await audio.play();  // ✅ only in click handler
-          } else {
-            audio.pause();
-          }
-        }catch(e){
-          alert("Audio Fehler: " + (e && e.message ? e.message : e));
+          audio.muted = true;
+          await audio.play();
+        }catch{
+          // If even muted play is blocked, we still unlock on first click
         }
-        render();
+      });
+
+      // First real interaction => sound on
+      const unlock = async () => {
+        try{
+          audio.muted = false;
+          audio.volume = 0.85;
+          await audio.play();
+        }catch{
+          // If blocked, user likely needs a click again (rare). But we keep hint.
+          return;
+        }
+        if(hint) hint.remove();
+        cleanup();
+      };
+
+      function cleanup(){
+        document.removeEventListener("pointerdown", unlock, true);
+        document.removeEventListener("keydown", unlock, true);
+        document.removeEventListener("touchstart", unlock, true);
       }
 
-      btn.addEventListener("click", toggle);
-      if(heroBtn) heroBtn.addEventListener("click", toggle);
-
-      audio.addEventListener("play", render);
-      audio.addEventListener("pause", render);
-      audio.addEventListener("ended", render);
-      render();
+      // These count as real user gestures
+      document.addEventListener("pointerdown", unlock, true);
+      document.addEventListener("keydown", unlock, true);
+      document.addEventListener("touchstart", unlock, { capture:true, passive:true });
     })();
 
     /* ---------- Parallax Glow ---------- */
@@ -922,7 +660,7 @@
       resize();
 
       const N = Math.round(Math.min(90, Math.max(45, W/18)));
-      const p = Array.from({length:N}).map(()=>({
+      const p = Array.from({length:N}).map(() => ({
         x: Math.random()*W,
         y: Math.random()*H,
         r: 0.8 + Math.random()*1.8,
@@ -970,151 +708,6 @@
       }
       tick();
     })();
-
-    /* ---------- Streamer list (Avatar + Live/Offline) ---------- */
-    const streamerGrid = document.getElementById('streamerGrid');
-    const streamerCount = document.getElementById('streamerCount');
-    const streamerUpdated = document.getElementById('streamerUpdated');
-    const streamerSearch = document.getElementById('streamerSearch');
-    const filterWrap = document.getElementById('streamerFilter');
-    const refreshBtn = document.getElementById('streamerRefresh');
-
-    const endpoints = {
-      uptime: (login) => `https://decapi.me/twitch/uptime/${encodeURIComponent(login)}`,
-      avatar: (login) => `https://decapi.me/twitch/avatar/${encodeURIComponent(login)}`
-    };
-
-    const state = {
-      items: CONFIG.streamers.map(n => ({
-        login: String(n || '').trim(),
-        live: null,
-        uptimeText: 'Status wird geladen…',
-        avatarUrl: null
-      })).filter(x => x.login.length > 0),
-      filter: 'all',
-      query: ''
-    };
-
-    function escapeHtml(s){
-      return String(s).replace(/[&<>"']/g, m => ({
-        '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
-      }[m]));
-    }
-
-    function render(){
-      const q = state.query.toLowerCase().trim();
-      const filtered = state.items.filter(it => {
-        const matchesQuery = !q || it.login.toLowerCase().includes(q);
-        const matchesFilter =
-          state.filter === 'all' ? true :
-          state.filter === 'live' ? it.live === true :
-          state.filter === 'offline' ? it.live === false :
-          true;
-        return matchesQuery && matchesFilter;
-      });
-
-      streamerCount.textContent = `${filtered.length} Streamer angezeigt • ${state.items.length} gesamt`;
-
-      streamerGrid.innerHTML = filtered.map(it => {
-        const loginLower = it.login.toLowerCase();
-        const display = escapeHtml(it.login);
-        const liveBadge = it.live === true
-          ? `<span class="badge live"><span class="live-dot"></span>LIVE</span>`
-          : it.live === false
-            ? `<span class="badge"><span class="live-dot"></span>OFFLINE</span>`
-            : `<span class="badge"><span class="live-dot"></span>CHECK…</span>`;
-
-        const uptime = escapeHtml(it.uptimeText || '');
-        const avatar = it.avatarUrl
-          ? `<img src="${it.avatarUrl}" alt="${display} Profilbild" loading="lazy" />`
-          : `<img src="https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_70x70.png" alt="${display} Profilbild" loading="lazy" />`;
-
-        return `
-          <div class="streamer-card" data-login="${escapeHtml(loginLower)}">
-            <div class="streamer-top">
-              <div class="streamer-left">
-                <div class="avatar">${avatar}</div>
-                <div class="sname">
-                  <b>${display}</b>
-                  <span>twitch.tv/${escapeHtml(loginLower)}</span>
-                </div>
-              </div>
-              ${liveBadge}
-            </div>
-
-            <div class="uptime">${it.live === true ? `🟢 Live seit: <b>${uptime}</b>` : it.live === false ? `⚫ Offline` : `⏳ ${uptime}`}</div>
-
-            <div class="streamer-bottom">
-              <div style="color: var(--faint); font-weight:900">Bot-Nutzer</div>
-              <a class="btn primary" href="https://twitch.tv/${escapeHtml(loginLower)}" target="_blank" rel="noreferrer">Zum Stream</a>
-            </div>
-          </div>
-        `;
-      }).join('');
-    }
-
-    async function fetchText(url){
-      const res = await fetch(url, { cache: 'no-store' });
-      return await res.text();
-    }
-
-    async function updateOne(it){
-      const login = it.login;
-
-      if(!it.avatarUrl){
-        try{
-          const avatarText = (await fetchText(endpoints.avatar(login))).trim();
-          if(avatarText.startsWith('http')) it.avatarUrl = avatarText;
-        }catch{}
-      }
-
-      try{
-        const t = (await fetchText(endpoints.uptime(login))).trim();
-        it.uptimeText = t || 'Unbekannt';
-        if((t || '').toLowerCase().includes('offline')){
-          it.live = false;
-        } else if(t){
-          it.live = true;
-        } else {
-          it.live = null;
-        }
-      }catch{
-        it.live = null;
-        it.uptimeText = 'Status unbekannt';
-      }
-    }
-
-    async function refreshAll(){
-      streamerUpdated.textContent = 'Aktualisiere…';
-      render();
-
-      for(const it of state.items){
-        await updateOne(it);
-        render();
-      }
-
-      streamerUpdated.textContent = 'Zuletzt aktualisiert: ' + new Date().toLocaleString('de-DE');
-    }
-
-    streamerSearch.addEventListener('input', ()=>{
-      state.query = streamerSearch.value || '';
-      render();
-    });
-
-    filterWrap.querySelectorAll('button[data-filter]').forEach(btn=>{
-      btn.addEventListener('click', ()=>{
-        filterWrap.querySelectorAll('button[data-filter]').forEach(b=>b.classList.remove('active'));
-        btn.classList.add('active');
-        state.filter = btn.dataset.filter || 'all';
-        render();
-      });
-    });
-
-    refreshBtn.addEventListener('click', ()=>refreshAll().catch(()=>{}));
-
-    render();
-    refreshAll().catch(()=>{});
-    setInterval(()=>refreshAll().catch(()=>{}), 60000);
   </script>
 </body>
 </html>
