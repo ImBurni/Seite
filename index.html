@@ -37,7 +37,6 @@
       --r2:28px;
       --max: 1160px;
 
-      /* Toggle feel (Fake Darkmode Toggle -> Theme Shift) */
       --accentGlow: rgba(255,122,24,.18);
       --accentGlow2: rgba(168,85,247,.18);
       --accentGlow3: rgba(46,229,157,.10);
@@ -158,11 +157,10 @@
       box-shadow: 0 18px 55px rgba(255,122,24,.20);
     }
     .btn.primary:hover{transform: translateY(-2px); filter:saturate(1.06)}
-    .btn.ghost{background:transparent; box-shadow:none}
-    .btn:active{transform: translateY(0px) scale(.99)}
     .btn.glow:hover{
       box-shadow: 0 20px 70px rgba(255,122,24,.14), 0 18px 60px rgba(168,85,247,.12), var(--shadow2);
     }
+    .btn:active{transform: translateY(0px) scale(.99)}
 
     .pill{
       display:inline-flex; align-items:center; gap:10px;
@@ -260,7 +258,7 @@
     .alert b{color: rgba(255,255,255,.95)}
 
     .hero-card{
-      border-radius: var(--r2);
+      border-radius: 28px;
       border:1px solid rgba(255,255,255,.14);
       background: linear-gradient(180deg, rgba(255,255,255,.085), rgba(255,255,255,.02));
       overflow:hidden;
@@ -309,7 +307,7 @@
 
     .grid3{display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 14px}
     .card{
-      border-radius: var(--r2);
+      border-radius: 28px;
       border:1px solid rgba(255,255,255,.12);
       background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.02));
       padding: 18px;
@@ -423,7 +421,7 @@
       gap: 14px;
     }
     .streamer-card{
-      border-radius: var(--r2);
+      border-radius: 28px;
       border:1px solid rgba(255,255,255,.12);
       background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.02));
       box-shadow: var(--shadow2);
@@ -507,7 +505,6 @@
       max-width: 56ch;
     }
 
-    /* Twitch embed (only when live) */
     .twitch-embed{
       margin-top: 12px;
       border-radius: 18px;
@@ -535,7 +532,6 @@
       .streamer-grid{grid-template-columns: 1fr}
     }
 
-    /* Sound hint */
     .sound-hint{
       position: fixed;
       left: 18px;
@@ -554,139 +550,11 @@
     }
     .sound-hint b{color:#fff}
 
-    /* ----------------- NEW SECTIONS (copy/paste integrated) ----------------- */
     .reveal{opacity:0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease}
     .reveal.show{opacity:1; transform:none}
 
-    .kpi-grid{display:grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap:14px}
-    @media (max-width: 940px){ .kpi-grid{grid-template-columns:1fr 1fr} }
-
-    .kpi{
-      border-radius: var(--r2);
-      border:1px solid rgba(255,255,255,.12);
-      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.02));
-      padding: 16px;
-      box-shadow: var(--shadow2);
-      position:relative;
-      overflow:hidden;
-    }
-    .kpi::after{
-      content:"";
-      position:absolute; inset:-80px;
-      background:
-        radial-gradient(260px 180px at 18% 12%, rgba(255,122,24,.14), transparent 62%),
-        radial-gradient(260px 180px at 92% 30%, rgba(168,85,247,.14), transparent 62%);
-      filter: blur(18px);
-      opacity:.75;
-      pointer-events:none;
-    }
-    .kpi > *{position:relative}
-    .kpi .n{font-size: 30px; font-weight:1000; letter-spacing:-.6px}
-    .kpi .l{color: var(--muted); font-weight:900; margin-top:6px; line-height:1.45}
-    .kpi .s{color: var(--faint); font-weight:900; margin-top:8px; font-size:12px}
-
-    .quote-grid{display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap:14px}
-    @media (max-width: 940px){ .quote-grid{grid-template-columns: 1fr} }
-    .quote{
-      border-radius: var(--r2);
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.05);
-      padding: 16px;
-      box-shadow: var(--shadow2);
-      position:relative;
-      overflow:hidden;
-    }
-    .quote::after{
-      content:"";
-      position:absolute; inset:-70px;
-      background:
-        radial-gradient(260px 180px at 18% 12%, rgba(46,229,157,.10), transparent 62%),
-        radial-gradient(260px 180px at 92% 30%, rgba(168,85,247,.14), transparent 62%);
-      filter: blur(18px);
-      opacity:.75;
-      pointer-events:none;
-    }
-    .quote > *{position:relative}
-    .quote p{margin:0; color:var(--muted); font-weight:850; line-height:1.65}
-    .quote .who{margin-top:10px; color:rgba(238,240,255,.92); font-weight:1000}
-    .quote .meta{margin-top:4px; color:var(--faint); font-weight:900; font-size:12px}
-
-    .proof-badge{
-      display:inline-flex; align-items:center; gap:10px;
-      padding:10px 12px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.05);
-      box-shadow: var(--shadow2);
-      font-weight:1000;
-      color: rgba(238,240,255,.86);
-    }
-    .proof-badge i{
-      display:inline-block;
-      width:10px; height:10px; border-radius:50%;
-      background: rgba(255,122,24,.95);
-      box-shadow: 0 0 0 7px rgba(255,122,24,.14);
-    }
-
-    .owner{
-      border-radius: var(--r2);
-      border:1px solid rgba(255,255,255,.12);
-      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.02));
-      padding: 18px;
-      box-shadow: var(--shadow2);
-      position:relative;
-      overflow:hidden;
-    }
-    .owner::after{
-      content:"";
-      position:absolute; inset:-70px;
-      background:
-        radial-gradient(260px 180px at 18% 12%, rgba(255,122,24,.14), transparent 62%),
-        radial-gradient(260px 180px at 92% 30%, rgba(168,85,247,.14), transparent 62%);
-      filter: blur(18px);
-      opacity:.75;
-      pointer-events:none;
-    }
-    .owner > *{position:relative}
-    .owner h3{margin:0 0 10px; font-size: 18px; letter-spacing:-.2px}
-    .owner p{margin:0; color: var(--muted); line-height:1.65; font-weight:850}
-    .owner ul{margin:10px 0 0; padding-left: 18px; color: var(--muted); font-weight:850; line-height:1.65}
-
-    .roadmap{
-      border-radius: var(--r2);
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.05);
-      padding: 16px;
-      box-shadow: var(--shadow2);
-    }
-    .roadmap .row{
-      display:flex; align-items:flex-start; justify-content:space-between; gap:12px;
-      padding: 12px 10px;
-      border-radius: 16px;
-      border:1px solid rgba(255,255,255,.08);
-      background: rgba(0,0,0,.18);
-      margin-bottom: 10px;
-    }
-    .roadmap .row:last-child{margin-bottom:0}
-    .roadmap b{font-weight:1000}
-    .roadmap small{display:block; margin-top:6px; color: var(--faint); font-weight:900; line-height:1.45}
-    .tag{
-      padding: 8px 10px;
-      border-radius: 999px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.05);
-      color: var(--muted);
-      font-weight:1000;
-      white-space:nowrap;
-      flex: 0 0 auto;
-    }
-    .tag.soon{border-color: rgba(255,122,24,.22); background: rgba(255,122,24,.10); color: rgba(238,240,255,.90)}
-    .tag.wip{border-color: rgba(168,85,247,.22); background: rgba(168,85,247,.10); color: rgba(238,240,255,.90)}
-    .tag.future{border-color: rgba(46,229,157,.18); background: rgba(46,229,157,.08); color: rgba(238,240,255,.90)}
-
-    /* Feature preview "Discord" mock */
     .preview{
-      border-radius: var(--r2);
+      border-radius: 28px;
       border:1px solid rgba(255,255,255,.12);
       background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.02));
       box-shadow: var(--shadow2);
@@ -753,7 +621,6 @@
       100%{transform: translateY(0px); opacity:.55}
     }
 
-    /* Fake Darkmode toggle button */
     .theme-toggle{
       display:inline-flex; align-items:center; gap:10px;
       padding: 10px 12px;
@@ -798,15 +665,7 @@
       botName: "ImBurni_Bot_v1",
       discordInvite: "https://discord.gg/v8BSRq8C8C",
       streamers: ["Tricck17"],
-
-      // Social proof / counters (du kannst das jederzeit ändern)
-      trustedByText: "Trusted by Streamer & Mods",
-      counters: {
-        messages: 124832,
-        points: 1200000,
-        tickets: 863,
-        timeouts: 2194
-      }
+      trustedByText: "Trusted by Streamer & Mods"
     };
   </script>
 
@@ -822,7 +681,6 @@
 
       <div class="nav-links">
         <a href="#features">Features</a>
-        <a href="#proof">Social Proof</a>
         <a href="#preview">Preview</a>
         <a href="#roadmap">Roadmap</a>
         <a href="#zugang">Bot bekommen</a>
@@ -838,7 +696,7 @@
           <small id="themeLabel">Neon</small>
         </button>
 
-        <!-- ✅ FIX: Bot holen → direkt Discord -->
+        <!-- ✅ Bot holen -> direkt Discord -->
         <a class="btn primary glow" id="joinTop"
            href="https://discord.gg/v8BSRq8C8C"
            target="_blank"
@@ -868,7 +726,7 @@
           </p>
 
           <div class="hero-cta">
-            <!-- ✅ FIX: direkter Link (optik bleibt gleich) -->
+            <!-- ✅ Discord Button wieder richtig -->
             <a class="btn primary glow" id="discordBtn1"
                href="https://discord.gg/v8BSRq8C8C"
                target="_blank"
@@ -884,7 +742,7 @@
           </div>
 
           <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap; align-items:center">
-            <span class="proof-badge"><i aria-hidden="true"></i><span id="trustedBy">Trusted by Streamer & Mods</span></span>
+            <span style="color:var(--faint); font-weight:950" id="trustedBy">Trusted by Streamer & Mods</span>
             <span style="color:var(--faint); font-weight:950">• Live-Status • Embeds • Tickets • Moderation</span>
           </div>
         </div>
@@ -944,69 +802,8 @@
     </div>
   </section>
 
-  <!-- ✅ #2 Animated Stats Counter + Social Proof -->
-  <section id="proof">
-    <div class="container">
-      <div class="section-head reveal">
-        <div>
-          <h2>Social Proof</h2>
-          <p class="hint">Kurzer Realitäts-Boost: Der Bot wird genutzt – und die Systeme sind dafür gebaut, lange zu laufen.</p>
-        </div>
-      </div>
+  <!-- ✅ Social Proof komplett entfernt -->
 
-      <div class="kpi-grid">
-        <div class="kpi reveal">
-          <div class="n" data-count="messages">0</div>
-          <div class="l">Nachrichten verarbeitet</div>
-          <div class="s">Stabiler Long-Stream Betrieb</div>
-        </div>
-        <div class="kpi reveal">
-          <div class="n" data-count="points">0</div>
-          <div class="l">Punkte vergeben</div>
-          <div class="s">Engagement ohne Chaos</div>
-        </div>
-        <div class="kpi reveal">
-          <div class="n" data-count="tickets">0</div>
-          <div class="l">Tickets erstellt</div>
-          <div class="s">Support sauber in Discord</div>
-        </div>
-        <div class="kpi reveal">
-          <div class="n" data-count="timeouts">0</div>
-          <div class="l">Timeouts gesetzt</div>
-          <div class="s">Mod-Tools mit ID-Gründen</div>
-        </div>
-      </div>
-
-      <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap; align-items:center" class="reveal">
-        <span class="proof-badge"><i aria-hidden="true"></i><span>„Plug-in & läuft“ statt „Setup-Hölle“</span></span>
-        <span style="color:var(--faint); font-weight:950">• klare Regeln • weniger Spam • schneller Support</span>
-      </div>
-
-      <div class="quote-grid" style="margin-top:14px">
-        <div class="quote reveal">
-          <p>„Tickets mit Buttons ist pures Gold. Kein Chaos mehr in DMs oder Chat.“</p>
-          <div class="who">Streamer</div>
-          <div class="meta">Discord Support / Ticket-System</div>
-        </div>
-        <div class="quote reveal">
-          <p>„Timeout-IDs sparen Zeit. Ein Grund, ein Befehl – fertig.“</p>
-          <div class="who">Moderator</div>
-          <div class="meta">ID-Timeout System</div>
-        </div>
-        <div class="quote reveal">
-          <p>„Punkte + Lurk motiviert die Leute krass. Engagement ist spürbar höher.“</p>
-          <div class="who">Streamer</div>
-          <div class="meta">Punkte & Lurk Rewards</div>
-        </div>
-      </div>
-
-      <div style="margin-top:12px; color:var(--faint); font-weight:900; line-height:1.55" class="reveal">
-        Hinweis: Zahlen sind Showcase/Beispielwerte (du kannst sie oben in <b>CONFIG.counters</b> anpassen).
-      </div>
-    </div>
-  </section>
-
-  <!-- ✅ #3 Feature Preview Animation (Discord Mock) -->
   <section id="preview">
     <div class="container">
       <div class="section-head reveal">
@@ -1058,7 +855,6 @@
     </div>
   </section>
 
-  <!-- ✅ #6 Roadmap / Premium Feeling -->
   <section id="roadmap">
     <div class="container">
       <div class="section-head reveal">
@@ -1094,7 +890,6 @@
     </div>
   </section>
 
-  <!-- ✅ #4 Owner / Creator (ohne Bild) -->
   <section id="owner">
     <div class="container">
       <div class="section-head reveal">
@@ -1104,13 +899,13 @@
         </div>
       </div>
 
-      <div class="owner reveal">
+      <div class="card reveal" style="min-height:auto">
         <h3>Von ImBurni</h3>
-        <p>
+        <p style="margin:0; color: var(--muted); line-height:1.65; font-weight:850">
           Ich baue Tools, die Streamern das Leben leichter machen: weniger Chaos, mehr Kontrolle und
           ein sauberer Support-Prozess über Discord. Ziel: ein System, das sich „wie Produkt“ anfühlt.
         </p>
-        <ul>
+        <ul style="margin:10px 0 0; padding-left: 18px; color: var(--muted); font-weight:850; line-height:1.65">
           <li>Keine Keys/Tokens auf der Website – nur Features & Zugang.</li>
           <li>Tickets & Setup im Discord – weil dort Support hingehört.</li>
           <li>Stabile Persistenz für lange Streams.</li>
@@ -1138,7 +933,7 @@
           </p>
         </div>
         <div class="gate-actions">
-          <!-- ✅ FIX -->
+          <!-- ✅ Discord-Join Button wieder da -->
           <a class="btn primary glow" id="discordBtn2"
              href="https://discord.gg/v8BSRq8C8C"
              target="_blank"
@@ -1155,7 +950,6 @@
     </div>
   </section>
 
-  <!-- ✅ Streamer System (mit Live Twitch Embed #1) -->
   <section id="streamer">
     <div class="container">
       <div class="section-head reveal">
@@ -1241,7 +1035,7 @@
           <p>Join → Anfrage/Ticket → Freischaltung/Setup. Danach läuft Twitch ✕ Discord clean.</p>
         </div>
         <div class="gate-actions">
-          <!-- ✅ FIX -->
+          <!-- ✅ Discord Button wieder da -->
           <a class="btn primary glow" id="discordBtn3"
              href="https://discord.gg/v8BSRq8C8C"
              target="_blank"
@@ -1259,7 +1053,6 @@
         <div>© <span id="year"></span> <span id="footName">ImBurni</span> • Darkmode • Beta Version V1</div>
         <div style="display:flex; gap:10px; flex-wrap:wrap">
           <a class="btn glow" href="#features">Features</a>
-          <a class="btn glow" href="#proof">Social Proof</a>
           <a class="btn glow" href="#roadmap">Roadmap</a>
           <a class="btn glow" href="#streamer">Streamer</a>
         </div>
@@ -1267,7 +1060,6 @@
     </div>
   </footer>
 
-  <!-- 🎵 MUSIC (legal autoplay feel): starts muted; tries unmute on scroll; fallback to click/touch/key -->
   <audio id="bgm" src="Song.mp3" preload="auto" loop muted playsinline></audio>
 
   <div class="sound-hint" id="soundHint">
@@ -1281,16 +1073,15 @@
     document.getElementById('footName').textContent = CONFIG.botName;
     document.getElementById('trustedBy').textContent = CONFIG.trustedByText;
 
-    // ✅ Optional zusätzlich: falls du später den Link oben im CONFIG änderst,
-    // werden Buttons trotzdem korrekt gesetzt.
-    // (Aber: hrefs sind bereits fest in HTML gesetzt.)
-    const ids = ["discordBtn1","discordBtn2","discordBtn3"];
-    ids.forEach(id=>{
+    // Discord-Buttons (Absicherung, falls du CONFIG.discordInvite änderst)
+    ["discordBtn1","discordBtn2","discordBtn3"].forEach(id=>{
       const el = document.getElementById(id);
-      if(el) el.href = CONFIG.discordInvite;
+      if(el){
+        el.href = CONFIG.discordInvite;
+        el.target = "_blank";
+        el.rel = "noopener noreferrer";
+      }
     });
-
-    // ✅ Bot holen (oben) auch via JS absichern
     const joinTop = document.getElementById("joinTop");
     if(joinTop){
       joinTop.href = CONFIG.discordInvite;
@@ -1325,7 +1116,8 @@
       catch{ toast("Kopieren nicht möglich ❌"); }
     }
     ["copyDiscord","copyDiscord2","copyDiscord3"].forEach(id=>{
-      document.getElementById(id).addEventListener('click', ()=>copyText(CONFIG.discordInvite));
+      const el = document.getElementById(id);
+      if(el) el.addEventListener('click', ()=>copyText(CONFIG.discordInvite));
     });
 
     /* ---------- Micro detail: tiny click sound (WebAudio) ---------- */
@@ -1355,7 +1147,6 @@
       audio.volume = 0.85;
       audio.loop = true;
 
-      // start muted (allowed)
       window.addEventListener("load", async () => {
         try{
           audio.muted = true;
@@ -1380,11 +1171,8 @@
         }
       }
 
-      // TRY ON SCROLL/WHEEL first
       const onWheel = async () => { await unlockSound(); };
       const onScroll = async () => { await unlockSound(); };
-
-      // SAFE FALLBACK on real gestures
       const onPointer = async () => { await unlockSound(); };
       const onTouch = async () => { await unlockSound(); };
       const onKey = async () => { await unlockSound(); };
@@ -1497,7 +1285,7 @@
       tick();
     })();
 
-    /* ---------- #9 Fake Darkmode toggle (Theme Shift) ---------- */
+    /* ---------- Theme toggle ---------- */
     (function(){
       const btn = document.getElementById('themeToggle');
       const label = document.getElementById('themeLabel');
@@ -1525,7 +1313,7 @@
       });
     })();
 
-    /* ---------- #8 Scroll reveal ---------- */
+    /* ---------- Scroll reveal ---------- */
     (function(){
       const els = Array.from(document.querySelectorAll('.reveal'));
       const io = new IntersectionObserver((entries)=>{
@@ -1537,44 +1325,6 @@
         }
       }, {threshold: 0.14});
       els.forEach(el=>io.observe(el));
-    })();
-
-    /* ---------- #2 Animated counters ---------- */
-    (function(){
-      const targets = CONFIG.counters || {};
-      const nodes = Array.from(document.querySelectorAll('[data-count]'));
-      const fmt = (n)=>{
-        // deutsche Tausender-Punkte
-        return Number(n).toLocaleString('de-DE');
-      };
-
-      let started = false;
-      function run(){
-        if(started) return;
-        started = true;
-
-        nodes.forEach(node=>{
-          const k = node.getAttribute('data-count');
-          const end = Number(targets[k] || 0);
-          const dur = 1100 + Math.random()*500;
-          const start = performance.now();
-
-          function step(now){
-            const t = Math.min(1, (now - start)/dur);
-            const eased = 1 - Math.pow(1 - t, 3);
-            const val = Math.round(end * eased);
-            node.textContent = fmt(val);
-            if(t < 1) requestAnimationFrame(step);
-          }
-          requestAnimationFrame(step);
-        });
-      }
-
-      const proof = document.getElementById('proof');
-      const io = new IntersectionObserver((entries)=>{
-        if(entries.some(e=>e.isIntersecting)) { run(); io.disconnect(); }
-      }, {threshold: 0.18});
-      if(proof) io.observe(proof);
     })();
 
     /* ---------- Preview: rotate follower names ---------- */
@@ -1620,7 +1370,6 @@
     }
 
     function twitchPlayerSrc(login){
-      // Twitch Embed braucht parent=hostname
       const parent = encodeURIComponent(location.hostname || "localhost");
       return `https://player.twitch.tv/?channel=${encodeURIComponent(login)}&parent=${parent}&muted=true`;
     }
@@ -1686,7 +1435,12 @@
 
             <div class="streamer-bottom">
               <div style="color: var(--faint); font-weight:900">Bot-Nutzer</div>
-              <a class="btn primary glow" href="https://twitch.tv/${escapeHtml(loginLower)}" target="_blank" rel="noreferrer">Zum Stream</a>
+
+              <!-- ✅ Stream Button (direkt zum Stream) -->
+              <a class="btn primary glow"
+                 href="https://twitch.tv/${escapeHtml(loginLower)}"
+                 target="_blank"
+                 rel="noopener noreferrer">Zum Stream</a>
             </div>
           </div>
         `;
