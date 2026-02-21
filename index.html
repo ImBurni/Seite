@@ -12,55 +12,52 @@
 
   <style>
     :root{
-      --bg0:#050509;
-      --bg1:#090914;
-      --bg2:#0d0d1b;
+      /* --- Dark SaaS / Neon Gradient --- */
+      --bg0:#05050b;
+      --bg1:#080816;
+      --bg2:#0b0b1f;
 
       --text:#eef0ff;
       --muted: rgba(238,240,255,.72);
       --faint: rgba(238,240,255,.52);
 
+      /* --- Glassmorphism --- */
       --stroke: rgba(255,255,255,.12);
-      --stroke2: rgba(255,255,255,.18);
+      --stroke2: rgba(255,255,255,.20);
       --glass: rgba(255,255,255,.06);
-      --glass2: rgba(255,255,255,.085);
+      --glass2: rgba(255,255,255,.095);
 
+      /* --- Brand --- */
       --brand:#ff7a18;
       --brand2:#a855f7;
+      --aqua:#46fbd2;
+
       --ok:#2ee59d;
       --off: rgba(238,240,255,.35);
 
-      --shadow: 0 18px 60px rgba(0,0,0,.65);
-      --shadow2: 0 10px 28px rgba(0,0,0,.35);
+      --shadow: 0 26px 90px rgba(0,0,0,.72);
+      --shadow2: 0 12px 34px rgba(0,0,0,.38);
 
       --r:18px;
       --r2:28px;
       --max: 1160px;
 
-      --accentGlow: rgba(255,122,24,.18);
-      --accentGlow2: rgba(168,85,247,.18);
-      --accentGlow3: rgba(46,229,157,.10);
-    }
-
-    body.theme-calm{
-      --brand:#ffae54;
-      --brand2:#7dd3fc;
-      --accentGlow: rgba(125,211,252,.18);
-      --accentGlow2: rgba(255,174,84,.14);
-      --accentGlow3: rgba(46,229,157,.08);
+      --ring: 0 0 0 1px rgba(255,255,255,.12) inset;
     }
 
     *{box-sizing:border-box}
     html,body{height:100%}
-    html{scroll-behavior:smooth}
     body{
       margin:0;
       color:var(--text);
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+
+      /* Aurora / Glow Background */
       background:
-        radial-gradient(1100px 700px at 14% 10%, var(--accentGlow2), transparent 58%),
-        radial-gradient(900px 650px at 82% 18%, var(--accentGlow), transparent 58%),
-        radial-gradient(900px 650px at 55% 94%, var(--accentGlow3), transparent 58%),
+        radial-gradient(900px 560px at 10% 8%, rgba(168,85,247,.22), transparent 62%),
+        radial-gradient(820px 520px at 86% 14%, rgba(255,122,24,.22), transparent 60%),
+        radial-gradient(880px 560px at 52% 96%, rgba(70,251,210,.11), transparent 62%),
+        radial-gradient(560px 420px at 62% 40%, rgba(168,85,247,.12), transparent 62%),
         linear-gradient(180deg, var(--bg0), var(--bg1) 35%, var(--bg2));
       overflow-x:hidden;
     }
@@ -68,18 +65,31 @@
     a{color:inherit;text-decoration:none}
     .container{width:min(var(--max), calc(100% - 40px)); margin:0 auto}
 
+    /* --- subtle grid for premium SaaS feel --- */
+    .grid-overlay{
+      position:fixed; inset:0;
+      background:
+        linear-gradient(to right, rgba(255,255,255,.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,.05) 1px, transparent 1px);
+      background-size: 64px 64px;
+      mask-image: radial-gradient(ellipse at 50% 8%, rgba(0,0,0,.9), transparent 70%);
+      opacity:.08;
+      pointer-events:none;
+      z-index:-2;
+    }
+
     .glow{
       position:fixed; inset:-260px;
       background: conic-gradient(from 180deg,
         rgba(255,122,24,.22),
         rgba(168,85,247,.22),
-        rgba(46,229,157,.14),
+        rgba(70,251,210,.14),
         rgba(255,122,24,.22));
-      filter: blur(100px);
-      opacity:.30;
+      filter: blur(110px);
+      opacity:.32;
       animation: spin 26s linear infinite;
       pointer-events:none;
-      z-index:-3;
+      z-index:-4;
       transform: translate3d(var(--gx, 0px), var(--gy, 0px), 0);
       will-change: transform;
     }
@@ -93,7 +103,7 @@
       opacity:.22;
       mix-blend-mode: overlay;
       pointer-events:none;
-      z-index:-2;
+      z-index:-1;
     }
 
     #particles{
@@ -104,11 +114,55 @@
       opacity:.55;
     }
 
+    /* ---------- Premium Glass primitives ---------- */
+    .glass{
+      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.03));
+      border: 1px solid rgba(255,255,255,.12);
+      box-shadow: var(--shadow2);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+    .glass-strong{
+      background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.03));
+      border: 1px solid rgba(255,255,255,.16);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+    .glint{
+      position:relative;
+      overflow:hidden;
+    }
+    .glint::before{
+      content:"";
+      position:absolute;
+      inset:-1px;
+      background:
+        radial-gradient(600px 260px at 18% 6%, rgba(255,255,255,.14), transparent 55%),
+        radial-gradient(520px 260px at 86% 10%, rgba(255,255,255,.10), transparent 60%);
+      pointer-events:none;
+      opacity:.85;
+    }
+    .glint::after{
+      content:"";
+      position:absolute;
+      inset:-120px;
+      background:
+        radial-gradient(420px 260px at 18% 18%, rgba(255,122,24,.18), transparent 60%),
+        radial-gradient(420px 260px at 86% 22%, rgba(168,85,247,.18), transparent 60%);
+      filter: blur(18px);
+      opacity:.75;
+      pointer-events:none;
+    }
+    .glint > *{position:relative}
+
+    /* ---------- Nav ---------- */
     .nav{
       position:sticky; top:0; z-index:50;
-      backdrop-filter: blur(14px);
-      background: linear-gradient(180deg, rgba(6,6,12,.78), rgba(6,6,12,.36));
-      border-bottom:1px solid rgba(255,255,255,.06);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      background: linear-gradient(180deg, rgba(6,6,14,.84), rgba(6,6,14,.30));
+      border-bottom:1px solid rgba(255,255,255,.07);
     }
     .nav-inner{
       display:flex; align-items:center; justify-content:space-between;
@@ -118,14 +172,22 @@
     .logo{
       width:40px; height:40px; border-radius:16px;
       background:
-        radial-gradient(circle at 30% 20%, rgba(255,255,255,.35), transparent 45%),
+        radial-gradient(circle at 30% 20%, rgba(255,255,255,.38), transparent 45%),
         linear-gradient(135deg, var(--brand), var(--brand2));
-      border:1px solid rgba(255,255,255,.18);
-      box-shadow: 0 18px 38px rgba(168,85,247,.22);
+      border:1px solid rgba(255,255,255,.20);
+      box-shadow:
+        0 18px 42px rgba(168,85,247,.22),
+        0 0 0 1px rgba(255,255,255,.10) inset;
     }
     .brand-title{display:flex; flex-direction:column; line-height:1.05}
     .brand-title b{font-size:14px; letter-spacing:.2px}
-    .brand-title span{font-size:12px; color:var(--muted); font-weight:900; margin-top:5px}
+    .brand-title span{
+      font-size:12px;
+      color:var(--muted);
+      font-weight:900;
+      margin-top:5px;
+      letter-spacing:.2px;
+    }
     .nav-links{display:flex; align-items:center; gap:10px; flex-wrap:wrap}
     .nav-links a{
       padding:10px 12px;
@@ -133,47 +195,90 @@
       color:var(--muted);
       font-weight:950;
       transition: .18s ease;
+      position:relative;
     }
-    .nav-links a:hover{background: rgba(255,255,255,.06); color:var(--text)}
+    .nav-links a::after{
+      content:"";
+      position:absolute;
+      left:14px; right:14px;
+      bottom:8px;
+      height:2px;
+      border-radius:999px;
+      background: linear-gradient(90deg, rgba(255,122,24,0), rgba(255,122,24,.85), rgba(168,85,247,.85), rgba(255,122,24,0));
+      transform: scaleX(.35);
+      opacity:0;
+      transition:.18s ease;
+    }
+    .nav-links a:hover{
+      background: rgba(255,255,255,.06);
+      color:var(--text);
+    }
+    .nav-links a:hover::after{opacity:.85; transform: scaleX(1)}
     .nav-actions{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
 
+    /* ---------- Buttons ---------- */
     .btn{
       display:inline-flex; align-items:center; justify-content:center; gap:10px;
       padding:12px 14px;
       border-radius:14px;
-      border:1px solid var(--stroke);
-      background: linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.02));
+      border:1px solid rgba(255,255,255,.12);
+      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.02));
       font-weight:950;
       cursor:pointer;
       transition: transform .12s ease, border-color .2s ease, filter .2s ease, box-shadow .2s ease;
       user-select:none;
       box-shadow: var(--shadow2);
       white-space:nowrap;
+      position:relative;
+      overflow:hidden;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
     }
-    .btn:hover{transform: translateY(-1px); border-color: rgba(255,255,255,.22)}
+    .btn::before{
+      content:"";
+      position:absolute; inset:-1px;
+      background: radial-gradient(220px 120px at 20% 10%, rgba(255,255,255,.16), transparent 62%);
+      opacity:.75;
+      pointer-events:none;
+      transition:.2s ease;
+    }
+    .btn:hover{
+      transform: translateY(-1px);
+      border-color: rgba(255,255,255,.22);
+      box-shadow: 0 16px 44px rgba(0,0,0,.42);
+    }
+    .btn:hover::before{opacity:1}
+
     .btn.primary{
-      border-color: rgba(255,122,24,.42);
+      border-color: rgba(255,122,24,.44);
       background: linear-gradient(135deg, rgba(255,122,24,.96), rgba(168,85,247,.92));
       color:#0b0b12;
-      box-shadow: 0 18px 55px rgba(255,122,24,.20);
+      box-shadow:
+        0 18px 60px rgba(255,122,24,.22),
+        0 0 0 1px rgba(255,255,255,.14) inset;
     }
-    .btn.primary:hover{transform: translateY(-2px); filter:saturate(1.06)}
+    .btn.primary:hover{
+      transform: translateY(-2px);
+      filter:saturate(1.07) contrast(1.02);
+      box-shadow:
+        0 22px 72px rgba(168,85,247,.22),
+        0 18px 60px rgba(255,122,24,.22);
+    }
     .btn.ghost{background:transparent; box-shadow:none}
-    .btn:active{transform: translateY(0px) scale(.99)}
-    .btn.glow:hover{
-      box-shadow: 0 20px 70px rgba(255,122,24,.14), 0 18px 60px rgba(168,85,247,.12), var(--shadow2);
-    }
 
+    /* ---------- Pill ---------- */
     .pill{
       display:inline-flex; align-items:center; gap:10px;
       padding:10px 14px;
       border-radius:999px;
       border:1px solid rgba(255,255,255,.14);
-      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.02));
-      backdrop-filter: blur(10px);
+      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.03));
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       box-shadow: var(--shadow2);
       color: var(--muted);
       font-weight:950;
+      letter-spacing:.2px;
     }
     .dot{
       width:10px; height:10px; border-radius:50%;
@@ -181,16 +286,17 @@
       box-shadow: 0 0 0 7px rgba(46,229,157,.14);
     }
 
-    header.hero{padding: 46px 0 26px}
+    /* ---------- Hero ---------- */
+    header.hero{padding: 52px 0 28px}
     .hero-grid{
       display:grid;
-      grid-template-columns: 1.05fr .95fr;
+      grid-template-columns: 1.06fr .94fr;
       gap: 26px;
       align-items:center;
       padding: 26px 0 10px;
     }
     .h1{
-      font-size: clamp(36px, 4.5vw, 64px);
+      font-size: clamp(36px, 4.6vw, 66px);
       line-height:1.02;
       margin: 14px 0 14px;
       letter-spacing:-1px;
@@ -201,7 +307,6 @@
       background-clip:text;
       color: transparent;
     }
-
     .shine-underline{
       position:relative;
       display:inline-block;
@@ -241,7 +346,7 @@
 
     .sub{
       font-size: clamp(16px, 1.2vw, 18px);
-      line-height:1.65;
+      line-height:1.7;
       color: var(--muted);
       margin:0 0 18px;
       max-width: 64ch;
@@ -249,98 +354,133 @@
     .hero-cta{display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin: 14px 0 12px}
 
     .alert{
-      border:1px solid rgba(255,122,24,.25);
-      background: rgba(255,122,24,.08);
+      border:1px solid rgba(255,122,24,.22);
+      background: linear-gradient(180deg, rgba(255,122,24,.10), rgba(255,122,24,.05));
       border-radius: 18px;
       padding: 12px 14px;
       font-weight:950;
       line-height:1.55;
       color: rgba(238,240,255,.92);
+      box-shadow: var(--shadow2);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      position:relative;
+      overflow:hidden;
     }
+    .alert::before{
+      content:"";
+      position:absolute; inset:-80px;
+      background: radial-gradient(420px 200px at 10% 10%, rgba(255,122,24,.22), transparent 62%);
+      filter: blur(18px);
+      opacity:.85;
+      pointer-events:none;
+    }
+    .alert > *{position:relative}
     .alert b{color: rgba(255,255,255,.95)}
 
     .hero-card{
       border-radius: var(--r2);
-      border:1px solid rgba(255,255,255,.14);
-      background: linear-gradient(180deg, rgba(255,255,255,.085), rgba(255,255,255,.02));
       overflow:hidden;
-      box-shadow: var(--shadow);
       position:relative;
+      padding: 16px;
     }
-    .hero-card::before{
-      content:"";
-      position:absolute; inset:0;
-      background:
-        radial-gradient(600px 320px at 18% 10%, rgba(255,122,24,.26), transparent 60%),
-        radial-gradient(600px 320px at 92% 26%, rgba(168,85,247,.26), transparent 60%);
-      opacity:.78;
-      pointer-events:none;
-    }
-    .hero-media{position:relative; padding: 16px; display:grid; gap: 12px}
+
+    .hero-media{position:relative; display:grid; gap: 12px}
     .img-wrap{
       border-radius: 24px;
       overflow:hidden;
       border:1px solid rgba(255,255,255,.14);
       background: rgba(0,0,0,.28);
       aspect-ratio: 1 / 1;
+      box-shadow: 0 18px 56px rgba(0,0,0,.45);
+      position:relative;
+    }
+    .img-wrap::after{
+      content:"";
+      position:absolute; inset:-90px;
+      background:
+        radial-gradient(420px 240px at 18% 12%, rgba(255,122,24,.16), transparent 62%),
+        radial-gradient(420px 240px at 92% 26%, rgba(168,85,247,.16), transparent 62%);
+      filter: blur(16px);
+      opacity:.85;
+      pointer-events:none;
     }
     .img-wrap img{
       width:100%; height:100%;
       object-fit: cover; display:block;
       transform: scale(1.03);
       filter: saturate(1.06) contrast(1.06);
+      position:relative;
+      z-index:1;
     }
     .mini{display:grid; grid-template-columns: 1fr 1fr; gap:12px}
     .chip{
       border:1px solid rgba(255,255,255,.12);
       border-radius: 18px;
-      background: rgba(255,255,255,.05);
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       padding: 12px 12px;
       font-weight:950;
       display:flex; flex-direction:column; gap:6px;
+      box-shadow: var(--shadow2);
+      position:relative;
+      overflow:hidden;
     }
+    .chip::before{
+      content:"";
+      position:absolute; inset:-60px;
+      background: radial-gradient(240px 160px at 20% 10%, rgba(255,255,255,.10), transparent 62%);
+      opacity:.85;
+      pointer-events:none;
+    }
+    .chip > *{position:relative}
     .chip small{color: var(--muted); font-weight:850}
     .chip b{font-size: 14px}
 
-    section{padding: 36px 0}
+    /* ---------- Sections ---------- */
+    section{padding: 38px 0}
     .section-head{display:flex; align-items:flex-end; justify-content:space-between; gap: 16px; margin-bottom: 16px}
-    h2{margin:0; font-size: clamp(22px, 2.2vw, 34px); letter-spacing:-.5px}
+    h2{margin:0; font-size: clamp(22px, 2.2vw, 34px); letter-spacing:-.6px}
     .hint{color: var(--muted); font-weight:850; max-width: 78ch; margin: 8px 0 0; line-height:1.65}
 
     .grid3{display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 14px}
     .card{
       border-radius: var(--r2);
-      border:1px solid rgba(255,255,255,.12);
-      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.02));
       padding: 18px;
-      box-shadow: var(--shadow2);
-      position:relative;
-      overflow:hidden;
       min-height: 156px;
     }
-    .card::after{
-      content:"";
-      position:absolute; inset:-70px;
-      background:
-        radial-gradient(260px 180px at 18% 12%, rgba(255,122,24,.16), transparent 62%),
-        radial-gradient(260px 180px at 92% 30%, rgba(168,85,247,.16), transparent 62%);
-      filter: blur(18px);
-      opacity:.75;
-      pointer-events:none;
-    }
-    .card > *{position:relative}
     .card h3{margin:0 0 10px; font-size: 18px; letter-spacing:-.2px}
     .card p{margin:0; color: var(--muted); line-height:1.65; font-weight:750}
 
+    /* --- Social proof strip (premium landing) --- */
+    .proof{
+      display:flex; gap:12px; flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+      padding: 16px 18px;
+      border-radius: 22px;
+      margin-top: 14px;
+    }
+    .proof-left{
+      display:flex; flex-direction:column; gap:6px;
+    }
+    .proof-left b{letter-spacing:-.2px}
+    .proof-left span{color:var(--muted); font-weight:850}
+    .proof-badges{
+      display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end;
+    }
+    .proof-badges .badge{
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: var(--shadow2);
+    }
+
     .gate{
       border-radius: 32px;
-      border:1px solid rgba(255,255,255,.16);
-      background:
-        radial-gradient(900px 440px at 10% 10%, rgba(255,122,24,.22), transparent 60%),
-        radial-gradient(900px 440px at 85% 35%, rgba(168,85,247,.22), transparent 60%),
-        linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
       padding: 18px;
-      box-shadow: var(--shadow);
       display:flex; align-items:center; justify-content:space-between; gap: 14px;
       overflow:hidden;
       position:relative;
@@ -351,15 +491,13 @@
 
     .faq{display:grid; grid-template-columns: 1fr 1fr; gap:14px}
     details{
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.05);
       border-radius: 18px;
       padding: 14px 14px;
-      box-shadow: var(--shadow2);
     }
     summary{cursor:pointer; font-weight:950}
     details p{margin:10px 0 0; color: var(--muted); line-height:1.65; font-weight:750}
 
+    /* ---------- Streamer controls ---------- */
     .streamer-controls{
       display:flex; gap:12px; align-items:center; flex-wrap:wrap;
       margin: 12px 0 10px;
@@ -368,9 +506,6 @@
       display:flex; align-items:center; gap:10px;
       padding: 12px 14px;
       border-radius: 16px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.05);
-      box-shadow: var(--shadow2);
       min-width: min(520px, 100%);
       flex: 1;
     }
@@ -389,9 +524,6 @@
       display:flex; gap:8px; flex-wrap:wrap;
       padding: 8px;
       border-radius: 16px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.04);
-      box-shadow: var(--shadow2);
     }
     .seg button{
       border:1px solid transparent;
@@ -424,25 +556,11 @@
     }
     .streamer-card{
       border-radius: var(--r2);
-      border:1px solid rgba(255,255,255,.12);
-      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.02));
-      box-shadow: var(--shadow2);
       overflow:hidden;
       position:relative;
       padding: 16px;
       min-height: 170px;
     }
-    .streamer-card::after{
-      content:"";
-      position:absolute; inset:-70px;
-      background:
-        radial-gradient(260px 180px at 18% 12%, rgba(255,122,24,.14), transparent 62%),
-        radial-gradient(260px 180px at 92% 30%, rgba(168,85,247,.14), transparent 62%);
-      filter: blur(18px);
-      opacity:.75;
-      pointer-events:none;
-    }
-    .streamer-card > *{position:relative}
 
     .streamer-top{
       display:flex; align-items:center; justify-content:space-between; gap:12px;
@@ -456,6 +574,7 @@
       background: rgba(0,0,0,.25);
       overflow:hidden;
       flex: 0 0 auto;
+      box-shadow: 0 10px 26px rgba(0,0,0,.35);
     }
     .avatar img{width:100%; height:100%; object-fit:cover; display:block}
     .sname{
@@ -480,6 +599,9 @@
       font-weight:950;
       color: var(--muted);
       white-space:nowrap;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: var(--shadow2);
     }
     .live-dot{
       width:9px; height:9px; border-radius:50%;
@@ -489,7 +611,7 @@
     .badge.live{
       border-color: rgba(46,229,157,.25);
       background: rgba(46,229,157,.10);
-      color: rgba(238,240,255,.90);
+      color: rgba(238,240,255,.92);
     }
     .badge.live .live-dot{
       background: var(--ok);
@@ -498,7 +620,7 @@
 
     .streamer-bottom{
       display:flex; align-items:flex-end; justify-content:space-between; gap:12px;
-      margin-top: 10px;
+      margin-top: 6px;
     }
     .uptime{
       color: var(--muted);
@@ -507,22 +629,62 @@
       max-width: 56ch;
     }
 
-    .twitch-embed{
-      margin-top: 12px;
-      border-radius: 18px;
-      border:1px solid rgba(255,255,255,.12);
-      overflow:hidden;
-      background: rgba(0,0,0,.28);
-      aspect-ratio: 16 / 9;
-    }
-    .twitch-embed iframe{width:100%; height:100%; border:0; display:block}
-
-    footer{padding: 28px 0 44px; color:var(--muted); font-weight:900}
+    footer{padding: 28px 0 44px; color: var(--muted); font-weight:900}
     .foot{
       display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;
       border-top: 1px solid rgba(255,255,255,.08);
       padding-top: 18px;
     }
+
+    /* --- Apply glass to existing blocks without changing structure --- */
+    .hero-card, .card, .gate, details, .field, .seg, .streamer-card{
+      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.03));
+      border:1px solid rgba(255,255,255,.12);
+      box-shadow: var(--shadow2);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+    .hero-card{box-shadow: var(--shadow)}
+    .card, .streamer-card, details{position:relative}
+    .card::after, .streamer-card::after{
+      content:"";
+      position:absolute; inset:-80px;
+      background:
+        radial-gradient(260px 180px at 18% 12%, rgba(255,122,24,.14), transparent 62%),
+        radial-gradient(260px 180px at 92% 30%, rgba(168,85,247,.14), transparent 62%);
+      filter: blur(18px);
+      opacity:.70;
+      pointer-events:none;
+    }
+    .card > *, .streamer-card > *{position:relative}
+
+    /* --- Roadmap section styling (added below, no JS changes) --- */
+    .roadmap{
+      display:grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap:14px;
+      margin-top: 14px;
+    }
+    .step{
+      border-radius: var(--r2);
+      padding: 16px;
+    }
+    .step .k{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      margin-bottom: 10px;
+    }
+    .k .num{
+      width:30px; height:30px; border-radius: 12px;
+      display:inline-flex; align-items:center; justify-content:center;
+      font-weight: 980;
+      color:#0b0b12;
+      background: linear-gradient(135deg, rgba(255,122,24,.98), rgba(168,85,247,.92));
+      box-shadow: 0 14px 40px rgba(255,122,24,.18);
+    }
+    .k b{letter-spacing:-.2px}
+    .step p{margin:0; color:var(--muted); font-weight:800; line-height:1.65}
 
     @media (max-width: 940px){
       .hero-grid{grid-template-columns: 1fr}
@@ -532,8 +694,11 @@
       .gate{flex-direction:column; align-items:flex-start}
       .gate-actions{justify-content:flex-start}
       .streamer-grid{grid-template-columns: 1fr}
+      .roadmap{grid-template-columns: 1fr}
+      header.hero{padding-top: 44px}
     }
 
+    /* Sound hint */
     .sound-hint{
       position: fixed;
       left: 18px;
@@ -544,6 +709,7 @@
       border:1px solid rgba(255,255,255,.12);
       background: rgba(0,0,0,.42);
       backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       box-shadow: var(--shadow2);
       color: rgba(238,240,255,.85);
       font-weight: 950;
@@ -551,281 +717,12 @@
       max-width: min(640px, calc(100% - 36px));
     }
     .sound-hint b{color:#fff}
-
-    .reveal{opacity:0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease}
-    .reveal.show{opacity:1; transform:none}
-
-    .kpi-grid{display:grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap:14px}
-    @media (max-width: 940px){ .kpi-grid{grid-template-columns:1fr 1fr} }
-
-    .kpi{
-      border-radius: var(--r2);
-      border:1px solid rgba(255,255,255,.12);
-      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.02));
-      padding: 16px;
-      box-shadow: var(--shadow2);
-      position:relative;
-      overflow:hidden;
-    }
-    .kpi::after{
-      content:"";
-      position:absolute; inset:-80px;
-      background:
-        radial-gradient(260px 180px at 18% 12%, rgba(255,122,24,.14), transparent 62%),
-        radial-gradient(260px 180px at 92% 30%, rgba(168,85,247,.14), transparent 62%);
-      filter: blur(18px);
-      opacity:.75;
-      pointer-events:none;
-    }
-    .kpi > *{position:relative}
-    .kpi .n{font-size: 30px; font-weight:1000; letter-spacing:-.6px}
-    .kpi .l{color: var(--muted); font-weight:900; margin-top:6px; line-height:1.45}
-    .kpi .s{color: var(--faint); font-weight:900; margin-top:8px; font-size:12px}
-
-    .quote-grid{display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap:14px}
-    @media (max-width: 940px){ .quote-grid{grid-template-columns: 1fr} }
-    .quote{
-      border-radius: var(--r2);
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.05);
-      padding: 16px;
-      box-shadow: var(--shadow2);
-      position:relative;
-      overflow:hidden;
-    }
-    .quote::after{
-      content:"";
-      position:absolute; inset:-70px;
-      background:
-        radial-gradient(260px 180px at 18% 12%, rgba(46,229,157,.10), transparent 62%),
-        radial-gradient(260px 180px at 92% 30%, rgba(168,85,247,.14), transparent 62%);
-      filter: blur(18px);
-      opacity:.75;
-      pointer-events:none;
-    }
-    .quote > *{position:relative}
-    .quote p{margin:0; color:var(--muted); font-weight:850; line-height:1.65}
-    .quote .who{margin-top:10px; color:rgba(238,240,255,.92); font-weight:1000}
-    .quote .meta{margin-top:4px; color:var(--faint); font-weight:900; font-size:12px}
-
-    .proof-badge{
-      display:inline-flex; align-items:center; gap:10px;
-      padding:10px 12px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.05);
-      box-shadow: var(--shadow2);
-      font-weight:1000;
-      color: rgba(238,240,255,.86);
-    }
-    .proof-badge i{
-      display:inline-block;
-      width:10px; height:10px; border-radius:50%;
-      background: rgba(255,122,24,.95);
-      box-shadow: 0 0 0 7px rgba(255,122,24,.14);
-    }
-
-    .owner{
-      border-radius: var(--r2);
-      border:1px solid rgba(255,255,255,.12);
-      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.02));
-      padding: 18px;
-      box-shadow: var(--shadow2);
-      position:relative;
-      overflow:hidden;
-    }
-    .owner::after{
-      content:"";
-      position:absolute; inset:-70px;
-      background:
-        radial-gradient(260px 180px at 18% 12%, rgba(255,122,24,.14), transparent 62%),
-        radial-gradient(260px 180px at 92% 30%, rgba(168,85,247,.14), transparent 62%);
-      filter: blur(18px);
-      opacity:.75;
-      pointer-events:none;
-    }
-    .owner > *{position:relative}
-    .owner h3{margin:0 0 10px; font-size: 18px; letter-spacing:-.2px}
-    .owner p{margin:0; color: var(--muted); line-height:1.65; font-weight:850}
-    .owner ul{margin:10px 0 0; padding-left: 18px; color: var(--muted); font-weight:850; line-height:1.65}
-
-    .roadmap{
-      border-radius: var(--r2);
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.05);
-      padding: 16px;
-      box-shadow: var(--shadow2);
-    }
-    .roadmap .row{
-      display:flex; align-items:flex-start; justify-content:space-between; gap:12px;
-      padding: 12px 10px;
-      border-radius: 16px;
-      border:1px solid rgba(255,255,255,.08);
-      background: rgba(0,0,0,.18);
-      margin-bottom: 10px;
-    }
-    .roadmap .row:last-child{margin-bottom:0}
-    .roadmap b{font-weight:1000}
-    .roadmap small{display:block; margin-top:6px; color: var(--faint); font-weight:900; line-height:1.45}
-    .tag{
-      padding: 8px 10px;
-      border-radius: 999px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.05);
-      color: var(--muted);
-      font-weight:1000;
-      white-space:nowrap;
-      flex: 0 0 auto;
-    }
-    .tag.soon{border-color: rgba(255,122,24,.22); background: rgba(255,122,24,.10); color: rgba(238,240,255,.90)}
-    .tag.wip{border-color: rgba(168,85,247,.22); background: rgba(168,85,247,.10); color: rgba(238,240,255,.90)}
-    .tag.future{border-color: rgba(46,229,157,.18); background: rgba(46,229,157,.08); color: rgba(238,240,255,.90)}
-
-    .preview{
-      border-radius: var(--r2);
-      border:1px solid rgba(255,255,255,.12);
-      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.02));
-      box-shadow: var(--shadow2);
-      overflow:hidden;
-    }
-    .preview-head{
-      display:flex; align-items:center; justify-content:space-between; gap:12px;
-      padding: 14px 16px;
-      border-bottom: 1px solid rgba(255,255,255,.08);
-      background: rgba(0,0,0,.20);
-      color: rgba(238,240,255,.90);
-      font-weight:1000;
-    }
-    .preview-body{padding: 16px; display:grid; gap:12px}
-    .msg{
-      border-radius: 16px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.22);
-      padding: 12px 12px;
-      position:relative;
-      overflow:hidden;
-    }
-    .msg .top{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:6px}
-    .msg .top b{font-weight:1000}
-    .msg .top span{color: var(--faint); font-weight:900; font-size:12px}
-    .msg p{margin:0; color: var(--muted); font-weight:850; line-height:1.55}
-    .embed{
-      margin-top:10px;
-      border-left: 3px solid rgba(168,85,247,.9);
-      border-radius: 12px;
-      padding: 10px 10px;
-      background: rgba(255,255,255,.04);
-      border:1px solid rgba(255,255,255,.08);
-    }
-    .embed .t{font-weight:1000}
-    .embed .d{margin-top:6px; color: var(--muted); font-weight:850; line-height:1.45}
-    .btnrow{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px}
-    .mini-btn{
-      padding: 8px 10px;
-      border-radius: 999px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.05);
-      color: rgba(238,240,255,.88);
-      font-weight:1000;
-      font-size:12px;
-      cursor:pointer;
-      user-select:none;
-      transition: transform .12s ease, border-color .2s ease;
-    }
-    .mini-btn:hover{transform: translateY(-1px); border-color: rgba(255,255,255,.22)}
-    .pulse{
-      position:absolute;
-      inset:-60px;
-      background: radial-gradient(280px 180px at 22% 18%, rgba(255,122,24,.12), transparent 60%),
-                  radial-gradient(280px 180px at 88% 30%, rgba(168,85,247,.12), transparent 60%);
-      filter: blur(18px);
-      opacity:.9;
-      animation: pulse 3.2s ease-in-out infinite;
-      pointer-events:none;
-    }
-    @keyframes pulse{
-      0%{transform: translateY(0px); opacity:.55}
-      50%{transform: translateY(-6px); opacity:.85}
-      100%{transform: translateY(0px); opacity:.55}
-    }
-
-    .theme-toggle{
-      display:inline-flex; align-items:center; gap:10px;
-      padding: 10px 12px;
-      border-radius: 999px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.05);
-      box-shadow: var(--shadow2);
-      font-weight:1000;
-      color: rgba(238,240,255,.86);
-      cursor:pointer;
-      user-select:none;
-    }
-    .theme-toggle .sw{
-      width:42px; height:22px; border-radius:999px;
-      background: rgba(255,255,255,.10);
-      border:1px solid rgba(255,255,255,.12);
-      position:relative;
-      flex: 0 0 auto;
-    }
-    .theme-toggle .knob{
-      position:absolute;
-      top:50%; transform: translateY(-50%);
-      left:3px;
-      width:16px; height:16px; border-radius:50%;
-      background: linear-gradient(135deg, rgba(255,122,24,.95), rgba(168,85,247,.95));
-      box-shadow: 0 10px 20px rgba(0,0,0,.35);
-      transition: left .18s ease;
-    }
-    body.theme-calm .theme-toggle .knob{left: 22px}
-    .theme-toggle small{color: var(--faint); font-weight:900}
-
-    /* =========================================================
-       ✅ FIXES: Klicks/Buttons wieder 100% frei + Bottom-Bar
-       ========================================================= */
-
-    /* Deko-Layer dürfen nie Klicks blockieren */
-    .glow, .noise, #particles { pointer-events: none !important; }
-
-    /* Sound-Hinweis: bleibt klickbar, aber liegt ÜBER der Bottom-Bar */
-    .sound-hint{
-      bottom: 96px;         /* über Bottom-Bar */
-      z-index: 9996;        /* unter Bottom-Bar */
-    }
-
-    /* Action Elemente: immer über Content */
-    .btn, .gate-actions, .streamer-bottom, .nav, .preview, .card, .gate{
-      position: relative;
-      z-index: 2;
-    }
-
-    /* Bottom Action Bar (unten Discord & Co.) */
-    .bottom-bar{
-      position: fixed;
-      left: 0; right: 0; bottom: 0;
-      z-index: 9998;
-      padding: 12px 0;
-      background: linear-gradient(180deg, rgba(6,6,12,.10), rgba(6,6,12,.82));
-      backdrop-filter: blur(14px);
-      border-top: 1px solid rgba(255,255,255,.08);
-    }
-    .bottom-bar .inner{
-      display:flex;
-      gap: 10px;
-      justify-content: center;
-      align-items:center;
-      flex-wrap: wrap;
-    }
-
-    /* Platz schaffen, damit nichts überdeckt wird */
-    body{
-      padding-bottom: 86px;
-    }
   </style>
 </head>
 
 <body>
   <div class="glow" aria-hidden="true"></div>
+  <div class="grid-overlay" aria-hidden="true"></div>
   <div class="noise" aria-hidden="true"></div>
   <canvas id="particles" aria-hidden="true"></canvas>
 
@@ -833,18 +730,7 @@
     const CONFIG = {
       botName: "ImBurni_Bot_v1",
       discordInvite: "https://discord.gg/v8BSRq8C8C",
-
-      // Streamer-Liste (einfach erweitern)
-      streamers: ["Tricck17"],
-
-      // Social proof / counters (anpassbar)
-      trustedByText: "Trusted by Streamer & Mods",
-      counters: {
-        messages: 124832,
-        points: 1200000,
-        tickets: 863,
-        timeouts: 2194
-      }
+      streamers: ["Tricck17"]
     };
   </script>
 
@@ -860,9 +746,6 @@
 
       <div class="nav-links">
         <a href="#features">Features</a>
-        <a href="#proof">Social Proof</a>
-        <a href="#preview">Preview</a>
-        <a href="#roadmap">Roadmap</a>
         <a href="#zugang">Bot bekommen</a>
         <a href="#streamer">Streamer</a>
         <a href="#faq">FAQ</a>
@@ -870,25 +753,20 @@
       </div>
 
       <div class="nav-actions">
-        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Theme umschalten">
-          <span>🎛️ Theme</span>
-          <span class="sw" aria-hidden="true"><span class="knob"></span></span>
-          <small id="themeLabel">Neon</small>
-        </button>
-        <a class="btn primary glow" id="joinTop" href="#discord">Bot holen</a>
+        <a class="btn primary" id="joinTop" href="#discord">Bot holen</a>
       </div>
     </div>
   </div>
 
   <header class="hero" id="top">
     <div class="container">
-      <div class="pill reveal">
+      <div class="pill">
         <span class="dot" aria-hidden="true"></span>
         <span>Live-ready • Tickets • ID-Timeouts • Punkte • Lurk</span>
       </div>
 
       <div class="hero-grid">
-        <div class="reveal">
+        <div>
           <div class="h1">
             <span class="shine-underline"><span class="grad">Feuer</span></span> für deinen Chat.<br />
             Support über <span class="shine-underline"><span class="grad">Discord</span></span>.
@@ -901,9 +779,9 @@
           </p>
 
           <div class="hero-cta">
-            <a class="btn primary glow" id="discordBtn1" href="#" target="_blank" rel="noreferrer">💬 Discord beitreten</a>
-            <a class="btn glow" href="#features">⚡ Features</a>
-            <button class="btn glow" type="button" id="copyDiscord">📋 Invite kopieren</button>
+            <a class="btn primary" id="discordBtn1" href="#" target="_blank" rel="noreferrer">💬 Discord beitreten</a>
+            <a class="btn" href="#features">⚡ Features</a>
+            <button class="btn" type="button" id="copyDiscord">📋 Invite kopieren</button>
           </div>
 
           <div class="alert">
@@ -911,13 +789,21 @@
             Freischaltung/Setup + Support (Ticketsystem).
           </div>
 
-          <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap; align-items:center">
-            <span class="proof-badge"><i aria-hidden="true"></i><span id="trustedBy">Trusted by Streamer & Mods</span></span>
-            <span style="color:var(--faint); font-weight:950">• Live-Status • Embeds • Tickets • Moderation</span>
+          <!-- Social Proof (added, no JS) -->
+          <div class="proof glass glint" style="margin-top:14px;">
+            <div class="proof-left">
+              <b>Trusted Workflow für Streams</b>
+              <span>Queue/Worker • Persistenz • Mods & Tickets — auf Live-Betrieb optimiert</span>
+            </div>
+            <div class="proof-badges">
+              <span class="badge">⚡ Low-Friction Setup</span>
+              <span class="badge">🧩 Discord-First Support</span>
+              <span class="badge">🛡️ Mod-Controls</span>
+            </div>
           </div>
         </div>
 
-        <div class="hero-card reveal" aria-label="ImBurni_Bot Artwork">
+        <div class="hero-card glass-strong glint" aria-label="ImBurni_Bot Artwork">
           <div class="hero-media">
             <div class="img-wrap">
               <img src="imburni_bot.png" alt="ImBurni_Bot_v1 Artwork" />
@@ -936,7 +822,7 @@
 
   <section id="features">
     <div class="container">
-      <div class="section-head reveal">
+      <div class="section-head">
         <div>
           <h2>Features</h2>
           <p class="hint">Hier steht bewusst kein Code. Nur die Funktionen – klar & professionell.</p>
@@ -944,27 +830,27 @@
       </div>
 
       <div class="grid3">
-        <div class="card reveal">
+        <div class="card glint">
           <h3>🎉 Follow Alerts → Discord</h3>
           <p>Neue Follower werden automatisch als stylisches Embed im Discord gepostet (Queue/Worker).</p>
         </div>
-        <div class="card reveal">
+        <div class="card glint">
           <h3>💰 Punkte System</h3>
           <p>Chat-Aktivität gibt Punkte. Commands: <b>!punkte</b>, <b>!top</b>. Perfekt für Engagement.</p>
         </div>
-        <div class="card reveal">
+        <div class="card glint">
           <h3>😴 Lurk Rewards</h3>
           <p><b>!lurk</b> startet Lurk, Rewards laufen weiter. <b>!lurkliste</b> zeigt aktive Lurker.</p>
         </div>
-        <div class="card reveal">
+        <div class="card glint">
           <h3>🎫 Support Tickets (Discord)</h3>
           <p>Ticket-Channel wird erstellt, Buttons: <b>In Bearbeitung</b>, <b>Beantwortet</b>, <b>Schließen</b>.</p>
         </div>
-        <div class="card reveal">
+        <div class="card glint">
           <h3>⏱️ Timeout System (IDs)</h3>
           <p><b>!reasons</b> listet Gründe, <b>!timeout @user ID</b> setzt Timeouts – nur Mods/Broadcaster.</p>
         </div>
-        <div class="card reveal">
+        <div class="card glint">
           <h3>📊 Stats & Persistenz</h3>
           <p>Stats (Nachrichten/Lurk/Timeouts/Starts) werden gespeichert – stabil für lange Streams.</p>
         </div>
@@ -972,187 +858,16 @@
     </div>
   </section>
 
-  <section id="proof">
-    <div class="container">
-      <div class="section-head reveal">
-        <div>
-          <h2>Social Proof</h2>
-          <p class="hint">Kurzer Realitäts-Boost: Der Bot wird genutzt – und die Systeme sind dafür gebaut, lange zu laufen.</p>
-        </div>
-      </div>
-
-      <div class="kpi-grid">
-        <div class="kpi reveal">
-          <div class="n" data-count="messages">0</div>
-          <div class="l">Nachrichten verarbeitet</div>
-          <div class="s">Stabiler Long-Stream Betrieb</div>
-        </div>
-        <div class="kpi reveal">
-          <div class="n" data-count="points">0</div>
-          <div class="l">Punkte vergeben</div>
-          <div class="s">Engagement ohne Chaos</div>
-        </div>
-        <div class="kpi reveal">
-          <div class="n" data-count="tickets">0</div>
-          <div class="l">Tickets erstellt</div>
-          <div class="s">Support sauber in Discord</div>
-        </div>
-        <div class="kpi reveal">
-          <div class="n" data-count="timeouts">0</div>
-          <div class="l">Timeouts gesetzt</div>
-          <div class="s">Mod-Tools mit ID-Gründen</div>
-        </div>
-      </div>
-
-      <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap; align-items:center" class="reveal">
-        <span class="proof-badge"><i aria-hidden="true"></i><span>„Plug-in & läuft“ statt „Setup-Hölle“</span></span>
-        <span style="color:var(--faint); font-weight:950">• klare Regeln • weniger Spam • schneller Support</span>
-      </div>
-
-      <div class="quote-grid" style="margin-top:14px">
-        <div class="quote reveal">
-          <p>„Tickets mit Buttons ist pures Gold. Kein Chaos mehr in DMs oder Chat.“</p>
-          <div class="who">Streamer</div>
-          <div class="meta">Discord Support / Ticket-System</div>
-        </div>
-        <div class="quote reveal">
-          <p>„Timeout-IDs sparen Zeit. Ein Grund, ein Befehl – fertig.“</p>
-          <div class="who">Moderator</div>
-          <div class="meta">ID-Timeout System</div>
-        </div>
-        <div class="quote reveal">
-          <p>„Punkte + Lurk motiviert die Leute krass. Engagement ist spürbar höher.“</p>
-          <div class="who">Streamer</div>
-          <div class="meta">Punkte & Lurk Rewards</div>
-        </div>
-      </div>
-
-      <div style="margin-top:12px; color:var(--faint); font-weight:900; line-height:1.55" class="reveal">
-        Hinweis: kommt noch.
-      </div>
-    </div>
-  </section>
-
-  <section id="preview">
-    <div class="container">
-      <div class="section-head reveal">
-        <div>
-          <h2>Preview</h2>
-          <p class="hint">So fühlt es sich an, wenn Follow, Ticket und Timeout clean durchlaufen – ohne Tokens auf der Website.</p>
-        </div>
-      </div>
-
-      <div class="preview reveal">
-        <div class="preview-head">
-          <div>💬 Discord • imburni-support</div>
-          <div style="color:var(--faint); font-weight:900">Live Demo (Mock)</div>
-        </div>
-        <div class="preview-body" id="previewBody">
-          <div class="msg" data-step="1">
-            <div class="pulse" aria-hidden="true"></div>
-            <div class="top"><b>ImBurni_Bot_v1</b><span>Follow Alert</span></div>
-            <div class="embed">
-              <div class="t">🎉 Neuer Follower</div>
-              <div class="d"><b id="mockFollower">xXNewFollowerXx</b> hat gerade gefollowt.</div>
-            </div>
-          </div>
-
-          <div class="msg" data-step="2">
-            <div class="top"><b>Ticket System</b><span>Support</span></div>
-            <p>Ticket erstellt: <b>#setup-hilfe</b></p>
-            <div class="btnrow">
-              <span class="mini-btn">✅ In Bearbeitung</span>
-              <span class="mini-btn">💬 Beantwortet</span>
-              <span class="mini-btn">🔒 Schließen</span>
-            </div>
-          </div>
-
-          <div class="msg" data-step="3">
-            <div class="top"><b>Mod Tools</b><span>Timeout</span></div>
-            <p><b>!timeout @user 03</b> → Grund-ID: <b>03</b> • Dauer: <b>600s</b></p>
-            <div class="embed" style="border-left-color: rgba(46,229,157,.9)">
-              <div class="t">⏱️ Timeout gesetzt</div>
-              <div class="d">@user wurde getimeoutet (ID 03). Logs gespeichert.</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div style="margin-top:12px; color:var(--faint); font-weight:850; line-height:1.55" class="reveal">
-        Tipp: Folgt.
-      </div>
-    </div>
-  </section>
-
-  <section id="roadmap">
-    <div class="container">
-      <div class="section-head reveal">
-        <div>
-          <h2>Roadmap</h2>
-          <p class="hint">Geplante Features (damit es sich nach Produkt anfühlt – nicht nur nach „Bot“).</p>
-        </div>
-      </div>
-
-      <div class="roadmap reveal">
-        <div class="row">
-          <div>
-            <b>Dashboard (Stats & Logs)</b>
-            <small>Übersicht über Punkte, Lurk, Timeouts, Tickets — alles an einem Ort.</small>
-          </div>
-          <span class="tag wip">In Arbeit</span>
-        </div>
-        <div class="row">
-          <div>
-            <b>Custom Commands / Rewards</b>
-            <small>Eigene Befehle, Rollen-Rewards im Discord, bessere Community-Mechanics.</small>
-          </div>
-          <span class="tag soon">Als Nächstes</span>
-        </div>
-        <div class="row">
-          <div>
-            <b>Erweiterte Mod-Statistiken</b>
-            <small>Mod-Actions, Timeout-Gründe, Wiederholungstäter — sauber auswertbar.</small>
-          </div>
-          <span class="tag future">Geplant</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="owner">
-    <div class="container">
-      <div class="section-head reveal">
-        <div>
-          <h2>Über das Projekt</h2>
-          <p class="hint">Klarer Fokus: Stream-Moderation + Community-Engagement + Support – in einem Flow.</p>
-        </div>
-      </div>
-
-      <div class="owner reveal">
-        <h3>Von ImBurni</h3>
-        <p>
-          Ich baue Tools, die Streamern das Leben leichter machen: weniger Chaos, mehr Kontrolle und
-          ein sauberer Support-Prozess über Discord. Ziel: ein System, das sich „wie Produkt“ anfühlt.
-        </p>
-        <ul>
-          <li>Keine Keys/Tokens auf der Website – nur Features & Zugang.</li>
-          <li>Tickets & Setup im Discord – weil dort Support hingehört.</li>
-          <li>Stabile Persistenz für lange Streams.</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
   <section id="zugang">
     <div class="container">
-      <div class="section-head reveal">
+      <div class="section-head">
         <div>
           <h2>So bekommst du den Bot</h2>
           <p class="hint">Kurz & eindeutig: Der Bot wird über Discord freigeschaltet/eingerichtet.</p>
         </div>
       </div>
 
-      <div class="gate reveal">
+      <div class="gate glass-strong glint">
         <div>
           <h3>✅ Ablauf</h3>
           <p>
@@ -1162,50 +877,76 @@
           </p>
         </div>
         <div class="gate-actions">
-          <a class="btn primary glow" id="discordBtn2" href="#" target="_blank" rel="noreferrer">💬 Discord joinen</a>
-          <button class="btn glow" type="button" id="copyDiscord2">📋 Invite kopieren</button>
-          <a class="btn glow" href="#faq">❓ FAQ</a>
+          <a class="btn primary" id="discordBtn2" href="#" target="_blank" rel="noreferrer">💬 Discord joinen</a>
+          <button class="btn" type="button" id="copyDiscord2">📋 Invite kopieren</button>
+          <a class="btn" href="#faq">❓ FAQ</a>
         </div>
       </div>
 
-      <div style="margin-top:14px; color:var(--muted); font-weight:900; line-height:1.65" class="reveal">
+      <div style="margin-top:14px; color:var(--muted); font-weight:900; line-height:1.65">
         Tipp: Pack den Discord-Link in deine Twitch Panels, damit Interessenten sofort wissen, wo sie den Bot bekommen.
+      </div>
+
+      <!-- Roadmap (added, no JS) -->
+      <div style="margin-top:18px">
+        <div class="section-head" style="margin-bottom:10px">
+          <div>
+            <h2 style="font-size: clamp(18px, 1.8vw, 24px)">Roadmap</h2>
+            <p class="hint" style="margin-top:6px">Premium-Style Übersicht, ohne irgendwas an Funktionen zu ändern.</p>
+          </div>
+        </div>
+
+        <div class="roadmap">
+          <div class="step glass glint">
+            <div class="k"><span class="num">1</span><b>Join & Ticket</b></div>
+            <p>Discord joinen, Ticket öffnen, Infos zu deinem Channel posten.</p>
+          </div>
+          <div class="step glass glint">
+            <div class="k"><span class="num">2</span><b>Setup & Freischaltung</b></div>
+            <p>Support richtet alles sauber ein (Bridge, Tickets, Mod-IDs, Rewards).</p>
+          </div>
+          <div class="step glass glint">
+            <div class="k"><span class="num">3</span><b>Live gehen</b></div>
+            <p>Alerts laufen, Punkte/Lurk zählen, Timeouts via IDs — fertig.</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
+  <!-- ✅ Streamer System wieder drin -->
   <section id="streamer">
     <div class="container">
-      <div class="section-head reveal">
+      <div class="section-head">
         <div>
           <h2>Streamer, die den Bot nutzen</h2>
-          <p class="hint">Mit Profilbild + Live/Offline + Twitch Embed wenn live (funktioniert ohne Tokens).</p>
+          <p class="hint">Mit Profilbild + Live/Offline. Funktioniert auf GitHub Pages ohne Tokens.</p>
         </div>
       </div>
 
-      <div class="streamer-controls reveal">
-        <div class="field">
+      <div class="streamer-controls">
+        <div class="field glass glint">
           <span aria-hidden="true">🔎</span>
           <input id="streamerSearch" type="text" placeholder="Streamer suchen (z.B. tricck17)…" />
         </div>
 
-        <div class="seg" id="streamerFilter">
+        <div class="seg glass" id="streamerFilter">
           <button type="button" class="active" data-filter="all">Alle</button>
           <button type="button" data-filter="live">🟢 Live</button>
           <button type="button" data-filter="offline">⚫ Offline</button>
         </div>
 
-        <button class="btn glow" id="streamerRefresh" type="button">🔁 Aktualisieren</button>
+        <button class="btn" id="streamerRefresh" type="button">🔁 Aktualisieren</button>
       </div>
 
-      <div class="streamer-meta reveal">
+      <div class="streamer-meta">
         <div id="streamerCount">—</div>
         <div id="streamerUpdated">—</div>
       </div>
 
       <div class="streamer-grid" id="streamerGrid"></div>
 
-      <div style="margin-top:12px; color:var(--faint); font-weight:850; line-height:1.55" class="reveal">
+      <div style="margin-top:12px; color:var(--faint); font-weight:850; line-height:1.55">
         Hinweis: Live-Status basiert auf einem einfachen Uptime-Check (kann minimal verzögert sein).
       </div>
     </div>
@@ -1213,7 +954,7 @@
 
   <section id="faq">
     <div class="container">
-      <div class="section-head reveal">
+      <div class="section-head">
         <div>
           <h2>FAQ</h2>
           <p class="hint">Kurz beantwortet – damit jeder es direkt versteht.</p>
@@ -1221,27 +962,27 @@
       </div>
 
       <div class="faq">
-        <details class="reveal">
+        <details class="glass glint">
           <summary>Warum ist Discord Pflicht?</summary>
           <p>
             Weil der Bot nicht öffentlich „für jeden“ automatisch verfügbar ist.
             Discord ist der zentrale Ort für Support, Freischaltung und das Ticketsystem.
           </p>
         </details>
-        <details class="reveal">
+        <details class="glass glint">
           <summary>Wird irgendwo Bot-Code oder Tokens gezeigt?</summary>
           <p>
             Nein. Auf dieser Website wird <b>kein Code</b> angezeigt – keine Tokens, keine Keys, kein Python.
             Nur Features & wie du Zugang bekommst.
           </p>
         </details>
-        <details class="reveal">
+        <details class="glass glint">
           <summary>Wer kann Tickets erstellen und Timeouts nutzen?</summary>
           <p>
             Tickets und Timeouts sind für Broadcaster/Mods gedacht. Damit bleibt alles kontrolliert und sicher.
           </p>
         </details>
-        <details class="reveal">
+        <details class="glass glint">
           <summary>Kann ich auch auf die Streamer-Liste?</summary>
           <p>
             Ja. Join den Discord und stelle eine Anfrage – dann wird dein Kanal hinzugefügt (wenn du den Bot nutzt).
@@ -1253,14 +994,14 @@
 
   <section id="discord">
     <div class="container">
-      <div class="gate reveal">
+      <div class="gate glass-strong glint">
         <div>
           <h3>🔥 Ready? Hol dir ImBurni_Bot_v1 im Discord</h3>
           <p>Join → Anfrage/Ticket → Freischaltung/Setup. Danach läuft Twitch ✕ Discord clean.</p>
         </div>
         <div class="gate-actions">
-          <a class="btn primary glow" id="discordBtn3" href="#" target="_blank" rel="noreferrer">💬 Zum Discord</a>
-          <button class="btn glow" type="button" id="copyDiscord3">📋 Invite kopieren</button>
+          <a class="btn primary" id="discordBtn3" href="#" target="_blank" rel="noreferrer">💬 Zum Discord</a>
+          <button class="btn" type="button" id="copyDiscord3">📋 Invite kopieren</button>
         </div>
       </div>
     </div>
@@ -1271,16 +1012,15 @@
       <div class="foot">
         <div>© <span id="year"></span> <span id="footName">ImBurni</span> • Darkmode • Beta Version V1</div>
         <div style="display:flex; gap:10px; flex-wrap:wrap">
-          <a class="btn glow" href="#features">Features</a>
-          <a class="btn glow" href="#proof">Social Proof</a>
-          <a class="btn glow" href="#roadmap">Roadmap</a>
-          <a class="btn glow" href="#streamer">Streamer</a>
+          <a class="btn" href="#features">Features</a>
+          <a class="btn" href="#zugang">Bot bekommen</a>
+          <a class="btn" href="#streamer">Streamer</a>
         </div>
       </div>
     </div>
   </footer>
 
-  <!-- 🎵 MUSIC: starts muted; tries unmute on scroll/click/touch/key -->
+  <!-- 🎵 MUSIC (legal autoplay feel): starts muted; tries unmute on scroll; fallback to click/touch/key -->
   <audio id="bgm" src="Song.mp3" preload="auto" loop muted playsinline></audio>
 
   <div class="sound-hint" id="soundHint">
@@ -1288,35 +1028,13 @@
     Falls dein Browser Scroll nicht akzeptiert: <b>ein Klick</b> aktiviert Ton sicher.
   </div>
 
-  <!-- ✅ Bottom Quick Actions (unten wieder Discord & Co.) -->
-  <div class="bottom-bar" id="bottomBar">
-    <div class="container inner">
-      <a class="btn primary glow" id="bottomDiscord" href="#" target="_blank" rel="noreferrer">💬 Discord</a>
-      <button class="btn glow" id="bottomCopy" type="button">📋 Invite kopieren</button>
-      <a class="btn glow" href="#streamer">🎥 Streamer</a>
-      <a class="btn glow" href="#features">⚡ Features</a>
-    </div>
-  </div>
-
   <script>
     /* ---------- Basic init ---------- */
     document.getElementById('navName').textContent = CONFIG.botName;
     document.getElementById('footName').textContent = CONFIG.botName;
-    document.getElementById('trustedBy').textContent = CONFIG.trustedByText;
-
-    // ✅ Alle Discord-Links zentral setzen (inkl. joinTop + Bottom-Bar)
-    [
-      "discordBtn1","discordBtn2","discordBtn3",
-      "joinTop","bottomDiscord"
-    ].forEach(id=>{
-      const el = document.getElementById(id);
-      if(el){
-        el.href = CONFIG.discordInvite;
-        el.target = "_blank";
-        el.rel = "noreferrer";
-      }
+    ["discordBtn1","discordBtn2","discordBtn3"].forEach(id=>{
+      document.getElementById(id).href = CONFIG.discordInvite;
     });
-
     document.getElementById('year').textContent = new Date().getFullYear();
 
     function toast(msg){
@@ -1344,45 +1062,17 @@
       catch{ toast("Kopieren nicht möglich ❌"); }
     }
     ["copyDiscord","copyDiscord2","copyDiscord3"].forEach(id=>{
-      const el = document.getElementById(id);
-      if(el) el.addEventListener('click', ()=>copyText(CONFIG.discordInvite));
+      document.getElementById(id).addEventListener('click', ()=>copyText(CONFIG.discordInvite));
     });
-
-    // ✅ Bottom Copy Button
-    const bottomCopy = document.getElementById("bottomCopy");
-    if(bottomCopy){
-      bottomCopy.addEventListener("click", ()=>copyText(CONFIG.discordInvite));
-    }
-
-    /* ---------- Micro detail: tiny click sound (WebAudio) ---------- */
-    let audioCtx = null;
-    function clickTick(){
-      try{
-        if(!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        const o = audioCtx.createOscillator();
-        const g = audioCtx.createGain();
-        o.type = "sine";
-        o.frequency.value = 880;
-        g.gain.value = 0.015;
-        o.connect(g); g.connect(audioCtx.destination);
-        o.start();
-        o.stop(audioCtx.currentTime + 0.03);
-      }catch{}
-    }
-    document.addEventListener('pointerdown', (e)=>{
-      const el = e.target.closest('.btn, .mini-btn, .theme-toggle, summary, button');
-      if(el) clickTick();
-    }, {capture:true, passive:true});
 
     /* ---------- 🎵 Music: muted autoplay + try unmute on scroll + fallback click ---------- */
     (function(){
       const audio = document.getElementById("bgm");
       const hint = document.getElementById("soundHint");
-      if(!audio) return;
-
       audio.volume = 0.85;
       audio.loop = true;
 
+      // start muted (allowed)
       window.addEventListener("load", async () => {
         try{
           audio.muted = true;
@@ -1407,8 +1097,11 @@
         }
       }
 
+      // TRY ON SCROLL/WHEEL first
       const onWheel = async () => { await unlockSound(); };
       const onScroll = async () => { await unlockSound(); };
+
+      // SAFE FALLBACK on real gestures
       const onPointer = async () => { await unlockSound(); };
       const onTouch = async () => { await unlockSound(); };
       const onKey = async () => { await unlockSound(); };
@@ -1457,7 +1150,6 @@
     /* ---------- Particles ---------- */
     (function(){
       const c = document.getElementById('particles');
-      if(!c) return;
       const ctx = c.getContext('2d', { alpha: true });
       let W = 0, H = 0, dpr = Math.min(2, window.devicePixelRatio || 1);
 
@@ -1522,98 +1214,7 @@
       tick();
     })();
 
-    /* ---------- Theme toggle ---------- */
-    (function(){
-      const btn = document.getElementById('themeToggle');
-      const label = document.getElementById('themeLabel');
-      const key = "imburni_theme";
-      const saved = localStorage.getItem(key);
-
-      function apply(mode){
-        if(mode === "calm"){
-          document.body.classList.add("theme-calm");
-          if(label) label.textContent = "Calm";
-        }else{
-          document.body.classList.remove("theme-calm");
-          if(label) label.textContent = "Neon";
-        }
-      }
-
-      apply(saved || "neon");
-
-      if(btn){
-        btn.addEventListener('click', ()=>{
-          const isCalm = document.body.classList.toggle("theme-calm");
-          const mode = isCalm ? "calm" : "neon";
-          localStorage.setItem(key, mode);
-          if(label) label.textContent = isCalm ? "Calm" : "Neon";
-          toast("Theme: " + (isCalm ? "Calm" : "Neon") + " ✨");
-        });
-      }
-    })();
-
-    /* ---------- Scroll reveal ---------- */
-    (function(){
-      const els = Array.from(document.querySelectorAll('.reveal'));
-      const io = new IntersectionObserver((entries)=>{
-        for(const e of entries){
-          if(e.isIntersecting){
-            e.target.classList.add('show');
-            io.unobserve(e.target);
-          }
-        }
-      }, {threshold: 0.14});
-      els.forEach(el=>io.observe(el));
-    })();
-
-    /* ---------- Animated counters ---------- */
-    (function(){
-      const targets = CONFIG.counters || {};
-      const nodes = Array.from(document.querySelectorAll('[data-count]'));
-      const fmt = (n)=> Number(n).toLocaleString('de-DE');
-
-      let started = false;
-      function run(){
-        if(started) return;
-        started = true;
-
-        nodes.forEach(node=>{
-          const k = node.getAttribute('data-count');
-          const end = Number(targets[k] || 0);
-          const dur = 1100 + Math.random()*500;
-          const start = performance.now();
-
-          function step(now){
-            const t = Math.min(1, (now - start)/dur);
-            const eased = 1 - Math.pow(1 - t, 3);
-            const val = Math.round(end * eased);
-            node.textContent = fmt(val);
-            if(t < 1) requestAnimationFrame(step);
-          }
-          requestAnimationFrame(step);
-        });
-      }
-
-      const proof = document.getElementById('proof');
-      const io = new IntersectionObserver((entries)=>{
-        if(entries.some(e=>e.isIntersecting)) { run(); io.disconnect(); }
-      }, {threshold: 0.18});
-      if(proof) io.observe(proof);
-    })();
-
-    /* ---------- Preview: rotate follower names ---------- */
-    (function(){
-      const el = document.getElementById('mockFollower');
-      if(!el) return;
-      const names = ["xXNewFollowerXx","ShadowLurk","HypeTrain3000","ModKing","ChatEnjoyer"];
-      let i = 0;
-      setInterval(()=>{
-        i = (i+1) % names.length;
-        el.textContent = names[i];
-      }, 2200);
-    })();
-
-    /* ---------- Streamer list (Avatar + Live/Offline + Live Twitch embed) ---------- */
+    /* ---------- Streamer list (Avatar + Live/Offline) ---------- */
     const streamerGrid = document.getElementById('streamerGrid');
     const streamerCount = document.getElementById('streamerCount');
     const streamerUpdated = document.getElementById('streamerUpdated');
@@ -1627,7 +1228,7 @@
     };
 
     const streamerState = {
-      items: (CONFIG.streamers || []).map(n => ({
+      items: CONFIG.streamers.map(n => ({
         login: String(n || '').trim(),
         live: null,
         uptimeText: 'Status wird geladen…',
@@ -1643,15 +1244,8 @@
       }[m]));
     }
 
-    function twitchPlayerSrc(login){
-      const parent = encodeURIComponent(location.hostname || "localhost");
-      return `https://player.twitch.tv/?channel=${encodeURIComponent(login)}&parent=${parent}&muted=true`;
-    }
-
     function renderStreamers(){
-      if(!streamerGrid || !streamerCount) return;
-
-      const q = (streamerState.query || '').toLowerCase().trim();
+      const q = streamerState.query.toLowerCase().trim();
       const filtered = streamerState.items.filter(it => {
         const matchesQuery = !q || it.login.toLowerCase().includes(q);
         const matchesFilter =
@@ -1679,18 +1273,8 @@
           ? `<img src="${it.avatarUrl}" alt="${display} Profilbild" loading="lazy" />`
           : `<img src="https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_70x70.png" alt="${display} Profilbild" loading="lazy" />`;
 
-        const embed = it.live === true
-          ? `<div class="twitch-embed">
-               <iframe
-                 src="${twitchPlayerSrc(loginLower)}"
-                 allowfullscreen
-                 scrolling="no"
-                 title="Twitch Live Player ${escapeHtml(loginLower)}"></iframe>
-             </div>`
-          : ``;
-
         return `
-          <div class="streamer-card reveal show" data-login="${escapeHtml(loginLower)}">
+          <div class="streamer-card glint" data-login="${escapeHtml(loginLower)}">
             <div class="streamer-top">
               <div class="streamer-left">
                 <div class="avatar">${avatar}</div>
@@ -1702,16 +1286,11 @@
               ${liveBadge}
             </div>
 
-            <div class="uptime">${
-              it.live === true ? `🟢 Live seit: <b>${uptime}</b>` :
-              it.live === false ? `⚫ Offline` : `⏳ ${uptime}`
-            }</div>
-
-            ${embed}
+            <div class="uptime">${it.live === true ? `🟢 Live seit: <b>${uptime}</b>` : it.live === false ? `⚫ Offline` : `⏳ ${uptime}`}</div>
 
             <div class="streamer-bottom">
               <div style="color: var(--faint); font-weight:900">Bot-Nutzer</div>
-              <a class="btn primary glow" href="https://twitch.tv/${escapeHtml(loginLower)}" target="_blank" rel="noreferrer">Zum Stream</a>
+              <a class="btn primary" href="https://twitch.tv/${escapeHtml(loginLower)}" target="_blank" rel="noreferrer">Zum Stream</a>
             </div>
           </div>
         `;
@@ -1750,7 +1329,7 @@
     }
 
     async function refreshStreamers(){
-      if(streamerUpdated) streamerUpdated.textContent = 'Aktualisiere…';
+      streamerUpdated.textContent = 'Aktualisiere…';
       renderStreamers();
 
       for(const it of streamerState.items){
@@ -1758,28 +1337,24 @@
         renderStreamers();
       }
 
-      if(streamerUpdated) streamerUpdated.textContent = 'Zuletzt aktualisiert: ' + new Date().toLocaleString('de-DE');
+      streamerUpdated.textContent = 'Zuletzt aktualisiert: ' + new Date().toLocaleString('de-DE');
     }
 
-    if(streamerSearch){
-      streamerSearch.addEventListener('input', ()=>{
-        streamerState.query = streamerSearch.value || '';
+    streamerSearch.addEventListener('input', ()=>{
+      streamerState.query = streamerSearch.value || '';
+      renderStreamers();
+    });
+
+    filterWrap.querySelectorAll('button[data-filter]').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        filterWrap.querySelectorAll('button[data-filter]').forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+        streamerState.filter = btn.dataset.filter || 'all';
         renderStreamers();
       });
-    }
+    });
 
-    if(filterWrap){
-      filterWrap.querySelectorAll('button[data-filter]').forEach(btn=>{
-        btn.addEventListener('click', ()=>{
-          filterWrap.querySelectorAll('button[data-filter]').forEach(b=>b.classList.remove('active'));
-          btn.classList.add('active');
-          streamerState.filter = btn.dataset.filter || 'all';
-          renderStreamers();
-        });
-      });
-    }
-
-    if(refreshBtn) refreshBtn.addEventListener('click', refreshStreamers);
+    refreshBtn.addEventListener('click', refreshStreamers);
 
     renderStreamers();
     refreshStreamers();
