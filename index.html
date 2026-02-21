@@ -10,6 +10,11 @@
   <meta property="og:description" content="Punkte, Lurk, Support-Tickets mit Buttons & Mod-Timeouts. Zugang nur via Discord." />
   <meta property="og:type" content="website" />
 
+  <!-- ✅ Reveal-Fix: nur wenn JS aktiv ist, werden .reveal Elemente versteckt -->
+  <script>
+    document.documentElement.classList.add('js');
+  </script>
+
   <style>
     :root{
       --bg0:#050509;
@@ -532,13 +537,13 @@
       .streamer-grid{grid-template-columns: 1fr}
     }
 
-    /* ✅ FIX: Sound hint blockiert keine Buttons mehr */
+    /* ✅ Sound hint FIX: blockiert NICHTS */
     .sound-hint{
       position: fixed;
       left: 18px;
       bottom: 18px;
-      z-index: 30;              /* war 9999 */
-      pointer-events: none;     /* blockiert keine Buttons */
+      z-index: 30;
+      pointer-events:none;
       padding: 10px 12px;
       border-radius: 14px;
       border:1px solid rgba(255,255,255,.12);
@@ -552,8 +557,10 @@
     }
     .sound-hint b{color:#fff}
 
-    .reveal{opacity:0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease}
-    .reveal.show{opacity:1; transform:none}
+    /* ✅ REVEAL FIX (WICHTIG!) */
+    .reveal{opacity:1; transform:none}
+    .js .reveal{opacity:0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease}
+    .js .reveal.show{opacity:1; transform:none}
 
     .preview{
       border-radius: 28px;
@@ -654,13 +661,34 @@
     body.theme-calm .theme-toggle .knob{left: 22px}
     .theme-toggle small{color: var(--faint); font-weight:900}
 
-    /* Roadmap tags (in deinem Code waren sie vorhanden – hier minimal ergänzt, falls du sie im CSS brauchst) */
-    .roadmap{border-radius: 28px;border:1px solid rgba(255,255,255,.12);background: rgba(255,255,255,.05);padding: 16px;box-shadow: var(--shadow2);}
-    .roadmap .row{display:flex; align-items:flex-start; justify-content:space-between; gap:12px;padding: 12px 10px;border-radius: 16px;border:1px solid rgba(255,255,255,.08);background: rgba(0,0,0,.18);margin-bottom: 10px;}
+    .roadmap{
+      border-radius: 28px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      padding: 16px;
+      box-shadow: var(--shadow2);
+    }
+    .roadmap .row{
+      display:flex; align-items:flex-start; justify-content:space-between; gap:12px;
+      padding: 12px 10px;
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,.08);
+      background: rgba(0,0,0,.18);
+      margin-bottom: 10px;
+    }
     .roadmap .row:last-child{margin-bottom:0}
     .roadmap b{font-weight:1000}
     .roadmap small{display:block; margin-top:6px; color: var(--faint); font-weight:900; line-height:1.45}
-    .tag{padding: 8px 10px;border-radius: 999px;border:1px solid rgba(255,255,255,.12);background: rgba(255,255,255,.05);color: var(--muted);font-weight:1000;white-space:nowrap;flex: 0 0 auto;}
+    .tag{
+      padding: 8px 10px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      color: var(--muted);
+      font-weight:1000;
+      white-space:nowrap;
+      flex: 0 0 auto;
+    }
     .tag.soon{border-color: rgba(255,122,24,.22); background: rgba(255,122,24,.10); color: rgba(238,240,255,.90)}
     .tag.wip{border-color: rgba(168,85,247,.22); background: rgba(168,85,247,.10); color: rgba(238,240,255,.90)}
     .tag.future{border-color: rgba(46,229,157,.18); background: rgba(46,229,157,.08); color: rgba(238,240,255,.90)}
@@ -719,13 +747,15 @@
 
   <header class="hero" id="top">
     <div class="container">
-      <div class="pill reveal">
+      <!-- ✅ BONUS: direkt sichtbar -->
+      <div class="pill reveal show">
         <span class="dot" aria-hidden="true"></span>
         <span>Live-ready • Tickets • ID-Timeouts • Punkte • Lurk</span>
       </div>
 
       <div class="hero-grid">
-        <div class="reveal">
+        <!-- ✅ BONUS: direkt sichtbar -->
+        <div class="reveal show">
           <div class="h1">
             <span class="shine-underline"><span class="grad">Feuer</span></span> für deinen Chat.<br />
             Support über <span class="shine-underline"><span class="grad">Discord</span></span>.
@@ -758,7 +788,8 @@
           </div>
         </div>
 
-        <div class="hero-card reveal" aria-label="ImBurni_Bot Artwork">
+        <!-- ✅ BONUS: direkt sichtbar -->
+        <div class="hero-card reveal show" aria-label="ImBurni_Bot Artwork">
           <div class="hero-media">
             <div class="img-wrap">
               <img src="imburni_bot.png" alt="ImBurni_Bot_v1 Artwork" />
@@ -1067,7 +1098,6 @@
     </div>
   </footer>
 
-  <!-- 🎵 MUSIC -->
   <audio id="bgm" src="Song.mp3" preload="auto" loop muted playsinline></audio>
 
   <div class="sound-hint" id="soundHint">
@@ -1076,82 +1106,74 @@
   </div>
 
   <script>
-    /* ---------- Basic init ---------- */
-    document.getElementById('navName').textContent = CONFIG.botName;
-    document.getElementById('footName').textContent = CONFIG.botName;
-    document.getElementById('trustedBy').textContent = CONFIG.trustedByText;
+    // ✅ Safe runner: ein Fehler killt nicht die ganze Seite
+    const safe = (fn)=>{ try{ fn(); } catch(e){ console.warn(e); } };
 
-    ["discordBtn1","discordBtn2","discordBtn3"].forEach(id=>{
-      const el = document.getElementById(id);
-      if(el){
-        el.href = CONFIG.discordInvite;
-        el.target = "_blank";
-        el.rel = "noopener noreferrer";
+    safe(() => {
+      const navName = document.getElementById('navName');
+      const footName = document.getElementById('footName');
+      const trustedBy = document.getElementById('trustedBy');
+      if(navName) navName.textContent = CONFIG.botName;
+      if(footName) footName.textContent = CONFIG.botName;
+      if(trustedBy) trustedBy.textContent = CONFIG.trustedByText;
+
+      ["discordBtn1","discordBtn2","discordBtn3"].forEach(id=>{
+        const el = document.getElementById(id);
+        if(el){
+          el.href = CONFIG.discordInvite;
+          el.target = "_blank";
+          el.rel = "noopener noreferrer";
+        }
+      });
+
+      const joinTop = document.getElementById("joinTop");
+      if(joinTop){
+        joinTop.href = CONFIG.discordInvite;
+        joinTop.target = "_blank";
+        joinTop.rel = "noopener noreferrer";
       }
+
+      const year = document.getElementById('year');
+      if(year) year.textContent = new Date().getFullYear();
     });
 
-    const joinTop = document.getElementById("joinTop");
-    if(joinTop){
-      joinTop.href = CONFIG.discordInvite;
-      joinTop.target = "_blank";
-      joinTop.rel = "noopener noreferrer";
-    }
-
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    function toast(msg){
-      const t = document.createElement('div');
-      t.textContent = msg;
-      t.style.position='fixed';
-      t.style.left='50%';
-      t.style.bottom='26px';
-      t.style.transform='translateX(-50%)';
-      t.style.padding='12px 14px';
-      t.style.borderRadius='14px';
-      t.style.border='1px solid rgba(255,255,255,.16)';
-      t.style.background='rgba(0,0,0,.68)';
-      t.style.color='white';
-      t.style.fontWeight='950';
-      t.style.zIndex=9999;
-      t.style.backdropFilter='blur(10px)';
-      t.style.boxShadow='0 16px 40px rgba(0,0,0,.38)';
-      document.body.appendChild(t);
-      setTimeout(()=>{ t.style.opacity='0'; t.style.transition='opacity .25s ease'; }, 1200);
-      setTimeout(()=>{ t.remove(); }, 1500);
-    }
-    async function copyText(text){
-      try{ await navigator.clipboard.writeText(text); toast("Invite kopiert ✅"); }
-      catch{ toast("Kopieren nicht möglich ❌"); }
-    }
-    ["copyDiscord","copyDiscord2","copyDiscord3"].forEach(id=>{
-      const el = document.getElementById(id);
-      if(el) el.addEventListener('click', ()=>copyText(CONFIG.discordInvite));
+    safe(() => {
+      function toast(msg){
+        const t = document.createElement('div');
+        t.textContent = msg;
+        t.style.position='fixed';
+        t.style.left='50%';
+        t.style.bottom='26px';
+        t.style.transform='translateX(-50%)';
+        t.style.padding='12px 14px';
+        t.style.borderRadius='14px';
+        t.style.border='1px solid rgba(255,255,255,.16)';
+        t.style.background='rgba(0,0,0,.68)';
+        t.style.color='white';
+        t.style.fontWeight='950';
+        t.style.zIndex=9999;
+        t.style.backdropFilter='blur(10px)';
+        t.style.boxShadow='0 16px 40px rgba(0,0,0,.38)';
+        document.body.appendChild(t);
+        setTimeout(()=>{ t.style.opacity='0'; t.style.transition='opacity .25s ease'; }, 1200);
+        setTimeout(()=>{ t.remove(); }, 1500);
+      }
+      async function copyText(text){
+        try{ await navigator.clipboard.writeText(text); toast("Invite kopiert ✅"); }
+        catch{ toast("Kopieren nicht möglich ❌"); }
+      }
+      ["copyDiscord","copyDiscord2","copyDiscord3"].forEach(id=>{
+        const el = document.getElementById(id);
+        if(el) el.addEventListener('click', ()=>copyText(CONFIG.discordInvite));
+      });
     });
 
-    /* ---------- Micro detail: tiny click sound (WebAudio) ---------- */
-    let audioCtx = null;
-    function clickTick(){
-      try{
-        if(!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        const o = audioCtx.createOscillator();
-        const g = audioCtx.createGain();
-        o.type = "sine";
-        o.frequency.value = 880;
-        g.gain.value = 0.015;
-        o.connect(g); g.connect(audioCtx.destination);
-        o.start();
-        o.stop(audioCtx.currentTime + 0.03);
-      }catch{}
-    }
-    document.addEventListener('pointerdown', (e)=>{
-      const el = e.target.closest('.btn, .mini-btn, .theme-toggle, summary, button');
-      if(el) clickTick();
-    }, {capture:true, passive:true});
-
-    /* ---------- 🎵 Music: muted autoplay + try unmute on scroll + fallback click ---------- */
-    (function(){
+    /* 🎵 Music: muted autoplay + unlock on gestures */
+    safe(() => {
       const audio = document.getElementById("bgm");
       const hint = document.getElementById("soundHint");
+      if(!audio) return;
+
       audio.volume = 0.85;
       audio.loop = true;
 
@@ -1163,27 +1185,22 @@
       });
 
       let unlocked = false;
-
       async function unlockSound(){
-        if(unlocked) return true;
+        if(unlocked) return;
         try{
           audio.muted = false;
-          audio.volume = 0.85;
           await audio.play();
           unlocked = true;
           if(hint) hint.remove();
           cleanup();
-          return true;
-        }catch{
-          return false;
-        }
+        }catch{}
       }
 
-      const onWheel = async () => { await unlockSound(); };
-      const onScroll = async () => { await unlockSound(); };
-      const onPointer = async () => { await unlockSound(); };
-      const onTouch = async () => { await unlockSound(); };
-      const onKey = async () => { await unlockSound(); };
+      const onWheel = () => unlockSound();
+      const onScroll = () => unlockSound();
+      const onPointer = () => unlockSound();
+      const onTouch = () => unlockSound();
+      const onKey = () => unlockSound();
 
       function cleanup(){
         window.removeEventListener("wheel", onWheel, true);
@@ -1198,16 +1215,45 @@
       document.addEventListener("pointerdown", onPointer, true);
       document.addEventListener("touchstart", onTouch, {capture:true, passive:true});
       document.addEventListener("keydown", onKey, true);
-    })();
 
-    /* ✅ Extra: Hint nach 6 Sekunden entfernen (selbst wenn kein Unlock passiert) */
-    setTimeout(() => {
-      const hint = document.getElementById("soundHint");
-      if(hint) hint.remove();
-    }, 6000);
+      // ✅ Hint nach 6s weg (auch wenn kein Unlock passiert)
+      setTimeout(()=>{ const h = document.getElementById("soundHint"); if(h) h.remove(); }, 6000);
+    });
 
-    /* ---------- Parallax Glow ---------- */
-    (function(){
+    /* ✅ Reveal Observer + Fallback (WICHTIG) */
+    safe(() => {
+      const els = Array.from(document.querySelectorAll('.reveal'));
+      if(!els.length) return;
+
+      if('IntersectionObserver' in window){
+        const io = new IntersectionObserver((entries)=>{
+          for(const e of entries){
+            if(e.isIntersecting){
+              e.target.classList.add('show');
+              io.unobserve(e.target);
+            }
+          }
+        }, {threshold: 0.14});
+        els.forEach(el=>io.observe(el));
+      } else {
+        els.forEach(el=>el.classList.add('show'));
+      }
+
+      // ✅ FALLBACK: falls irgendwas schiefgeht -> nach 1.2s alles sichtbar
+      setTimeout(()=>{ els.forEach(el=>el.classList.add('show')); }, 1200);
+    });
+
+    /* Preview follower rotation */
+    safe(() => {
+      const el = document.getElementById('mockFollower');
+      if(!el) return;
+      const names = ["xXNewFollowerXx","ShadowLurk","HypeTrain3000","ModKing","ChatEnjoyer"];
+      let i = 0;
+      setInterval(()=>{ i = (i+1) % names.length; el.textContent = names[i]; }, 2200);
+    });
+
+    /* Parallax Glow */
+    safe(() => {
       const root = document.documentElement;
       let tx = 0, ty = 0, cx = 0, cy = 0;
       function update(){
@@ -1230,12 +1276,15 @@
         if(!e.touches || !e.touches[0]) return;
         handle(e.touches[0].clientX, e.touches[0].clientY);
       }, {passive:true});
-    })();
+    });
 
-    /* ---------- Particles ---------- */
-    (function(){
+    /* Particles */
+    safe(() => {
       const c = document.getElementById('particles');
+      if(!c) return;
       const ctx = c.getContext('2d', { alpha: true });
+      if(!ctx) return;
+
       let W = 0, H = 0, dpr = Math.min(2, window.devicePixelRatio || 1);
 
       function resize(){
@@ -1297,12 +1346,14 @@
         requestAnimationFrame(tick);
       }
       tick();
-    })();
+    });
 
-    /* ---------- Theme toggle ---------- */
-    (function(){
+    /* Theme toggle */
+    safe(() => {
       const btn = document.getElementById('themeToggle');
       const label = document.getElementById('themeLabel');
+      if(!btn || !label) return;
+
       const key = "imburni_theme";
       const saved = localStorage.getItem(key);
 
@@ -1323,204 +1374,180 @@
         const mode = isCalm ? "calm" : "neon";
         localStorage.setItem(key, mode);
         label.textContent = isCalm ? "Calm" : "Neon";
-        toast("Theme: " + (isCalm ? "Calm" : "Neon") + " ✨");
       });
-    })();
+    });
 
-    /* ---------- Scroll reveal ---------- */
-    (function(){
-      const els = Array.from(document.querySelectorAll('.reveal'));
-      const io = new IntersectionObserver((entries)=>{
-        for(const e of entries){
-          if(e.isIntersecting){
-            e.target.classList.add('show');
-            io.unobserve(e.target);
-          }
-        }
-      }, {threshold: 0.14});
-      els.forEach(el=>io.observe(el));
-    })();
+    /* Streamer list */
+    safe(() => {
+      const streamerGrid = document.getElementById('streamerGrid');
+      const streamerCount = document.getElementById('streamerCount');
+      const streamerUpdated = document.getElementById('streamerUpdated');
+      const streamerSearch = document.getElementById('streamerSearch');
+      const filterWrap = document.getElementById('streamerFilter');
+      const refreshBtn = document.getElementById('streamerRefresh');
+      if(!streamerGrid || !streamerCount || !streamerUpdated || !streamerSearch || !filterWrap || !refreshBtn) return;
 
-    /* ---------- Preview: rotate follower names ---------- */
-    (function(){
-      const el = document.getElementById('mockFollower');
-      if(!el) return;
-      const names = ["xXNewFollowerXx","ShadowLurk","HypeTrain3000","ModKing","ChatEnjoyer"];
-      let i = 0;
-      setInterval(()=>{
-        i = (i+1) % names.length;
-        el.textContent = names[i];
-      }, 2200);
-    })();
+      const endpoints = {
+        uptime: (login) => `https://decapi.me/twitch/uptime/${encodeURIComponent(login)}`,
+        avatar: (login) => `https://decapi.me/twitch/avatar/${encodeURIComponent(login)}`
+      };
 
-    /* ---------- Streamer list (Avatar + Live/Offline + Live Twitch embed) ---------- */
-    const streamerGrid = document.getElementById('streamerGrid');
-    const streamerCount = document.getElementById('streamerCount');
-    const streamerUpdated = document.getElementById('streamerUpdated');
-    const streamerSearch = document.getElementById('streamerSearch');
-    const filterWrap = document.getElementById('streamerFilter');
-    const refreshBtn = document.getElementById('streamerRefresh');
+      const streamerState = {
+        items: (CONFIG.streamers || []).map(n => ({
+          login: String(n || '').trim(),
+          live: null,
+          uptimeText: 'Status wird geladen…',
+          avatarUrl: null
+        })).filter(x => x.login.length > 0),
+        filter: 'all',
+        query: ''
+      };
 
-    const endpoints = {
-      uptime: (login) => `https://decapi.me/twitch/uptime/${encodeURIComponent(login)}`,
-      avatar: (login) => `https://decapi.me/twitch/avatar/${encodeURIComponent(login)}`
-    };
+      function escapeHtml(s){
+        return String(s).replace(/[&<>"']/g, m => ({
+          '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+        }[m]));
+      }
 
-    const streamerState = {
-      items: CONFIG.streamers.map(n => ({
-        login: String(n || '').trim(),
-        live: null,
-        uptimeText: 'Status wird geladen…',
-        avatarUrl: null
-      })).filter(x => x.login.length > 0),
-      filter: 'all',
-      query: ''
-    };
+      function twitchPlayerSrc(login){
+        const parent = encodeURIComponent(location.hostname || "localhost");
+        return `https://player.twitch.tv/?channel=${encodeURIComponent(login)}&parent=${parent}&muted=true`;
+      }
 
-    function escapeHtml(s){
-      return String(s).replace(/[&<>"']/g, m => ({
-        '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
-      }[m]));
-    }
+      function renderStreamers(){
+        const q = streamerState.query.toLowerCase().trim();
+        const filtered = streamerState.items.filter(it => {
+          const matchesQuery = !q || it.login.toLowerCase().includes(q);
+          const matchesFilter =
+            streamerState.filter === 'all' ? true :
+            streamerState.filter === 'live' ? it.live === true :
+            streamerState.filter === 'offline' ? it.live === false :
+            true;
+          return matchesQuery && matchesFilter;
+        });
 
-    function twitchPlayerSrc(login){
-      const parent = encodeURIComponent(location.hostname || "localhost");
-      return `https://player.twitch.tv/?channel=${encodeURIComponent(login)}&parent=${parent}&muted=true`;
-    }
+        streamerCount.textContent = `${filtered.length} Streamer angezeigt • ${streamerState.items.length} gesamt`;
 
-    function renderStreamers(){
-      const q = streamerState.query.toLowerCase().trim();
-      const filtered = streamerState.items.filter(it => {
-        const matchesQuery = !q || it.login.toLowerCase().includes(q);
-        const matchesFilter =
-          streamerState.filter === 'all' ? true :
-          streamerState.filter === 'live' ? it.live === true :
-          streamerState.filter === 'offline' ? it.live === false :
-          true;
-        return matchesQuery && matchesFilter;
-      });
+        streamerGrid.innerHTML = filtered.map(it => {
+          const loginLower = it.login.toLowerCase();
+          const display = escapeHtml(it.login);
 
-      streamerCount.textContent = `${filtered.length} Streamer angezeigt • ${streamerState.items.length} gesamt`;
+          const liveBadge = it.live === true
+            ? `<span class="badge live"><span class="live-dot"></span>LIVE</span>`
+            : it.live === false
+              ? `<span class="badge"><span class="live-dot"></span>OFFLINE</span>`
+              : `<span class="badge"><span class="live-dot"></span>CHECK…</span>`;
 
-      streamerGrid.innerHTML = filtered.map(it => {
-        const loginLower = it.login.toLowerCase();
-        const display = escapeHtml(it.login);
+          const uptime = escapeHtml(it.uptimeText || '');
+          const avatar = it.avatarUrl
+            ? `<img src="${it.avatarUrl}" alt="${display} Profilbild" loading="lazy" />`
+            : `<img src="https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_70x70.png" alt="${display} Profilbild" loading="lazy" />`;
 
-        const liveBadge = it.live === true
-          ? `<span class="badge live"><span class="live-dot"></span>LIVE</span>`
-          : it.live === false
-            ? `<span class="badge"><span class="live-dot"></span>OFFLINE</span>`
-            : `<span class="badge"><span class="live-dot"></span>CHECK…</span>`;
+          const embed = it.live === true
+            ? `<div class="twitch-embed">
+                 <iframe
+                   src="${twitchPlayerSrc(loginLower)}"
+                   allowfullscreen
+                   scrolling="no"
+                   title="Twitch Live Player ${escapeHtml(loginLower)}"></iframe>
+               </div>`
+            : ``;
 
-        const uptime = escapeHtml(it.uptimeText || '');
-        const avatar = it.avatarUrl
-          ? `<img src="${it.avatarUrl}" alt="${display} Profilbild" loading="lazy" />`
-          : `<img src="https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_70x70.png" alt="${display} Profilbild" loading="lazy" />`;
-
-        const embed = it.live === true
-          ? `<div class="twitch-embed">
-               <iframe
-                 src="${twitchPlayerSrc(loginLower)}"
-                 allowfullscreen
-                 scrolling="no"
-                 title="Twitch Live Player ${escapeHtml(loginLower)}"></iframe>
-             </div>`
-          : ``;
-
-        return `
-          <div class="streamer-card reveal show" data-login="${escapeHtml(loginLower)}">
-            <div class="streamer-top">
-              <div class="streamer-left">
-                <div class="avatar">${avatar}</div>
-                <div class="sname">
-                  <b>${display}</b>
-                  <span>twitch.tv/${escapeHtml(loginLower)}</span>
+          return `
+            <div class="streamer-card reveal show" data-login="${escapeHtml(loginLower)}">
+              <div class="streamer-top">
+                <div class="streamer-left">
+                  <div class="avatar">${avatar}</div>
+                  <div class="sname">
+                    <b>${display}</b>
+                    <span>twitch.tv/${escapeHtml(loginLower)}</span>
+                  </div>
                 </div>
+                ${liveBadge}
               </div>
-              ${liveBadge}
+
+              <div class="uptime">${
+                it.live === true ? `🟢 Live seit: <b>${uptime}</b>` :
+                it.live === false ? `⚫ Offline` : `⏳ ${uptime}`
+              }</div>
+
+              ${embed}
+
+              <div class="streamer-bottom">
+                <div style="color: var(--faint); font-weight:900">Bot-Nutzer</div>
+                <a class="btn primary glow"
+                   href="https://twitch.tv/${escapeHtml(loginLower)}"
+                   target="_blank"
+                   rel="noopener noreferrer">Zum Stream</a>
+              </div>
             </div>
-
-            <div class="uptime">${
-              it.live === true ? `🟢 Live seit: <b>${uptime}</b>` :
-              it.live === false ? `⚫ Offline` : `⏳ ${uptime}`
-            }</div>
-
-            ${embed}
-
-            <div class="streamer-bottom">
-              <div style="color: var(--faint); font-weight:900">Bot-Nutzer</div>
-              <a class="btn primary glow"
-                 href="https://twitch.tv/${escapeHtml(loginLower)}"
-                 target="_blank"
-                 rel="noopener noreferrer">Zum Stream</a>
-            </div>
-          </div>
-        `;
-      }).join('');
-    }
-
-    async function fetchText(url){
-      const res = await fetch(url, { cache: 'no-store' });
-      return await res.text();
-    }
-
-    async function updateStreamer(it){
-      const login = it.login;
-
-      if(!it.avatarUrl){
-        try{
-          const avatarText = (await fetchText(endpoints.avatar(login))).trim();
-          if(avatarText.startsWith('http')) it.avatarUrl = avatarText;
-        }catch{}
+          `;
+        }).join('');
       }
 
-      try{
-        const t = (await fetchText(endpoints.uptime(login))).trim();
-        it.uptimeText = t || 'Unbekannt';
-        if((t || '').toLowerCase().includes('offline')){
-          it.live = false;
-        } else if(t){
-          it.live = true;
-        } else {
-          it.live = null;
+      async function fetchText(url){
+        const res = await fetch(url, { cache: 'no-store' });
+        return await res.text();
+      }
+
+      async function updateStreamer(it){
+        const login = it.login;
+
+        if(!it.avatarUrl){
+          try{
+            const avatarText = (await fetchText(endpoints.avatar(login))).trim();
+            if(avatarText.startsWith('http')) it.avatarUrl = avatarText;
+          }catch{}
         }
-      }catch{
-        it.live = null;
-        it.uptimeText = 'Status unbekannt';
+
+        try{
+          const t = (await fetchText(endpoints.uptime(login))).trim();
+          it.uptimeText = t || 'Unbekannt';
+          if((t || '').toLowerCase().includes('offline')){
+            it.live = false;
+          } else if(t){
+            it.live = true;
+          } else {
+            it.live = null;
+          }
+        }catch{
+          it.live = null;
+          it.uptimeText = 'Status unbekannt';
+        }
       }
-    }
 
-    async function refreshStreamers(){
-      streamerUpdated.textContent = 'Aktualisiere…';
-      renderStreamers();
-
-      for(const it of streamerState.items){
-        await updateStreamer(it);
+      async function refreshStreamers(){
+        streamerUpdated.textContent = 'Aktualisiere…';
         renderStreamers();
+
+        for(const it of streamerState.items){
+          await updateStreamer(it);
+          renderStreamers();
+        }
+
+        streamerUpdated.textContent = 'Zuletzt aktualisiert: ' + new Date().toLocaleString('de-DE');
       }
 
-      streamerUpdated.textContent = 'Zuletzt aktualisiert: ' + new Date().toLocaleString('de-DE');
-    }
-
-    streamerSearch.addEventListener('input', ()=>{
-      streamerState.query = streamerSearch.value || '';
-      renderStreamers();
-    });
-
-    filterWrap.querySelectorAll('button[data-filter]').forEach(btn=>{
-      btn.addEventListener('click', ()=>{
-        filterWrap.querySelectorAll('button[data-filter]').forEach(b=>b.classList.remove('active'));
-        btn.classList.add('active');
-        streamerState.filter = btn.dataset.filter || 'all';
+      streamerSearch.addEventListener('input', ()=>{
+        streamerState.query = streamerSearch.value || '';
         renderStreamers();
       });
+
+      filterWrap.querySelectorAll('button[data-filter]').forEach(btn=>{
+        btn.addEventListener('click', ()=>{
+          filterWrap.querySelectorAll('button[data-filter]').forEach(b=>b.classList.remove('active'));
+          btn.classList.add('active');
+          streamerState.filter = btn.dataset.filter || 'all';
+          renderStreamers();
+        });
+      });
+
+      refreshBtn.addEventListener('click', refreshStreamers);
+
+      renderStreamers();
+      refreshStreamers();
+      setInterval(refreshStreamers, 60000);
     });
-
-    refreshBtn.addEventListener('click', refreshStreamers);
-
-    renderStreamers();
-    refreshStreamers();
-    setInterval(refreshStreamers, 60000);
   </script>
 </body>
 </html>
