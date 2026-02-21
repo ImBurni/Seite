@@ -3,301 +3,500 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>ImBurni_Bot_v1 — Cinematic Overkill</title>
+<title>ImBurni_Bot_v1 — Premium Creator Suite</title>
 
 <style>
+/* ================= ROOT ================= */
 :root{
---bg:#05060d;
---card:rgba(18,22,40,.6);
---text:#f2f4ff;
---muted:#9aa6ff;
---brand:#ff7a18;
---brand2:#a855f7;
---ok:#2ee59d;
---ease:cubic-bezier(.16,1,.3,1);
+  --bg0:#06070f;
+  --bg1:#0e1326;
+  --bg2:#151a33;
+
+  --text:#eef1ff;
+  --muted:rgba(238,241,255,.65);
+  --faint:rgba(238,241,255,.35);
+
+  --stroke:rgba(255,255,255,.08);
+  --stroke-strong:rgba(255,255,255,.18);
+
+  --glass:rgba(255,255,255,.05);
+  --glass-strong:rgba(255,255,255,.08);
+
+  --brand:#ff7a18;
+  --brand2:#a855f7;
+  --ok:#2ee59d;
+
+  --shadow-lg:0 25px 60px rgba(0,0,0,.45);
+  --shadow-xl:0 60px 140px rgba(0,0,0,.65);
+
+  --ease:cubic-bezier(.16,1,.3,1);
 }
 
 *{box-sizing:border-box}
-html,body{margin:0;height:100%;background:var(--bg);color:var(--text);font-family:system-ui;overflow-x:hidden}
-
-/* ================= BACKGROUND ================= */
-body::before{
-content:"";
-position:fixed;
-inset:0;
-background:
-radial-gradient(circle at 20% 30%, rgba(168,85,247,.25), transparent 50%),
-radial-gradient(circle at 80% 20%, rgba(255,122,24,.25), transparent 50%),
-radial-gradient(circle at 50% 90%, rgba(46,229,157,.15), transparent 60%);
-filter:blur(140px);
-animation:float 18s ease-in-out infinite alternate;
-z-index:-2;
-}
-@keyframes float{
-from{transform:translateY(-40px)}
-to{transform:translateY(40px)}
-}
-
-body::after{
-content:"";
-position:fixed;
-inset:0;
-background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.07'/%3E%3C/svg%3E");
-mix-blend-mode:overlay;
-pointer-events:none;
-z-index:-1;
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI;
+  color:var(--text);
+  background:
+    radial-gradient(1000px 600px at 15% 10%, rgba(168,85,247,.12), transparent 60%),
+    radial-gradient(900px 600px at 85% 20%, rgba(255,122,24,.12), transparent 60%),
+    linear-gradient(180deg,var(--bg0),var(--bg1) 40%,var(--bg2));
+  overflow-x:hidden;
 }
 
 /* ================= NAV ================= */
+
 .nav{
-position:fixed;
-top:0;
-width:100%;
-backdrop-filter:blur(20px);
-background:rgba(0,0,0,.5);
-padding:16px 40px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-z-index:1000;
-transition:.4s var(--ease);
+  position:fixed;
+  top:0;
+  width:100%;
+  padding:16px 40px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  backdrop-filter:blur(25px);
+  background:rgba(10,12,25,.6);
+  border-bottom:1px solid var(--stroke);
+  z-index:1000;
+  transition:.4s var(--ease);
 }
-.nav.scrolled{background:rgba(0,0,0,.85)}
+.nav.scrolled{background:rgba(10,12,25,.92)}
 
 .logo{
-font-weight:900;
-letter-spacing:1px;
-background:linear-gradient(135deg,var(--brand),var(--brand2));
--webkit-background-clip:text;
-color:transparent;
-}
-
-/* ================= LAYOUT ================= */
-.container{max-width:1200px;margin:auto;padding:120px 20px}
-
-h1{
-font-size:clamp(44px,6vw,82px);
-line-height:1;
-background:linear-gradient(135deg,var(--brand),var(--brand2));
--webkit-background-clip:text;
-color:transparent;
-text-shadow:0 0 40px rgba(168,85,247,.6);
-}
-
-.subtitle{
-margin-top:25px;
-color:var(--muted);
-font-size:20px;
-max-width:700px;
+  font-weight:900;
+  letter-spacing:.5px;
+  background:linear-gradient(135deg,var(--brand),var(--brand2));
+  -webkit-background-clip:text;
+  color:transparent;
 }
 
 /* ================= BUTTON ================= */
+
 .btn{
-padding:14px 24px;
-border-radius:18px;
-border:1px solid rgba(255,255,255,.1);
-background:linear-gradient(135deg,var(--brand),var(--brand2));
-color:#000;
-font-weight:700;
-cursor:pointer;
-transition:.3s var(--ease);
-box-shadow:0 15px 60px rgba(168,85,247,.4);
+  position:relative;
+  padding:14px 22px;
+  border-radius:16px;
+  border:1px solid var(--stroke);
+  background:linear-gradient(180deg,var(--glass-strong),var(--glass));
+  font-weight:800;
+  cursor:pointer;
+  transition:.4s var(--ease);
+  overflow:hidden;
 }
-.btn:hover{
-transform:translateY(-5px) scale(1.05);
-box-shadow:0 25px 80px rgba(255,122,24,.6);
+.btn.primary{
+  background:linear-gradient(135deg,var(--brand),var(--brand2));
+  border:none;
+  color:#0b0b12;
+  box-shadow:0 20px 60px rgba(168,85,247,.3);
+}
+.btn:hover{transform:translateY(-4px)}
+
+.btn::after{
+  content:"";
+  position:absolute;
+  top:0;
+  left:-60%;
+  width:60%;
+  height:100%;
+  background:linear-gradient(120deg,transparent,rgba(255,255,255,.3),transparent);
+  transform:skewX(-20deg);
+  transition:.7s;
+}
+.btn:hover::after{left:120%}
+
+/* ================= LAYOUT ================= */
+
+.container{
+  max-width:1200px;
+  margin:auto;
+  padding:140px 20px 100px;
 }
 
-/* ================= GRID ================= */
+.hero h1{
+  font-size:clamp(44px,6vw,82px);
+  margin:0;
+  letter-spacing:-1px;
+}
+
+.grad{
+  background:linear-gradient(135deg,var(--brand),var(--brand2));
+  -webkit-background-clip:text;
+  color:transparent;
+}
+
+.subtitle{
+  margin-top:20px;
+  font-size:20px;
+  color:var(--muted);
+  max-width:700px;
+}
+
+/* ================= FEATURE GRID ================= */
+
 .grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-gap:30px;
-margin-top:80px;
+  margin-top:100px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:35px;
 }
 
 .card{
-background:var(--card);
-border-radius:26px;
-padding:28px;
-position:relative;
-backdrop-filter:blur(20px);
-overflow:hidden;
-transition:transform .4s var(--ease),box-shadow .4s var(--ease);
-}
-.card::before{
-content:"";
-position:absolute;
-inset:-2px;
-background:linear-gradient(135deg,var(--brand),var(--brand2));
-filter:blur(30px);
-opacity:.35;
-z-index:-1;
+  background:var(--glass);
+  backdrop-filter:blur(25px);
+  border:1px solid var(--stroke);
+  border-radius:26px;
+  padding:30px;
+  transition:.5s var(--ease);
+  box-shadow:var(--shadow-lg);
 }
 .card:hover{
-transform:rotateX(6deg) rotateY(-6deg) translateY(-10px);
-box-shadow:0 40px 120px rgba(168,85,247,.5);
+  transform:translateY(-10px);
+  border-color:var(--stroke-strong);
+  box-shadow:var(--shadow-xl);
 }
 
-/* ================= STREAMER ================= */
-.streamer-grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-gap:24px;
-margin-top:60px;
+/* ================= STREAMER SECTION ================= */
+
+.streamer-controls{
+  margin-top:120px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:14px;
 }
+
+.field{
+  background:var(--glass);
+  border:1px solid var(--stroke);
+  border-radius:14px;
+  padding:12px 16px;
+  backdrop-filter:blur(15px);
+}
+.field input{
+  background:transparent;
+  border:none;
+  outline:none;
+  color:var(--text);
+  font-weight:700;
+}
+
+.streamer-meta{
+  margin-top:16px;
+  color:var(--muted);
+  font-size:14px;
+}
+
+.streamer-grid{
+  margin-top:30px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:30px;
+}
+
+/* PREMIUM STREAMER CARD */
 
 .streamer-card{
-background:var(--card);
-padding:20px;
-border-radius:20px;
-backdrop-filter:blur(20px);
-transition:.4s var(--ease);
+  background:var(--glass);
+  backdrop-filter:blur(25px);
+  border:1px solid var(--stroke);
+  border-radius:24px;
+  padding:24px;
+  transition:.5s var(--ease);
+  box-shadow:var(--shadow-lg);
+  position:relative;
+}
+.streamer-card:hover{
+  transform:translateY(-8px);
+  border-color:var(--stroke-strong);
+  box-shadow:var(--shadow-xl);
 }
 
-.streamer-card:hover{
-transform:translateY(-6px);
-box-shadow:0 20px 60px rgba(168,85,247,.4);
+.streamer-top{
+  display:flex;
+  align-items:center;
+  gap:16px;
+}
+
+.avatar-wrap{
+  position:relative;
+  width:70px;
+  height:70px;
+}
+
+.avatar-wrap img{
+  width:100%;
+  height:100%;
+  border-radius:20px;
+  object-fit:cover;
+  border:1px solid var(--stroke);
+}
+
+.live-ring{
+  position:absolute;
+  inset:-4px;
+  border-radius:24px;
+  border:2px solid var(--ok);
+  animation:pulse 2.5s infinite;
+}
+
+@keyframes pulse{
+  0%{opacity:.9;transform:scale(1)}
+  70%{opacity:0;transform:scale(1.4)}
+  100%{opacity:0}
+}
+
+.streamer-name{
+  font-size:20px;
+  font-weight:900;
+}
+
+.status{
+  margin-top:6px;
+  font-size:14px;
+  color:var(--muted);
+}
+
+.streamer-actions{
+  margin-top:18px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 }
 
 .badge{
-padding:6px 10px;
-border-radius:999px;
-font-size:12px;
-font-weight:700;
+  padding:6px 10px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:800;
 }
 
-.live{background:rgba(46,229,157,.2);color:#2ee59d}
-.offline{background:rgba(255,255,255,.1);color:#aaa}
+.live{background:rgba(46,229,157,.1);color:var(--ok);border:1px solid rgba(46,229,157,.3)}
+.offline{background:rgba(255,255,255,.06);color:var(--muted);border:1px solid var(--stroke)}
 
-/* reveal */
-.reveal{
-opacity:0;
-transform:translateY(40px);
-transition:.8s var(--ease);
+/* ================= FAQ ================= */
+
+.faq-item{
+  border-bottom:1px solid var(--stroke);
+  padding:18px 0;
+  cursor:pointer;
 }
-.reveal.visible{
-opacity:1;
-transform:none;
+
+.faq-question{
+  font-weight:800;
 }
+
+.faq-answer{
+  max-height:0;
+  overflow:hidden;
+  transition:max-height .5s var(--ease);
+  color:var(--muted);
+}
+
+.faq-item.active .faq-answer{
+  max-height:300px;
+  margin-top:10px;
+}
+
+/* ================= FOOTER ================= */
 
 footer{
-margin-top:120px;
-text-align:center;
-color:var(--muted);
+  margin-top:120px;
+  padding-top:40px;
+  border-top:1px solid var(--stroke);
+  text-align:center;
+  color:var(--muted);
 }
 
-@media(max-width:768px){
-.container{padding-top:100px}
+/* ================= PARTICLES ================= */
+
+#particles{
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  opacity:.35;
 }
 </style>
 </head>
-
 <body>
 
+<canvas id="particles"></canvas>
+
 <div class="nav" id="nav">
-<div class="logo">🔥 ImBurni_Bot_v1</div>
-<button class="btn" onclick="window.open(CONFIG.discordInvite)">Discord Join</button>
+  <div class="logo">🔥 ImBurni_Bot_v1</div>
+  <a class="btn primary" id="discordBtnTop" target="_blank">Discord</a>
 </div>
 
-<div class="container">
+<div class="container hero">
+  <h1><span class="grad">Premium</span> Creator Control Suite</h1>
+  <div class="subtitle">
+    Twitch ✕ Discord Automation. Punkte, Lurk, Tickets, Timeout-IDs — alles in einem System.
+  </div>
+  <div style="margin-top:30px">
+    <button class="btn primary" id="copyInvite">Invite kopieren</button>
+  </div>
 
-<h1 class="reveal">Feuer für deinen Chat</h1>
-<div class="subtitle reveal">
-Elite Twitch ✕ Discord Bridge. Punkte. Lurk. Tickets. Timeout-IDs. Full Automation.
+  <div class="grid">
+    <div class="card"><h3>Follow Alerts</h3><p>Discord Embeds automatisch.</p></div>
+    <div class="card"><h3>Punkte System</h3><p>Community Engagement steigern.</p></div>
+    <div class="card"><h3>Support Tickets</h3><p>Strukturierter Discord Support.</p></div>
+    <div class="card"><h3>Timeout IDs</h3><p>Klare Moderations-Struktur.</p></div>
+  </div>
+
+  <h2 style="margin-top:120px">Streamer</h2>
+
+  <div class="streamer-controls">
+    <div class="field"><input id="search" placeholder="Streamer suchen..."></div>
+    <button class="btn" id="refresh">Aktualisieren</button>
+    <button class="btn" id="filterAll">Alle</button>
+    <button class="btn" id="filterLive">Live</button>
+    <button class="btn" id="filterOffline">Offline</button>
+  </div>
+
+  <div class="streamer-meta">
+    <span id="count"></span> • <span id="updated"></span>
+  </div>
+
+  <div class="streamer-grid" id="streamerGrid"></div>
+
+  <h2 style="margin-top:120px">FAQ</h2>
+
+  <div class="faq-item">
+    <div class="faq-question">Warum Discord Pflicht?</div>
+    <div class="faq-answer">Support & Setup laufen zentral über Discord.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question">Wer kann Timeouts nutzen?</div>
+    <div class="faq-answer">Broadcaster & Mods mit Berechtigung.</div>
+  </div>
+
+  <footer>© 2026 ImBurni_Bot_v1 — Premium Edition</footer>
 </div>
 
-<div style="margin-top:40px" class="reveal">
-<button class="btn" onclick="copyText(CONFIG.discordInvite)">Invite kopieren</button>
-</div>
-
-<div class="grid">
-<div class="card reveal"><h3>🎉 Follow Alerts</h3><p>Stylische Discord Embeds.</p></div>
-<div class="card reveal"><h3>💰 Punkte</h3><p>Leaderboard & Engagement.</p></div>
-<div class="card reveal"><h3>🎫 Tickets</h3><p>Discord Support System.</p></div>
-<div class="card reveal"><h3>⏱ Timeout IDs</h3><p>Mod Control System.</p></div>
-</div>
-
-<h2 style="margin-top:120px">Streamer</h2>
-<div class="streamer-grid" id="streamerGrid"></div>
-
-<footer>
-© 2026 ImBurni_Bot_v1 — Cinematic Overkill Edition
-</footer>
-
-</div>
-
-<!-- MUSIC -->
 <audio id="bgm" src="Song.mp3" preload="auto" loop muted playsinline></audio>
 
 <script>
 const CONFIG={
-botName:"ImBurni_Bot_v1",
-discordInvite:"https://discord.gg/v8BSRq8C8C",
-streamers:["Tricck17"]
+  discordInvite:"https://discord.gg/v8BSRq8C8C",
+  streamers:["Tricck17"]
 };
 
-/* NAV */
+document.getElementById("discordBtnTop").href=CONFIG.discordInvite;
+
 window.addEventListener("scroll",()=>{
-if(window.scrollY>20) nav.classList.add("scrolled");
-else nav.classList.remove("scrolled");
+  nav.classList.toggle("scrolled",window.scrollY>20);
 });
 
-/* COPY */
-async function copyText(text){
-try{await navigator.clipboard.writeText(text);alert("Invite kopiert");}
-catch{alert("Kopieren nicht möglich");}
-}
+document.getElementById("copyInvite").onclick=async()=>{
+  await navigator.clipboard.writeText(CONFIG.discordInvite);
+  alert("Invite kopiert");
+};
 
-/* MUSIC UNLOCK */
-(function(){
-const audio=document.getElementById("bgm");
-audio.volume=.85;
-window.addEventListener("load",async()=>{
-try{await audio.play();}catch{}
-});
-document.addEventListener("click",async()=>{
-try{audio.muted=false;await audio.play();}catch{}
+window.addEventListener("click",()=>{
+  bgm.muted=false;
+  bgm.play();
 },{once:true});
-})();
 
-/* REVEAL */
-const obs=new IntersectionObserver(e=>{
-e.forEach(x=>{
-if(x.isIntersecting)x.target.classList.add("visible");
+/* FAQ */
+document.querySelectorAll(".faq-item").forEach(item=>{
+  item.onclick=()=>item.classList.toggle("active");
 });
-});
-document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));
+
+/* PARTICLES */
+const canvas=document.getElementById("particles");
+const ctx=canvas.getContext("2d");
+let W,H;
+function resize(){W=canvas.width=innerWidth;H=canvas.height=innerHeight}
+resize();window.addEventListener("resize",resize);
+
+const particles=Array.from({length:90},()=>({
+  x:Math.random()*W,
+  y:Math.random()*H,
+  vx:(Math.random()-.5)*.4,
+  vy:(Math.random()-.5)*.4
+}));
+
+function animate(){
+  ctx.clearRect(0,0,W,H);
+  particles.forEach(p=>{
+    p.x+=p.vx;p.y+=p.vy;
+    if(p.x<0||p.x>W)p.vx*=-1;
+    if(p.y<0||p.y>H)p.vy*=-1;
+    ctx.globalAlpha=.35;
+    ctx.fillStyle="white";
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,2,0,Math.PI*2);
+    ctx.fill();
+  });
+  requestAnimationFrame(animate);
+}
+animate();
 
 /* STREAMER SYSTEM */
+let state={items:[],filter:"all",query:""};
+
 async function fetchText(url){
-const res=await fetch(url);
-return await res.text();
+  const r=await fetch(url,{cache:"no-store"});
+  return await r.text();
 }
 
-async function updateStreamers(){
-const grid=document.getElementById("streamerGrid");
-grid.innerHTML="";
-for(const login of CONFIG.streamers){
-let live=false;
-let uptime="";
-try{
-const t=await fetchText(`https://decapi.me/twitch/uptime/${login}`);
-if(t.toLowerCase().includes("offline")) live=false;
-else{live=true;uptime=t;}
-}catch{}
-const badge=live?`<span class="badge live">LIVE</span>`:`<span class="badge offline">OFFLINE</span>`;
-grid.innerHTML+=`
-<div class="streamer-card reveal visible">
-<h3>${login}</h3>
-${badge}
-<p>${live?"Live seit: "+uptime:"Offline"}</p>
-<a class="btn" style="margin-top:10px;display:inline-block" target="_blank" href="https://twitch.tv/${login}">Zum Stream</a>
-</div>`;
+async function loadStreamers(){
+  state.items=[];
+  for(const login of CONFIG.streamers){
+    let live=false,uptime="",avatar="";
+    try{
+      avatar=await fetchText(`https://decapi.me/twitch/avatar/${login}`);
+      const t=await fetchText(`https://decapi.me/twitch/uptime/${login}`);
+      if(!t.toLowerCase().includes("offline")){
+        live=true;uptime=t;
+      }
+    }catch{}
+    state.items.push({login,live,uptime,avatar});
+  }
+  render();
+  document.getElementById("updated").textContent="Zuletzt aktualisiert: "+new Date().toLocaleTimeString();
 }
+
+function render(){
+  let list=state.items.filter(s=>{
+    if(state.filter==="live")return s.live;
+    if(state.filter==="offline")return !s.live;
+    return true;
+  }).filter(s=>s.login.toLowerCase().includes(state.query));
+
+  document.getElementById("count").textContent=list.length+" Streamer";
+
+  const grid=document.getElementById("streamerGrid");
+  grid.innerHTML="";
+  list.forEach(s=>{
+    grid.innerHTML+=`
+    <div class="streamer-card">
+      <div class="streamer-top">
+        <div class="avatar-wrap">
+          <img src="${s.avatar}">
+          ${s.live?'<div class="live-ring"></div>':''}
+        </div>
+        <div>
+          <div class="streamer-name">${s.login}</div>
+          <div class="status">${s.live?"Live seit: "+s.uptime:"Offline"}</div>
+        </div>
+      </div>
+      <div class="streamer-actions">
+        <span class="badge ${s.live?"live":"offline"}">${s.live?"LIVE":"OFFLINE"}</span>
+        <a class="btn" target="_blank" href="https://twitch.tv/${s.login}">Zum Stream</a>
+      </div>
+    </div>`;
+  });
 }
-updateStreamers();
-setInterval(updateStreamers,60000);
+
+search.oninput=e=>{state.query=e.target.value.toLowerCase();render();}
+filterAll.onclick=()=>{state.filter="all";render();}
+filterLive.onclick=()=>{state.filter="live";render();}
+filterOffline.onclick=()=>{state.filter="offline";render();}
+refresh.onclick=loadStreamers;
+
+loadStreamers();
+setInterval(loadStreamers,60000);
 </script>
 
 </body>
