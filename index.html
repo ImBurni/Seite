@@ -12,7 +12,6 @@
 
   <style>
     :root{
-      /* --- Dark SaaS / Neon Gradient --- */
       --bg0:#05050b;
       --bg1:#080816;
       --bg2:#0b0b1f;
@@ -21,13 +20,9 @@
       --muted: rgba(238,240,255,.72);
       --faint: rgba(238,240,255,.52);
 
-      /* --- Glassmorphism --- */
       --stroke: rgba(255,255,255,.12);
       --stroke2: rgba(255,255,255,.20);
-      --glass: rgba(255,255,255,.06);
-      --glass2: rgba(255,255,255,.095);
 
-      /* --- Brand --- */
       --brand:#ff7a18;
       --brand2:#a855f7;
       --aqua:#46fbd2;
@@ -35,14 +30,14 @@
       --ok:#2ee59d;
       --off: rgba(238,240,255,.35);
 
-      --shadow: 0 26px 90px rgba(0,0,0,.72);
-      --shadow2: 0 12px 34px rgba(0,0,0,.38);
+      --shadow: 0 28px 95px rgba(0,0,0,.74);
+      --shadow2: 0 12px 36px rgba(0,0,0,.38);
 
       --r:18px;
       --r2:28px;
       --max: 1160px;
 
-      --ring: 0 0 0 1px rgba(255,255,255,.12) inset;
+      --navH: 72px;
     }
 
     *{box-sizing:border-box}
@@ -62,10 +57,13 @@
       overflow-x:hidden;
     }
 
+    /* Smooth scroll (CSS) */
+    html{scroll-behavior:smooth}
+
     a{color:inherit;text-decoration:none}
     .container{width:min(var(--max), calc(100% - 40px)); margin:0 auto}
 
-    /* --- subtle grid for premium SaaS feel --- */
+    /* Subtle grid */
     .grid-overlay{
       position:fixed; inset:0;
       background:
@@ -85,8 +83,8 @@
         rgba(168,85,247,.22),
         rgba(70,251,210,.14),
         rgba(255,122,24,.22));
-      filter: blur(110px);
-      opacity:.32;
+      filter: blur(112px);
+      opacity:.33;
       animation: spin 26s linear infinite;
       pointer-events:none;
       z-index:-4;
@@ -114,7 +112,7 @@
       opacity:.55;
     }
 
-    /* ---------- Premium Glass primitives ---------- */
+    /* ---------- Glass primitives ---------- */
     .glass{
       background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.03));
       border: 1px solid rgba(255,255,255,.12);
@@ -135,23 +133,21 @@
     }
     .glint::before{
       content:"";
-      position:absolute;
-      inset:-1px;
+      position:absolute; inset:-1px;
       background:
         radial-gradient(600px 260px at 18% 6%, rgba(255,255,255,.14), transparent 55%),
         radial-gradient(520px 260px at 86% 10%, rgba(255,255,255,.10), transparent 60%);
       pointer-events:none;
-      opacity:.85;
+      opacity:.88;
     }
     .glint::after{
       content:"";
-      position:absolute;
-      inset:-120px;
+      position:absolute; inset:-120px;
       background:
         radial-gradient(420px 260px at 18% 18%, rgba(255,122,24,.18), transparent 60%),
         radial-gradient(420px 260px at 86% 22%, rgba(168,85,247,.18), transparent 60%);
       filter: blur(18px);
-      opacity:.75;
+      opacity:.72;
       pointer-events:none;
     }
     .glint > *{position:relative}
@@ -161,7 +157,7 @@
       position:sticky; top:0; z-index:50;
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
-      background: linear-gradient(180deg, rgba(6,6,14,.84), rgba(6,6,14,.30));
+      background: linear-gradient(180deg, rgba(6,6,14,.86), rgba(6,6,14,.28));
       border-bottom:1px solid rgba(255,255,255,.07);
     }
     .nav-inner{
@@ -188,7 +184,16 @@
       margin-top:5px;
       letter-spacing:.2px;
     }
-    .nav-links{display:flex; align-items:center; gap:10px; flex-wrap:wrap}
+
+    .nav-links{
+      display:flex; align-items:center; gap:6px; flex-wrap:wrap;
+      padding:6px;
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.03);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
     .nav-links a{
       padding:10px 12px;
       border-radius:12px;
@@ -196,24 +201,18 @@
       font-weight:950;
       transition: .18s ease;
       position:relative;
-    }
-    .nav-links a::after{
-      content:"";
-      position:absolute;
-      left:14px; right:14px;
-      bottom:8px;
-      height:2px;
-      border-radius:999px;
-      background: linear-gradient(90deg, rgba(255,122,24,0), rgba(255,122,24,.85), rgba(168,85,247,.85), rgba(255,122,24,0));
-      transform: scaleX(.35);
-      opacity:0;
-      transition:.18s ease;
+      outline: none;
     }
     .nav-links a:hover{
       background: rgba(255,255,255,.06);
       color:var(--text);
     }
-    .nav-links a:hover::after{opacity:.85; transform: scaleX(1)}
+    .nav-links a.active{
+      background: linear-gradient(135deg, rgba(255,122,24,.18), rgba(168,85,247,.18));
+      border:1px solid rgba(255,255,255,.12);
+      color: rgba(255,255,255,.95);
+      box-shadow: 0 14px 36px rgba(0,0,0,.35);
+    }
     .nav-actions{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
 
     /* ---------- Buttons ---------- */
@@ -237,8 +236,8 @@
     .btn::before{
       content:"";
       position:absolute; inset:-1px;
-      background: radial-gradient(220px 120px at 20% 10%, rgba(255,255,255,.16), transparent 62%);
-      opacity:.75;
+      background: radial-gradient(240px 130px at 20% 10%, rgba(255,255,255,.16), transparent 62%);
+      opacity:.72;
       pointer-events:none;
       transition:.2s ease;
     }
@@ -264,7 +263,7 @@
         0 22px 72px rgba(168,85,247,.22),
         0 18px 60px rgba(255,122,24,.22);
     }
-    .btn.ghost{background:transparent; box-shadow:none}
+    .btn.small{padding:10px 12px; border-radius:12px; font-weight:950}
 
     /* ---------- Pill ---------- */
     .pill{
@@ -287,7 +286,7 @@
     }
 
     /* ---------- Hero ---------- */
-    header.hero{padding: 52px 0 28px}
+    header.hero{padding: 54px 0 26px}
     .hero-grid{
       display:grid;
       grid-template-columns: 1.06fr .94fr;
@@ -307,6 +306,7 @@
       background-clip:text;
       color: transparent;
     }
+
     .shine-underline{
       position:relative;
       display:inline-block;
@@ -439,21 +439,35 @@
     .chip b{font-size: 14px}
 
     /* ---------- Sections ---------- */
-    section{padding: 38px 0}
+    section{padding: 40px 0}
     .section-head{display:flex; align-items:flex-end; justify-content:space-between; gap: 16px; margin-bottom: 16px}
     h2{margin:0; font-size: clamp(22px, 2.2vw, 34px); letter-spacing:-.6px}
     .hint{color: var(--muted); font-weight:850; max-width: 78ch; margin: 8px 0 0; line-height:1.65}
+
+    /* Fancy divider line */
+    .divider{
+      height:1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.10), transparent);
+      margin: 10px 0 0;
+    }
 
     .grid3{display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 14px}
     .card{
       border-radius: var(--r2);
       padding: 18px;
       min-height: 156px;
+      transform: translateY(0);
+      transition: transform .18s ease, border-color .2s ease, box-shadow .2s ease;
+    }
+    .card:hover{
+      transform: translateY(-2px);
+      border-color: rgba(255,255,255,.18);
+      box-shadow: 0 18px 54px rgba(0,0,0,.45);
     }
     .card h3{margin:0 0 10px; font-size: 18px; letter-spacing:-.2px}
     .card p{margin:0; color: var(--muted); line-height:1.65; font-weight:750}
 
-    /* --- Social proof strip (premium landing) --- */
+    /* Social proof strip */
     .proof{
       display:flex; gap:12px; flex-wrap:wrap;
       align-items:center;
@@ -462,22 +476,26 @@
       border-radius: 22px;
       margin-top: 14px;
     }
-    .proof-left{
-      display:flex; flex-direction:column; gap:6px;
-    }
+    .proof-left{display:flex; flex-direction:column; gap:6px}
     .proof-left b{letter-spacing:-.2px}
     .proof-left span{color:var(--muted); font-weight:850}
-    .proof-badges{
-      display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end;
-    }
-    .proof-badges .badge{
+    .proof-badges{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end}
+
+    .badge{
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 8px 10px;
+      border-radius: 999px;
       border:1px solid rgba(255,255,255,.12);
       background: rgba(255,255,255,.05);
+      font-weight:950;
+      color: var(--muted);
+      white-space:nowrap;
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
       box-shadow: var(--shadow2);
     }
 
+    /* ---------- Gate / CTA blocks ---------- */
     .gate{
       border-radius: 32px;
       padding: 18px;
@@ -489,10 +507,98 @@
     .gate p{margin:8px 0 0; color: var(--muted); font-weight:900; line-height:1.6}
     .gate-actions{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end}
 
+    /* ---------- Pricing (Access) ---------- */
+    .pricing{
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap:14px;
+      margin-top: 14px;
+      align-items:stretch;
+    }
+    .price-card{
+      border-radius: var(--r2);
+      padding: 18px;
+    }
+    .price-title{
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+      margin-bottom: 10px;
+    }
+    .price-title b{font-size: 18px; letter-spacing:-.2px}
+    .price-tag{
+      font-weight: 980;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      color: rgba(255,255,255,.92);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .price-list{
+      display:grid;
+      gap:10px;
+      margin-top: 12px;
+      color: var(--muted);
+      font-weight: 850;
+      line-height: 1.55;
+    }
+    .price-item{
+      display:flex; gap:10px; align-items:flex-start;
+      padding: 10px 12px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+    }
+    .price-item .tick{
+      width:22px; height:22px;
+      border-radius: 10px;
+      flex: 0 0 auto;
+      display:inline-flex; align-items:center; justify-content:center;
+      font-weight: 980;
+      color:#0b0b12;
+      background: linear-gradient(135deg, rgba(255,122,24,.98), rgba(168,85,247,.92));
+      box-shadow: 0 14px 40px rgba(255,122,24,.16);
+      margin-top: 1px;
+    }
+
+    /* ---------- Roadmap ---------- */
+    .roadmap{
+      display:grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap:14px;
+      margin-top: 14px;
+    }
+    .step{
+      border-radius: var(--r2);
+      padding: 16px;
+      transition: transform .18s ease, box-shadow .2s ease;
+    }
+    .step:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 18px 54px rgba(0,0,0,.42);
+    }
+    .step .k{display:inline-flex; align-items:center; gap:10px; margin-bottom: 10px}
+    .k .num{
+      width:30px; height:30px; border-radius: 12px;
+      display:inline-flex; align-items:center; justify-content:center;
+      font-weight: 980;
+      color:#0b0b12;
+      background: linear-gradient(135deg, rgba(255,122,24,.98), rgba(168,85,247,.92));
+      box-shadow: 0 14px 40px rgba(255,122,24,.18);
+    }
+    .k b{letter-spacing:-.2px}
+    .step p{margin:0; color:var(--muted); font-weight:800; line-height:1.65}
+
+    /* ---------- FAQ ---------- */
     .faq{display:grid; grid-template-columns: 1fr 1fr; gap:14px}
     details{
       border-radius: 18px;
       padding: 14px 14px;
+      transition: border-color .2s ease, box-shadow .2s ease;
+    }
+    details:hover{
+      border-color: rgba(255,255,255,.18);
+      box-shadow: 0 16px 44px rgba(0,0,0,.38);
     }
     summary{cursor:pointer; font-weight:950}
     details p{margin:10px 0 0; color: var(--muted); line-height:1.65; font-weight:750}
@@ -560,6 +666,12 @@
       position:relative;
       padding: 16px;
       min-height: 170px;
+      transition: transform .18s ease, box-shadow .2s ease, border-color .2s ease;
+    }
+    .streamer-card:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 18px 54px rgba(0,0,0,.45);
+      border-color: rgba(255,255,255,.18);
     }
 
     .streamer-top{
@@ -577,10 +689,7 @@
       box-shadow: 0 10px 26px rgba(0,0,0,.35);
     }
     .avatar img{width:100%; height:100%; object-fit:cover; display:block}
-    .sname{
-      display:flex; flex-direction:column;
-      min-width:0;
-    }
+    .sname{display:flex; flex-direction:column; min-width:0}
     .sname b{
       font-size: 16px;
       letter-spacing:-.2px;
@@ -590,19 +699,6 @@
     }
     .sname span{font-size: 12px; color: var(--muted); font-weight:950}
 
-    .badge{
-      display:inline-flex; align-items:center; gap:8px;
-      padding: 8px 10px;
-      border-radius: 999px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.05);
-      font-weight:950;
-      color: var(--muted);
-      white-space:nowrap;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      box-shadow: var(--shadow2);
-    }
     .live-dot{
       width:9px; height:9px; border-radius:50%;
       background: var(--off);
@@ -629,6 +725,7 @@
       max-width: 56ch;
     }
 
+    /* ---------- Footer ---------- */
     footer{padding: 28px 0 44px; color: var(--muted); font-weight:900}
     .foot{
       display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;
@@ -636,67 +733,27 @@
       padding-top: 18px;
     }
 
-    /* --- Apply glass to existing blocks without changing structure --- */
-    .hero-card, .card, .gate, details, .field, .seg, .streamer-card{
+    /* Apply glass to existing blocks */
+    .hero-card, .card, .gate, details, .field, .seg, .streamer-card, .price-card, .step{
       background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.03));
       border:1px solid rgba(255,255,255,.12);
       box-shadow: var(--shadow2);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
     }
-    .hero-card{box-shadow: var(--shadow)}
-    .card, .streamer-card, details{position:relative}
-    .card::after, .streamer-card::after{
+    .hero-card, .gate{box-shadow: var(--shadow)}
+    .card, .streamer-card, details, .price-card, .step{position:relative}
+    .card::after, .streamer-card::after, .price-card::after, .step::after{
       content:"";
       position:absolute; inset:-80px;
       background:
         radial-gradient(260px 180px at 18% 12%, rgba(255,122,24,.14), transparent 62%),
         radial-gradient(260px 180px at 92% 30%, rgba(168,85,247,.14), transparent 62%);
       filter: blur(18px);
-      opacity:.70;
+      opacity:.64;
       pointer-events:none;
     }
-    .card > *, .streamer-card > *{position:relative}
-
-    /* --- Roadmap section styling (added below, no JS changes) --- */
-    .roadmap{
-      display:grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap:14px;
-      margin-top: 14px;
-    }
-    .step{
-      border-radius: var(--r2);
-      padding: 16px;
-    }
-    .step .k{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      margin-bottom: 10px;
-    }
-    .k .num{
-      width:30px; height:30px; border-radius: 12px;
-      display:inline-flex; align-items:center; justify-content:center;
-      font-weight: 980;
-      color:#0b0b12;
-      background: linear-gradient(135deg, rgba(255,122,24,.98), rgba(168,85,247,.92));
-      box-shadow: 0 14px 40px rgba(255,122,24,.18);
-    }
-    .k b{letter-spacing:-.2px}
-    .step p{margin:0; color:var(--muted); font-weight:800; line-height:1.65}
-
-    @media (max-width: 940px){
-      .hero-grid{grid-template-columns: 1fr}
-      .grid3{grid-template-columns: 1fr}
-      .faq{grid-template-columns: 1fr}
-      .nav-links{display:none}
-      .gate{flex-direction:column; align-items:flex-start}
-      .gate-actions{justify-content:flex-start}
-      .streamer-grid{grid-template-columns: 1fr}
-      .roadmap{grid-template-columns: 1fr}
-      header.hero{padding-top: 44px}
-    }
+    .card > *, .streamer-card > *, .price-card > *, .step > *{position:relative}
 
     /* Sound hint */
     .sound-hint{
@@ -717,6 +774,27 @@
       max-width: min(640px, calc(100% - 36px));
     }
     .sound-hint b{color:#fff}
+
+    /* Motion accessibility */
+    @media (prefers-reduced-motion: reduce){
+      html{scroll-behavior:auto}
+      .glow{animation:none}
+      .shine-underline::before{animation:none}
+      .card, .streamer-card, details, .step{transition:none}
+    }
+
+    @media (max-width: 940px){
+      .hero-grid{grid-template-columns: 1fr}
+      .grid3{grid-template-columns: 1fr}
+      .faq{grid-template-columns: 1fr}
+      .nav-links{display:none}
+      .gate{flex-direction:column; align-items:flex-start}
+      .gate-actions{justify-content:flex-start}
+      .streamer-grid{grid-template-columns: 1fr}
+      .roadmap{grid-template-columns: 1fr}
+      .pricing{grid-template-columns: 1fr}
+      header.hero{padding-top: 44px}
+    }
   </style>
 </head>
 
@@ -744,9 +822,10 @@
         </div>
       </a>
 
-      <div class="nav-links">
+      <div class="nav-links" id="navLinks">
         <a href="#features">Features</a>
         <a href="#zugang">Bot bekommen</a>
+        <a href="#pricing">Access</a>
         <a href="#streamer">Streamer</a>
         <a href="#faq">FAQ</a>
         <a href="#discord">Discord</a>
@@ -789,15 +868,14 @@
             Freischaltung/Setup + Support (Ticketsystem).
           </div>
 
-          <!-- Social Proof (added, no JS) -->
           <div class="proof glass glint" style="margin-top:14px;">
             <div class="proof-left">
-              <b>Trusted Workflow für Streams</b>
+              <b>Premium Workflow für Streams</b>
               <span>Queue/Worker • Persistenz • Mods & Tickets — auf Live-Betrieb optimiert</span>
             </div>
             <div class="proof-badges">
-              <span class="badge">⚡ Low-Friction Setup</span>
-              <span class="badge">🧩 Discord-First Support</span>
+              <span class="badge">⚡ Fast Setup</span>
+              <span class="badge">🧩 Discord-First</span>
               <span class="badge">🛡️ Mod-Controls</span>
             </div>
           </div>
@@ -817,6 +895,8 @@
           </div>
         </div>
       </div>
+
+      <div class="divider"></div>
     </div>
   </header>
 
@@ -887,7 +967,6 @@
         Tipp: Pack den Discord-Link in deine Twitch Panels, damit Interessenten sofort wissen, wo sie den Bot bekommen.
       </div>
 
-      <!-- Roadmap (added, no JS) -->
       <div style="margin-top:18px">
         <div class="section-head" style="margin-bottom:10px">
           <div>
@@ -908,6 +987,62 @@
           <div class="step glass glint">
             <div class="k"><span class="num">3</span><b>Live gehen</b></div>
             <p>Alerts laufen, Punkte/Lurk zählen, Timeouts via IDs — fertig.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing / Access -->
+  <section id="pricing">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>Access</h2>
+          <p class="hint">Kein Checkout, kein Auto-Setup: Zugriff läuft bewusst über Discord (Support + Ticketsystem).</p>
+        </div>
+      </div>
+
+      <div class="pricing">
+        <div class="price-card glass-strong glint">
+          <div class="price-title">
+            <b>Discord Access</b>
+            <span class="price-tag">Invite → Ticket → Setup</span>
+          </div>
+          <div style="color: var(--muted); font-weight:900; line-height:1.65">
+            Du bekommst den Bot nicht “per Klick”. Dadurch bleibt alles sauber: kontrollierte Freischaltung, Hilfe beim Setup,
+            klare Zuständigkeiten – und das Ticketsystem läuft direkt dort, wo es hingehört.
+          </div>
+
+          <div class="price-list">
+            <div class="price-item"><span class="tick">✓</span><div>Freischaltung/Setup über Ticket</div></div>
+            <div class="price-item"><span class="tick">✓</span><div>Support direkt im Discord (Buttons/Status)</div></div>
+            <div class="price-item"><span class="tick">✓</span><div>Mod-Timeouts via IDs (kontrolliert)</div></div>
+            <div class="price-item"><span class="tick">✓</span><div>Sauberer Ablauf für jeden Stream</div></div>
+          </div>
+
+          <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap">
+            <a class="btn primary" href="#discord">💬 Jetzt joinen</a>
+            <button class="btn" type="button" id="copyDiscord4">📋 Invite kopieren</button>
+          </div>
+        </div>
+
+        <div class="price-card glass glint">
+          <div class="price-title">
+            <b>Quick Checklist</b>
+            <span class="price-tag">2 Minuten</span>
+          </div>
+          <div style="color: var(--muted); font-weight:900; line-height:1.65">
+            Damit das Setup schnell läuft:
+          </div>
+          <div class="price-list">
+            <div class="price-item"><span class="tick">✓</span><div>Twitch-Channel Name</div></div>
+            <div class="price-item"><span class="tick">✓</span><div>Wer ist Broadcaster/Mods?</div></div>
+            <div class="price-item"><span class="tick">✓</span><div>Welche Features aktiv? (Punkte/Lurk/Timeouts)</div></div>
+            <div class="price-item"><span class="tick">✓</span><div>Panel-Link zum Discord setzen</div></div>
+          </div>
+          <div style="margin-top:14px; color: var(--faint); font-weight:850; line-height:1.55">
+            Hinweis: Dieser Bereich ist nur Info/Design – die Funktionen bleiben exakt gleich.
           </div>
         </div>
       </div>
@@ -1012,9 +1147,9 @@
       <div class="foot">
         <div>© <span id="year"></span> <span id="footName">ImBurni</span> • Darkmode • Beta Version V1</div>
         <div style="display:flex; gap:10px; flex-wrap:wrap">
-          <a class="btn" href="#features">Features</a>
-          <a class="btn" href="#zugang">Bot bekommen</a>
-          <a class="btn" href="#streamer">Streamer</a>
+          <a class="btn small" href="#features">Features</a>
+          <a class="btn small" href="#zugang">Bot bekommen</a>
+          <a class="btn small" href="#streamer">Streamer</a>
         </div>
       </div>
     </div>
@@ -1061,9 +1196,79 @@
       try{ await navigator.clipboard.writeText(text); toast("Invite kopiert ✅"); }
       catch{ toast("Kopieren nicht möglich ❌"); }
     }
-    ["copyDiscord","copyDiscord2","copyDiscord3"].forEach(id=>{
-      document.getElementById(id).addEventListener('click', ()=>copyText(CONFIG.discordInvite));
+    ["copyDiscord","copyDiscord2","copyDiscord3","copyDiscord4"].forEach(id=>{
+      const el = document.getElementById(id);
+      if(el) el.addEventListener('click', ()=>copyText(CONFIG.discordInvite));
     });
+
+    /* ---------- Smooth scroll (JS fallback + correct offset for sticky nav) ---------- */
+    (function(){
+      const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      function scrollToHash(hash){
+        const id = (hash || '').replace('#','').trim();
+        if(!id) return;
+        const el = document.getElementById(id);
+        if(!el) return;
+
+        const nav = document.querySelector('.nav');
+        const navH = nav ? nav.getBoundingClientRect().height : 0;
+        const y = el.getBoundingClientRect().top + window.scrollY - navH - 12;
+
+        window.scrollTo({ top: Math.max(0, y), behavior: prefersReduced ? 'auto' : 'smooth' });
+      }
+
+      document.addEventListener('click', (e)=>{
+        const a = e.target && e.target.closest ? e.target.closest('a[href^="#"]') : null;
+        if(!a) return;
+        const href = a.getAttribute('href');
+        if(!href || href === '#') return;
+
+        const targetId = href.slice(1);
+        if(!document.getElementById(targetId)) return;
+
+        e.preventDefault();
+        history.pushState(null, '', href);
+        scrollToHash(href);
+      });
+
+      window.addEventListener('load', ()=>{
+        if(location.hash) scrollToHash(location.hash);
+      });
+    })();
+
+    /* ---------- Active nav highlight (scrollspy) ---------- */
+    (function(){
+      const nav = document.getElementById('navLinks');
+      if(!nav) return;
+
+      const links = Array.from(nav.querySelectorAll('a[href^="#"]'));
+      const targets = links
+        .map(a => ({ a, id: a.getAttribute('href').slice(1), el: document.getElementById(a.getAttribute('href').slice(1)) }))
+        .filter(x => x.el);
+
+      function setActive(id){
+        links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + id));
+      }
+
+      const obs = new IntersectionObserver((entries)=>{
+        // choose the most visible intersecting entry
+        const visible = entries
+          .filter(e => e.isIntersecting)
+          .sort((a,b)=> (b.intersectionRatio - a.intersectionRatio))[0];
+        if(visible && visible.target && visible.target.id){
+          setActive(visible.target.id);
+        }
+      }, {
+        root: null,
+        rootMargin: "-35% 0px -55% 0px",
+        threshold: [0.12, 0.2, 0.35, 0.5, 0.7]
+      });
+
+      targets.forEach(t => obs.observe(t.el));
+
+      // initial
+      setActive((location.hash || '#features').slice(1));
+    })();
 
     /* ---------- 🎵 Music: muted autoplay + try unmute on scroll + fallback click ---------- */
     (function(){
