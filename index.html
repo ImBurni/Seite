@@ -779,6 +779,48 @@
     }
     body.theme-calm .theme-toggle .knob{left: 22px}
     .theme-toggle small{color: var(--faint); font-weight:900}
+
+    /* =========================================================
+       ✅ FIXES: Klicks/Buttons wieder 100% frei + Bottom-Bar
+       ========================================================= */
+
+    /* Deko-Layer dürfen nie Klicks blockieren */
+    .glow, .noise, #particles { pointer-events: none !important; }
+
+    /* Sound-Hinweis: bleibt klickbar, aber liegt ÜBER der Bottom-Bar */
+    .sound-hint{
+      bottom: 96px;         /* über Bottom-Bar */
+      z-index: 9996;        /* unter Bottom-Bar */
+    }
+
+    /* Action Elemente: immer über Content */
+    .btn, .gate-actions, .streamer-bottom, .nav, .preview, .card, .gate{
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Bottom Action Bar (unten Discord & Co.) */
+    .bottom-bar{
+      position: fixed;
+      left: 0; right: 0; bottom: 0;
+      z-index: 9998;
+      padding: 12px 0;
+      background: linear-gradient(180deg, rgba(6,6,12,.10), rgba(6,6,12,.82));
+      backdrop-filter: blur(14px);
+      border-top: 1px solid rgba(255,255,255,.08);
+    }
+    .bottom-bar .inner{
+      display:flex;
+      gap: 10px;
+      justify-content: center;
+      align-items:center;
+      flex-wrap: wrap;
+    }
+
+    /* Platz schaffen, damit nichts überdeckt wird */
+    body{
+      padding-bottom: 86px;
+    }
   </style>
 </head>
 
@@ -878,7 +920,6 @@
         <div class="hero-card reveal" aria-label="ImBurni_Bot Artwork">
           <div class="hero-media">
             <div class="img-wrap">
-              <!-- Optional: eigenes Bild im selben Ordner -->
               <img src="imburni_bot.png" alt="ImBurni_Bot_v1 Artwork" />
             </div>
             <div class="mini">
@@ -1247,15 +1288,35 @@
     Falls dein Browser Scroll nicht akzeptiert: <b>ein Klick</b> aktiviert Ton sicher.
   </div>
 
+  <!-- ✅ Bottom Quick Actions (unten wieder Discord & Co.) -->
+  <div class="bottom-bar" id="bottomBar">
+    <div class="container inner">
+      <a class="btn primary glow" id="bottomDiscord" href="#" target="_blank" rel="noreferrer">💬 Discord</a>
+      <button class="btn glow" id="bottomCopy" type="button">📋 Invite kopieren</button>
+      <a class="btn glow" href="#streamer">🎥 Streamer</a>
+      <a class="btn glow" href="#features">⚡ Features</a>
+    </div>
+  </div>
+
   <script>
     /* ---------- Basic init ---------- */
     document.getElementById('navName').textContent = CONFIG.botName;
     document.getElementById('footName').textContent = CONFIG.botName;
     document.getElementById('trustedBy').textContent = CONFIG.trustedByText;
 
-    ["discordBtn1","discordBtn2","discordBtn3"].forEach(id=>{
-      document.getElementById(id).href = CONFIG.discordInvite;
+    // ✅ Alle Discord-Links zentral setzen (inkl. joinTop + Bottom-Bar)
+    [
+      "discordBtn1","discordBtn2","discordBtn3",
+      "joinTop","bottomDiscord"
+    ].forEach(id=>{
+      const el = document.getElementById(id);
+      if(el){
+        el.href = CONFIG.discordInvite;
+        el.target = "_blank";
+        el.rel = "noreferrer";
+      }
     });
+
     document.getElementById('year').textContent = new Date().getFullYear();
 
     function toast(msg){
@@ -1286,6 +1347,12 @@
       const el = document.getElementById(id);
       if(el) el.addEventListener('click', ()=>copyText(CONFIG.discordInvite));
     });
+
+    // ✅ Bottom Copy Button
+    const bottomCopy = document.getElementById("bottomCopy");
+    if(bottomCopy){
+      bottomCopy.addEventListener("click", ()=>copyText(CONFIG.discordInvite));
+    }
 
     /* ---------- Micro detail: tiny click sound (WebAudio) ---------- */
     let audioCtx = null;
