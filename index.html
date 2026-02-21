@@ -12,153 +12,185 @@
 
   <style>
     :root{
-      --bg0:#05050b;
-      --bg1:#080816;
+      /* ---- CRANKED NEON PALETTE ---- */
+      --bg0:#04040a;
+      --bg1:#070716;
       --bg2:#0b0b1f;
 
       --text:#eef0ff;
       --muted: rgba(238,240,255,.72);
-      --faint: rgba(238,240,255,.52);
+      --faint: rgba(238,240,255,.50);
 
-      --stroke: rgba(255,255,255,.12);
-      --stroke2: rgba(255,255,255,.20);
+      --stroke: rgba(255,255,255,.11);
+      --stroke2: rgba(255,255,255,.18);
 
-      --brand:#ff7a18;
-      --brand2:#a855f7;
-      --aqua:#46fbd2;
+      /* neon core */
+      --o:#ff7a18;     /* orange */
+      --p:#a855f7;     /* purple */
+      --c:#00eaff;     /* cyan */
+      --m:#46fbd2;     /* mint */
+      --r:#ff2bd6;     /* hot pink */
 
       --ok:#2ee59d;
       --off: rgba(238,240,255,.35);
 
-      --shadow: 0 28px 95px rgba(0,0,0,.74);
-      --shadow2: 0 12px 36px rgba(0,0,0,.38);
+      --shadow: 0 34px 130px rgba(0,0,0,.78);
+      --shadow2: 0 16px 52px rgba(0,0,0,.50);
 
-      --r:18px;
-      --r2:28px;
-      --max: 1160px;
+      --rad: 22px;
+      --rad2: 32px;
+      --max: 1200px;
 
-      --navH: 72px;
+      --navH: 78px;
+
+      /* motion */
+      --ease: cubic-bezier(.2,.9,.2,1);
     }
 
     *{box-sizing:border-box}
     html,body{height:100%}
+    html{scroll-behavior:smooth}
     body{
       margin:0;
       color:var(--text);
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-
-      /* Aurora / Glow Background */
-      background:
-        radial-gradient(900px 560px at 10% 8%, rgba(168,85,247,.22), transparent 62%),
-        radial-gradient(820px 520px at 86% 14%, rgba(255,122,24,.22), transparent 60%),
-        radial-gradient(880px 560px at 52% 96%, rgba(70,251,210,.11), transparent 62%),
-        radial-gradient(560px 420px at 62% 40%, rgba(168,85,247,.12), transparent 62%),
-        linear-gradient(180deg, var(--bg0), var(--bg1) 35%, var(--bg2));
       overflow-x:hidden;
-    }
 
-    /* Smooth scroll (CSS) */
-    html{scroll-behavior:smooth}
+      /* BIG aurora base (animated via ::before) */
+      background:
+        radial-gradient(900px 700px at 18% 10%, rgba(168,85,247,.18), transparent 62%),
+        radial-gradient(900px 700px at 85% 14%, rgba(255,122,24,.16), transparent 62%),
+        radial-gradient(900px 700px at 50% 110%, rgba(0,234,255,.10), transparent 62%),
+        linear-gradient(180deg, var(--bg0), var(--bg1) 35%, var(--bg2));
+    }
 
     a{color:inherit;text-decoration:none}
     .container{width:min(var(--max), calc(100% - 40px)); margin:0 auto}
 
-    /* Subtle grid */
-    .grid-overlay{
-      position:fixed; inset:0;
-      background:
-        linear-gradient(to right, rgba(255,255,255,.05) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255,255,255,.05) 1px, transparent 1px);
-      background-size: 64px 64px;
-      mask-image: radial-gradient(ellipse at 50% 8%, rgba(0,0,0,.9), transparent 70%);
-      opacity:.08;
+    /* ---- BACKGROUND FX LAYERS ---- */
+    .bg-aurora{
+      position:fixed; inset:-120px;
       pointer-events:none;
-      z-index:-2;
+      z-index:-6;
+      filter: blur(34px);
+      opacity:.95;
+      animation: auroraShift 18s var(--ease) infinite alternate;
+      background:
+        radial-gradient(520px 420px at 12% 18%, rgba(255,43,214,.22), transparent 60%),
+        radial-gradient(520px 420px at 84% 12%, rgba(0,234,255,.18), transparent 60%),
+        radial-gradient(600px 520px at 80% 78%, rgba(168,85,247,.18), transparent 62%),
+        radial-gradient(680px 560px at 26% 90%, rgba(255,122,24,.16), transparent 62%),
+        radial-gradient(560px 460px at 45% 45%, rgba(70,251,210,.12), transparent 62%);
+      transform: translate3d(var(--gx,0px), var(--gy,0px), 0);
+      will-change: transform;
+    }
+    @keyframes auroraShift{
+      0%{transform: translate3d(var(--gx,0px), var(--gy,0px), 0) scale(1)}
+      100%{transform: translate3d(var(--gx,0px), var(--gy,0px), 0) scale(1.06)}
     }
 
-    .glow{
+    .bg-conic{
       position:fixed; inset:-260px;
+      pointer-events:none;
+      z-index:-7;
+      opacity:.26;
+      filter: blur(120px);
       background: conic-gradient(from 180deg,
         rgba(255,122,24,.22),
         rgba(168,85,247,.22),
-        rgba(70,251,210,.14),
+        rgba(0,234,255,.16),
+        rgba(255,43,214,.18),
         rgba(255,122,24,.22));
-      filter: blur(112px);
-      opacity:.33;
       animation: spin 26s linear infinite;
-      pointer-events:none;
-      z-index:-4;
-      transform: translate3d(var(--gx, 0px), var(--gy, 0px), 0);
-      will-change: transform;
     }
-    @keyframes spin{
-      to{transform: translate3d(var(--gx, 0px), var(--gy, 0px), 0) rotate(360deg)}
+    @keyframes spin{to{transform: rotate(360deg)}}
+
+    .grid-overlay{
+      position:fixed; inset:0;
+      pointer-events:none;
+      z-index:-5;
+      opacity:.10;
+      background:
+        linear-gradient(to right, rgba(255,255,255,.08) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,.08) 1px, transparent 1px);
+      background-size: 72px 72px;
+      mask-image: radial-gradient(ellipse at 50% 0%, rgba(0,0,0,.9), transparent 68%);
     }
 
     .noise{
       position:fixed; inset:0;
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.12'/%3E%3C/svg%3E");
-      opacity:.22;
+      opacity:.18;
       mix-blend-mode: overlay;
       pointer-events:none;
-      z-index:-1;
+      z-index:-4;
     }
 
     #particles{
       position:fixed;
       inset:0;
-      z-index:-1;
+      z-index:-3;
       pointer-events:none;
       opacity:.55;
     }
 
-    /* ---------- Glass primitives ---------- */
+    /* ---- GLASS / NEON BORDER SYSTEM ---- */
     .glass{
-      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.03));
+      background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.03));
       border: 1px solid rgba(255,255,255,.12);
       box-shadow: var(--shadow2);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
     }
     .glass-strong{
-      background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.03));
+      background: linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.03));
       border: 1px solid rgba(255,255,255,.16);
       box-shadow: var(--shadow);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
     }
-    .glint{
+
+    /* animated neon border */
+    .neon-border{
       position:relative;
       overflow:hidden;
+      border-radius: inherit;
     }
-    .glint::before{
+    .neon-border::before{
       content:"";
-      position:absolute; inset:-1px;
-      background:
-        radial-gradient(600px 260px at 18% 6%, rgba(255,255,255,.14), transparent 55%),
-        radial-gradient(520px 260px at 86% 10%, rgba(255,255,255,.10), transparent 60%);
-      pointer-events:none;
-      opacity:.88;
-    }
-    .glint::after{
-      content:"";
-      position:absolute; inset:-120px;
-      background:
-        radial-gradient(420px 260px at 18% 18%, rgba(255,122,24,.18), transparent 60%),
-        radial-gradient(420px 260px at 86% 22%, rgba(168,85,247,.18), transparent 60%);
-      filter: blur(18px);
-      opacity:.72;
+      position:absolute; inset:-2px;
+      background: linear-gradient(90deg,
+        rgba(255,122,24,.0),
+        rgba(255,122,24,.85),
+        rgba(168,85,247,.85),
+        rgba(0,234,255,.85),
+        rgba(255,43,214,.85),
+        rgba(255,122,24,.0));
+      opacity:.40;
+      filter: blur(10px);
+      animation: neonFlow 3.6s linear infinite;
       pointer-events:none;
     }
-    .glint > *{position:relative}
+    .neon-border::after{
+      content:"";
+      position:absolute; inset:0;
+      background: radial-gradient(520px 260px at 20% 0%, rgba(255,255,255,.12), transparent 60%);
+      opacity:.8;
+      pointer-events:none;
+    }
+    @keyframes neonFlow{
+      0%{transform: translateX(-18%)}
+      100%{transform: translateX(18%)}
+    }
+    .neon-border > *{position:relative}
 
-    /* ---------- Nav ---------- */
+    /* ---- NAV ---- */
     .nav{
-      position:sticky; top:0; z-index:50;
+      position:sticky; top:0; z-index:60;
+      background: linear-gradient(180deg, rgba(6,6,14,.82), rgba(6,6,14,.22));
+      border-bottom:1px solid rgba(255,255,255,.08);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
-      background: linear-gradient(180deg, rgba(6,6,14,.86), rgba(6,6,14,.28));
-      border-bottom:1px solid rgba(255,255,255,.07);
     }
     .nav-inner{
       display:flex; align-items:center; justify-content:space-between;
@@ -166,24 +198,28 @@
     }
     .brand{display:flex; align-items:center; gap:12px}
     .logo{
-      width:40px; height:40px; border-radius:16px;
+      width:42px; height:42px; border-radius:16px;
       background:
-        radial-gradient(circle at 30% 20%, rgba(255,255,255,.38), transparent 45%),
-        linear-gradient(135deg, var(--brand), var(--brand2));
+        radial-gradient(circle at 30% 20%, rgba(255,255,255,.45), transparent 48%),
+        linear-gradient(135deg, var(--o), var(--p));
       border:1px solid rgba(255,255,255,.20);
       box-shadow:
-        0 18px 42px rgba(168,85,247,.22),
-        0 0 0 1px rgba(255,255,255,.10) inset;
+        0 18px 58px rgba(168,85,247,.22),
+        0 0 0 1px rgba(255,255,255,.12) inset;
+      position:relative;
+      overflow:hidden;
+    }
+    .logo::after{
+      content:"";
+      position:absolute; inset:-40px;
+      background: conic-gradient(from 180deg, rgba(255,43,214,.28), rgba(0,234,255,.28), rgba(255,122,24,.28), rgba(168,85,247,.28));
+      filter: blur(16px);
+      opacity:.8;
+      animation: spin 10s linear infinite;
     }
     .brand-title{display:flex; flex-direction:column; line-height:1.05}
     .brand-title b{font-size:14px; letter-spacing:.2px}
-    .brand-title span{
-      font-size:12px;
-      color:var(--muted);
-      font-weight:900;
-      margin-top:5px;
-      letter-spacing:.2px;
-    }
+    .brand-title span{font-size:12px; color:var(--muted); font-weight:900; margin-top:5px; letter-spacing:.2px}
 
     .nav-links{
       display:flex; align-items:center; gap:6px; flex-wrap:wrap;
@@ -191,89 +227,105 @@
       border-radius: 16px;
       border:1px solid rgba(255,255,255,.08);
       background: rgba(255,255,255,.03);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 10px 30px rgba(0,0,0,.30);
     }
     .nav-links a{
       padding:10px 12px;
       border-radius:12px;
       color:var(--muted);
       font-weight:950;
-      transition: .18s ease;
+      transition: .18s var(--ease);
       position:relative;
-      outline: none;
     }
     .nav-links a:hover{
-      background: rgba(255,255,255,.06);
+      background: rgba(255,255,255,.07);
       color:var(--text);
+      transform: translateY(-1px);
     }
     .nav-links a.active{
-      background: linear-gradient(135deg, rgba(255,122,24,.18), rgba(168,85,247,.18));
+      background: linear-gradient(135deg, rgba(255,122,24,.20), rgba(168,85,247,.18), rgba(0,234,255,.14));
       border:1px solid rgba(255,255,255,.12);
-      color: rgba(255,255,255,.95);
-      box-shadow: 0 14px 36px rgba(0,0,0,.35);
+      color: rgba(255,255,255,.96);
+      box-shadow: 0 18px 50px rgba(0,0,0,.42);
     }
-    .nav-actions{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
 
-    /* ---------- Buttons ---------- */
+    /* ---- BUTTONS: NEON, RIPPLE, TILT ---- */
     .btn{
       display:inline-flex; align-items:center; justify-content:center; gap:10px;
       padding:12px 14px;
-      border-radius:14px;
+      border-radius:16px;
       border:1px solid rgba(255,255,255,.12);
       background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.02));
       font-weight:950;
       cursor:pointer;
-      transition: transform .12s ease, border-color .2s ease, filter .2s ease, box-shadow .2s ease;
       user-select:none;
-      box-shadow: var(--shadow2);
       white-space:nowrap;
       position:relative;
       overflow:hidden;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      box-shadow: var(--shadow2);
+      transition: transform .14s var(--ease), border-color .2s var(--ease), box-shadow .2s var(--ease), filter .2s var(--ease);
+      transform: translateZ(0);
     }
     .btn::before{
       content:"";
       position:absolute; inset:-1px;
-      background: radial-gradient(240px 130px at 20% 10%, rgba(255,255,255,.16), transparent 62%);
-      opacity:.72;
+      background: radial-gradient(260px 140px at 20% 10%, rgba(255,255,255,.18), transparent 62%);
+      opacity:.75;
       pointer-events:none;
-      transition:.2s ease;
+      transition:.2s var(--ease);
     }
     .btn:hover{
-      transform: translateY(-1px);
+      transform: translateY(-2px) scale(1.01);
       border-color: rgba(255,255,255,.22);
-      box-shadow: 0 16px 44px rgba(0,0,0,.42);
+      box-shadow: 0 20px 66px rgba(0,0,0,.50);
     }
     .btn:hover::before{opacity:1}
+    .btn:active{transform: translateY(0px) scale(.995)}
 
     .btn.primary{
-      border-color: rgba(255,122,24,.44);
-      background: linear-gradient(135deg, rgba(255,122,24,.96), rgba(168,85,247,.92));
-      color:#0b0b12;
+      border-color: rgba(255,122,24,.42);
+      background: linear-gradient(135deg, rgba(255,122,24,.98), rgba(168,85,247,.92), rgba(0,234,255,.72));
+      color:#060611;
       box-shadow:
-        0 18px 60px rgba(255,122,24,.22),
-        0 0 0 1px rgba(255,255,255,.14) inset;
+        0 24px 92px rgba(168,85,247,.22),
+        0 20px 80px rgba(255,122,24,.18);
+      filter: saturate(1.05);
     }
     .btn.primary:hover{
-      transform: translateY(-2px);
-      filter:saturate(1.07) contrast(1.02);
+      filter: saturate(1.12) contrast(1.02);
       box-shadow:
-        0 22px 72px rgba(168,85,247,.22),
-        0 18px 60px rgba(255,122,24,.22);
+        0 30px 110px rgba(0,234,255,.16),
+        0 26px 100px rgba(168,85,247,.22),
+        0 22px 90px rgba(255,122,24,.18);
     }
-    .btn.small{padding:10px 12px; border-radius:12px; font-weight:950}
+    .btn.small{padding:10px 12px; border-radius:14px}
 
-    /* ---------- Pill ---------- */
+    /* ripple */
+    .ripple{
+      position:absolute;
+      border-radius:50%;
+      transform: translate(-50%, -50%);
+      pointer-events:none;
+      width: 10px;
+      height: 10px;
+      opacity: .55;
+      background: radial-gradient(circle, rgba(255,255,255,.95), rgba(255,255,255,.0) 70%);
+      animation: ripple 650ms var(--ease) forwards;
+      filter: blur(.2px);
+    }
+    @keyframes ripple{
+      0%{transform: translate(-50%, -50%) scale(1); opacity:.55}
+      100%{transform: translate(-50%, -50%) scale(28); opacity:0}
+    }
+
+    /* ---- HERO ---- */
+    header.hero{padding: 58px 0 18px}
     .pill{
       display:inline-flex; align-items:center; gap:10px;
       padding:10px 14px;
       border-radius:999px;
       border:1px solid rgba(255,255,255,.14);
       background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.03));
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
       box-shadow: var(--shadow2);
       color: var(--muted);
       font-weight:950;
@@ -282,29 +334,36 @@
     .dot{
       width:10px; height:10px; border-radius:50%;
       background: var(--ok);
-      box-shadow: 0 0 0 7px rgba(46,229,157,.14);
+      box-shadow: 0 0 0 7px rgba(46,229,157,.12);
     }
 
-    /* ---------- Hero ---------- */
-    header.hero{padding: 54px 0 26px}
     .hero-grid{
       display:grid;
-      grid-template-columns: 1.06fr .94fr;
-      gap: 26px;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 22px;
       align-items:center;
       padding: 26px 0 10px;
     }
+
     .h1{
-      font-size: clamp(36px, 4.6vw, 66px);
-      line-height:1.02;
+      font-size: clamp(38px, 5.1vw, 76px);
+      line-height: 0.98;
       margin: 14px 0 14px;
-      letter-spacing:-1px;
+      letter-spacing:-1.4px;
     }
+
+    /* animated gradient text */
     .grad{
-      background: linear-gradient(135deg, var(--brand), var(--brand2));
+      background: linear-gradient(90deg, var(--o), var(--p), var(--c), var(--r), var(--o));
+      background-size: 240% 100%;
       -webkit-background-clip:text;
       background-clip:text;
       color: transparent;
+      animation: textFlow 5s linear infinite;
+    }
+    @keyframes textFlow{
+      0%{background-position: 0% 50%}
+      100%{background-position: 240% 50%}
     }
 
     .shine-underline{
@@ -314,123 +373,119 @@
     }
     .shine-underline::after{
       content:"";
-      position:absolute;
-      left:0;
-      bottom:0;
-      height:3px;
-      width:100%;
+      position:absolute; left:0; bottom:0;
+      height:3px; width:100%;
       border-radius:999px;
-      background: linear-gradient(90deg, rgba(255,122,24,.0), rgba(255,122,24,.95), rgba(168,85,247,.95), rgba(255,122,24,.0));
-      filter: blur(.2px);
-      opacity:.9;
+      background: linear-gradient(90deg, rgba(255,122,24,0), rgba(255,122,24,.95), rgba(168,85,247,.95), rgba(0,234,255,.85), rgba(255,43,214,.85), rgba(255,122,24,0));
+      opacity:.95;
+      filter: blur(.1px);
     }
     .shine-underline::before{
       content:"";
       position:absolute;
-      left:-20%;
-      bottom:-7px;
+      left:-30%;
+      bottom:-8px;
       width:40%;
-      height:14px;
+      height:16px;
       border-radius:999px;
       background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.22), rgba(255,255,255,0));
       filter: blur(2px);
       opacity:.85;
-      animation: sweep 2.8s ease-in-out infinite;
+      animation: sweep 2.4s var(--ease) infinite;
     }
     @keyframes sweep{
-      0%{transform: translateX(0); opacity:.0}
-      20%{opacity:.9}
-      50%{transform: translateX(220%); opacity:.85}
-      100%{transform: translateX(220%); opacity:0}
+      0%{transform: translateX(0); opacity:0}
+      15%{opacity:.95}
+      55%{transform: translateX(270%); opacity:.85}
+      100%{transform: translateX(270%); opacity:0}
     }
 
     .sub{
-      font-size: clamp(16px, 1.2vw, 18px);
-      line-height:1.7;
+      font-size: clamp(16px, 1.15vw, 18px);
+      line-height:1.8;
       color: var(--muted);
       margin:0 0 18px;
-      max-width: 64ch;
+      max-width: 70ch;
     }
     .hero-cta{display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin: 14px 0 12px}
 
     .alert{
-      border:1px solid rgba(255,122,24,.22);
-      background: linear-gradient(180deg, rgba(255,122,24,.10), rgba(255,122,24,.05));
-      border-radius: 18px;
+      border:1px solid rgba(255,255,255,.12);
+      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.03));
+      border-radius: var(--rad);
       padding: 12px 14px;
       font-weight:950;
-      line-height:1.55;
+      line-height:1.6;
       color: rgba(238,240,255,.92);
       box-shadow: var(--shadow2);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
       position:relative;
       overflow:hidden;
     }
     .alert::before{
       content:"";
-      position:absolute; inset:-80px;
-      background: radial-gradient(420px 200px at 10% 10%, rgba(255,122,24,.22), transparent 62%);
-      filter: blur(18px);
-      opacity:.85;
+      position:absolute; inset:-120px;
+      background:
+        radial-gradient(500px 260px at 10% 10%, rgba(255,122,24,.18), transparent 62%),
+        radial-gradient(500px 260px at 90% 20%, rgba(0,234,255,.12), transparent 62%);
+      filter: blur(16px);
+      opacity:.9;
       pointer-events:none;
     }
     .alert > *{position:relative}
-    .alert b{color: rgba(255,255,255,.95)}
 
     .hero-card{
-      border-radius: var(--r2);
-      overflow:hidden;
-      position:relative;
+      border-radius: var(--rad2);
       padding: 16px;
+      transform: translateZ(0);
     }
 
-    .hero-media{position:relative; display:grid; gap: 12px}
+    .hero-media{display:grid; gap: 12px}
     .img-wrap{
-      border-radius: 24px;
+      border-radius: 26px;
       overflow:hidden;
       border:1px solid rgba(255,255,255,.14);
       background: rgba(0,0,0,.28);
       aspect-ratio: 1 / 1;
-      box-shadow: 0 18px 56px rgba(0,0,0,.45);
+      box-shadow: 0 22px 80px rgba(0,0,0,.55);
       position:relative;
     }
     .img-wrap::after{
       content:"";
-      position:absolute; inset:-90px;
+      position:absolute; inset:-120px;
       background:
-        radial-gradient(420px 240px at 18% 12%, rgba(255,122,24,.16), transparent 62%),
-        radial-gradient(420px 240px at 92% 26%, rgba(168,85,247,.16), transparent 62%);
+        radial-gradient(520px 320px at 18% 12%, rgba(255,122,24,.16), transparent 62%),
+        radial-gradient(520px 320px at 92% 26%, rgba(168,85,247,.16), transparent 62%),
+        radial-gradient(520px 320px at 56% 80%, rgba(0,234,255,.12), transparent 62%);
       filter: blur(16px);
-      opacity:.85;
+      opacity:.9;
       pointer-events:none;
     }
     .img-wrap img{
       width:100%; height:100%;
       object-fit: cover; display:block;
-      transform: scale(1.03);
-      filter: saturate(1.06) contrast(1.06);
-      position:relative;
-      z-index:1;
+      transform: scale(1.04);
+      filter: saturate(1.08) contrast(1.06);
+      position:relative; z-index:1;
     }
+
     .mini{display:grid; grid-template-columns: 1fr 1fr; gap:12px}
     .chip{
       border:1px solid rgba(255,255,255,.12);
       border-radius: 18px;
-      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.03));
       padding: 12px 12px;
       font-weight:950;
       display:flex; flex-direction:column; gap:6px;
       box-shadow: var(--shadow2);
       position:relative;
       overflow:hidden;
+      transition: transform .18s var(--ease);
     }
+    .chip:hover{transform: translateY(-2px)}
     .chip::before{
       content:"";
-      position:absolute; inset:-60px;
-      background: radial-gradient(240px 160px at 20% 10%, rgba(255,255,255,.10), transparent 62%);
+      position:absolute; inset:-70px;
+      background: radial-gradient(260px 180px at 20% 10%, rgba(255,255,255,.12), transparent 62%);
       opacity:.85;
       pointer-events:none;
     }
@@ -438,43 +493,71 @@
     .chip small{color: var(--muted); font-weight:850}
     .chip b{font-size: 14px}
 
-    /* ---------- Sections ---------- */
-    section{padding: 40px 0}
-    .section-head{display:flex; align-items:flex-end; justify-content:space-between; gap: 16px; margin-bottom: 16px}
-    h2{margin:0; font-size: clamp(22px, 2.2vw, 34px); letter-spacing:-.6px}
-    .hint{color: var(--muted); font-weight:850; max-width: 78ch; margin: 8px 0 0; line-height:1.65}
-
-    /* Fancy divider line */
+    /* ---- SECTIONS / LAYOUT ---- */
+    section{padding: 52px 0}
+    .section-head{
+      display:flex; align-items:flex-end; justify-content:space-between;
+      gap: 16px; margin-bottom: 18px
+    }
+    h2{
+      margin:0;
+      font-size: clamp(22px, 2.3vw, 36px);
+      letter-spacing:-.6px;
+    }
+    .hint{
+      color: var(--muted);
+      font-weight:850;
+      max-width: 78ch;
+      margin: 8px 0 0;
+      line-height:1.75;
+    }
     .divider{
       height:1px;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,.10), transparent);
-      margin: 10px 0 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.12), transparent);
+      margin-top: 20px;
     }
 
+    /* ---- FEATURE CARDS ---- */
     .grid3{display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 14px}
     .card{
-      border-radius: var(--r2);
+      border-radius: var(--rad2);
       padding: 18px;
       min-height: 156px;
-      transform: translateY(0);
-      transition: transform .18s ease, border-color .2s ease, box-shadow .2s ease;
+      position:relative;
+      overflow:hidden;
+      transform: translateZ(0);
+      transition: transform .2s var(--ease), border-color .2s var(--ease), box-shadow .2s var(--ease);
     }
     .card:hover{
-      transform: translateY(-2px);
-      border-color: rgba(255,255,255,.18);
-      box-shadow: 0 18px 54px rgba(0,0,0,.45);
+      transform: translateY(-4px);
+      border-color: rgba(255,255,255,.20);
+      box-shadow: 0 22px 80px rgba(0,0,0,.55);
     }
+    .card::after{
+      content:"";
+      position:absolute; inset:-90px;
+      background:
+        radial-gradient(320px 220px at 18% 10%, rgba(255,122,24,.14), transparent 62%),
+        radial-gradient(320px 220px at 88% 28%, rgba(0,234,255,.12), transparent 62%),
+        radial-gradient(320px 220px at 50% 84%, rgba(255,43,214,.10), transparent 62%);
+      filter: blur(18px);
+      opacity:.65;
+      pointer-events:none;
+    }
+    .card > *{position:relative}
     .card h3{margin:0 0 10px; font-size: 18px; letter-spacing:-.2px}
-    .card p{margin:0; color: var(--muted); line-height:1.65; font-weight:750}
+    .card p{margin:0; color: var(--muted); line-height:1.7; font-weight:750}
 
-    /* Social proof strip */
+    /* ---- “Krank” SOCIAL PROOF STRIP ---- */
     .proof{
-      display:flex; gap:12px; flex-wrap:wrap;
+      margin-top: 14px;
+      padding: 16px 18px;
+      border-radius: 24px;
+      display:flex;
       align-items:center;
       justify-content:space-between;
-      padding: 16px 18px;
-      border-radius: 22px;
-      margin-top: 14px;
+      gap: 12px;
+      flex-wrap:wrap;
     }
     .proof-left{display:flex; flex-direction:column; gap:6px}
     .proof-left b{letter-spacing:-.2px}
@@ -490,39 +573,72 @@
       font-weight:950;
       color: var(--muted);
       white-space:nowrap;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      box-shadow: var(--shadow2);
+      box-shadow: 0 14px 44px rgba(0,0,0,.30);
+      transition: transform .18s var(--ease);
     }
+    .badge:hover{transform: translateY(-2px)}
 
-    /* ---------- Gate / CTA blocks ---------- */
+    /* ---- CTA / GATE ---- */
     .gate{
-      border-radius: 32px;
+      border-radius: 34px;
       padding: 18px;
       display:flex; align-items:center; justify-content:space-between; gap: 14px;
       overflow:hidden;
       position:relative;
+      transform: translateZ(0);
     }
     .gate h3{margin:0; font-size: 20px; letter-spacing:-.2px}
-    .gate p{margin:8px 0 0; color: var(--muted); font-weight:900; line-height:1.6}
+    .gate p{margin:8px 0 0; color: var(--muted); font-weight:900; line-height:1.65}
     .gate-actions{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end}
 
-    /* ---------- Pricing (Access) ---------- */
+    /* ---- ROADMAP ---- */
+    .roadmap{
+      display:grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap:14px;
+      margin-top: 14px;
+    }
+    .step{
+      border-radius: var(--rad2);
+      padding: 16px;
+      position:relative;
+      overflow:hidden;
+      transition: transform .2s var(--ease), box-shadow .2s var(--ease), border-color .2s var(--ease);
+    }
+    .step:hover{
+      transform: translateY(-4px);
+      border-color: rgba(255,255,255,.18);
+      box-shadow: 0 22px 80px rgba(0,0,0,.55);
+    }
+    .step .k{display:inline-flex; align-items:center; gap:10px; margin-bottom: 10px}
+    .k .num{
+      width:32px; height:32px; border-radius: 12px;
+      display:inline-flex; align-items:center; justify-content:center;
+      font-weight: 980;
+      color:#060611;
+      background: linear-gradient(135deg, rgba(255,122,24,.98), rgba(168,85,247,.92), rgba(0,234,255,.70));
+      box-shadow: 0 18px 60px rgba(168,85,247,.20);
+    }
+    .k b{letter-spacing:-.2px}
+    .step p{margin:0; color:var(--muted); font-weight:800; line-height:1.7}
+
+    /* ---- PRICING / ACCESS ---- */
     .pricing{
       display:grid;
-      grid-template-columns: 1.1fr .9fr;
+      grid-template-columns: 1.15fr .85fr;
       gap:14px;
       margin-top: 14px;
       align-items:stretch;
     }
     .price-card{
-      border-radius: var(--r2);
+      border-radius: var(--rad2);
       padding: 18px;
+      position:relative;
+      overflow:hidden;
+      transition: transform .2s var(--ease), box-shadow .2s var(--ease);
     }
-    .price-title{
-      display:flex; align-items:center; justify-content:space-between; gap:12px;
-      margin-bottom: 10px;
-    }
+    .price-card:hover{transform: translateY(-4px); box-shadow: 0 24px 90px rgba(0,0,0,.55)}
+    .price-title{display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom: 10px}
     .price-title b{font-size: 18px; letter-spacing:-.2px}
     .price-tag{
       font-weight: 980;
@@ -531,8 +647,6 @@
       border: 1px solid rgba(255,255,255,.12);
       background: rgba(255,255,255,.05);
       color: rgba(255,255,255,.92);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
     }
     .price-list{
       display:grid;
@@ -540,7 +654,7 @@
       margin-top: 12px;
       color: var(--muted);
       font-weight: 850;
-      line-height: 1.55;
+      line-height: 1.65;
     }
     .price-item{
       display:flex; gap:10px; align-items:flex-start;
@@ -548,62 +662,39 @@
       border-radius: 18px;
       border: 1px solid rgba(255,255,255,.10);
       background: rgba(255,255,255,.03);
+      transition: transform .18s var(--ease);
     }
+    .price-item:hover{transform: translateX(2px)}
     .price-item .tick{
       width:22px; height:22px;
       border-radius: 10px;
       flex: 0 0 auto;
       display:inline-flex; align-items:center; justify-content:center;
       font-weight: 980;
-      color:#0b0b12;
-      background: linear-gradient(135deg, rgba(255,122,24,.98), rgba(168,85,247,.92));
-      box-shadow: 0 14px 40px rgba(255,122,24,.16);
+      color:#060611;
+      background: linear-gradient(135deg, rgba(255,122,24,.98), rgba(168,85,247,.92), rgba(0,234,255,.70));
+      box-shadow: 0 16px 52px rgba(255,122,24,.14);
       margin-top: 1px;
     }
 
-    /* ---------- Roadmap ---------- */
-    .roadmap{
-      display:grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap:14px;
-      margin-top: 14px;
-    }
-    .step{
-      border-radius: var(--r2);
-      padding: 16px;
-      transition: transform .18s ease, box-shadow .2s ease;
-    }
-    .step:hover{
-      transform: translateY(-2px);
-      box-shadow: 0 18px 54px rgba(0,0,0,.42);
-    }
-    .step .k{display:inline-flex; align-items:center; gap:10px; margin-bottom: 10px}
-    .k .num{
-      width:30px; height:30px; border-radius: 12px;
-      display:inline-flex; align-items:center; justify-content:center;
-      font-weight: 980;
-      color:#0b0b12;
-      background: linear-gradient(135deg, rgba(255,122,24,.98), rgba(168,85,247,.92));
-      box-shadow: 0 14px 40px rgba(255,122,24,.18);
-    }
-    .k b{letter-spacing:-.2px}
-    .step p{margin:0; color:var(--muted); font-weight:800; line-height:1.65}
-
-    /* ---------- FAQ ---------- */
+    /* ---- FAQ ---- */
     .faq{display:grid; grid-template-columns: 1fr 1fr; gap:14px}
     details{
       border-radius: 18px;
       padding: 14px 14px;
-      transition: border-color .2s ease, box-shadow .2s ease;
+      position:relative;
+      overflow:hidden;
+      transition: transform .18s var(--ease), box-shadow .2s var(--ease), border-color .2s var(--ease);
     }
     details:hover{
+      transform: translateY(-3px);
       border-color: rgba(255,255,255,.18);
-      box-shadow: 0 16px 44px rgba(0,0,0,.38);
+      box-shadow: 0 20px 70px rgba(0,0,0,.50);
     }
     summary{cursor:pointer; font-weight:950}
-    details p{margin:10px 0 0; color: var(--muted); line-height:1.65; font-weight:750}
+    details p{margin:10px 0 0; color: var(--muted); line-height:1.75; font-weight:750}
 
-    /* ---------- Streamer controls ---------- */
+    /* ---- STREAMER ---- */
     .streamer-controls{
       display:flex; gap:12px; align-items:center; flex-wrap:wrap;
       margin: 12px 0 10px;
@@ -639,13 +730,14 @@
       padding: 10px 12px;
       border-radius: 14px;
       cursor:pointer;
-      transition:.15s ease;
+      transition:.16s var(--ease);
     }
-    .seg button:hover{background: rgba(255,255,255,.06); color: var(--text)}
+    .seg button:hover{background: rgba(255,255,255,.07); color: var(--text); transform: translateY(-1px)}
     .seg button.active{
-      background: linear-gradient(135deg, rgba(255,122,24,.20), rgba(168,85,247,.20));
+      background: linear-gradient(135deg, rgba(255,122,24,.22), rgba(168,85,247,.18), rgba(0,234,255,.12));
       border-color: rgba(255,255,255,.14);
       color: var(--text);
+      box-shadow: 0 18px 54px rgba(0,0,0,.40);
     }
 
     .streamer-meta{
@@ -661,16 +753,17 @@
       gap: 14px;
     }
     .streamer-card{
-      border-radius: var(--r2);
+      border-radius: var(--rad2);
       overflow:hidden;
       position:relative;
       padding: 16px;
       min-height: 170px;
-      transition: transform .18s ease, box-shadow .2s ease, border-color .2s ease;
+      transition: transform .2s var(--ease), box-shadow .2s var(--ease), border-color .2s var(--ease);
+      transform: translateZ(0);
     }
     .streamer-card:hover{
-      transform: translateY(-2px);
-      box-shadow: 0 18px 54px rgba(0,0,0,.45);
+      transform: translateY(-4px);
+      box-shadow: 0 24px 90px rgba(0,0,0,.55);
       border-color: rgba(255,255,255,.18);
     }
 
@@ -680,13 +773,13 @@
     }
     .streamer-left{display:flex; align-items:center; gap:12px; min-width:0}
     .avatar{
-      width:46px; height:46px;
+      width:48px; height:48px;
       border-radius: 16px;
       border:1px solid rgba(255,255,255,.14);
       background: rgba(0,0,0,.25);
       overflow:hidden;
       flex: 0 0 auto;
-      box-shadow: 0 10px 26px rgba(0,0,0,.35);
+      box-shadow: 0 12px 36px rgba(0,0,0,.40);
     }
     .avatar img{width:100%; height:100%; object-fit:cover; display:block}
     .sname{display:flex; flex-direction:column; min-width:0}
@@ -699,11 +792,17 @@
     }
     .sname span{font-size: 12px; color: var(--muted); font-weight:950}
 
-    .live-dot{
-      width:9px; height:9px; border-radius:50%;
-      background: var(--off);
-      box-shadow: none;
+    .badge{
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      font-weight:950;
+      color: var(--muted);
+      white-space:nowrap;
     }
+    .live-dot{width:9px; height:9px; border-radius:50%; background: var(--off)}
     .badge.live{
       border-color: rgba(46,229,157,.25);
       background: rgba(46,229,157,.10);
@@ -725,35 +824,62 @@
       max-width: 56ch;
     }
 
-    /* ---------- Footer ---------- */
-    footer{padding: 28px 0 44px; color: var(--muted); font-weight:900}
+    /* ---- FOOTER ---- */
+    footer{padding: 30px 0 50px; color: var(--muted); font-weight:900}
     .foot{
       display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;
       border-top: 1px solid rgba(255,255,255,.08);
       padding-top: 18px;
     }
 
-    /* Apply glass to existing blocks */
-    .hero-card, .card, .gate, details, .field, .seg, .streamer-card, .price-card, .step{
-      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.03));
+    /* ---- APPLY GLASS TO BLOCKS ---- */
+    .hero-card, .card, .gate, details, .field, .seg, .streamer-card, .price-card, .step, .proof{
+      background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.03));
       border:1px solid rgba(255,255,255,.12);
       box-shadow: var(--shadow2);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
     }
-    .hero-card, .gate{box-shadow: var(--shadow)}
-    .card, .streamer-card, details, .price-card, .step{position:relative}
-    .card::after, .streamer-card::after, .price-card::after, .step::after{
-      content:"";
-      position:absolute; inset:-80px;
-      background:
-        radial-gradient(260px 180px at 18% 12%, rgba(255,122,24,.14), transparent 62%),
-        radial-gradient(260px 180px at 92% 30%, rgba(168,85,247,.14), transparent 62%);
-      filter: blur(18px);
-      opacity:.64;
-      pointer-events:none;
+
+    /* ---- SCROLL REVEAL ---- */
+    .reveal{
+      opacity:0;
+      transform: translateY(18px) scale(.985);
+      transition: opacity .7s var(--ease), transform .7s var(--ease);
+      will-change: transform, opacity;
     }
-    .card > *, .streamer-card > *, .price-card > *, .step > *{position:relative}
+    .reveal.in{
+      opacity:1;
+      transform: translateY(0) scale(1);
+    }
+    .reveal-delay-1{transition-delay: .06s}
+    .reveal-delay-2{transition-delay: .12s}
+    .reveal-delay-3{transition-delay: .18s}
+    .reveal-delay-4{transition-delay: .24s}
+
+    /* ---- FLOATING CTA BUTTON ---- */
+    .fab{
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 9999;
+      display:flex;
+      gap:10px;
+      align-items:center;
+      padding: 12px 14px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: linear-gradient(135deg, rgba(255,122,24,.92), rgba(168,85,247,.86), rgba(0,234,255,.62));
+      color:#060611;
+      font-weight: 980;
+      box-shadow: 0 26px 96px rgba(168,85,247,.22), 0 20px 80px rgba(255,122,24,.18);
+      cursor:pointer;
+      transform: translateY(0);
+      transition: transform .18s var(--ease), filter .2s var(--ease), opacity .2s var(--ease);
+    }
+    .fab:hover{transform: translateY(-3px); filter:saturate(1.12)}
+    .fab.hide{opacity:0; pointer-events:none; transform: translateY(10px)}
+    .fab small{opacity:.85; font-weight:950}
 
     /* Sound hint */
     .sound-hint{
@@ -775,15 +901,8 @@
     }
     .sound-hint b{color:#fff}
 
-    /* Motion accessibility */
-    @media (prefers-reduced-motion: reduce){
-      html{scroll-behavior:auto}
-      .glow{animation:none}
-      .shine-underline::before{animation:none}
-      .card, .streamer-card, details, .step{transition:none}
-    }
-
-    @media (max-width: 940px){
+    /* ---- RESPONSIVE ---- */
+    @media (max-width: 980px){
       .hero-grid{grid-template-columns: 1fr}
       .grid3{grid-template-columns: 1fr}
       .faq{grid-template-columns: 1fr}
@@ -793,13 +912,19 @@
       .streamer-grid{grid-template-columns: 1fr}
       .roadmap{grid-template-columns: 1fr}
       .pricing{grid-template-columns: 1fr}
-      header.hero{padding-top: 44px}
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      html{scroll-behavior:auto}
+      .bg-conic,.bg-aurora,.logo::after,.shine-underline::before,.grad{animation:none}
+      .reveal,.card,.step,.price-card,.streamer-card,.btn,.badge,.chip{transition:none}
     }
   </style>
 </head>
 
 <body>
-  <div class="glow" aria-hidden="true"></div>
+  <div class="bg-conic" aria-hidden="true"></div>
+  <div class="bg-aurora" aria-hidden="true"></div>
   <div class="grid-overlay" aria-hidden="true"></div>
   <div class="noise" aria-hidden="true"></div>
   <canvas id="particles" aria-hidden="true"></canvas>
@@ -808,7 +933,11 @@
     const CONFIG = {
       botName: "ImBurni_Bot_v1",
       discordInvite: "https://discord.gg/v8BSRq8C8C",
-      streamers: ["Tricck17"]
+      streamers: ["Tricck17"],
+
+      /* click sound */
+      clickSound: true,
+      clickSoundVolume: 0.22
     };
   </script>
 
@@ -839,13 +968,13 @@
 
   <header class="hero" id="top">
     <div class="container">
-      <div class="pill">
+      <div class="pill reveal">
         <span class="dot" aria-hidden="true"></span>
         <span>Live-ready • Tickets • ID-Timeouts • Punkte • Lurk</span>
       </div>
 
       <div class="hero-grid">
-        <div>
+        <div class="reveal reveal-delay-1">
           <div class="h1">
             <span class="shine-underline"><span class="grad">Feuer</span></span> für deinen Chat.<br />
             Support über <span class="shine-underline"><span class="grad">Discord</span></span>.
@@ -863,15 +992,15 @@
             <button class="btn" type="button" id="copyDiscord">📋 Invite kopieren</button>
           </div>
 
-          <div class="alert">
+          <div class="alert glass neon-border">
             🔒 <b>Zugang nur via Discord:</b> Den Bot bekommt man nicht automatisch. Im Discord läuft
             Freischaltung/Setup + Support (Ticketsystem).
           </div>
 
-          <div class="proof glass glint" style="margin-top:14px;">
+          <div class="proof glass neon-border" style="margin-top:14px">
             <div class="proof-left">
-              <b>Premium Workflow für Streams</b>
-              <span>Queue/Worker • Persistenz • Mods & Tickets — auf Live-Betrieb optimiert</span>
+              <b>Neon SaaS Landing — komplett live-ready</b>
+              <span>Queue/Worker • Persistenz • Mods & Tickets • ID-Timeouts</span>
             </div>
             <div class="proof-badges">
               <span class="badge">⚡ Fast Setup</span>
@@ -881,7 +1010,7 @@
           </div>
         </div>
 
-        <div class="hero-card glass-strong glint" aria-label="ImBurni_Bot Artwork">
+        <div class="hero-card glass-strong neon-border reveal reveal-delay-2" aria-label="ImBurni_Bot Artwork">
           <div class="hero-media">
             <div class="img-wrap">
               <img src="imburni_bot.png" alt="ImBurni_Bot_v1 Artwork" />
@@ -902,35 +1031,35 @@
 
   <section id="features">
     <div class="container">
-      <div class="section-head">
+      <div class="section-head reveal">
         <div>
-          <h2>Features</h2>
-          <p class="hint">Hier steht bewusst kein Code. Nur die Funktionen – klar & professionell.</p>
+          <h2><span class="grad">Features</span></h2>
+          <p class="hint">Hier steht bewusst kein Code. Nur die Funktionen – aber in “krank” modern.</p>
         </div>
       </div>
 
       <div class="grid3">
-        <div class="card glint">
+        <div class="card glass neon-border reveal reveal-delay-1" data-tilt>
           <h3>🎉 Follow Alerts → Discord</h3>
           <p>Neue Follower werden automatisch als stylisches Embed im Discord gepostet (Queue/Worker).</p>
         </div>
-        <div class="card glint">
+        <div class="card glass neon-border reveal reveal-delay-2" data-tilt>
           <h3>💰 Punkte System</h3>
           <p>Chat-Aktivität gibt Punkte. Commands: <b>!punkte</b>, <b>!top</b>. Perfekt für Engagement.</p>
         </div>
-        <div class="card glint">
+        <div class="card glass neon-border reveal reveal-delay-3" data-tilt>
           <h3>😴 Lurk Rewards</h3>
           <p><b>!lurk</b> startet Lurk, Rewards laufen weiter. <b>!lurkliste</b> zeigt aktive Lurker.</p>
         </div>
-        <div class="card glint">
+        <div class="card glass neon-border reveal reveal-delay-1" data-tilt>
           <h3>🎫 Support Tickets (Discord)</h3>
           <p>Ticket-Channel wird erstellt, Buttons: <b>In Bearbeitung</b>, <b>Beantwortet</b>, <b>Schließen</b>.</p>
         </div>
-        <div class="card glint">
+        <div class="card glass neon-border reveal reveal-delay-2" data-tilt>
           <h3>⏱️ Timeout System (IDs)</h3>
           <p><b>!reasons</b> listet Gründe, <b>!timeout @user ID</b> setzt Timeouts – nur Mods/Broadcaster.</p>
         </div>
-        <div class="card glint">
+        <div class="card glass neon-border reveal reveal-delay-3" data-tilt>
           <h3>📊 Stats & Persistenz</h3>
           <p>Stats (Nachrichten/Lurk/Timeouts/Starts) werden gespeichert – stabil für lange Streams.</p>
         </div>
@@ -940,14 +1069,14 @@
 
   <section id="zugang">
     <div class="container">
-      <div class="section-head">
+      <div class="section-head reveal">
         <div>
           <h2>So bekommst du den Bot</h2>
           <p class="hint">Kurz & eindeutig: Der Bot wird über Discord freigeschaltet/eingerichtet.</p>
         </div>
       </div>
 
-      <div class="gate glass-strong glint">
+      <div class="gate glass-strong neon-border reveal" data-tilt>
         <div>
           <h3>✅ Ablauf</h3>
           <p>
@@ -963,28 +1092,28 @@
         </div>
       </div>
 
-      <div style="margin-top:14px; color:var(--muted); font-weight:900; line-height:1.65">
+      <div class="reveal" style="margin-top:14px; color:var(--muted); font-weight:900; line-height:1.75">
         Tipp: Pack den Discord-Link in deine Twitch Panels, damit Interessenten sofort wissen, wo sie den Bot bekommen.
       </div>
 
       <div style="margin-top:18px">
-        <div class="section-head" style="margin-bottom:10px">
+        <div class="section-head reveal" style="margin-bottom:10px">
           <div>
-            <h2 style="font-size: clamp(18px, 1.8vw, 24px)">Roadmap</h2>
-            <p class="hint" style="margin-top:6px">Premium-Style Übersicht, ohne irgendwas an Funktionen zu ändern.</p>
+            <h2 style="font-size: clamp(18px, 1.8vw, 24px)"><span class="grad">Roadmap</span></h2>
+            <p class="hint" style="margin-top:6px">Mehr Landing-Page Aufbau — ohne Funktionen zu verändern.</p>
           </div>
         </div>
 
         <div class="roadmap">
-          <div class="step glass glint">
+          <div class="step glass neon-border reveal reveal-delay-1" data-tilt>
             <div class="k"><span class="num">1</span><b>Join & Ticket</b></div>
             <p>Discord joinen, Ticket öffnen, Infos zu deinem Channel posten.</p>
           </div>
-          <div class="step glass glint">
+          <div class="step glass neon-border reveal reveal-delay-2" data-tilt>
             <div class="k"><span class="num">2</span><b>Setup & Freischaltung</b></div>
             <p>Support richtet alles sauber ein (Bridge, Tickets, Mod-IDs, Rewards).</p>
           </div>
-          <div class="step glass glint">
+          <div class="step glass neon-border reveal reveal-delay-3" data-tilt>
             <div class="k"><span class="num">3</span><b>Live gehen</b></div>
             <p>Alerts laufen, Punkte/Lurk zählen, Timeouts via IDs — fertig.</p>
           </div>
@@ -993,25 +1122,25 @@
     </div>
   </section>
 
-  <!-- Pricing / Access -->
   <section id="pricing">
     <div class="container">
-      <div class="section-head">
+      <div class="section-head reveal">
         <div>
-          <h2>Access</h2>
+          <h2><span class="grad">Access</span></h2>
           <p class="hint">Kein Checkout, kein Auto-Setup: Zugriff läuft bewusst über Discord (Support + Ticketsystem).</p>
         </div>
       </div>
 
       <div class="pricing">
-        <div class="price-card glass-strong glint">
+        <div class="price-card glass-strong neon-border reveal reveal-delay-1" data-tilt>
           <div class="price-title">
             <b>Discord Access</b>
             <span class="price-tag">Invite → Ticket → Setup</span>
           </div>
-          <div style="color: var(--muted); font-weight:900; line-height:1.65">
-            Du bekommst den Bot nicht “per Klick”. Dadurch bleibt alles sauber: kontrollierte Freischaltung, Hilfe beim Setup,
-            klare Zuständigkeiten – und das Ticketsystem läuft direkt dort, wo es hingehört.
+
+          <div style="color: var(--muted); font-weight:900; line-height:1.75">
+            Du bekommst den Bot nicht “per Klick”. So bleibt’s sauber: kontrollierte Freischaltung, Hilfe beim Setup,
+            klare Zuständigkeiten – und Support direkt im Ticketsystem.
           </div>
 
           <div class="price-list">
@@ -1027,12 +1156,12 @@
           </div>
         </div>
 
-        <div class="price-card glass glint">
+        <div class="price-card glass neon-border reveal reveal-delay-2" data-tilt>
           <div class="price-title">
             <b>Quick Checklist</b>
             <span class="price-tag">2 Minuten</span>
           </div>
-          <div style="color: var(--muted); font-weight:900; line-height:1.65">
+          <div style="color: var(--muted); font-weight:900; line-height:1.75">
             Damit das Setup schnell läuft:
           </div>
           <div class="price-list">
@@ -1042,30 +1171,30 @@
             <div class="price-item"><span class="tick">✓</span><div>Panel-Link zum Discord setzen</div></div>
           </div>
           <div style="margin-top:14px; color: var(--faint); font-weight:850; line-height:1.55">
-            Hinweis: Dieser Bereich ist nur Info/Design – die Funktionen bleiben exakt gleich.
+            Hinweis: Nur Design/Storytelling – alle bestehenden Funktionen bleiben unverändert.
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ✅ Streamer System wieder drin -->
+  <!-- ✅ Streamer System -->
   <section id="streamer">
     <div class="container">
-      <div class="section-head">
+      <div class="section-head reveal">
         <div>
           <h2>Streamer, die den Bot nutzen</h2>
           <p class="hint">Mit Profilbild + Live/Offline. Funktioniert auf GitHub Pages ohne Tokens.</p>
         </div>
       </div>
 
-      <div class="streamer-controls">
-        <div class="field glass glint">
+      <div class="streamer-controls reveal">
+        <div class="field glass neon-border">
           <span aria-hidden="true">🔎</span>
           <input id="streamerSearch" type="text" placeholder="Streamer suchen (z.B. tricck17)…" />
         </div>
 
-        <div class="seg glass" id="streamerFilter">
+        <div class="seg glass neon-border" id="streamerFilter">
           <button type="button" class="active" data-filter="all">Alle</button>
           <button type="button" data-filter="live">🟢 Live</button>
           <button type="button" data-filter="offline">⚫ Offline</button>
@@ -1074,14 +1203,14 @@
         <button class="btn" id="streamerRefresh" type="button">🔁 Aktualisieren</button>
       </div>
 
-      <div class="streamer-meta">
+      <div class="streamer-meta reveal">
         <div id="streamerCount">—</div>
         <div id="streamerUpdated">—</div>
       </div>
 
       <div class="streamer-grid" id="streamerGrid"></div>
 
-      <div style="margin-top:12px; color:var(--faint); font-weight:850; line-height:1.55">
+      <div class="reveal" style="margin-top:12px; color:var(--faint); font-weight:850; line-height:1.55">
         Hinweis: Live-Status basiert auf einem einfachen Uptime-Check (kann minimal verzögert sein).
       </div>
     </div>
@@ -1089,35 +1218,35 @@
 
   <section id="faq">
     <div class="container">
-      <div class="section-head">
+      <div class="section-head reveal">
         <div>
-          <h2>FAQ</h2>
+          <h2><span class="grad">FAQ</span></h2>
           <p class="hint">Kurz beantwortet – damit jeder es direkt versteht.</p>
         </div>
       </div>
 
       <div class="faq">
-        <details class="glass glint">
+        <details class="glass neon-border reveal reveal-delay-1">
           <summary>Warum ist Discord Pflicht?</summary>
           <p>
             Weil der Bot nicht öffentlich „für jeden“ automatisch verfügbar ist.
             Discord ist der zentrale Ort für Support, Freischaltung und das Ticketsystem.
           </p>
         </details>
-        <details class="glass glint">
+        <details class="glass neon-border reveal reveal-delay-2">
           <summary>Wird irgendwo Bot-Code oder Tokens gezeigt?</summary>
           <p>
             Nein. Auf dieser Website wird <b>kein Code</b> angezeigt – keine Tokens, keine Keys, kein Python.
             Nur Features & wie du Zugang bekommst.
           </p>
         </details>
-        <details class="glass glint">
+        <details class="glass neon-border reveal reveal-delay-3">
           <summary>Wer kann Tickets erstellen und Timeouts nutzen?</summary>
           <p>
             Tickets und Timeouts sind für Broadcaster/Mods gedacht. Damit bleibt alles kontrolliert und sicher.
           </p>
         </details>
-        <details class="glass glint">
+        <details class="glass neon-border reveal reveal-delay-4">
           <summary>Kann ich auch auf die Streamer-Liste?</summary>
           <p>
             Ja. Join den Discord und stelle eine Anfrage – dann wird dein Kanal hinzugefügt (wenn du den Bot nutzt).
@@ -1129,7 +1258,7 @@
 
   <section id="discord">
     <div class="container">
-      <div class="gate glass-strong glint">
+      <div class="gate glass-strong neon-border reveal" data-tilt>
         <div>
           <h3>🔥 Ready? Hol dir ImBurni_Bot_v1 im Discord</h3>
           <p>Join → Anfrage/Ticket → Freischaltung/Setup. Danach läuft Twitch ✕ Discord clean.</p>
@@ -1144,7 +1273,7 @@
 
   <footer>
     <div class="container">
-      <div class="foot">
+      <div class="foot reveal">
         <div>© <span id="year"></span> <span id="footName">ImBurni</span> • Darkmode • Beta Version V1</div>
         <div style="display:flex; gap:10px; flex-wrap:wrap">
           <a class="btn small" href="#features">Features</a>
@@ -1155,12 +1284,17 @@
     </div>
   </footer>
 
+  <!-- floating CTA -->
+  <button class="fab" id="fab" type="button" aria-label="Zum Discord">
+    💬 <span>Discord</span> <small>Bot holen</small>
+  </button>
+
   <!-- 🎵 MUSIC (legal autoplay feel): starts muted; tries unmute on scroll; fallback to click/touch/key -->
   <audio id="bgm" src="Song.mp3" preload="auto" loop muted playsinline></audio>
 
   <div class="sound-hint" id="soundHint">
     🎵 Musik läuft <b>stumm</b> beim Laden. <b>Scroll</b> versucht Ton zu aktivieren.<br/>
-    Falls dein Browser Scroll nicht akzeptiert: <b>ein Klick</b> aktiviert Ton sicher.
+    Außerdem: Buttons haben jetzt <b>Klick-Sound</b> (Browser erlaubt nur nach Interaktion).
   </div>
 
   <script>
@@ -1172,6 +1306,7 @@
     });
     document.getElementById('year').textContent = new Date().getFullYear();
 
+    /* ---------- Toast ---------- */
     function toast(msg){
       const t = document.createElement('div');
       t.textContent = msg;
@@ -1187,11 +1322,12 @@
       t.style.fontWeight='950';
       t.style.zIndex=9999;
       t.style.backdropFilter='blur(10px)';
-      t.style.boxShadow='0 16px 40px rgba(0,0,0,.38)';
+      t.style.boxShadow='0 18px 60px rgba(0,0,0,.45)';
       document.body.appendChild(t);
       setTimeout(()=>{ t.style.opacity='0'; t.style.transition='opacity .25s ease'; }, 1200);
       setTimeout(()=>{ t.remove(); }, 1500);
     }
+
     async function copyText(text){
       try{ await navigator.clipboard.writeText(text); toast("Invite kopiert ✅"); }
       catch{ toast("Kopieren nicht möglich ❌"); }
@@ -1201,7 +1337,120 @@
       if(el) el.addEventListener('click', ()=>copyText(CONFIG.discordInvite));
     });
 
-    /* ---------- Smooth scroll (JS fallback + correct offset for sticky nav) ---------- */
+    /* ---------- FAB ---------- */
+    const fab = document.getElementById('fab');
+    fab.addEventListener('click', ()=>{
+      location.hash = "#discord";
+      document.querySelector('#discord').scrollIntoView({behavior:'smooth', block:'start'});
+    });
+
+    /* ---------- Fancy Ripple on all buttons/links ---------- */
+    function addRipple(el, x, y){
+      const r = document.createElement('span');
+      r.className = 'ripple';
+      r.style.left = x + 'px';
+      r.style.top  = y + 'px';
+      el.appendChild(r);
+      setTimeout(()=>r.remove(), 700);
+    }
+
+    document.addEventListener('pointerdown', (e)=>{
+      const el = e.target.closest && e.target.closest('.btn, .fab, .nav-links a, summary');
+      if(!el) return;
+      const rect = el.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      addRipple(el, x, y);
+    }, {passive:true});
+
+    /* ---------- CLICK SOUND (WebAudio, no file needed) ---------- */
+    const ClickFX = (function(){
+      let ctx = null;
+      let unlocked = false;
+
+      function ensure(){
+        if(ctx) return ctx;
+        const AC = window.AudioContext || window.webkitAudioContext;
+        if(!AC) return null;
+        ctx = new AC();
+        return ctx;
+      }
+
+      async function unlock(){
+        const c = ensure();
+        if(!c) return false;
+        if(c.state === 'suspended'){
+          try{ await c.resume(); }catch{}
+        }
+        unlocked = (c.state === 'running');
+        return unlocked;
+      }
+
+      function play(){
+        if(!CONFIG.clickSound) return;
+        const c = ensure();
+        if(!c) return;
+
+        // Browser may require gesture; attempt resume
+        if(c.state !== 'running'){ c.resume().catch(()=>{}); }
+
+        const now = c.currentTime;
+        const vol = Math.max(0, Math.min(1, CONFIG.clickSoundVolume ?? 0.2));
+
+        // "cyber click": short pitch drop + tiny noise
+        const osc = c.createOscillator();
+        const gain = c.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(880, now);
+        osc.frequency.exponentialRampToValueAtTime(220, now + 0.045);
+
+        gain.gain.setValueAtTime(0.0001, now);
+        gain.gain.exponentialRampToValueAtTime(vol, now + 0.008);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.055);
+
+        // noise burst
+        const bufferSize = Math.floor(c.sampleRate * 0.02);
+        const buffer = c.createBuffer(1, bufferSize, c.sampleRate);
+        const data = buffer.getChannelData(0);
+        for(let i=0;i<bufferSize;i++){
+          data[i] = (Math.random()*2 - 1) * (1 - i/bufferSize);
+        }
+        const noise = c.createBufferSource();
+        noise.buffer = buffer;
+
+        const nGain = c.createGain();
+        nGain.gain.setValueAtTime(vol*0.35, now);
+        nGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.03);
+
+        osc.connect(gain).connect(c.destination);
+        noise.connect(nGain).connect(c.destination);
+
+        osc.start(now);
+        noise.start(now);
+
+        osc.stop(now + 0.06);
+        noise.stop(now + 0.035);
+      }
+
+      // unlock on first gesture
+      const unlockOnce = async () => {
+        await unlock();
+        window.removeEventListener('pointerdown', unlockOnce, true);
+        window.removeEventListener('keydown', unlockOnce, true);
+      };
+      window.addEventListener('pointerdown', unlockOnce, true);
+      window.addEventListener('keydown', unlockOnce, true);
+
+      return { play, unlock };
+    })();
+
+    document.addEventListener('click', (e)=>{
+      const el = e.target.closest && e.target.closest('.btn, .fab, .nav-links a, summary');
+      if(!el) return;
+      ClickFX.play();
+    });
+
+    /* ---------- Smooth scroll with offset for sticky nav ---------- */
     (function(){
       const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       function scrollToHash(hash){
@@ -1213,7 +1462,6 @@
         const nav = document.querySelector('.nav');
         const navH = nav ? nav.getBoundingClientRect().height : 0;
         const y = el.getBoundingClientRect().top + window.scrollY - navH - 12;
-
         window.scrollTo({ top: Math.max(0, y), behavior: prefersReduced ? 'auto' : 'smooth' });
       }
 
@@ -1222,7 +1470,6 @@
         if(!a) return;
         const href = a.getAttribute('href');
         if(!href || href === '#') return;
-
         const targetId = href.slice(1);
         if(!document.getElementById(targetId)) return;
 
@@ -1251,23 +1498,61 @@
       }
 
       const obs = new IntersectionObserver((entries)=>{
-        // choose the most visible intersecting entry
         const visible = entries
           .filter(e => e.isIntersecting)
           .sort((a,b)=> (b.intersectionRatio - a.intersectionRatio))[0];
         if(visible && visible.target && visible.target.id){
           setActive(visible.target.id);
         }
-      }, {
-        root: null,
-        rootMargin: "-35% 0px -55% 0px",
-        threshold: [0.12, 0.2, 0.35, 0.5, 0.7]
-      });
+      }, { rootMargin: "-35% 0px -55% 0px", threshold: [0.12, 0.2, 0.35, 0.5, 0.7] });
 
       targets.forEach(t => obs.observe(t.el));
-
-      // initial
       setActive((location.hash || '#features').slice(1));
+    })();
+
+    /* ---------- Reveal on scroll ---------- */
+    (function(){
+      const els = Array.from(document.querySelectorAll('.reveal'));
+      if(!els.length) return;
+
+      const obs = new IntersectionObserver((entries)=>{
+        for(const e of entries){
+          if(e.isIntersecting){
+            e.target.classList.add('in');
+            obs.unobserve(e.target);
+          }
+        }
+      }, { threshold: 0.12, rootMargin: "0px 0px -12% 0px" });
+
+      els.forEach(el => obs.observe(el));
+    })();
+
+    /* ---------- Tilt (super lightweight) ---------- */
+    (function(){
+      const cards = Array.from(document.querySelectorAll('[data-tilt]'));
+      if(!cards.length) return;
+
+      const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if(prefersReduced) return;
+
+      function onMove(e){
+        const el = e.currentTarget;
+        const r = el.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width;
+        const y = (e.clientY - r.top) / r.height;
+        const rx = (y - 0.5) * -7;
+        const ry = (x - 0.5) * 8;
+        el.style.transform = `translateY(-4px) rotateX(${rx}deg) rotateY(${ry}deg)`;
+      }
+      function onLeave(e){
+        const el = e.currentTarget;
+        el.style.transform = '';
+      }
+      cards.forEach(el=>{
+        el.style.transformStyle = 'preserve-3d';
+        el.addEventListener('mousemove', onMove);
+        el.addEventListener('mouseleave', onLeave);
+      });
     })();
 
     /* ---------- 🎵 Music: muted autoplay + try unmute on scroll + fallback click ---------- */
@@ -1277,7 +1562,6 @@
       audio.volume = 0.85;
       audio.loop = true;
 
-      // start muted (allowed)
       window.addEventListener("load", async () => {
         try{
           audio.muted = true;
@@ -1294,7 +1578,8 @@
           audio.volume = 0.85;
           await audio.play();
           unlocked = true;
-          if(hint) hint.remove();
+          // don't remove hint immediately — it also mentions click-sound now
+          setTimeout(()=>{ if(hint) hint.remove(); }, 1200);
           cleanup();
           return true;
         }catch{
@@ -1302,11 +1587,8 @@
         }
       }
 
-      // TRY ON SCROLL/WHEEL first
       const onWheel = async () => { await unlockSound(); };
       const onScroll = async () => { await unlockSound(); };
-
-      // SAFE FALLBACK on real gestures
       const onPointer = async () => { await unlockSound(); };
       const onTouch = async () => { await unlockSound(); };
       const onKey = async () => { await unlockSound(); };
@@ -1326,10 +1608,11 @@
       document.addEventListener("keydown", onKey, true);
     })();
 
-    /* ---------- Parallax Glow ---------- */
+    /* ---------- Parallax Aurora (mouse) ---------- */
     (function(){
       const root = document.documentElement;
       let tx = 0, ty = 0, cx = 0, cy = 0;
+
       function update(){
         cx += (tx - cx) * 0.08;
         cy += (ty - cy) * 0.08;
@@ -1342,8 +1625,8 @@
       function handle(x, y){
         const w = window.innerWidth || 1;
         const h = window.innerHeight || 1;
-        tx = ((x / w) - 0.5) * 60;
-        ty = ((y / h) - 0.5) * 60;
+        tx = ((x / w) - 0.5) * 70;
+        ty = ((y / h) - 0.5) * 70;
       }
       window.addEventListener('mousemove', (e)=>handle(e.clientX, e.clientY), {passive:true});
       window.addEventListener('touchmove', (e)=>{
@@ -1352,7 +1635,7 @@
       }, {passive:true});
     })();
 
-    /* ---------- Particles ---------- */
+    /* ---------- Particles (slightly more lively) ---------- */
     (function(){
       const c = document.getElementById('particles');
       const ctx = c.getContext('2d', { alpha: true });
@@ -1369,14 +1652,14 @@
       window.addEventListener('resize', resize, {passive:true});
       resize();
 
-      const N = Math.round(Math.min(90, Math.max(45, W/18)));
+      const N = Math.round(Math.min(120, Math.max(60, W/14)));
       const p = Array.from({length:N}).map(() => ({
         x: Math.random()*W,
         y: Math.random()*H,
-        r: 0.8 + Math.random()*1.8,
-        vx: (-0.25 + Math.random()*0.5),
-        vy: (-0.18 + Math.random()*0.36),
-        a: 0.15 + Math.random()*0.35
+        r: 0.8 + Math.random()*2.0,
+        vx: (-0.35 + Math.random()*0.7),
+        vy: (-0.24 + Math.random()*0.48),
+        a: 0.12 + Math.random()*0.30
       }));
 
       function tick(){
@@ -1396,13 +1679,13 @@
           ctx.fill();
         }
 
-        ctx.globalAlpha = 0.06;
+        ctx.globalAlpha = 0.055;
         for(let i=0;i<p.length;i++){
           for(let j=i+1;j<p.length;j++){
             const dx = p[i].x - p[j].x;
             const dy = p[i].y - p[j].y;
             const dist = Math.sqrt(dx*dx + dy*dy);
-            if(dist < 120){
+            if(dist < 130){
               ctx.beginPath();
               ctx.moveTo(p[i].x, p[i].y);
               ctx.lineTo(p[j].x, p[j].y);
@@ -1479,7 +1762,7 @@
           : `<img src="https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_70x70.png" alt="${display} Profilbild" loading="lazy" />`;
 
         return `
-          <div class="streamer-card glint" data-login="${escapeHtml(loginLower)}">
+          <div class="streamer-card glass neon-border reveal in" data-login="${escapeHtml(loginLower)}" data-tilt>
             <div class="streamer-top">
               <div class="streamer-left">
                 <div class="avatar">${avatar}</div>
@@ -1564,6 +1847,21 @@
     renderStreamers();
     refreshStreamers();
     setInterval(refreshStreamers, 60000);
+
+    /* ---------- FAB show/hide on scroll ---------- */
+    (function(){
+      const el = document.getElementById('fab');
+      let lastY = window.scrollY;
+      function tick(){
+        const y = window.scrollY;
+        // hide if near top a bit to not distract
+        if(y < 220) el.classList.add('hide');
+        else el.classList.remove('hide');
+        lastY = y;
+        requestAnimationFrame(tick);
+      }
+      tick();
+    })();
   </script>
 </body>
 </html>
