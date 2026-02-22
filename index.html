@@ -948,6 +948,287 @@
       .bg-conic,.bg-aurora,.logo::after,.shine-underline::before,.grad{animation:none}
       .reveal,.card,.step,.price-card,.streamer-card,.btn,.badge,.chip{transition:none}
     }
+
+    /* ================================
+       ✅ TICKET SYSTEM (ADD-ON)
+       ================================ */
+    .modal-backdrop{
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.58);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 99999;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding: 18px;
+    }
+    .modal-backdrop.show{display:flex}
+    .modal{
+      width: min(920px, 100%);
+      border-radius: 28px;
+      overflow:hidden;
+    }
+    .modal-inner{
+      padding: 16px;
+    }
+    .modal-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap: 12px;
+      padding: 16px 16px 8px;
+    }
+    .modal-head h3{
+      margin:0;
+      font-size: 18px;
+      letter-spacing:-.2px;
+    }
+    .modal-head p{
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-weight: 850;
+      line-height: 1.6;
+    }
+    .icon-btn{
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color: rgba(238,240,255,.92);
+      border-radius: 14px;
+      width: 42px;
+      height: 42px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+      box-shadow: var(--shadow2);
+      transition: transform .14s var(--ease), background .2s var(--ease);
+      flex: 0 0 auto;
+    }
+    .icon-btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.10)}
+    .icon-btn:active{transform: translateY(0px) scale(.98)}
+
+    .ticket-layout{
+      display:grid;
+      grid-template-columns: 1fr .92fr;
+      gap: 14px;
+      padding: 0 16px 16px;
+    }
+    @media (max-width: 980px){
+      .ticket-layout{grid-template-columns: 1fr}
+    }
+
+    .ticket-form{
+      border-radius: 24px;
+      padding: 14px;
+    }
+    .ticket-form .row{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    @media (max-width: 680px){
+      .ticket-form .row{grid-template-columns: 1fr}
+    }
+    .inp{
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      border-radius: 16px;
+      padding: 12px 12px;
+      display:flex;
+      gap: 10px;
+      align-items:center;
+    }
+    .inp input, .inp select, .inp textarea{
+      width:100%;
+      border:0;
+      outline:0;
+      background: transparent;
+      color: var(--text);
+      font-weight: 900;
+      font-size: 14px;
+      font-family: inherit;
+    }
+    .inp textarea{
+      min-height: 120px;
+      resize: vertical;
+      line-height: 1.6;
+      font-weight: 850;
+    }
+    .help{
+      margin: 10px 2px 0;
+      color: var(--faint);
+      font-weight: 850;
+      line-height: 1.6;
+    }
+
+    .ticket-actions{
+      display:flex;
+      gap: 10px;
+      flex-wrap:wrap;
+      margin-top: 12px;
+      align-items:center;
+    }
+
+    .ticket-board{
+      border-radius: 24px;
+      padding: 14px;
+      display:flex;
+      flex-direction:column;
+      gap: 12px;
+      min-height: 320px;
+    }
+    .board-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      flex-wrap:wrap;
+    }
+    .board-head b{letter-spacing:-.2px}
+    .board-head small{color: var(--muted); font-weight: 900}
+    .ticket-list{
+      display:flex;
+      flex-direction:column;
+      gap: 10px;
+      overflow:auto;
+      max-height: 420px;
+      padding-right: 4px;
+    }
+    .ticket{
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      border-radius: 18px;
+      padding: 12px;
+      position:relative;
+      overflow:hidden;
+    }
+    .ticket-top{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap: 10px;
+    }
+    .ticket-title{
+      display:flex;
+      flex-direction:column;
+      gap: 4px;
+      min-width:0;
+    }
+    .ticket-title b{
+      font-size: 14px;
+      letter-spacing:-.2px;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .ticket-title span{
+      color: var(--muted);
+      font-weight: 900;
+      font-size: 12px;
+    }
+    .ticket-meta{
+      display:flex;
+      gap: 8px;
+      align-items:center;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    .pilltag{
+      display:inline-flex;
+      align-items:center;
+      gap: 6px;
+      border-radius: 999px;
+      padding: 6px 10px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      color: rgba(238,240,255,.92);
+      font-weight: 950;
+      font-size: 12px;
+      white-space:nowrap;
+    }
+    .pilltag.open{border-color: rgba(0,234,255,.22); background: rgba(0,234,255,.08)}
+    .pilltag.answered{border-color: rgba(46,229,157,.28); background: rgba(46,229,157,.10)}
+    .pilltag.closed{border-color: rgba(255,255,255,.14); background: rgba(255,255,255,.05); color: var(--muted)}
+    .ticket-body{
+      margin-top: 10px;
+      color: var(--muted);
+      font-weight: 850;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .ticket-replies{
+      margin-top: 10px;
+      display:flex;
+      flex-direction:column;
+      gap: 8px;
+    }
+    .reply{
+      border-left: 3px solid rgba(255,122,24,.55);
+      padding-left: 10px;
+      color: rgba(238,240,255,.92);
+      font-weight: 850;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .reply small{
+      display:block;
+      color: var(--faint);
+      font-weight: 900;
+      margin-top: 4px;
+    }
+
+    .ticket-controls{
+      display:flex;
+      gap: 8px;
+      flex-wrap:wrap;
+      margin-top: 10px;
+    }
+    .tiny{
+      padding: 9px 10px;
+      border-radius: 14px;
+      font-size: 12px;
+    }
+
+    .empty{
+      border:1px dashed rgba(255,255,255,.16);
+      border-radius: 18px;
+      padding: 16px;
+      color: var(--muted);
+      font-weight: 900;
+      line-height:1.6;
+    }
+    .danger{
+      border-color: rgba(255,43,214,.22) !important;
+      background: rgba(255,43,214,.08) !important;
+    }
+
+    /* small floating tickets button */
+    .ticket-fab{
+      position: fixed;
+      right: 18px;
+      bottom: 76px; /* über Discord FAB */
+      z-index: 9999;
+      display:flex;
+      gap:10px;
+      align-items:center;
+      padding: 12px 14px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.42);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      color: rgba(238,240,255,.92);
+      font-weight: 980;
+      box-shadow: var(--shadow2);
+      cursor:pointer;
+      transition: transform .18s var(--ease), opacity .2s var(--ease), filter .2s var(--ease);
+    }
+    .ticket-fab:hover{transform: translateY(-3px); filter:saturate(1.12)}
+    .ticket-fab.hide{opacity:0; pointer-events:none; transform: translateY(10px)}
   </style>
 </head>
 
@@ -966,7 +1247,18 @@
 
       /* click sound */
       clickSound: true,
-      clickSoundVolume: 0.22
+      clickSoundVolume: 0.22,
+
+      /* ✅ Ticket System (Frontend Demo)
+         - Nutzt localStorage (persistiert im Browser)
+         - Für echte Nutzung: später an Backend/Discord Webhook anbinden
+      */
+      ticketSystem: {
+        enabled: true,
+        storageKey: "imburni_ticket_system_v1",
+        // Optional: simple “Admin Key” (nur wenn du ein Admin-Login willst)
+        // adminKey: "MEIN_GEHEIMER_KEY"
+      }
     };
   </script>
 
@@ -1019,6 +1311,8 @@
             <a class="btn primary" id="discordBtn1" href="#" target="_blank" rel="noreferrer">💬 Discord beitreten</a>
             <a class="btn" href="#features">⚡ Features</a>
             <button class="btn" type="button" id="copyDiscord">📋 Invite kopieren</button>
+            <!-- ✅ NEW: Ticket Modal öffnen -->
+            <button class="btn" type="button" id="openTickets">🎫 Ticket öffnen</button>
           </div>
 
           <div class="alert glass neon-border">
@@ -1078,7 +1372,6 @@
           <p>Chat-Aktivität gibt Punkte. Commands: <b>!punkte</b>, <b>!top</b>. Perfekt für Engagement.</p>
         </div>
 
-        <!-- ✅ ADD-ON: Gamble als deklarierte Bot-Funktion (nur Text) -->
         <div class="card glass neon-border reveal reveal-delay-3" data-tilt>
           <h3>🎲 Gamble (Punkte verspielen)</h3>
           <p>
@@ -1133,6 +1426,8 @@
           <a class="btn primary" id="discordBtn2" href="#" target="_blank" rel="noreferrer">💬 Discord joinen</a>
           <button class="btn" type="button" id="copyDiscord2">📋 Invite kopieren</button>
           <a class="btn" href="#faq">❓ FAQ</a>
+          <!-- ✅ NEW: Ticket Modal öffnen -->
+          <button class="btn" type="button" id="openTickets2">🎫 Ticket öffnen</button>
         </div>
       </div>
 
@@ -1197,6 +1492,8 @@
           <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap">
             <a class="btn primary" href="#discord">💬 Jetzt joinen</a>
             <button class="btn" type="button" id="copyDiscord4">📋 Invite kopieren</button>
+            <!-- ✅ NEW: Ticket Modal öffnen -->
+            <button class="btn" type="button" id="openTickets3">🎫 Ticket öffnen</button>
           </div>
         </div>
 
@@ -1309,6 +1606,8 @@
         <div class="gate-actions">
           <a class="btn primary" id="discordBtn3" href="#" target="_blank" rel="noreferrer">💬 Zum Discord</a>
           <button class="btn" type="button" id="copyDiscord3">📋 Invite kopieren</button>
+          <!-- ✅ NEW: Ticket Modal öffnen -->
+          <button class="btn" type="button" id="openTickets4">🎫 Ticket öffnen</button>
         </div>
       </div>
     </div>
@@ -1332,6 +1631,11 @@
     💬 <span>Discord</span> <small>Bot holen</small>
   </button>
 
+  <!-- ✅ NEW: Ticket floating button -->
+  <button class="ticket-fab" id="ticketFab" type="button" aria-label="Tickets öffnen">
+    🎫 <span>Tickets</span> <small>Support</small>
+  </button>
+
   <!-- 🎵 MUSIC (muted on load) -->
   <audio id="bgm" src="Song.mp3" preload="auto" loop muted playsinline></audio>
 
@@ -1341,6 +1645,96 @@
   <div class="sound-hint" id="soundHint">
     🎵 Musik läuft <b>stumm</b> beim Laden. <b>Scroll</b> versucht Ton zu aktivieren.<br/>
     Außerdem: Buttons haben jetzt <b>Klick-Sound</b> (Browser erlaubt nur nach Interaktion).
+  </div>
+
+  <!-- ================================
+       ✅ TICKET MODAL (ADD-ON)
+       ================================ -->
+  <div class="modal-backdrop" id="ticketModal" role="dialog" aria-modal="true" aria-label="Ticket System">
+    <div class="modal glass-strong neon-border">
+      <div class="modal-head">
+        <div>
+          <h3>🎫 Ticket System</h3>
+          <p>
+            Nutzer können Tickets absenden. Du kannst im gleichen Panel antworten, Status setzen und schließen.
+            <span style="color: var(--faint); display:block; margin-top:6px;">
+              Hinweis: Dieses Demo nutzt <b>localStorage</b> (nur im Browser). Für “echt” → Backend/Discord Webhook.
+            </span>
+          </p>
+        </div>
+        <button class="icon-btn" id="ticketClose" type="button" aria-label="Schließen">✕</button>
+      </div>
+
+      <div class="ticket-layout modal-inner">
+        <!-- left: create ticket -->
+        <div class="ticket-form glass neon-border">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap">
+            <b>Ticket erstellen</b>
+            <span class="pilltag open" id="ticketHint">OPEN</span>
+          </div>
+
+          <div class="row" style="margin-top:12px">
+            <label class="inp">
+              <span aria-hidden="true">👤</span>
+              <input id="tName" type="text" maxlength="42" placeholder="Dein Name (z.B. Tricck17)" autocomplete="name" />
+            </label>
+
+            <label class="inp">
+              <span aria-hidden="true">🏷️</span>
+              <select id="tCategory">
+                <option value="setup">Setup / Freischaltung</option>
+                <option value="bug">Bug / Fehler</option>
+                <option value="feature">Feature Wunsch</option>
+                <option value="billing">Access / Sonstiges</option>
+              </select>
+            </label>
+          </div>
+
+          <label class="inp" style="margin-top:10px">
+            <span aria-hidden="true">🧩</span>
+            <input id="tSubject" type="text" maxlength="80" placeholder="Betreff (kurz & klar)" />
+          </label>
+
+          <label class="inp" style="margin-top:10px; align-items:flex-start">
+            <span aria-hidden="true" style="margin-top:2px">📝</span>
+            <textarea id="tMessage" maxlength="2000" placeholder="Beschreibe dein Problem / Wunsch… (max 2000 Zeichen)"></textarea>
+          </label>
+
+          <div class="help">
+            ✅ Tickets werden lokal gespeichert. (Für echte Support-Tickets später Backend/Discord anbinden.)
+          </div>
+
+          <div class="ticket-actions">
+            <button class="btn primary" id="tSubmit" type="button">📨 Ticket absenden</button>
+            <button class="btn" id="tReset" type="button">🧹 Leeren</button>
+            <button class="btn danger" id="tClearAll" type="button" title="Löscht alle Tickets im Browser">🗑️ Alle löschen</button>
+          </div>
+        </div>
+
+        <!-- right: ticket board -->
+        <div class="ticket-board glass neon-border">
+          <div class="board-head">
+            <div>
+              <b>Tickets</b>
+              <small id="tStats">—</small>
+            </div>
+
+            <div style="display:flex; gap:8px; flex-wrap:wrap">
+              <label class="inp" style="padding:10px 12px; border-radius: 14px">
+                <span aria-hidden="true">🔎</span>
+                <input id="tSearch" type="text" placeholder="Suchen…" />
+              </label>
+            </div>
+          </div>
+
+          <div class="ticket-list" id="tList"></div>
+
+          <div class="help" style="margin-top: 2px">
+            Tipp: Klick auf <b>Antworten</b> öffnet ein Prompt (Demo). In echt würdest du hier ein Admin-Panel oder Discord-Reply nutzen.
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <script>
@@ -1366,7 +1760,7 @@
       t.style.background='rgba(0,0,0,.68)';
       t.style.color='white';
       t.style.fontWeight='950';
-      t.style.zIndex=9999;
+      t.style.zIndex=999999;
       t.style.backdropFilter='blur(10px)';
       t.style.boxShadow='0 18px 60px rgba(0,0,0,.45)';
       document.body.appendChild(t);
@@ -1401,7 +1795,7 @@
     }
 
     document.addEventListener('pointerdown', (e)=>{
-      const el = e.target.closest && e.target.closest('.btn, .fab, .nav-links a, summary');
+      const el = e.target.closest && e.target.closest('.btn, .fab, .nav-links a, summary, .ticket-fab, .icon-btn');
       if(!el) return;
       const rect = el.getBoundingClientRect();
       const x = e.clientX - rect.left;
@@ -1485,7 +1879,7 @@
     })();
 
     document.addEventListener('click', (e)=>{
-      const el = e.target.closest && e.target.closest('.btn, .fab, .nav-links a, summary');
+      const el = e.target.closest && e.target.closest('.btn, .fab, .nav-links a, summary, .ticket-fab, .icon-btn');
       if(!el) return;
       ClickFX.play();
     });
@@ -1927,6 +2321,347 @@
           try{ await audio.play(); }catch{}
         }
       });
+    })();
+
+    /* ================================
+       ✅ TICKET SYSTEM (ADD-ON)
+       - localStorage persistence
+       - Users submit tickets
+       - Admin can reply / set status / close
+       ================================ */
+    (function(){
+      if(!CONFIG.ticketSystem?.enabled) return;
+
+      const STORAGE_KEY = String(CONFIG.ticketSystem.storageKey || "imburni_ticket_system_v1");
+
+      const modal = document.getElementById("ticketModal");
+      const closeBtn = document.getElementById("ticketClose");
+      const openBtns = ["openTickets","openTickets2","openTickets3","openTickets4"]
+        .map(id => document.getElementById(id))
+        .filter(Boolean);
+
+      const ticketFab = document.getElementById("ticketFab");
+
+      const nameEl = document.getElementById("tName");
+      const catEl = document.getElementById("tCategory");
+      const subjEl = document.getElementById("tSubject");
+      const msgEl  = document.getElementById("tMessage");
+      const submit = document.getElementById("tSubmit");
+      const reset  = document.getElementById("tReset");
+      const clearAll = document.getElementById("tClearAll");
+
+      const listEl = document.getElementById("tList");
+      const statsEl = document.getElementById("tStats");
+      const searchEl = document.getElementById("tSearch");
+
+      const state = {
+        tickets: [],
+        query: ""
+      };
+
+      function uid(){
+        // short stable id: T-YYMMDD-HHMMSS-xxxx
+        const d = new Date();
+        const pad = (n)=>String(n).padStart(2,'0');
+        const y = String(d.getFullYear()).slice(-2);
+        const id =
+          `T-${y}${pad(d.getMonth()+1)}${pad(d.getDate())}-${pad(d.getHours())}${pad(d.getMinutes())}${pad(d.getSeconds())}-` +
+          Math.random().toString(16).slice(2,6).toUpperCase();
+        return id;
+      }
+
+      function load(){
+        try{
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if(!raw){ state.tickets = []; return; }
+          const data = JSON.parse(raw);
+          if(Array.isArray(data)) state.tickets = data;
+          else state.tickets = [];
+        }catch{
+          state.tickets = [];
+        }
+      }
+
+      function save(){
+        try{
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(state.tickets));
+        }catch{}
+      }
+
+      function formatDT(ts){
+        try{
+          return new Date(ts).toLocaleString("de-DE");
+        }catch{
+          return String(ts || "");
+        }
+      }
+
+      function statusTag(status){
+        const s = String(status || "open").toLowerCase();
+        if(s === "answered") return `<span class="pilltag answered">BEANTW.</span>`;
+        if(s === "closed") return `<span class="pilltag closed">CLOSED</span>`;
+        return `<span class="pilltag open">OPEN</span>`;
+      }
+
+      function categoryLabel(cat){
+        const c = String(cat || "").toLowerCase();
+        if(c === "setup") return "Setup";
+        if(c === "bug") return "Bug";
+        if(c === "feature") return "Feature";
+        if(c === "billing") return "Access";
+        return "Sonstiges";
+      }
+
+      function render(){
+        const q = state.query.toLowerCase().trim();
+
+        const filtered = state.tickets
+          .slice()
+          .sort((a,b)=> (b.createdAt||0) - (a.createdAt||0))
+          .filter(t=>{
+            if(!q) return true;
+            const hay = [
+              t.id, t.name, t.subject, t.message, t.category, t.status,
+              ...(Array.isArray(t.replies) ? t.replies.map(r=>r.text) : [])
+            ].join(" ").toLowerCase();
+            return hay.includes(q);
+          });
+
+        const open = state.tickets.filter(t=>t.status === "open").length;
+        const ans  = state.tickets.filter(t=>t.status === "answered").length;
+        const clo  = state.tickets.filter(t=>t.status === "closed").length;
+
+        statsEl.textContent = `${filtered.length} angezeigt • OPEN ${open} • BEANTW. ${ans} • CLOSED ${clo}`;
+
+        if(!filtered.length){
+          listEl.innerHTML = `
+            <div class="empty">
+              Keine Tickets gefunden.<br/>
+              <span style="color: var(--faint)">Erstelle links ein Ticket oder leere die Suche.</span>
+            </div>
+          `;
+          return;
+        }
+
+        listEl.innerHTML = filtered.map(t=>{
+          const replies = Array.isArray(t.replies) ? t.replies : [];
+          const repliesHtml = replies.length
+            ? `<div class="ticket-replies">
+                ${replies.map(r=>`
+                  <div class="reply">
+                    ${escapeHtml(r.text || "")}
+                    <small>— ${escapeHtml(r.by || "Support")} • ${escapeHtml(formatDT(r.at))}</small>
+                  </div>
+                `).join("")}
+              </div>`
+            : "";
+
+          const safeMsg = escapeHtml(t.message || "");
+          const safeSub = escapeHtml(t.subject || "(ohne Betreff)");
+          const safeName = escapeHtml(t.name || "Unbekannt");
+
+          return `
+            <div class="ticket" data-id="${escapeHtml(t.id)}">
+              <div class="ticket-top">
+                <div class="ticket-title">
+                  <b>${safeSub}</b>
+                  <span>${escapeHtml(t.id)} • ${safeName} • ${escapeHtml(categoryLabel(t.category))} • ${escapeHtml(formatDT(t.createdAt))}</span>
+                </div>
+                <div class="ticket-meta">
+                  ${statusTag(t.status)}
+                </div>
+              </div>
+
+              <div class="ticket-body">${safeMsg}</div>
+
+              ${repliesHtml}
+
+              <div class="ticket-controls">
+                <button class="btn tiny" data-action="reply">💬 Antworten</button>
+                <button class="btn tiny" data-action="mark-open">🟦 Offen</button>
+                <button class="btn tiny" data-action="mark-answered">✅ Beantwortet</button>
+                <button class="btn tiny" data-action="close">🔒 Schließen</button>
+                <button class="btn tiny danger" data-action="delete">🗑️ Löschen</button>
+              </div>
+            </div>
+          `;
+        }).join("");
+      }
+
+      function openModal(){
+        modal.classList.add("show");
+        document.body.style.overflow = "hidden";
+        setTimeout(()=>{ nameEl?.focus?.(); }, 40);
+      }
+      function closeModal(){
+        modal.classList.remove("show");
+        document.body.style.overflow = "";
+      }
+
+      function resetForm(){
+        subjEl.value = "";
+        msgEl.value = "";
+        // Name/Category absichtlich nicht leeren (UX)
+        toast("Felder geleert ✅");
+      }
+
+      function validTicket(name, subject, message){
+        if(!name || name.trim().length < 2) return "Bitte Name angeben (mind. 2 Zeichen).";
+        if(!subject || subject.trim().length < 3) return "Bitte Betreff angeben (mind. 3 Zeichen).";
+        if(!message || message.trim().length < 10) return "Bitte eine Beschreibung schreiben (mind. 10 Zeichen).";
+        return null;
+      }
+
+      function createTicket(){
+        const name = (nameEl.value || "").trim();
+        const cat  = (catEl.value || "setup").trim();
+        const subject = (subjEl.value || "").trim();
+        const message = (msgEl.value || "").trim();
+
+        const err = validTicket(name, subject, message);
+        if(err){ toast(err); return; }
+
+        const t = {
+          id: uid(),
+          name,
+          category: cat,
+          subject,
+          message,
+          status: "open",
+          createdAt: Date.now(),
+          replies: []
+        };
+
+        state.tickets.push(t);
+        save();
+        render();
+        subjEl.value = "";
+        msgEl.value = "";
+        toast("Ticket gesendet ✅");
+      }
+
+      function getTicketById(id){
+        return state.tickets.find(x => x.id === id);
+      }
+
+      function setStatus(id, status){
+        const t = getTicketById(id);
+        if(!t) return;
+        t.status = status;
+        save();
+        render();
+      }
+
+      function addReply(id){
+        const t = getTicketById(id);
+        if(!t) return;
+
+        const text = prompt(`Antwort auf ${id} (wird im Ticket gespeichert):`);
+        if(text === null) return;
+
+        const clean = String(text).trim();
+        if(clean.length < 1){
+          toast("Antwort leer ❌");
+          return;
+        }
+
+        t.replies = Array.isArray(t.replies) ? t.replies : [];
+        t.replies.push({
+          text: clean,
+          by: "Support",
+          at: Date.now()
+        });
+
+        // Optional: Auto-Status auf answered, wenn offen
+        if(t.status === "open") t.status = "answered";
+
+        save();
+        render();
+        toast("Antwort gespeichert ✅");
+      }
+
+      function deleteTicket(id){
+        const ok = confirm(`Ticket ${id} wirklich löschen?`);
+        if(!ok) return;
+        state.tickets = state.tickets.filter(t => t.id !== id);
+        save();
+        render();
+        toast("Ticket gelöscht 🗑️");
+      }
+
+      function clearAllTickets(){
+        const ok = confirm("Wirklich ALLE Tickets im Browser löschen?");
+        if(!ok) return;
+        state.tickets = [];
+        save();
+        render();
+        toast("Alle Tickets gelöscht 🗑️");
+      }
+
+      // wire modal open/close
+      openBtns.forEach(b => b.addEventListener("click", openModal));
+      if(ticketFab) ticketFab.addEventListener("click", openModal);
+      closeBtn.addEventListener("click", closeModal);
+
+      modal.addEventListener("click", (e)=>{
+        if(e.target === modal) closeModal();
+      });
+      document.addEventListener("keydown", (e)=>{
+        if(e.key === "Escape" && modal.classList.contains("show")) closeModal();
+      });
+
+      // form actions
+      submit.addEventListener("click", createTicket);
+      reset.addEventListener("click", resetForm);
+      clearAll.addEventListener("click", clearAllTickets);
+
+      // allow ctrl+enter to submit
+      msgEl.addEventListener("keydown", (e)=>{
+        if((e.ctrlKey || e.metaKey) && e.key === "Enter"){
+          e.preventDefault();
+          createTicket();
+        }
+      });
+
+      // search
+      searchEl.addEventListener("input", ()=>{
+        state.query = searchEl.value || "";
+        render();
+      });
+
+      // ticket list actions (delegation)
+      listEl.addEventListener("click", (e)=>{
+        const btn = e.target.closest && e.target.closest("button[data-action]");
+        if(!btn) return;
+
+        const card = btn.closest(".ticket");
+        if(!card) return;
+
+        const id = card.getAttribute("data-id");
+        const action = btn.getAttribute("data-action");
+
+        if(action === "reply") return addReply(id);
+        if(action === "mark-open") return setStatus(id, "open");
+        if(action === "mark-answered") return setStatus(id, "answered");
+        if(action === "close") return setStatus(id, "closed");
+        if(action === "delete") return deleteTicket(id);
+      });
+
+      // init
+      load();
+      render();
+
+      // show/hide ticket fab on scroll (like discord fab)
+      (function(){
+        if(!ticketFab) return;
+        function tick(){
+          const y = window.scrollY;
+          if(y < 220) ticketFab.classList.add('hide');
+          else ticketFab.classList.remove('hide');
+          requestAnimationFrame(tick);
+        }
+        tick();
+      })();
     })();
   </script>
 </body>
