@@ -55,7 +55,6 @@
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
       overflow-x:hidden;
 
-      /* BIG aurora base (animated via ::before) */
       background:
         radial-gradient(900px 700px at 18% 10%, rgba(168,85,247,.18), transparent 62%),
         radial-gradient(900px 700px at 85% 14%, rgba(255,122,24,.16), transparent 62%),
@@ -248,7 +247,7 @@
       box-shadow: 0 18px 50px rgba(0,0,0,.42);
     }
 
-    /* ---- BUTTONS: NEON, RIPPLE, TILT ---- */
+    /* ---- BUTTONS ---- */
     .btn{
       display:inline-flex; align-items:center; justify-content:center; gap:10px;
       padding:12px 14px;
@@ -351,7 +350,6 @@
       letter-spacing:-1.4px;
     }
 
-    /* animated gradient text */
     .grad{
       background: linear-gradient(90deg, var(--o), var(--p), var(--c), var(--r), var(--o));
       background-size: 240% 100%;
@@ -432,12 +430,7 @@
     }
     .alert > *{position:relative}
 
-    .hero-card{
-      border-radius: var(--rad2);
-      padding: 16px;
-      transform: translateZ(0);
-    }
-
+    .hero-card{border-radius: var(--rad2); padding: 16px; transform: translateZ(0);}
     .hero-media{display:grid; gap: 12px}
     .img-wrap{
       border-radius: 26px;
@@ -900,11 +893,11 @@
     }
     .sound-hint b{color:#fff}
 
-    /* ✅ ADD-ON: Music Toggle Button */
+    /* ✅ Music Toggle Button */
     .music-toggle{
       position: fixed;
       left: 18px;
-      bottom: 78px; /* über dem sound-hint */
+      bottom: 78px;
       z-index: 9999;
 
       display:inline-flex;
@@ -930,235 +923,6 @@
     .music-toggle:hover{ transform: translateY(-2px); filter: saturate(1.12); }
     .music-toggle:active{ transform: translateY(0px) scale(.98); }
 
-    /* ===========================
-       ✅ NEW: FOLLOW + RAID ALERTS (ANIMATED)
-       =========================== */
-    .alerts-layer{
-      position: fixed;
-      top: calc(var(--navH) + 14px);
-      right: 14px;
-      z-index: 10000;
-      display: grid;
-      gap: 12px;
-      width: min(420px, calc(100% - 28px));
-      pointer-events: none;
-    }
-
-    .alert-card{
-      pointer-events: auto;
-      border-radius: 22px;
-      padding: 14px 14px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.04));
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      box-shadow: 0 24px 90px rgba(0,0,0,.55);
-      position: relative;
-      overflow: hidden;
-      transform: translateX(28px);
-      opacity: 0;
-      animation: alertIn .55s var(--ease) forwards;
-    }
-
-    .alert-card::before{
-      content:"";
-      position:absolute; inset:-80px;
-      background:
-        radial-gradient(520px 240px at 12% 18%, rgba(255,122,24,.18), transparent 62%),
-        radial-gradient(520px 240px at 86% 28%, rgba(168,85,247,.18), transparent 62%),
-        radial-gradient(520px 240px at 52% 90%, rgba(0,234,255,.12), transparent 62%);
-      filter: blur(18px);
-      opacity:.95;
-      pointer-events:none;
-    }
-    .alert-card::after{
-      content:"";
-      position:absolute; inset:-2px;
-      background: linear-gradient(90deg,
-        rgba(255,122,24,.0),
-        rgba(255,122,24,.80),
-        rgba(168,85,247,.80),
-        rgba(0,234,255,.80),
-        rgba(255,43,214,.80),
-        rgba(255,122,24,.0));
-      opacity:.35;
-      filter: blur(10px);
-      animation: neonFlow 3.6s linear infinite;
-      pointer-events:none;
-    }
-
-    @keyframes alertIn{
-      0%{ transform: translateX(28px) scale(.98); opacity: 0; }
-      100%{ transform: translateX(0px) scale(1); opacity: 1; }
-    }
-    @keyframes alertOut{
-      0%{ transform: translateX(0px) scale(1); opacity: 1; }
-      100%{ transform: translateX(28px) scale(.98); opacity: 0; }
-    }
-
-    .alert-card .row{
-      position: relative;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 10px;
-    }
-    .alert-card .left{
-      display:flex;
-      align-items:center;
-      gap: 12px;
-      min-width: 0;
-    }
-    .alert-ico{
-      width: 44px;
-      height: 44px;
-      border-radius: 16px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-size: 20px;
-      border: 1px solid rgba(255,255,255,.16);
-      background: rgba(0,0,0,.25);
-      box-shadow: 0 14px 44px rgba(0,0,0,.35);
-      flex: 0 0 auto;
-    }
-    .alert-txt{
-      display:flex;
-      flex-direction:column;
-      gap: 3px;
-      min-width: 0;
-    }
-    .alert-txt b{
-      font-size: 14px;
-      letter-spacing: -.2px;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-    .alert-txt span{
-      color: var(--muted);
-      font-weight: 900;
-      font-size: 12px;
-      line-height: 1.25;
-    }
-
-    .alert-actions{
-      display:flex;
-      gap: 8px;
-      flex-wrap: nowrap;
-    }
-
-    .mini-btn{
-      pointer-events: auto;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.18);
-      color: rgba(238,240,255,.92);
-      font-weight: 950;
-      border-radius: 14px;
-      padding: 9px 10px;
-      cursor: pointer;
-      transition: transform .14s var(--ease), background .18s var(--ease), border-color .18s var(--ease);
-      white-space: nowrap;
-    }
-    .mini-btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.22); }
-    .mini-btn:active{ transform: translateY(0px) scale(.99); }
-
-    .cmd{
-      margin-top: 10px;
-      position: relative;
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.25);
-      padding: 10px 12px;
-      font-weight: 950;
-      color: rgba(238,240,255,.92);
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 10px;
-      overflow: hidden;
-    }
-    .cmd code{
-      color: rgba(238,240,255,.92);
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      font-size: 12px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .cmd .copy{
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.06);
-      color: rgba(238,240,255,.92);
-      font-weight: 950;
-      border-radius: 14px;
-      padding: 8px 10px;
-      cursor: pointer;
-      transition: transform .14s var(--ease), background .18s var(--ease);
-      flex: 0 0 auto;
-    }
-    .cmd .copy:hover{ transform: translateY(-1px); background: rgba(255,255,255,.10); }
-    .cmd .copy:active{ transform: translateY(0px) scale(.99); }
-
-    /* ✅ New: Demo panel inside page */
-    .demo-grid{
-      display:grid;
-      grid-template-columns: 1.05fr .95fr;
-      gap: 14px;
-      margin-top: 14px;
-      align-items: stretch;
-    }
-    .demo-card{
-      border-radius: var(--rad2);
-      padding: 18px;
-      position:relative;
-      overflow:hidden;
-      transition: transform .2s var(--ease), box-shadow .2s var(--ease), border-color .2s var(--ease);
-    }
-    .demo-card:hover{
-      transform: translateY(-4px);
-      box-shadow: 0 24px 90px rgba(0,0,0,.55);
-      border-color: rgba(255,255,255,.18);
-    }
-    .demo-card h3{margin:0 0 10px; font-size:18px; letter-spacing:-.2px}
-    .demo-card p{margin:0; color:var(--muted); font-weight:850; line-height:1.7}
-    .demo-row{
-      display:flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      align-items: center;
-      margin-top: 12px;
-    }
-    .demo-input{
-      display:flex;
-      align-items:center;
-      gap: 10px;
-      padding: 12px 14px;
-      border-radius: 16px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.18);
-      flex: 1;
-      min-width: min(420px, 100%);
-    }
-    .demo-input input{
-      width:100%;
-      border:0;
-      outline:none;
-      background:transparent;
-      color: var(--text);
-      font-weight: 950;
-      font-size: 14px;
-    }
-    .demo-input input::placeholder{ color: rgba(238,240,255,.46); font-weight: 850; }
-
-    .note{
-      margin-top: 12px;
-      color: var(--faint);
-      font-weight: 850;
-      line-height: 1.6;
-    }
-
     /* ---- RESPONSIVE ---- */
     @media (max-width: 980px){
       .hero-grid{grid-template-columns: 1fr}
@@ -1170,14 +934,259 @@
       .streamer-grid{grid-template-columns: 1fr}
       .roadmap{grid-template-columns: 1fr}
       .pricing{grid-template-columns: 1fr}
-      .demo-grid{grid-template-columns: 1fr}
     }
 
     @media (prefers-reduced-motion: reduce){
       html{scroll-behavior:auto}
       .bg-conic,.bg-aurora,.logo::after,.shine-underline::before,.grad{animation:none}
-      .reveal,.card,.step,.price-card,.streamer-card,.btn,.badge,.chip,.alert-card,.demo-card{transition:none}
-      .alert-card{animation:none; opacity:1; transform:none}
+      .reveal,.card,.step,.price-card,.streamer-card,.btn,.badge,.chip{transition:none}
+    }
+
+    /* =========================================
+       ✅ NEW: PREVIEW SLOT ALERT (FOLLOW / RAID)
+       ========================================= */
+    .slot-preview{
+      position: fixed;
+      top: calc(var(--navH) + 14px);
+      right: 14px;
+      z-index: 10001;
+      width: min(440px, calc(100% - 28px));
+      pointer-events: none;
+    }
+
+    .slot-shell{
+      pointer-events: none;
+      border-radius: 26px;
+      padding: 14px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.04));
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-shadow: 0 24px 92px rgba(0,0,0,.58);
+      position: relative;
+      overflow: hidden;
+    }
+    .slot-shell::before{
+      content:"";
+      position:absolute; inset:-90px;
+      background:
+        radial-gradient(520px 280px at 14% 22%, rgba(255,122,24,.18), transparent 62%),
+        radial-gradient(520px 280px at 86% 20%, rgba(168,85,247,.20), transparent 62%),
+        radial-gradient(520px 280px at 55% 92%, rgba(0,234,255,.12), transparent 62%);
+      filter: blur(18px);
+      opacity:.95;
+      pointer-events:none;
+    }
+    .slot-shell::after{
+      content:"";
+      position:absolute; inset:-2px;
+      background: linear-gradient(90deg,
+        rgba(255,122,24,.0),
+        rgba(255,122,24,.80),
+        rgba(168,85,247,.80),
+        rgba(0,234,255,.80),
+        rgba(255,43,214,.80),
+        rgba(255,122,24,.0));
+      opacity:.32;
+      filter: blur(10px);
+      animation: neonFlow 3.6s linear infinite;
+      pointer-events:none;
+    }
+    .slot-shell > *{ position: relative; }
+
+    .slot-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .slot-pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.18);
+      color: rgba(238,240,255,.90);
+      font-weight: 980;
+      letter-spacing: .2px;
+    }
+    .slot-pill small{
+      opacity:.75;
+      font-weight: 950;
+    }
+    .slot-liveDot{
+      width:9px;
+      height:9px;
+      border-radius:50%;
+      background: var(--ok);
+      box-shadow: 0 0 0 7px rgba(46,229,157,.12);
+    }
+
+    .slot-window{
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.22);
+      overflow:hidden;
+      position:relative;
+    }
+    .slot-window::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.80), transparent 26%, transparent 74%, rgba(0,0,0,.80)),
+        radial-gradient(120px 60px at 50% 50%, rgba(255,255,255,.09), transparent 70%);
+      pointer-events:none;
+      z-index: 3;
+    }
+    .slot-centerline{
+      position:absolute;
+      left: 0; right: 0;
+      top: 50%;
+      height: 1px;
+      transform: translateY(-.5px);
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.18), transparent);
+      z-index: 4;
+      pointer-events:none;
+    }
+
+    /* The "reel" */
+    .slot-reel{
+      position: relative;
+      height: 132px; /* 4 rows * 33px */
+      z-index: 2;
+    }
+    .slot-track{
+      position:absolute;
+      left:0; right:0;
+      top:0;
+      will-change: transform;
+      transform: translateY(0px);
+    }
+    .slot-row{
+      height: 33px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight: 980;
+      letter-spacing: .2px;
+      color: rgba(238,240,255,.92);
+      text-shadow: 0 10px 30px rgba(0,0,0,.55);
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow: ellipsis;
+      padding: 0 12px;
+    }
+    .slot-row span{
+      display:inline-block;
+      padding: 7px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      max-width: 100%;
+      overflow:hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Final message under slot */
+    .slot-final{
+      margin-top: 10px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.18);
+      padding: 10px 12px;
+      display:grid;
+      gap: 8px;
+    }
+    .slot-line{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap: 8px;
+      font-weight: 980;
+      text-align:center;
+      line-height:1.3;
+    }
+    .slot-line .em{
+      width: 34px;
+      height: 34px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      box-shadow: 0 14px 44px rgba(0,0,0,.35);
+      flex: 0 0 auto;
+    }
+    .slot-line b{
+      color: rgba(255,255,255,.96);
+    }
+    .slot-sub{
+      color: var(--muted);
+      font-weight: 900;
+      text-align:center;
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    .slot-cmd{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.25);
+      padding: 10px 10px;
+      overflow:hidden;
+    }
+    .slot-cmd code{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 12px;
+      color: rgba(238,240,255,.92);
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .slot-copy{
+      pointer-events: auto;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color: rgba(238,240,255,.92);
+      font-weight: 980;
+      border-radius: 14px;
+      padding: 8px 10px;
+      cursor:pointer;
+      transition: transform .14s var(--ease), background .18s var(--ease), border-color .18s var(--ease);
+      white-space:nowrap;
+      flex: 0 0 auto;
+    }
+    .slot-copy:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.10);
+      border-color: rgba(255,255,255,.22);
+    }
+    .slot-copy:active{ transform: translateY(0px) scale(.99); }
+
+    /* Appear / cycle */
+    .slot-shell{
+      opacity: 0;
+      transform: translateX(22px) scale(.99);
+      animation: slotIn .6s var(--ease) forwards;
+    }
+    @keyframes slotIn{
+      to{ opacity: 1; transform: translateX(0) scale(1); }
+    }
+
+    /* Reduced motion: no spinning */
+    @media (prefers-reduced-motion: reduce){
+      .slot-shell{ animation: none; opacity:1; transform:none; }
+      .slot-shell::after{ animation:none; }
+      .slot-track{ transition:none !important; }
     }
   </style>
 </head>
@@ -1189,8 +1198,43 @@
   <div class="noise" aria-hidden="true"></div>
   <canvas id="particles" aria-hidden="true"></canvas>
 
-  <!-- ✅ NEW: Alerts Overlay -->
-  <div class="alerts-layer" id="alertsLayer" aria-live="polite" aria-relevant="additions"></div>
+  <!-- ✅ PREVIEW SLOT ALERT (always running preview) -->
+  <div class="slot-preview" aria-hidden="false">
+    <div class="slot-shell neon-border" id="slotShell" aria-live="polite" aria-atomic="true">
+      <div class="slot-head">
+        <div class="slot-pill">
+          <span class="slot-liveDot" aria-hidden="true"></span>
+          <span id="slotModeText">Preview</span>
+          <small id="slotTypeText">FOLLOW</small>
+        </div>
+        <div class="slot-pill" style="opacity:.86">
+          <small>Animiert • Random</small>
+        </div>
+      </div>
+
+      <div class="slot-window">
+        <div class="slot-centerline" aria-hidden="true"></div>
+        <div class="slot-reel" id="slotReel">
+          <div class="slot-track" id="slotTrack"></div>
+        </div>
+      </div>
+
+      <div class="slot-final">
+        <div class="slot-line" id="slotLine">
+          <span class="em" id="slotEmoji" aria-hidden="true">🥳</span>
+          <div>
+            <span id="slotName"><b>someone</b></span>
+            <span id="slotActionText">hat gefolgt</span>
+          </div>
+        </div>
+        <div class="slot-sub" id="slotSub">Automatischer Shoutout</div>
+        <div class="slot-cmd">
+          <code id="slotCmd">/shoutout someone</code>
+          <button class="slot-copy" id="slotCopy" type="button">Copy</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script>
     const CONFIG = {
@@ -1202,13 +1246,23 @@
       clickSound: true,
       clickSoundVolume: 0.22,
 
-      /* ✅ NEW: Alerts */
-      alertsAutoCloseMs: 6500,
-      raidShoutoutCommand: "/shoutout",
-      /* Demo defaults */
-      demoFollowerName: "new_follower_123",
-      demoRaiderName: "cool_raider",
-      demoRaidViewers: 42
+      /* ✅ Preview Slot Settings */
+      previewSlotEnabled: true,
+      previewCycleMs: 7500,          // how often a new event starts
+      spinSteps: 14,                 // how many "clicks" the reel does
+      spinStepMs: 90,                // speed per step while spinning
+      settleMs: 520,                 // easing settle at the end
+      visibleRows: 4,                // fixed by CSS (132px / 33px)
+      rowH: 33,
+      shoutoutCommand: "/shoutout",
+
+      /* random name pool (editable) */
+      randomNames: [
+        "xXShadowFuryXx","LunaByte","NeonKarma","Tricck17","NovaVibes","PixelRaptor","MidnightMango",
+        "TurboToast","FrostyPanda","KeksKrieger","ChatWizard","LootGoblin","C0smicFox","BananaNinja",
+        "RagePenguin","SushiSamurai","NachtFalke","GamerGurke","MemeMachine","VortexVivi","AstraAffen",
+        "CloudKiller","PogChampPaul","FireFlare","MintyMara","SynthSora","BlitzBär","KaffeeKobra"
+      ]
     };
   </script>
 
@@ -1320,7 +1374,6 @@
           <p>Chat-Aktivität gibt Punkte. Commands: <b>!punkte</b>, <b>!top</b>. Perfekt für Engagement.</p>
         </div>
 
-        <!-- ✅ ADD-ON: Gamble als deklarierte Bot-Funktion (nur Text) -->
         <div class="card glass neon-border reveal reveal-delay-3" data-tilt>
           <h3>🎲 Gamble (Punkte verspielen)</h3>
           <p>
@@ -1350,78 +1403,21 @@
           <p>Stats (Nachrichten/Lurk/Timeouts/Starts) werden gespeichert – stabil für lange Streams.</p>
         </div>
 
-        <!-- ✅ NEW: Animated Follower Alert (Website) -->
         <div class="card glass neon-border reveal reveal-delay-1" data-tilt>
-          <h3>✨ Live Follower Animation (Website)</h3>
-          <p>Wenn ein neuer Follower reinkommt, erscheint oben rechts ein animiertes Neon-Alert (Overlay) – perfekt für Demos & Panels.</p>
+          <h3>✨ Preview: Follow / Raid Slot-Animation</h3>
+          <p>Oben rechts läuft eine animierte Preview: Random Namen “rutschen hoch” und am Ende kommt Follow/Raid + Auto-Shoutout.</p>
         </div>
 
-        <!-- ✅ NEW: Raid + Twitch Shoutout Command -->
         <div class="card glass neon-border reveal reveal-delay-2" data-tilt>
-          <h3>🚀 Raid Feature + Auto Shoutout</h3>
-          <p>Bei Raid wird automatisch ein Shoutout-Command vorbereitet: <b>/shoutout raider</b> (Copy-Button inklusive).</p>
+          <h3>🚀 Auto Shoutout (Preview)</h3>
+          <p>Unter der Anzeige steht immer der vorbereitete Command: <b>/shoutout name</b> (Copy Button).</p>
         </div>
 
-        <!-- ✅ NEW: Hook for real events -->
         <div class="card glass neon-border reveal reveal-delay-3" data-tilt>
-          <h3>🔌 Event-Hook (für echte Twitch Events)</h3>
-          <p>Du kannst von deinem Bot/Backend Events an die Seite schicken (CustomEvent/WebSocket) – dann feuert die Website die Animationen automatisch ab.</p>
+          <h3>🎭 Alles nur Preview</h3>
+          <p>Die Anzeige ist absichtlich “Fake/Preview” mit Random Namen & Random Viewerzahl – so wie du es wolltest.</p>
         </div>
       </div>
-
-      <!-- ✅ NEW: Demo / Control Panel -->
-      <div class="demo-grid">
-        <div class="demo-card glass-strong neon-border reveal reveal-delay-1" data-tilt>
-          <h3>🎛️ Live-Alerts Demo</h3>
-          <p>Hier kannst du die neue Follower-Animation und die Raid-Funktion direkt testen (ohne Twitch).</p>
-
-          <div class="demo-row">
-            <div class="demo-input">
-              <span aria-hidden="true">👤</span>
-              <input id="demoFollower" type="text" placeholder="Follower-Name (z.B. new_follower_123)" />
-            </div>
-            <button class="btn primary" type="button" id="btnDemoFollower">🎉 Follower triggern</button>
-          </div>
-
-          <div class="demo-row">
-            <div class="demo-input">
-              <span aria-hidden="true">🚀</span>
-              <input id="demoRaider" type="text" placeholder="Raider-Name (z.B. cool_raider)" />
-            </div>
-            <div class="demo-input" style="min-width: 200px; flex: 0.5">
-              <span aria-hidden="true">👥</span>
-              <input id="demoViewers" type="number" min="1" step="1" placeholder="Viewer (z.B. 42)" />
-            </div>
-            <button class="btn primary" type="button" id="btnDemoRaid">🚀 Raid triggern</button>
-          </div>
-
-          <div class="note">
-            Hinweis: Die Website kann Twitch-Chat nicht “einfach so” automatisch ausführen (Auth/Mod-Rechte nötig).
-            Darum wird der offizielle Twitch Command <b>/shoutout</b> automatisch erzeugt & kopierbar gemacht.
-            Wenn dein Bot den Command wirklich senden soll, mach’s im Bot (Server/Chat), und sende parallel nur das Event an die Website.
-          </div>
-        </div>
-
-        <div class="demo-card glass neon-border reveal reveal-delay-2" data-tilt>
-          <h3>🧠 Für echte Events (Bot/Backend)</h3>
-          <p>Die Seite lauscht auf Browser-Events. Dein Bot kann z.B. per WebSocket/HTTP “Follower/Raid” anstoßen.</p>
-
-          <div class="cmd" style="margin-top:12px">
-            <code>window.dispatchEvent(new CustomEvent("twitch:newFollower",{detail:{name:"alice"}}))</code>
-            <button class="copy" type="button" data-copy='window.dispatchEvent(new CustomEvent("twitch:newFollower",{detail:{name:"alice"}}))'>Kopieren</button>
-          </div>
-
-          <div class="cmd">
-            <code>window.dispatchEvent(new CustomEvent("twitch:raid",{detail:{raider:"bob",viewers:69}}))</code>
-            <button class="copy" type="button" data-copy='window.dispatchEvent(new CustomEvent("twitch:raid",{detail:{raider:"bob",viewers:69}}))'>Kopieren</button>
-          </div>
-
-          <div class="note">
-            Optional: Ersetze das oben durch einen WebSocket-Listener auf deinem Server – dann ist es “live”.
-          </div>
-        </div>
-      </div>
-
     </div>
   </section>
 
@@ -1648,8 +1644,6 @@
 
   <!-- 🎵 MUSIC (muted on load) -->
   <audio id="bgm" src="Song.mp3" preload="auto" loop muted playsinline></audio>
-
-  <!-- ✅ ADD-ON: Music Mute Button -->
   <button class="music-toggle" id="musicToggle" type="button" aria-label="Musik stumm/laut">🔇</button>
 
   <div class="sound-hint" id="soundHint">
@@ -1715,7 +1709,7 @@
     }
 
     document.addEventListener('pointerdown', (e)=>{
-      const el = e.target.closest && e.target.closest('.btn, .fab, .nav-links a, summary, .mini-btn, .copy');
+      const el = e.target.closest && e.target.closest('.btn, .fab, .nav-links a, summary, .slot-copy');
       if(!el) return;
       const rect = el.getBoundingClientRect();
       const x = e.clientX - rect.left;
@@ -1723,7 +1717,7 @@
       addRipple(el, x, y);
     }, {passive:true});
 
-    /* ---------- CLICK SOUND (WebAudio, no file needed) ---------- */
+    /* ---------- CLICK SOUND (WebAudio) ---------- */
     const ClickFX = (function(){
       let ctx = null;
 
@@ -1799,7 +1793,7 @@
     })();
 
     document.addEventListener('click', (e)=>{
-      const el = e.target.closest && e.target.closest('.btn, .fab, .nav-links a, summary, .mini-btn, .copy');
+      const el = e.target.closest && e.target.closest('.btn, .fab, .nav-links a, summary, .slot-copy');
       if(!el) return;
       ClickFX.play();
     });
@@ -2055,175 +2049,139 @@
       tick();
     })();
 
-    /* ===========================
-       ✅ NEW: FOLLOW + RAID ALERT LOGIC
-       =========================== */
-    function escapeHtml(s){
-      return String(s).replace(/[&<>"']/g, m => ({
-        '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
-      }[m]));
-    }
+    /* ==================================================
+       ✅ PREVIEW SLOT ENGINE (random follow / random raid)
+       ================================================== */
+    (function(){
+      if(!CONFIG.previewSlotEnabled) return;
 
-    function normalizeLogin(name){
-      return String(name || '')
-        .trim()
-        .replace(/^@+/, '')
-        .replace(/\s+/g, '_')
-        .replace(/[^\w]/g, '')
-        .toLowerCase();
-    }
+      const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    const alertsLayer = document.getElementById('alertsLayer');
+      const track = document.getElementById("slotTrack");
+      const typeText = document.getElementById("slotTypeText");
+      const emoji = document.getElementById("slotEmoji");
+      const nameEl = document.getElementById("slotName");
+      const actionEl = document.getElementById("slotActionText");
+      const subEl = document.getElementById("slotSub");
+      const cmdEl = document.getElementById("slotCmd");
+      const copyBtn = document.getElementById("slotCopy");
 
-    function closeAlert(card){
-      if(!card || card.dataset.closing === "1") return;
-      card.dataset.closing = "1";
-      card.style.animation = "alertOut .45s var(--ease) forwards";
-      setTimeout(()=> card.remove(), 480);
-    }
-
-    function makeAlertCard({type, title, subtitle, icon, commandText}){
-      const card = document.createElement('div');
-      card.className = 'alert-card';
-      card.setAttribute('role', 'status');
-
-      const safeTitle = escapeHtml(title);
-      const safeSubtitle = escapeHtml(subtitle || '');
-
-      const row = document.createElement('div');
-      row.className = 'row';
-
-      const left = document.createElement('div');
-      left.className = 'left';
-
-      const ico = document.createElement('div');
-      ico.className = 'alert-ico';
-      ico.textContent = icon || "✨";
-
-      const txt = document.createElement('div');
-      txt.className = 'alert-txt';
-      txt.innerHTML = `<b>${safeTitle}</b><span>${safeSubtitle}</span>`;
-
-      left.appendChild(ico);
-      left.appendChild(txt);
-
-      const actions = document.createElement('div');
-      actions.className = 'alert-actions';
-
-      const btnClose = document.createElement('button');
-      btnClose.type = 'button';
-      btnClose.className = 'mini-btn';
-      btnClose.textContent = 'Schließen';
-      btnClose.addEventListener('click', ()=> closeAlert(card));
-
-      actions.appendChild(btnClose);
-
-      row.appendChild(left);
-      row.appendChild(actions);
-
-      card.appendChild(row);
-
-      if(commandText){
-        const cmd = document.createElement('div');
-        cmd.className = 'cmd';
-        const code = document.createElement('code');
-        code.textContent = commandText;
-
-        const copy = document.createElement('button');
-        copy.type = 'button';
-        copy.className = 'copy';
-        copy.textContent = 'Copy';
-        copy.addEventListener('click', ()=> copyText(commandText));
-
-        cmd.appendChild(code);
-        cmd.appendChild(copy);
-        card.appendChild(cmd);
+      function randInt(min, max){
+        return Math.floor(Math.random() * (max - min + 1)) + min;
       }
 
-      // autoclose
-      const ms = Math.max(1500, Number(CONFIG.alertsAutoCloseMs || 6500));
-      setTimeout(()=> closeAlert(card), ms);
-
-      return card;
-    }
-
-    function showAlert(payload){
-      if(!alertsLayer) return;
-
-      // keep max 3 alerts visible
-      const existing = Array.from(alertsLayer.children);
-      if(existing.length >= 3){
-        closeAlert(existing[0]);
+      function pickName(){
+        const pool = CONFIG.randomNames && CONFIG.randomNames.length ? CONFIG.randomNames : ["someone"];
+        return pool[randInt(0, pool.length - 1)];
       }
 
-      const card = makeAlertCard(payload);
-      alertsLayer.appendChild(card);
-    }
+      function normalizeLogin(name){
+        return String(name || "")
+          .trim()
+          .replace(/^@+/, "")
+          .replace(/\s+/g, "_")
+          .replace(/[^\w]/g, "")
+          .toLowerCase();
+      }
 
-    // ✅ Public “API”
-    function triggerFollower(name){
-      const n = String(name || '').trim() || CONFIG.demoFollowerName || "new_follower";
-      showAlert({
-        type: "follow",
-        icon: "🎉",
-        title: `Neuer Follower: ${n}`,
-        subtitle: "Willkommen im Feuer-Chat 🔥"
-      });
-    }
+      function setFinalFollow(winner){
+        typeText.textContent = "FOLLOW";
+        emoji.textContent = "🥳";
+        nameEl.innerHTML = `<b>${escapeHtml(winner)}</b>`;
+        actionEl.textContent = "hat gefolgt";
+        subEl.textContent = "Automatischer Shoutout";
+        const login = normalizeLogin(winner) || winner;
+        cmdEl.textContent = `${CONFIG.shoutoutCommand} ${login}`;
+      }
 
-    function triggerRaid(raider, viewers){
-      const r = String(raider || '').trim() || CONFIG.demoRaiderName || "raider";
-      const v = Number(viewers || CONFIG.demoRaidViewers || 0);
-      const login = normalizeLogin(r) || r;
+      function setFinalRaid(winner, viewers){
+        typeText.textContent = "RAID";
+        emoji.textContent = "🚀";
+        nameEl.innerHTML = `<b>${escapeHtml(winner)}</b>`;
+        actionEl.textContent = `hat dich mit ${viewers} geraidet`;
+        subEl.textContent = "Automatischer Shoutout";
+        const login = normalizeLogin(winner) || winner;
+        cmdEl.textContent = `${CONFIG.shoutoutCommand} ${login}`;
+      }
 
-      // official twitch command prepared
-      const cmd = `${CONFIG.raidShoutoutCommand || "/shoutout"} ${login}`;
+      function escapeHtml(s){
+        return String(s).replace(/[&<>"']/g, m => ({
+          '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+        }[m]));
+      }
 
-      showAlert({
-        type: "raid",
-        icon: "🚀",
-        title: `RAID von ${r}${v ? ` • ${v} Viewer` : ""}`,
-        subtitle: "Shoutout ist vorbereitet (Copy).",
-        commandText: cmd
-      });
-    }
+      async function spinOnce(){
+        const isRaid = Math.random() < 0.48; // slightly more follow than raid
+        const viewers = isRaid ? randInt(3, 999) : 0;
 
-    // ✅ Listen to external events (bot/backend can emit these in the browser)
-    window.addEventListener("twitch:newFollower", (e)=>{
-      const name = e && e.detail && e.detail.name;
-      triggerFollower(name);
-    });
+        // Winner name (ensure clean)
+        let winner = pickName();
+        // Generate list long enough so we can scroll many steps and end at winner on centerline
+        // Visible rows = 4; centerline between row 2 and 3, but we just "stop" with winner on row index 2 visually.
+        const rowH = CONFIG.rowH;
+        const visibleRows = CONFIG.visibleRows;
+        const steps = prefersReduced ? 0 : Math.max(6, Number(CONFIG.spinSteps || 14));
 
-    window.addEventListener("twitch:raid", (e)=>{
-      const raider = e && e.detail && (e.detail.raider || e.detail.name);
-      const viewers = e && e.detail && e.detail.viewers;
-      triggerRaid(raider, viewers);
-    });
+        // Build rows:
+        // total rows = steps + visibleRows + 6 to buffer
+        const total = steps + visibleRows + 8;
 
-    // ✅ Demo panel wiring
-    (function(){
-      const f = document.getElementById("demoFollower");
-      const r = document.getElementById("demoRaider");
-      const v = document.getElementById("demoViewers");
-      const bF = document.getElementById("btnDemoFollower");
-      const bR = document.getElementById("btnDemoRaid");
+        const rows = [];
+        for(let i=0;i<total-1;i++){
+          rows.push(pickName());
+        }
+        // Put winner at the exact stop index so it lands on the centerline row
+        // Centerline visually is at half of reel height. With 4 visible rows, we want winner at row 2 (0-based) in viewport:
+        // viewportTopIndex = stopIndex; winnerIndex = stopIndex + 2
+        const winnerViewportRow = 2;
+        const winnerIndex = steps + winnerViewportRow;
+        rows.splice(winnerIndex, 0, winner); // insert winner
+        // Ensure track content:
+        track.innerHTML = rows.map(n => `<div class="slot-row"><span>${escapeHtml(n)}</span></div>`).join("");
 
-      if(f) f.value = CONFIG.demoFollowerName || "";
-      if(r) r.value = CONFIG.demoRaiderName || "";
-      if(v) v.value = String(CONFIG.demoRaidViewers ?? "");
+        // Reset position
+        track.style.transition = "none";
+        track.style.transform = "translateY(0px)";
 
-      if(bF) bF.addEventListener("click", ()=> triggerFollower(f ? f.value : ""));
-      if(bR) bR.addEventListener("click", ()=> triggerRaid(r ? r.value : "", v ? v.value : ""));
-    })();
+        // Update final text early (it will "reveal" as it settles)
+        if(isRaid) setFinalRaid(winner, viewers);
+        else setFinalFollow(winner);
 
-    // ✅ Copy buttons inside demo card
-    (function(){
-      document.addEventListener("click", (e)=>{
-        const btn = e.target && e.target.closest ? e.target.closest('button[data-copy]') : null;
-        if(!btn) return;
-        const text = btn.getAttribute('data-copy') || '';
-        copyText(text);
-      });
+        // Copy button
+        copyBtn.onclick = () => copyText(cmdEl.textContent);
+
+        if(prefersReduced){
+          // No animation: just show the winner and done
+          return;
+        }
+
+        // Spin step-by-step (quick ticks), then smooth settle
+        // Step animation: each step moves up by one row height
+        await new Promise(r => requestAnimationFrame(r));
+
+        // fast stepping (no heavy intervals)
+        for(let s=0; s<steps; s++){
+          track.style.transition = `transform ${CONFIG.spinStepMs}ms linear`;
+          track.style.transform = `translateY(${-rowH*(s+1)}px)`;
+          await new Promise(res => setTimeout(res, CONFIG.spinStepMs));
+        }
+
+        // Settle (ease-out) tiny extra nudge to feel "slot-like"
+        const settleExtra = randInt(0, 1) * 0; // keep deterministic stop (winner)
+        track.style.transition = `transform ${CONFIG.settleMs}ms var(--ease)`;
+        track.style.transform = `translateY(${-rowH*(steps + settleExtra)}px)`;
+        await new Promise(res => setTimeout(res, CONFIG.settleMs));
+      }
+
+      // run loop
+      (async function loop(){
+        while(true){
+          try{
+            await spinOnce();
+          }catch{}
+          await new Promise(res => setTimeout(res, Math.max(2500, Number(CONFIG.previewCycleMs || 7500))));
+        }
+      })();
     })();
 
     /* ---------- Streamer list (Avatar + Live/Offline) ---------- */
@@ -2303,6 +2261,12 @@
       }).join('');
     }
 
+    function escapeHtml(s){
+      return String(s).replace(/[&<>"']/g, m => ({
+        '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+      }[m]));
+    }
+
     async function fetchText(url){
       const res = await fetch(url, { cache: 'no-store' });
       return await res.text();
@@ -2378,7 +2342,7 @@
       tick();
     })();
 
-    /* ✅ ADD-ON: Musik Mute Button Logik */
+    /* ✅ Musik Mute Button Logik */
     (function(){
       const audio = document.getElementById("bgm");
       const btn = document.getElementById("musicToggle");
