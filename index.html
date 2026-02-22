@@ -12,7 +12,6 @@
 
   <style>
     :root{
-      
       --bg0:#04040a;
       --bg1:#070716;
       --bg2:#0b0b1f;
@@ -901,6 +900,36 @@
     }
     .sound-hint b{color:#fff}
 
+    /* ✅ ADD-ON: Music Toggle Button */
+    .music-toggle{
+      position: fixed;
+      left: 18px;
+      bottom: 78px; /* über dem sound-hint */
+      z-index: 9999;
+
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+
+      width: 46px;
+      height: 46px;
+
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.42);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+
+      box-shadow: var(--shadow2);
+      color: rgba(238,240,255,.92);
+      font-weight: 950;
+      cursor: pointer;
+
+      transition: transform .18s var(--ease), filter .2s var(--ease), opacity .2s var(--ease);
+    }
+    .music-toggle:hover{ transform: translateY(-2px); filter: saturate(1.12); }
+    .music-toggle:active{ transform: translateY(0px) scale(.98); }
+
     /* ---- RESPONSIVE ---- */
     @media (max-width: 980px){
       .hero-grid{grid-template-columns: 1fr}
@@ -1043,22 +1072,37 @@
           <h3>🎉 Follow Alerts → Discord</h3>
           <p>Neue Follower werden automatisch als stylisches Embed im Discord gepostet (Queue/Worker).</p>
         </div>
+
         <div class="card glass neon-border reveal reveal-delay-2" data-tilt>
           <h3>💰 Punkte System</h3>
           <p>Chat-Aktivität gibt Punkte. Commands: <b>!punkte</b>, <b>!top</b>. Perfekt für Engagement.</p>
         </div>
+
+        <!-- ✅ ADD-ON: Gamble als deklarierte Bot-Funktion (nur Text) -->
+        <div class="card glass neon-border reveal reveal-delay-3" data-tilt>
+          <h3>🎲 Gamble (Punkte verspielen)</h3>
+          <p>
+            Neues Command: <b>!gamble</b>.<br/>
+            <b>!gamble all</b> → alle Punkte verspielen.<br/>
+            <b>!gamble &lt;zahl&gt;</b> → nur die angegebene Anzahl verspielen.
+          </p>
+        </div>
+
         <div class="card glass neon-border reveal reveal-delay-3" data-tilt>
           <h3>😴 Lurk Rewards</h3>
           <p><b>!lurk</b> startet Lurk, Rewards laufen weiter. <b>!lurkliste</b> zeigt aktive Lurker.</p>
         </div>
+
         <div class="card glass neon-border reveal reveal-delay-1" data-tilt>
           <h3>🎫 Support Tickets (Discord)</h3>
           <p>Ticket-Channel wird erstellt, Buttons: <b>In Bearbeitung</b>, <b>Beantwortet</b>, <b>Schließen</b>.</p>
         </div>
+
         <div class="card glass neon-border reveal reveal-delay-2" data-tilt>
           <h3>⏱️ Timeout System (IDs)</h3>
           <p><b>!reasons</b> listet Gründe, <b>!timeout @user ID</b> setzt Timeouts – nur Mods/Broadcaster.</p>
         </div>
+
         <div class="card glass neon-border reveal reveal-delay-3" data-tilt>
           <h3>📊 Stats & Persistenz</h3>
           <p>Stats (Nachrichten/Lurk/Timeouts/Starts) werden gespeichert – stabil für lange Streams.</p>
@@ -1289,8 +1333,11 @@
     💬 <span>Discord</span> <small>Bot holen</small>
   </button>
 
-  <!-- 🎵 MUSIC (legal autoplay feel): starts muted; tries unmute on scroll; fallback to click/touch/key -->
+  <!-- 🎵 MUSIC (muted on load) -->
   <audio id="bgm" src="Song.mp3" preload="auto" loop muted playsinline></audio>
+
+  <!-- ✅ ADD-ON: Music Mute Button -->
+  <button class="music-toggle" id="musicToggle" type="button" aria-label="Musik stumm/laut">🔇</button>
 
   <div class="sound-hint" id="soundHint">
     🎵 Musik läuft <b>stumm</b> beim Laden. <b>Scroll</b> versucht Ton zu aktivieren.<br/>
@@ -1366,7 +1413,6 @@
     /* ---------- CLICK SOUND (WebAudio, no file needed) ---------- */
     const ClickFX = (function(){
       let ctx = null;
-      let unlocked = false;
 
       function ensure(){
         if(ctx) return ctx;
@@ -1382,8 +1428,7 @@
         if(c.state === 'suspended'){
           try{ await c.resume(); }catch{}
         }
-        unlocked = (c.state === 'running');
-        return unlocked;
+        return (c.state === 'running');
       }
 
       function play(){
@@ -1391,13 +1436,11 @@
         const c = ensure();
         if(!c) return;
 
-        // Browser may require gesture; attempt resume
         if(c.state !== 'running'){ c.resume().catch(()=>{}); }
 
         const now = c.currentTime;
         const vol = Math.max(0, Math.min(1, CONFIG.clickSoundVolume ?? 0.2));
 
-        // "cyber click": short pitch drop + tiny noise
         const osc = c.createOscillator();
         const gain = c.createGain();
         osc.type = 'triangle';
@@ -1408,7 +1451,6 @@
         gain.gain.exponentialRampToValueAtTime(vol, now + 0.008);
         gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.055);
 
-        // noise burst
         const bufferSize = Math.floor(c.sampleRate * 0.02);
         const buffer = c.createBuffer(1, bufferSize, c.sampleRate);
         const data = buffer.getChannelData(0);
@@ -1432,7 +1474,6 @@
         noise.stop(now + 0.035);
       }
 
-      // unlock on first gesture
       const unlockOnce = async () => {
         await unlock();
         window.removeEventListener('pointerdown', unlockOnce, true);
@@ -1578,7 +1619,6 @@
           audio.volume = 0.85;
           await audio.play();
           unlocked = true;
-          // don't remove hint immediately — it also mentions click-sound now
           setTimeout(()=>{ if(hint) hint.remove(); }, 1200);
           cleanup();
           return true;
@@ -1635,7 +1675,7 @@
       }, {passive:true});
     })();
 
-    /* ---------- Particles (slightly more lively) ---------- */
+    /* ---------- Particles ---------- */
     (function(){
       const c = document.getElementById('particles');
       const ctx = c.getContext('2d', { alpha: true });
@@ -1851,16 +1891,43 @@
     /* ---------- FAB show/hide on scroll ---------- */
     (function(){
       const el = document.getElementById('fab');
-      let lastY = window.scrollY;
       function tick(){
         const y = window.scrollY;
-        // hide if near top a bit to not distract
         if(y < 220) el.classList.add('hide');
         else el.classList.remove('hide');
-        lastY = y;
         requestAnimationFrame(tick);
       }
       tick();
+    })();
+
+    /* ✅ ADD-ON: Musik Mute Button Logik */
+    (function(){
+      const audio = document.getElementById("bgm");
+      const btn = document.getElementById("musicToggle");
+      if(!audio || !btn) return;
+
+      function setIcon(){
+        btn.textContent = audio.muted ? "🔇" : "🔊";
+      }
+
+      const saved = localStorage.getItem("musicMuted");
+      if(saved === "1"){
+        audio.muted = true;
+      }else if(saved === "0"){
+        audio.muted = false;
+        audio.play().catch(()=>{});
+      }
+      setIcon();
+
+      btn.addEventListener("click", async ()=>{
+        audio.muted = !audio.muted;
+        localStorage.setItem("musicMuted", audio.muted ? "1" : "0");
+        setIcon();
+
+        if(!audio.muted){
+          try{ await audio.play(); }catch{}
+        }
+      });
     })();
   </script>
 </body>
