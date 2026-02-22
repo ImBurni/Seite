@@ -930,6 +930,235 @@
     .music-toggle:hover{ transform: translateY(-2px); filter: saturate(1.12); }
     .music-toggle:active{ transform: translateY(0px) scale(.98); }
 
+    /* ===========================
+       ✅ NEW: FOLLOW + RAID ALERTS (ANIMATED)
+       =========================== */
+    .alerts-layer{
+      position: fixed;
+      top: calc(var(--navH) + 14px);
+      right: 14px;
+      z-index: 10000;
+      display: grid;
+      gap: 12px;
+      width: min(420px, calc(100% - 28px));
+      pointer-events: none;
+    }
+
+    .alert-card{
+      pointer-events: auto;
+      border-radius: 22px;
+      padding: 14px 14px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.04));
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-shadow: 0 24px 90px rgba(0,0,0,.55);
+      position: relative;
+      overflow: hidden;
+      transform: translateX(28px);
+      opacity: 0;
+      animation: alertIn .55s var(--ease) forwards;
+    }
+
+    .alert-card::before{
+      content:"";
+      position:absolute; inset:-80px;
+      background:
+        radial-gradient(520px 240px at 12% 18%, rgba(255,122,24,.18), transparent 62%),
+        radial-gradient(520px 240px at 86% 28%, rgba(168,85,247,.18), transparent 62%),
+        radial-gradient(520px 240px at 52% 90%, rgba(0,234,255,.12), transparent 62%);
+      filter: blur(18px);
+      opacity:.95;
+      pointer-events:none;
+    }
+    .alert-card::after{
+      content:"";
+      position:absolute; inset:-2px;
+      background: linear-gradient(90deg,
+        rgba(255,122,24,.0),
+        rgba(255,122,24,.80),
+        rgba(168,85,247,.80),
+        rgba(0,234,255,.80),
+        rgba(255,43,214,.80),
+        rgba(255,122,24,.0));
+      opacity:.35;
+      filter: blur(10px);
+      animation: neonFlow 3.6s linear infinite;
+      pointer-events:none;
+    }
+
+    @keyframes alertIn{
+      0%{ transform: translateX(28px) scale(.98); opacity: 0; }
+      100%{ transform: translateX(0px) scale(1); opacity: 1; }
+    }
+    @keyframes alertOut{
+      0%{ transform: translateX(0px) scale(1); opacity: 1; }
+      100%{ transform: translateX(28px) scale(.98); opacity: 0; }
+    }
+
+    .alert-card .row{
+      position: relative;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+    }
+    .alert-card .left{
+      display:flex;
+      align-items:center;
+      gap: 12px;
+      min-width: 0;
+    }
+    .alert-ico{
+      width: 44px;
+      height: 44px;
+      border-radius: 16px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size: 20px;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(0,0,0,.25);
+      box-shadow: 0 14px 44px rgba(0,0,0,.35);
+      flex: 0 0 auto;
+    }
+    .alert-txt{
+      display:flex;
+      flex-direction:column;
+      gap: 3px;
+      min-width: 0;
+    }
+    .alert-txt b{
+      font-size: 14px;
+      letter-spacing: -.2px;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .alert-txt span{
+      color: var(--muted);
+      font-weight: 900;
+      font-size: 12px;
+      line-height: 1.25;
+    }
+
+    .alert-actions{
+      display:flex;
+      gap: 8px;
+      flex-wrap: nowrap;
+    }
+
+    .mini-btn{
+      pointer-events: auto;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.18);
+      color: rgba(238,240,255,.92);
+      font-weight: 950;
+      border-radius: 14px;
+      padding: 9px 10px;
+      cursor: pointer;
+      transition: transform .14s var(--ease), background .18s var(--ease), border-color .18s var(--ease);
+      white-space: nowrap;
+    }
+    .mini-btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.22); }
+    .mini-btn:active{ transform: translateY(0px) scale(.99); }
+
+    .cmd{
+      margin-top: 10px;
+      position: relative;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.25);
+      padding: 10px 12px;
+      font-weight: 950;
+      color: rgba(238,240,255,.92);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      overflow: hidden;
+    }
+    .cmd code{
+      color: rgba(238,240,255,.92);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 12px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .cmd .copy{
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color: rgba(238,240,255,.92);
+      font-weight: 950;
+      border-radius: 14px;
+      padding: 8px 10px;
+      cursor: pointer;
+      transition: transform .14s var(--ease), background .18s var(--ease);
+      flex: 0 0 auto;
+    }
+    .cmd .copy:hover{ transform: translateY(-1px); background: rgba(255,255,255,.10); }
+    .cmd .copy:active{ transform: translateY(0px) scale(.99); }
+
+    /* ✅ New: Demo panel inside page */
+    .demo-grid{
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 14px;
+      margin-top: 14px;
+      align-items: stretch;
+    }
+    .demo-card{
+      border-radius: var(--rad2);
+      padding: 18px;
+      position:relative;
+      overflow:hidden;
+      transition: transform .2s var(--ease), box-shadow .2s var(--ease), border-color .2s var(--ease);
+    }
+    .demo-card:hover{
+      transform: translateY(-4px);
+      box-shadow: 0 24px 90px rgba(0,0,0,.55);
+      border-color: rgba(255,255,255,.18);
+    }
+    .demo-card h3{margin:0 0 10px; font-size:18px; letter-spacing:-.2px}
+    .demo-card p{margin:0; color:var(--muted); font-weight:850; line-height:1.7}
+    .demo-row{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-top: 12px;
+    }
+    .demo-input{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      padding: 12px 14px;
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.18);
+      flex: 1;
+      min-width: min(420px, 100%);
+    }
+    .demo-input input{
+      width:100%;
+      border:0;
+      outline:none;
+      background:transparent;
+      color: var(--text);
+      font-weight: 950;
+      font-size: 14px;
+    }
+    .demo-input input::placeholder{ color: rgba(238,240,255,.46); font-weight: 850; }
+
+    .note{
+      margin-top: 12px;
+      color: var(--faint);
+      font-weight: 850;
+      line-height: 1.6;
+    }
+
     /* ---- RESPONSIVE ---- */
     @media (max-width: 980px){
       .hero-grid{grid-template-columns: 1fr}
@@ -941,12 +1170,14 @@
       .streamer-grid{grid-template-columns: 1fr}
       .roadmap{grid-template-columns: 1fr}
       .pricing{grid-template-columns: 1fr}
+      .demo-grid{grid-template-columns: 1fr}
     }
 
     @media (prefers-reduced-motion: reduce){
       html{scroll-behavior:auto}
       .bg-conic,.bg-aurora,.logo::after,.shine-underline::before,.grad{animation:none}
-      .reveal,.card,.step,.price-card,.streamer-card,.btn,.badge,.chip{transition:none}
+      .reveal,.card,.step,.price-card,.streamer-card,.btn,.badge,.chip,.alert-card,.demo-card{transition:none}
+      .alert-card{animation:none; opacity:1; transform:none}
     }
   </style>
 </head>
@@ -958,6 +1189,9 @@
   <div class="noise" aria-hidden="true"></div>
   <canvas id="particles" aria-hidden="true"></canvas>
 
+  <!-- ✅ NEW: Alerts Overlay -->
+  <div class="alerts-layer" id="alertsLayer" aria-live="polite" aria-relevant="additions"></div>
+
   <script>
     const CONFIG = {
       botName: "ImBurni_Bot_v1",
@@ -966,7 +1200,15 @@
 
       /* click sound */
       clickSound: true,
-      clickSoundVolume: 0.22
+      clickSoundVolume: 0.22,
+
+      /* ✅ NEW: Alerts */
+      alertsAutoCloseMs: 6500,
+      raidShoutoutCommand: "/shoutout",
+      /* Demo defaults */
+      demoFollowerName: "new_follower_123",
+      demoRaiderName: "cool_raider",
+      demoRaidViewers: 42
     };
   </script>
 
@@ -1107,7 +1349,79 @@
           <h3>📊 Stats & Persistenz</h3>
           <p>Stats (Nachrichten/Lurk/Timeouts/Starts) werden gespeichert – stabil für lange Streams.</p>
         </div>
+
+        <!-- ✅ NEW: Animated Follower Alert (Website) -->
+        <div class="card glass neon-border reveal reveal-delay-1" data-tilt>
+          <h3>✨ Live Follower Animation (Website)</h3>
+          <p>Wenn ein neuer Follower reinkommt, erscheint oben rechts ein animiertes Neon-Alert (Overlay) – perfekt für Demos & Panels.</p>
+        </div>
+
+        <!-- ✅ NEW: Raid + Twitch Shoutout Command -->
+        <div class="card glass neon-border reveal reveal-delay-2" data-tilt>
+          <h3>🚀 Raid Feature + Auto Shoutout</h3>
+          <p>Bei Raid wird automatisch ein Shoutout-Command vorbereitet: <b>/shoutout raider</b> (Copy-Button inklusive).</p>
+        </div>
+
+        <!-- ✅ NEW: Hook for real events -->
+        <div class="card glass neon-border reveal reveal-delay-3" data-tilt>
+          <h3>🔌 Event-Hook (für echte Twitch Events)</h3>
+          <p>Du kannst von deinem Bot/Backend Events an die Seite schicken (CustomEvent/WebSocket) – dann feuert die Website die Animationen automatisch ab.</p>
+        </div>
       </div>
+
+      <!-- ✅ NEW: Demo / Control Panel -->
+      <div class="demo-grid">
+        <div class="demo-card glass-strong neon-border reveal reveal-delay-1" data-tilt>
+          <h3>🎛️ Live-Alerts Demo</h3>
+          <p>Hier kannst du die neue Follower-Animation und die Raid-Funktion direkt testen (ohne Twitch).</p>
+
+          <div class="demo-row">
+            <div class="demo-input">
+              <span aria-hidden="true">👤</span>
+              <input id="demoFollower" type="text" placeholder="Follower-Name (z.B. new_follower_123)" />
+            </div>
+            <button class="btn primary" type="button" id="btnDemoFollower">🎉 Follower triggern</button>
+          </div>
+
+          <div class="demo-row">
+            <div class="demo-input">
+              <span aria-hidden="true">🚀</span>
+              <input id="demoRaider" type="text" placeholder="Raider-Name (z.B. cool_raider)" />
+            </div>
+            <div class="demo-input" style="min-width: 200px; flex: 0.5">
+              <span aria-hidden="true">👥</span>
+              <input id="demoViewers" type="number" min="1" step="1" placeholder="Viewer (z.B. 42)" />
+            </div>
+            <button class="btn primary" type="button" id="btnDemoRaid">🚀 Raid triggern</button>
+          </div>
+
+          <div class="note">
+            Hinweis: Die Website kann Twitch-Chat nicht “einfach so” automatisch ausführen (Auth/Mod-Rechte nötig).
+            Darum wird der offizielle Twitch Command <b>/shoutout</b> automatisch erzeugt & kopierbar gemacht.
+            Wenn dein Bot den Command wirklich senden soll, mach’s im Bot (Server/Chat), und sende parallel nur das Event an die Website.
+          </div>
+        </div>
+
+        <div class="demo-card glass neon-border reveal reveal-delay-2" data-tilt>
+          <h3>🧠 Für echte Events (Bot/Backend)</h3>
+          <p>Die Seite lauscht auf Browser-Events. Dein Bot kann z.B. per WebSocket/HTTP “Follower/Raid” anstoßen.</p>
+
+          <div class="cmd" style="margin-top:12px">
+            <code>window.dispatchEvent(new CustomEvent("twitch:newFollower",{detail:{name:"alice"}}))</code>
+            <button class="copy" type="button" data-copy='window.dispatchEvent(new CustomEvent("twitch:newFollower",{detail:{name:"alice"}}))'>Kopieren</button>
+          </div>
+
+          <div class="cmd">
+            <code>window.dispatchEvent(new CustomEvent("twitch:raid",{detail:{raider:"bob",viewers:69}}))</code>
+            <button class="copy" type="button" data-copy='window.dispatchEvent(new CustomEvent("twitch:raid",{detail:{raider:"bob",viewers:69}}))'>Kopieren</button>
+          </div>
+
+          <div class="note">
+            Optional: Ersetze das oben durch einen WebSocket-Listener auf deinem Server – dann ist es “live”.
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -1375,7 +1689,7 @@
     }
 
     async function copyText(text){
-      try{ await navigator.clipboard.writeText(text); toast("Invite kopiert ✅"); }
+      try{ await navigator.clipboard.writeText(text); toast("Kopiert ✅"); }
       catch{ toast("Kopieren nicht möglich ❌"); }
     }
     ["copyDiscord","copyDiscord2","copyDiscord3","copyDiscord4"].forEach(id=>{
@@ -1401,7 +1715,7 @@
     }
 
     document.addEventListener('pointerdown', (e)=>{
-      const el = e.target.closest && e.target.closest('.btn, .fab, .nav-links a, summary');
+      const el = e.target.closest && e.target.closest('.btn, .fab, .nav-links a, summary, .mini-btn, .copy');
       if(!el) return;
       const rect = el.getBoundingClientRect();
       const x = e.clientX - rect.left;
@@ -1485,7 +1799,7 @@
     })();
 
     document.addEventListener('click', (e)=>{
-      const el = e.target.closest && e.target.closest('.btn, .fab, .nav-links a, summary');
+      const el = e.target.closest && e.target.closest('.btn, .fab, .nav-links a, summary, .mini-btn, .copy');
       if(!el) return;
       ClickFX.play();
     });
@@ -1741,6 +2055,177 @@
       tick();
     })();
 
+    /* ===========================
+       ✅ NEW: FOLLOW + RAID ALERT LOGIC
+       =========================== */
+    function escapeHtml(s){
+      return String(s).replace(/[&<>"']/g, m => ({
+        '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+      }[m]));
+    }
+
+    function normalizeLogin(name){
+      return String(name || '')
+        .trim()
+        .replace(/^@+/, '')
+        .replace(/\s+/g, '_')
+        .replace(/[^\w]/g, '')
+        .toLowerCase();
+    }
+
+    const alertsLayer = document.getElementById('alertsLayer');
+
+    function closeAlert(card){
+      if(!card || card.dataset.closing === "1") return;
+      card.dataset.closing = "1";
+      card.style.animation = "alertOut .45s var(--ease) forwards";
+      setTimeout(()=> card.remove(), 480);
+    }
+
+    function makeAlertCard({type, title, subtitle, icon, commandText}){
+      const card = document.createElement('div');
+      card.className = 'alert-card';
+      card.setAttribute('role', 'status');
+
+      const safeTitle = escapeHtml(title);
+      const safeSubtitle = escapeHtml(subtitle || '');
+
+      const row = document.createElement('div');
+      row.className = 'row';
+
+      const left = document.createElement('div');
+      left.className = 'left';
+
+      const ico = document.createElement('div');
+      ico.className = 'alert-ico';
+      ico.textContent = icon || "✨";
+
+      const txt = document.createElement('div');
+      txt.className = 'alert-txt';
+      txt.innerHTML = `<b>${safeTitle}</b><span>${safeSubtitle}</span>`;
+
+      left.appendChild(ico);
+      left.appendChild(txt);
+
+      const actions = document.createElement('div');
+      actions.className = 'alert-actions';
+
+      const btnClose = document.createElement('button');
+      btnClose.type = 'button';
+      btnClose.className = 'mini-btn';
+      btnClose.textContent = 'Schließen';
+      btnClose.addEventListener('click', ()=> closeAlert(card));
+
+      actions.appendChild(btnClose);
+
+      row.appendChild(left);
+      row.appendChild(actions);
+
+      card.appendChild(row);
+
+      if(commandText){
+        const cmd = document.createElement('div');
+        cmd.className = 'cmd';
+        const code = document.createElement('code');
+        code.textContent = commandText;
+
+        const copy = document.createElement('button');
+        copy.type = 'button';
+        copy.className = 'copy';
+        copy.textContent = 'Copy';
+        copy.addEventListener('click', ()=> copyText(commandText));
+
+        cmd.appendChild(code);
+        cmd.appendChild(copy);
+        card.appendChild(cmd);
+      }
+
+      // autoclose
+      const ms = Math.max(1500, Number(CONFIG.alertsAutoCloseMs || 6500));
+      setTimeout(()=> closeAlert(card), ms);
+
+      return card;
+    }
+
+    function showAlert(payload){
+      if(!alertsLayer) return;
+
+      // keep max 3 alerts visible
+      const existing = Array.from(alertsLayer.children);
+      if(existing.length >= 3){
+        closeAlert(existing[0]);
+      }
+
+      const card = makeAlertCard(payload);
+      alertsLayer.appendChild(card);
+    }
+
+    // ✅ Public “API”
+    function triggerFollower(name){
+      const n = String(name || '').trim() || CONFIG.demoFollowerName || "new_follower";
+      showAlert({
+        type: "follow",
+        icon: "🎉",
+        title: `Neuer Follower: ${n}`,
+        subtitle: "Willkommen im Feuer-Chat 🔥"
+      });
+    }
+
+    function triggerRaid(raider, viewers){
+      const r = String(raider || '').trim() || CONFIG.demoRaiderName || "raider";
+      const v = Number(viewers || CONFIG.demoRaidViewers || 0);
+      const login = normalizeLogin(r) || r;
+
+      // official twitch command prepared
+      const cmd = `${CONFIG.raidShoutoutCommand || "/shoutout"} ${login}`;
+
+      showAlert({
+        type: "raid",
+        icon: "🚀",
+        title: `RAID von ${r}${v ? ` • ${v} Viewer` : ""}`,
+        subtitle: "Shoutout ist vorbereitet (Copy).",
+        commandText: cmd
+      });
+    }
+
+    // ✅ Listen to external events (bot/backend can emit these in the browser)
+    window.addEventListener("twitch:newFollower", (e)=>{
+      const name = e && e.detail && e.detail.name;
+      triggerFollower(name);
+    });
+
+    window.addEventListener("twitch:raid", (e)=>{
+      const raider = e && e.detail && (e.detail.raider || e.detail.name);
+      const viewers = e && e.detail && e.detail.viewers;
+      triggerRaid(raider, viewers);
+    });
+
+    // ✅ Demo panel wiring
+    (function(){
+      const f = document.getElementById("demoFollower");
+      const r = document.getElementById("demoRaider");
+      const v = document.getElementById("demoViewers");
+      const bF = document.getElementById("btnDemoFollower");
+      const bR = document.getElementById("btnDemoRaid");
+
+      if(f) f.value = CONFIG.demoFollowerName || "";
+      if(r) r.value = CONFIG.demoRaiderName || "";
+      if(v) v.value = String(CONFIG.demoRaidViewers ?? "");
+
+      if(bF) bF.addEventListener("click", ()=> triggerFollower(f ? f.value : ""));
+      if(bR) bR.addEventListener("click", ()=> triggerRaid(r ? r.value : "", v ? v.value : ""));
+    })();
+
+    // ✅ Copy buttons inside demo card
+    (function(){
+      document.addEventListener("click", (e)=>{
+        const btn = e.target && e.target.closest ? e.target.closest('button[data-copy]') : null;
+        if(!btn) return;
+        const text = btn.getAttribute('data-copy') || '';
+        copyText(text);
+      });
+    })();
+
     /* ---------- Streamer list (Avatar + Live/Offline) ---------- */
     const streamerGrid = document.getElementById('streamerGrid');
     const streamerCount = document.getElementById('streamerCount');
@@ -1764,12 +2249,6 @@
       filter: 'all',
       query: ''
     };
-
-    function escapeHtml(s){
-      return String(s).replace(/[&<>"']/g, m => ({
-        '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
-      }[m]));
-    }
 
     function renderStreamers(){
       const q = streamerState.query.toLowerCase().trim();
