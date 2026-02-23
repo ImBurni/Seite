@@ -55,6 +55,7 @@
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
       overflow-x:hidden;
 
+      /* BIG aurora base (animated via ::before) */
       background:
         radial-gradient(900px 700px at 18% 10%, rgba(168,85,247,.18), transparent 62%),
         radial-gradient(900px 700px at 85% 14%, rgba(255,122,24,.16), transparent 62%),
@@ -247,7 +248,7 @@
       box-shadow: 0 18px 50px rgba(0,0,0,.42);
     }
 
-    /* ---- BUTTONS ---- */
+    /* ---- BUTTONS: NEON, RIPPLE, TILT ---- */
     .btn{
       display:inline-flex; align-items:center; justify-content:center; gap:10px;
       padding:12px 14px;
@@ -289,6 +290,14 @@
         0 20px 80px rgba(255,122,24,.18);
       filter: saturate(1.05);
     }
+    .btn.primary:hover{
+      filter: saturate(1.12) contrast(1.02);
+      box-shadow:
+        0 30px 110px rgba(0,234,255,.16),
+        0 26px 100px rgba(168,85,247,.22),
+        0 22px 90px rgba(255,122,24,.18);
+    }
+    .btn.small{padding:10px 12px; border-radius:14px}
 
     /* ripple */
     .ripple{
@@ -368,7 +377,28 @@
       border-radius:999px;
       background: linear-gradient(90deg, rgba(255,122,24,0), rgba(255,122,24,.95), rgba(168,85,247,.95), rgba(0,234,255,.85), rgba(255,43,214,.85), rgba(255,122,24,0));
       opacity:.95;
+      filter: blur(.1px);
     }
+    .shine-underline::before{
+      content:"";
+      position:absolute;
+      left:-30%;
+      bottom:-8px;
+      width:40%;
+      height:16px;
+      border-radius:999px;
+      background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.22), rgba(255,255,255,0));
+      filter: blur(2px);
+      opacity:.85;
+      animation: sweep 2.4s var(--ease) infinite;
+    }
+    @keyframes sweep{
+      0%{transform: translateX(0); opacity:0}
+      15%{opacity:.95}
+      55%{transform: translateX(270%); opacity:.85}
+      100%{transform: translateX(270%); opacity:0}
+    }
+
     .sub{
       font-size: clamp(16px, 1.15vw, 18px);
       line-height:1.8;
@@ -390,6 +420,17 @@
       position:relative;
       overflow:hidden;
     }
+    .alert::before{
+      content:"";
+      position:absolute; inset:-120px;
+      background:
+        radial-gradient(500px 260px at 10% 10%, rgba(255,122,24,.18), transparent 62%),
+        radial-gradient(500px 260px at 90% 20%, rgba(0,234,255,.12), transparent 62%);
+      filter: blur(16px);
+      opacity:.9;
+      pointer-events:none;
+    }
+    .alert > *{position:relative}
 
     .hero-card{
       border-radius: var(--rad2);
@@ -406,6 +447,17 @@
       aspect-ratio: 1 / 1;
       box-shadow: 0 22px 80px rgba(0,0,0,.55);
       position:relative;
+    }
+    .img-wrap::after{
+      content:"";
+      position:absolute; inset:-120px;
+      background:
+        radial-gradient(520px 320px at 18% 12%, rgba(255,122,24,.16), transparent 62%),
+        radial-gradient(520px 320px at 92% 26%, rgba(168,85,247,.16), transparent 62%),
+        radial-gradient(520px 320px at 56% 80%, rgba(0,234,255,.12), transparent 62%);
+      filter: blur(16px);
+      opacity:.9;
+      pointer-events:none;
     }
     .img-wrap img{
       width:100%; height:100%;
@@ -428,10 +480,19 @@
       overflow:hidden;
       transition: transform .18s var(--ease);
     }
+    .chip:hover{transform: translateY(-2px)}
+    .chip::before{
+      content:"";
+      position:absolute; inset:-70px;
+      background: radial-gradient(260px 180px at 20% 10%, rgba(255,255,255,.12), transparent 62%);
+      opacity:.85;
+      pointer-events:none;
+    }
+    .chip > *{position:relative}
     .chip small{color: var(--muted); font-weight:850}
     .chip b{font-size: 14px}
 
-    /* ---- SECTIONS ---- */
+    /* ---- SECTIONS / LAYOUT ---- */
     section{padding: 52px 0}
     .section-head{
       display:flex; align-items:flex-end; justify-content:space-between;
@@ -471,9 +532,22 @@
       border-color: rgba(255,255,255,.20);
       box-shadow: 0 22px 80px rgba(0,0,0,.55);
     }
+    .card::after{
+      content:"";
+      position:absolute; inset:-90px;
+      background:
+        radial-gradient(320px 220px at 18% 10%, rgba(255,122,24,.14), transparent 62%),
+        radial-gradient(320px 220px at 88% 28%, rgba(0,234,255,.12), transparent 62%),
+        radial-gradient(320px 220px at 50% 84%, rgba(255,43,214,.10), transparent 62%);
+      filter: blur(18px);
+      opacity:.65;
+      pointer-events:none;
+    }
+    .card > *{position:relative}
     .card h3{margin:0 0 10px; font-size: 18px; letter-spacing:-.2px}
     .card p{margin:0; color: var(--muted); line-height:1.7; font-weight:750}
 
+    /* ---- “Krank” SOCIAL PROOF STRIP ---- */
     .proof{
       margin-top: 14px;
       padding: 16px 18px;
@@ -484,6 +558,24 @@
       gap: 12px;
       flex-wrap:wrap;
     }
+    .proof-left{display:flex; flex-direction:column; gap:6px}
+    .proof-left b{letter-spacing:-.2px}
+    .proof-left span{color:var(--muted); font-weight:850}
+    .proof-badges{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end}
+
+    .badge{
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      font-weight:950;
+      color: var(--muted);
+      white-space:nowrap;
+      box-shadow: 0 14px 44px rgba(0,0,0,.30);
+      transition: transform .18s var(--ease);
+    }
+    .badge:hover{transform: translateY(-2px)}
 
     /* ---- CTA / GATE ---- */
     .gate{
@@ -498,6 +590,92 @@
     .gate p{margin:8px 0 0; color: var(--muted); font-weight:900; line-height:1.65}
     .gate-actions{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end}
 
+    /* ---- ROADMAP ---- */
+    .roadmap{
+      display:grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap:14px;
+      margin-top: 14px;
+    }
+    .step{
+      border-radius: var(--rad2);
+      padding: 16px;
+      position:relative;
+      overflow:hidden;
+      transition: transform .2s var(--ease), box-shadow .2s var(--ease), border-color .2s var(--ease);
+    }
+    .step:hover{
+      transform: translateY(-4px);
+      border-color: rgba(255,255,255,.18);
+      box-shadow: 0 22px 80px rgba(0,0,0,.55);
+    }
+    .step .k{display:inline-flex; align-items:center; gap:10px; margin-bottom: 10px}
+    .k .num{
+      width:32px; height:32px; border-radius: 12px;
+      display:inline-flex; align-items:center; justify-content:center;
+      font-weight: 980;
+      color:#060611;
+      background: linear-gradient(135deg, rgba(255,122,24,.98), rgba(168,85,247,.92), rgba(0,234,255,.70));
+      box-shadow: 0 18px 60px rgba(168,85,247,.20);
+    }
+    .k b{letter-spacing:-.2px}
+    .step p{margin:0; color:var(--muted); font-weight:800; line-height:1.7}
+
+    /* ---- PRICING / ACCESS ---- */
+    .pricing{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap:14px;
+      margin-top: 14px;
+      align-items:stretch;
+    }
+    .price-card{
+      border-radius: var(--rad2);
+      padding: 18px;
+      position:relative;
+      overflow:hidden;
+      transition: transform .2s var(--ease), box-shadow .2s var(--ease);
+    }
+    .price-card:hover{transform: translateY(-4px); box-shadow: 0 24px 90px rgba(0,0,0,.55)}
+    .price-title{display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom: 10px}
+    .price-title b{font-size: 18px; letter-spacing:-.2px}
+    .price-tag{
+      font-weight: 980;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      color: rgba(255,255,255,.92);
+    }
+    .price-list{
+      display:grid;
+      gap:10px;
+      margin-top: 12px;
+      color: var(--muted);
+      font-weight: 850;
+      line-height: 1.65;
+    }
+    .price-item{
+      display:flex; gap:10px; align-items:flex-start;
+      padding: 10px 12px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      transition: transform .18s var(--ease);
+    }
+    .price-item:hover{transform: translateX(2px)}
+    .price-item .tick{
+      width:22px; height:22px;
+      border-radius: 10px;
+      flex: 0 0 auto;
+      display:inline-flex; align-items:center; justify-content:center;
+      font-weight: 980;
+      color:#060611;
+      background: linear-gradient(135deg, rgba(255,122,24,.98), rgba(168,85,247,.92), rgba(0,234,255,.70));
+      box-shadow: 0 16px 52px rgba(255,122,24,.14);
+      margin-top: 1px;
+    }
+
     /* ---- FAQ ---- */
     .faq{display:grid; grid-template-columns: 1fr 1fr; gap:14px}
     details{
@@ -505,10 +683,147 @@
       padding: 14px 14px;
       position:relative;
       overflow:hidden;
+      transition: transform .18s var(--ease), box-shadow .2s var(--ease), border-color .2s var(--ease);
+    }
+    details:hover{
+      transform: translateY(-3px);
+      border-color: rgba(255,255,255,.18);
+      box-shadow: 0 20px 70px rgba(0,0,0,.50);
     }
     summary{cursor:pointer; font-weight:950}
     details p{margin:10px 0 0; color: var(--muted); line-height:1.75; font-weight:750}
 
+    /* ---- STREAMER ---- */
+    .streamer-controls{
+      display:flex; gap:12px; align-items:center; flex-wrap:wrap;
+      margin: 12px 0 10px;
+    }
+    .field{
+      display:flex; align-items:center; gap:10px;
+      padding: 12px 14px;
+      border-radius: 16px;
+      min-width: min(520px, 100%);
+      flex: 1;
+    }
+    .field input{
+      width:100%;
+      border:0;
+      outline:none;
+      background:transparent;
+      color: var(--text);
+      font-weight:950;
+      font-size: 14px;
+    }
+    .field input::placeholder{color: rgba(238,240,255,.46); font-weight:850}
+
+    .seg{
+      display:flex; gap:8px; flex-wrap:wrap;
+      padding: 8px;
+      border-radius: 16px;
+    }
+    .seg button{
+      border:1px solid transparent;
+      background: transparent;
+      color: var(--muted);
+      font-weight:950;
+      padding: 10px 12px;
+      border-radius: 14px;
+      cursor:pointer;
+      transition:.16s var(--ease);
+    }
+    .seg button:hover{background: rgba(255,255,255,.07); color: var(--text); transform: translateY(-1px)}
+    .seg button.active{
+      background: linear-gradient(135deg, rgba(255,122,24,.22), rgba(168,85,247,.18), rgba(0,234,255,.12));
+      border-color: rgba(255,255,255,.14);
+      color: var(--text);
+      box-shadow: 0 18px 54px rgba(0,0,0,.40);
+    }
+
+    .streamer-meta{
+      display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;
+      color: var(--faint);
+      font-weight:950;
+      margin-bottom: 10px;
+    }
+
+    .streamer-grid{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 14px;
+    }
+    .streamer-card{
+      border-radius: var(--rad2);
+      overflow:hidden;
+      position:relative;
+      padding: 16px;
+      min-height: 170px;
+      transition: transform .2s var(--ease), box-shadow .2s var(--ease), border-color .2s var(--ease);
+      transform: translateZ(0);
+    }
+    .streamer-card:hover{
+      transform: translateY(-4px);
+      box-shadow: 0 24px 90px rgba(0,0,0,.55);
+      border-color: rgba(255,255,255,.18);
+    }
+
+    .streamer-top{
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+      margin-bottom: 12px;
+    }
+    .streamer-left{display:flex; align-items:center; gap:12px; min-width:0}
+    .avatar{
+      width:48px; height:48px;
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.25);
+      overflow:hidden;
+      flex: 0 0 auto;
+      box-shadow: 0 12px 36px rgba(0,0,0,.40);
+    }
+    .avatar img{width:100%; height:100%; object-fit:cover; display:block}
+    .sname{display:flex; flex-direction:column; min-width:0}
+    .sname b{
+      font-size: 16px;
+      letter-spacing:-.2px;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .sname span{font-size: 12px; color: var(--muted); font-weight:950}
+
+    .badge{
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      font-weight:950;
+      color: var(--muted);
+      white-space:nowrap;
+    }
+    .live-dot{width:9px; height:9px; border-radius:50%; background: var(--off)}
+    .badge.live{
+      border-color: rgba(46,229,157,.25);
+      background: rgba(46,229,157,.10);
+      color: rgba(238,240,255,.92);
+    }
+    .badge.live .live-dot{
+      background: var(--ok);
+      box-shadow: 0 0 0 7px rgba(46,229,157,.12);
+    }
+
+    .streamer-bottom{
+      display:flex; align-items:flex-end; justify-content:space-between; gap:12px;
+      margin-top: 6px;
+    }
+    .uptime{
+      color: var(--muted);
+      font-weight:900;
+      line-height:1.55;
+      max-width: 56ch;
+    }
+
+    /* ---- FOOTER ---- */
     footer{padding: 30px 0 50px; color: var(--muted); font-weight:900}
     .foot{
       display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;
@@ -516,8 +831,8 @@
       padding-top: 18px;
     }
 
-    /* Apply glass */
-    .hero-card, .card, .gate, details, .proof{
+    /* ---- APPLY GLASS TO BLOCKS ---- */
+    .hero-card, .card, .gate, details, .field, .seg, .streamer-card, .price-card, .step, .proof{
       background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.03));
       border:1px solid rgba(255,255,255,.12);
       box-shadow: var(--shadow2);
@@ -525,7 +840,7 @@
       -webkit-backdrop-filter: blur(16px);
     }
 
-    /* Reveal */
+    /* ---- SCROLL REVEAL ---- */
     .reveal{
       opacity:0;
       transform: translateY(18px) scale(.985);
@@ -541,7 +856,7 @@
     .reveal-delay-3{transition-delay: .18s}
     .reveal-delay-4{transition-delay: .24s}
 
-    /* Floating CTA */
+    /* ---- FLOATING CTA BUTTON ---- */
     .fab{
       position: fixed;
       right: 18px;
@@ -558,12 +873,64 @@
       font-weight: 980;
       box-shadow: 0 26px 96px rgba(168,85,247,.22), 0 20px 80px rgba(255,122,24,.18);
       cursor:pointer;
-      transition: transform .18s var(--ease), opacity .2s var(--ease);
+      transform: translateY(0);
+      transition: transform .18s var(--ease), filter .2s var(--ease), opacity .2s var(--ease);
     }
-    .fab:hover{transform: translateY(-3px)}
+    .fab:hover{transform: translateY(-3px); filter:saturate(1.12)}
     .fab.hide{opacity:0; pointer-events:none; transform: translateY(10px)}
+    .fab small{opacity:.85; font-weight:950}
 
-    /* Responsive */
+    /* Sound hint */
+    .sound-hint{
+      position: fixed;
+      left: 18px;
+      bottom: 18px;
+      z-index: 9999;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.42);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: var(--shadow2);
+      color: rgba(238,240,255,.85);
+      font-weight: 950;
+      line-height: 1.35;
+      max-width: min(640px, calc(100% - 36px));
+    }
+    .sound-hint b{color:#fff}
+
+    /* ✅ ADD-ON: Music Toggle Button */
+    .music-toggle{
+      position: fixed;
+      left: 18px;
+      bottom: 78px; /* über dem sound-hint */
+      z-index: 9999;
+
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+
+      width: 46px;
+      height: 46px;
+
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.42);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+
+      box-shadow: var(--shadow2);
+      color: rgba(238,240,255,.92);
+      font-weight: 950;
+      cursor: pointer;
+
+      transition: transform .18s var(--ease), filter .2s var(--ease), opacity .2s var(--ease);
+    }
+    .music-toggle:hover{ transform: translateY(-2px); filter: saturate(1.12); }
+    .music-toggle:active{ transform: translateY(0px) scale(.98); }
+
+    /* ---- RESPONSIVE ---- */
     @media (max-width: 980px){
       .hero-grid{grid-template-columns: 1fr}
       .grid3{grid-template-columns: 1fr}
@@ -571,295 +938,15 @@
       .nav-links{display:none}
       .gate{flex-direction:column; align-items:flex-start}
       .gate-actions{justify-content:flex-start}
+      .streamer-grid{grid-template-columns: 1fr}
+      .roadmap{grid-template-columns: 1fr}
+      .pricing{grid-template-columns: 1fr}
     }
 
     @media (prefers-reduced-motion: reduce){
       html{scroll-behavior:auto}
-      .bg-conic,.bg-aurora,.logo::after,.grad{animation:none}
-      .reveal,.card,.btn{transition:none}
-    }
-
-    /* =========================================================
-       ✅ TWITCH PREVIEW SHOWCASE (AUTO, BOT-ONLY SYSTEM)
-       ========================================================= */
-    .twitch-preview{
-      display:grid;
-      grid-template-columns: 1.35fr .65fr;
-      gap:14px;
-      margin-top:14px;
-    }
-    @media (max-width: 980px){
-      .twitch-preview{grid-template-columns:1fr}
-    }
-
-    .twitch-mock{
-      border-radius: var(--rad2);
-      overflow:hidden;
-      position:relative;
-      min-height: 430px;
-      transform: translateZ(0);
-    }
-
-    .tw-bar{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      padding: 12px 14px;
-      border-bottom: 1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.32);
-    }
-    .tw-bar .left{
-      display:flex; align-items:center; gap:10px; min-width:0;
-      font-weight: 980;
-    }
-    .tw-pill{
-      display:inline-flex; align-items:center; gap:8px;
-      padding: 7px 10px;
-      border-radius: 999px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.05);
-      color: rgba(238,240,255,.92);
-      font-weight: 950;
-      white-space:nowrap;
-    }
-    .tw-pill .tw-dot{
-      width:9px; height:9px; border-radius:50%;
-      background: var(--ok);
-      box-shadow: 0 0 0 7px rgba(46,229,157,.12);
-    }
-
-    .tw-stage{
-      position:relative;
-      height: 360px;
-      background:
-        radial-gradient(520px 320px at 20% 10%, rgba(255,122,24,.18), transparent 62%),
-        radial-gradient(520px 320px at 92% 26%, rgba(168,85,247,.16), transparent 62%),
-        radial-gradient(520px 320px at 56% 86%, rgba(0,234,255,.12), transparent 62%),
-        linear-gradient(180deg, rgba(0,0,0,.20), rgba(0,0,0,.45));
-      border-top: 1px solid rgba(255,255,255,.06);
-    }
-
-    .tw-video{
-      position:absolute; inset: 14px 14px 14px 14px;
-      border-radius: 26px;
-      border:1px solid rgba(255,255,255,.12);
-      background:
-        radial-gradient(380px 260px at 30% 20%, rgba(255,255,255,.10), transparent 60%),
-        linear-gradient(135deg, rgba(0,0,0,.12), rgba(0,0,0,.42));
-      overflow:hidden;
-      box-shadow: 0 22px 80px rgba(0,0,0,.55);
-    }
-
-    .tw-hud{
-      position:absolute; left:16px; bottom:16px;
-      display:flex; gap:10px; flex-wrap:wrap;
-      z-index: 2;
-    }
-    .tw-hud .tw-chip{
-      padding: 8px 10px;
-      border-radius: 999px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.38);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      font-weight: 950;
-      color: rgba(238,240,255,.92);
-      box-shadow: 0 14px 44px rgba(0,0,0,.30);
-      white-space:nowrap;
-    }
-    .tw-hud .tw-chip b{color:#fff}
-
-    /* Alerts overlay */
-    .tw-alert{
-      position:absolute;
-      left: 50%;
-      top: 18px;
-      transform: translateX(-50%);
-      z-index: 4;
-      width: min(520px, calc(100% - 36px));
-      opacity: 0;
-      pointer-events:none;
-      border-radius: 22px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.52);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      box-shadow: 0 24px 90px rgba(0,0,0,.55);
-      overflow:hidden;
-    }
-    .tw-alert::before{
-      content:"";
-      position:absolute; inset:-2px;
-      background: linear-gradient(90deg,
-        rgba(255,122,24,.0),
-        rgba(255,122,24,.85),
-        rgba(168,85,247,.85),
-        rgba(0,234,255,.85),
-        rgba(255,43,214,.85),
-        rgba(255,122,24,.0));
-      opacity:.40;
-      filter: blur(12px);
-      animation: neonFlow 3.6s linear infinite;
-      pointer-events:none;
-    }
-    .tw-alert .inner{
-      position:relative;
-      padding: 14px 14px;
-      display:flex;
-      gap:12px;
-      align-items:flex-start;
-    }
-    .tw-alert .icon{
-      width:44px; height:44px;
-      border-radius: 16px;
-      display:inline-flex; align-items:center; justify-content:center;
-      flex: 0 0 auto;
-      color:#060611;
-      font-weight: 980;
-      background: linear-gradient(135deg, rgba(255,122,24,.98), rgba(168,85,247,.92), rgba(0,234,255,.70));
-      box-shadow: 0 18px 60px rgba(168,85,247,.18);
-    }
-    .tw-alert .txt{
-      display:flex; flex-direction:column; gap:6px;
-      min-width:0;
-    }
-    .tw-alert .txt b{
-      font-size: 16px;
-      letter-spacing:-.2px;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-    .tw-alert .txt span{
-      color: rgba(238,240,255,.78);
-      font-weight: 900;
-      line-height:1.45;
-    }
-
-    @keyframes alertInOut{
-      0%{opacity:0; transform: translateX(-50%) translateY(-8px) scale(.98); filter: blur(2px)}
-      10%{opacity:1; transform: translateX(-50%) translateY(0) scale(1); filter: blur(0)}
-      80%{opacity:1; transform: translateX(-50%) translateY(0) scale(1)}
-      100%{opacity:0; transform: translateX(-50%) translateY(-8px) scale(.985)}
-    }
-    .tw-alert.show{ animation: alertInOut 4.8s var(--ease) forwards; }
-
-    /* Right chat panel */
-    .tw-chat{
-      border-radius: var(--rad2);
-      overflow:hidden;
-      min-height: 430px;
-      display:flex;
-      flex-direction:column;
-    }
-    .tw-chat-head{
-      display:flex; align-items:center; justify-content:space-between;
-      padding: 12px 14px;
-      border-bottom: 1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.30);
-      font-weight: 980;
-    }
-    .tw-chat-head small{color: var(--muted); font-weight: 900}
-
-    .tw-chat-body{
-      padding: 12px 12px;
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-      overflow:hidden;
-      flex:1;
-      position:relative;
-    }
-    .tw-chat-body::after{
-      content:"";
-      position:absolute; left:0; right:0; bottom:0;
-      height: 80px;
-      background: linear-gradient(180deg, transparent, rgba(6,6,14,.85));
-      pointer-events:none;
-    }
-
-    .tw-msg{
-      display:flex;
-      gap:10px;
-      align-items:flex-start;
-      padding: 10px 10px;
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-      box-shadow: 0 16px 52px rgba(0,0,0,.28);
-      transform: translateY(8px);
-      opacity:0;
-      animation: msgIn .55s var(--ease) forwards;
-    }
-    @keyframes msgIn{to{transform: translateY(0); opacity:1}}
-
-    .tw-user{
-      display:flex;
-      gap:8px;
-      align-items:center;
-      flex: 0 0 auto;
-      min-width: 160px;
-      max-width: 190px;
-    }
-
-    .tw-role{
-      width:26px; height:26px;
-      border-radius: 10px;
-      display:inline-flex; align-items:center; justify-content:center;
-      font-weight: 980;
-      color:#060611;
-      background: linear-gradient(135deg, rgba(0,234,255,.92), rgba(70,251,210,.65));
-      box-shadow: 0 16px 52px rgba(0,234,255,.12);
-      flex: 0 0 auto;
-      font-size: 13px;
-    }
-
-    .tw-name{
-      font-weight: 980;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-    .tw-name .n{
-      font-weight: 980;
-      color: #00EAFF;
-    }
-
-    .tw-text{
-      color: rgba(238,240,255,.86);
-      font-weight: 900;
-      line-height:1.55;
-      min-width:0;
-      word-break: break-word;
-    }
-    .tw-text b{color:#fff}
-
-    .tw-typing{
-      margin-top:auto;
-      padding: 10px 10px;
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.24);
-      color: rgba(238,240,255,.70);
-      font-weight: 900;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-    }
-    .dots{display:inline-flex; gap:4px; align-items:center;}
-    .dots i{
-      width:6px; height:6px; border-radius:50%;
-      background: rgba(238,240,255,.70);
-      opacity:.35;
-      animation: dot 1.2s ease-in-out infinite;
-    }
-    .dots i:nth-child(2){animation-delay:.15s}
-    .dots i:nth-child(3){animation-delay:.3s}
-    @keyframes dot{
-      0%, 100%{transform: translateY(0); opacity:.35}
-      50%{transform: translateY(-3px); opacity:.85}
+      .bg-conic,.bg-aurora,.logo::after,.shine-underline::before,.grad{animation:none}
+      .reveal,.card,.step,.price-card,.streamer-card,.btn,.badge,.chip{transition:none}
     }
   </style>
 </head>
@@ -876,6 +963,8 @@
       botName: "ImBurni_Bot_v1",
       discordInvite: "https://discord.gg/v8BSRq8C8C",
       streamers: ["Tricck17"],
+
+      /* click sound */
       clickSound: true,
       clickSoundVolume: 0.22
     };
@@ -893,8 +982,9 @@
 
       <div class="nav-links" id="navLinks">
         <a href="#features">Features</a>
-        <a href="#preview">Preview</a>
         <a href="#zugang">Bot bekommen</a>
+        <a href="#pricing">Access</a>
+        <a href="#streamer">Streamer</a>
         <a href="#faq">FAQ</a>
         <a href="#discord">Discord</a>
       </div>
@@ -937,14 +1027,14 @@
           </div>
 
           <div class="proof glass neon-border" style="margin-top:14px">
-            <div style="display:flex; flex-direction:column; gap:6px">
+            <div class="proof-left">
               <b>Werde Teil des bald besten Twitch-Bot den es auf dem Markt gibt und das für 0€!</b>
-              <span style="color:var(--muted); font-weight:850">Queue/Worker • Persistenz • Mods & Tickets • ID-Timeouts</span>
+              <span>Queue/Worker • Persistenz • Mods & Tickets • ID-Timeouts</span>
             </div>
-            <div style="display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end">
-              <span class="btn" style="pointer-events:none">⚡ Fast Setup</span>
-              <span class="btn" style="pointer-events:none">🧩 Discord-First</span>
-              <span class="btn" style="pointer-events:none">🛡️ Mod-Controls</span>
+            <div class="proof-badges">
+              <span class="badge">⚡ Fast Setup</span>
+              <span class="badge">🧩 Discord-First</span>
+              <span class="badge">🛡️ Mod-Controls</span>
             </div>
           </div>
         </div>
@@ -978,17 +1068,18 @@
       </div>
 
       <div class="grid3">
-        <div class="card glass neon-border reveal reveal-delay-1">
+        <div class="card glass neon-border reveal reveal-delay-1" data-tilt>
           <h3>🎉 Follow Alerts → Discord</h3>
           <p>Neue Follower werden automatisch als stylisches Embed im Discord gepostet (Queue/Worker).</p>
         </div>
 
-        <div class="card glass neon-border reveal reveal-delay-2">
+        <div class="card glass neon-border reveal reveal-delay-2" data-tilt>
           <h3>💰 Punkte System</h3>
           <p>Chat-Aktivität gibt Punkte. Commands: <b>!punkte</b>, <b>!top</b>. Perfekt für Engagement.</p>
         </div>
 
-        <div class="card glass neon-border reveal reveal-delay-3">
+        <!-- ✅ ADD-ON: Gamble als deklarierte Bot-Funktion (nur Text) -->
+        <div class="card glass neon-border reveal reveal-delay-3" data-tilt>
           <h3>🎲 Gamble (Punkte verspielen)</h3>
           <p>
             Neuer Command: <b>!gamble</b>.<br/>
@@ -997,85 +1088,25 @@
           </p>
         </div>
 
-        <div class="card glass neon-border reveal reveal-delay-3">
+        <div class="card glass neon-border reveal reveal-delay-3" data-tilt>
           <h3>😴 Lurk Rewards</h3>
           <p><b>!lurk</b> startet Lurk, Rewards laufen weiter. <b>!lurkliste</b> zeigt aktive Lurker.</p>
         </div>
 
-        <div class="card glass neon-border reveal reveal-delay-1">
+        <div class="card glass neon-border reveal reveal-delay-1" data-tilt>
           <h3>🎫 Support Tickets (Discord)</h3>
           <p>Ticket-Channel wird erstellt, Buttons: <b>In Bearbeitung</b>, <b>Beantwortet</b>, <b>Schließen</b>.</p>
         </div>
 
-        <div class="card glass neon-border reveal reveal-delay-2">
+        <div class="card glass neon-border reveal reveal-delay-2" data-tilt>
           <h3>⏱️ Timeout System (IDs)</h3>
           <p><b>!reasons</b> listet Gründe, <b>!timeout @user ID</b> setzt Timeouts – nur Mods/Broadcaster.</p>
         </div>
-      </div>
-    </div>
-  </section>
 
-  <section id="preview">
-    <div class="container">
-      <div class="section-head reveal">
-        <div>
-          <h2><span class="grad">Live Preview</span></h2>
-          <p class="hint">Automatischer Showcase: Follow-Alert, Gamble & Raid + Auto-Shoutout. <b>Alle Systemmeldungen kommen vom Bot.</b></p>
+        <div class="card glass neon-border reveal reveal-delay-3" data-tilt>
+          <h3>📊 Stats & Persistenz</h3>
+          <p>Stats (Nachrichten/Lurk/Timeouts/Starts) werden gespeichert – stabil für lange Streams.</p>
         </div>
-      </div>
-
-      <div class="twitch-preview">
-        <div class="twitch-mock glass-strong neon-border reveal reveal-delay-1">
-          <div class="tw-bar">
-            <div class="left">
-              <span class="tw-pill"><span class="tw-dot" aria-hidden="true"></span>LIVE</span>
-              <span style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis">
-                twitch.tv/<span id="twChannel" class="grad" style="font-weight:980">imburni</span>
-              </span>
-            </div>
-            <div style="display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end">
-              <span class="tw-pill">👥 <span id="twViewers">128</span></span>
-              <span class="tw-pill">⏱️ <span id="twUptime">00:42:19</span></span>
-            </div>
-          </div>
-
-          <div class="tw-stage">
-            <div class="tw-video" aria-hidden="true"></div>
-
-            <div class="tw-hud" aria-hidden="true">
-              <div class="tw-chip">🎲 Command: <b>!gamble</b></div>
-              <div class="tw-chip">🔁 Raid: <b>Auto Shoutout</b></div>
-              <div class="tw-chip">💜 Follow: <b>Alert</b></div>
-            </div>
-
-            <div class="tw-alert" id="twAlert" aria-live="polite">
-              <div class="inner">
-                <div class="icon" id="twAlertIcon">★</div>
-                <div class="txt">
-                  <b id="twAlertTitle">Alert</b>
-                  <span id="twAlertSub">—</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="tw-chat glass neon-border reveal reveal-delay-2">
-          <div class="tw-chat-head">
-            <div>Chat</div>
-            <small>ImBurni_Bot_v1</small>
-          </div>
-          <div class="tw-chat-body" id="twChatBody" aria-live="polite">
-            <div class="tw-typing" aria-hidden="true">
-              <span style="font-weight:950; color: rgba(238,240,255,.78)">Chat läuft…</span>
-              <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="reveal" style="margin-top:12px; color:var(--faint); font-weight:850; line-height:1.55">
-        Hinweis: Preview = Mock. In echt laufen Alerts über OBS/Overlays – dein Bot liefert Events/Commands/Outputs.
       </div>
     </div>
   </section>
@@ -1089,7 +1120,7 @@
         </div>
       </div>
 
-      <div class="gate glass-strong neon-border reveal">
+      <div class="gate glass-strong neon-border reveal" data-tilt>
         <div>
           <h3>✅ Ablauf</h3>
           <p>
@@ -1103,6 +1134,128 @@
           <button class="btn" type="button" id="copyDiscord2">📋 Invite kopieren</button>
           <a class="btn" href="#faq">❓ FAQ</a>
         </div>
+      </div>
+
+      <div class="reveal" style="margin-top:14px; color:var(--muted); font-weight:900; line-height:1.75">
+        Tipp: Pack den Discord-Link in deine Twitch Panels, damit Interessenten sofort wissen, wo sie den Bot bekommen.
+      </div>
+
+      <div style="margin-top:18px">
+        <div class="section-head reveal" style="margin-bottom:10px">
+          <div>
+            <h2 style="font-size: clamp(18px, 1.8vw, 24px)"><span class="grad">Roadmap</span></h2>
+            <p class="hint" style="margin-top:6px">Versionen werden ständig individuell für Streamer angepasst!</p>
+          </div>
+        </div>
+
+        <div class="roadmap">
+          <div class="step glass neon-border reveal reveal-delay-1" data-tilt>
+            <div class="k"><span class="num">1</span><b>Join & Ticket</b></div>
+            <p>Discord joinen, Ticket öffnen, Infos zu deinem Channel posten.</p>
+          </div>
+          <div class="step glass neon-border reveal reveal-delay-2" data-tilt>
+            <div class="k"><span class="num">2</span><b>Setup & Freischaltung</b></div>
+            <p>Support richtet alles sauber ein (Bridge, Tickets, Mod-IDs, Rewards).</p>
+          </div>
+          <div class="step glass neon-border reveal reveal-delay-3" data-tilt>
+            <div class="k"><span class="num">3</span><b>Live gehen</b></div>
+            <p>Alerts laufen, Punkte/Lurk zählen, Timeouts via IDs — fertig.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing">
+    <div class="container">
+      <div class="section-head reveal">
+        <div>
+          <h2><span class="grad">Access</span></h2>
+          <p class="hint">Kein Checkout, kein Auto-Setup: Zugriff läuft bewusst über Discord (Support + Ticketsystem).</p>
+        </div>
+      </div>
+
+      <div class="pricing">
+        <div class="price-card glass-strong neon-border reveal reveal-delay-1" data-tilt>
+          <div class="price-title">
+            <b>Discord Access</b>
+            <span class="price-tag">Invite → Ticket → Setup</span>
+          </div>
+
+          <div style="color: var(--muted); font-weight:900; line-height:1.75">
+            Du bekommst den Bot nicht “per Klick”. So bleibt’s sauber: kontrollierte Freischaltung, Hilfe beim Setup,
+            klare Zuständigkeiten – und Support direkt im Ticketsystem.
+          </div>
+
+          <div class="price-list">
+            <div class="price-item"><span class="tick">✓</span><div>Freischaltung/Setup über Ticket</div></div>
+            <div class="price-item"><span class="tick">✓</span><div>Support direkt im Discord (Buttons/Status)</div></div>
+            <div class="price-item"><span class="tick">✓</span><div>Mod-Timeouts via IDs (kontrolliert)</div></div>
+            <div class="price-item"><span class="tick">✓</span><div>Sauberer Ablauf für jeden Stream</div></div>
+          </div>
+
+          <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap">
+            <a class="btn primary" href="#discord">💬 Jetzt joinen</a>
+            <button class="btn" type="button" id="copyDiscord4">📋 Invite kopieren</button>
+          </div>
+        </div>
+
+        <div class="price-card glass neon-border reveal reveal-delay-2" data-tilt>
+          <div class="price-title">
+            <b>Quick Checklist</b>
+            <span class="price-tag">2 Minuten</span>
+          </div>
+          <div style="color: var(--muted); font-weight:900; line-height:1.75">
+            Damit das Setup schnell läuft:
+          </div>
+          <div class="price-list">
+            <div class="price-item"><span class="tick">✓</span><div>Twitch-Channel Name</div></div>
+            <div class="price-item"><span class="tick">✓</span><div>Wer ist Broadcaster/Mods?</div></div>
+            <div class="price-item"><span class="tick">✓</span><div>Welche Features aktiv? (Punkte/Lurk/Timeouts)</div></div>
+            <div class="price-item"><span class="tick">✓</span><div>Panel-Link zum Discord setzen</div></div>
+          </div>
+          <div style="margin-top:14px; color: var(--faint); font-weight:850; line-height:1.55">
+            Hinweis: Der Bot läuft 24/7 über deinen PC, du kannst entscheiden, wann der Bot Joint und wann nicht..
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ✅ Streamer System -->
+  <section id="streamer">
+    <div class="container">
+      <div class="section-head reveal">
+        <div>
+          <h2>Streamer, die den Bot nutzen</h2>
+          <p class="hint">#MakeThisBotToYourExperience</p>
+        </div>
+      </div>
+
+      <div class="streamer-controls reveal">
+        <div class="field glass neon-border">
+          <span aria-hidden="true">🔎</span>
+          <input id="streamerSearch" type="text" placeholder="Streamer suchen (z.B. tricck17)…" />
+        </div>
+
+        <div class="seg glass neon-border" id="streamerFilter">
+          <button type="button" class="active" data-filter="all">Alle</button>
+          <button type="button" data-filter="live">🟢 Live</button>
+          <button type="button" data-filter="offline">⚫ Offline</button>
+        </div>
+
+        <button class="btn" id="streamerRefresh" type="button">🔁 Aktualisieren</button>
+      </div>
+
+      <div class="streamer-meta reveal">
+        <div id="streamerCount">—</div>
+        <div id="streamerUpdated">—</div>
+      </div>
+
+      <div class="streamer-grid" id="streamerGrid"></div>
+
+      <div class="reveal" style="margin-top:12px; color:var(--faint); font-weight:850; line-height:1.55">
+        Hinweis: Live-Status basiert auf einem einfachen Uptime-Check (kann minimal verzögert sein).
       </div>
     </div>
   </section>
@@ -1126,15 +1279,21 @@
         </details>
         <details class="glass neon-border reveal reveal-delay-2">
           <summary>Wie viele Arbeiten an dem Bot?</summary>
-          <p>Der Bot wird nur von ImBurni <b>erstellt</b>.</p>
+          <p>
+            Der Bot wird nur von ImBurni <b>erstellt</b>.
+          </p>
         </details>
         <details class="glass neon-border reveal reveal-delay-3">
           <summary>Wer kann Tickets erstellen und Timeouts nutzen?</summary>
-          <p>Tickets und Timeouts sind für Broadcaster/Mods gedacht. Damit bleibt alles kontrolliert und sicher.</p>
+          <p>
+            Tickets und Timeouts sind für Broadcaster/Mods gedacht. Damit bleibt alles kontrolliert und sicher.
+          </p>
         </details>
         <details class="glass neon-border reveal reveal-delay-4">
           <summary>Kann ich auch auf die Streamer-Liste?</summary>
-          <p>Ja. Join den Discord und stelle eine Anfrage – dann wird dein Kanal hinzugefügt (wenn du den Bot nutzt).</p>
+          <p>
+            Ja. Join den Discord und stelle eine Anfrage – dann wird dein Kanal hinzugefügt (wenn du den Bot nutzt).
+          </p>
         </details>
       </div>
     </div>
@@ -1142,7 +1301,7 @@
 
   <section id="discord">
     <div class="container">
-      <div class="gate glass-strong neon-border reveal">
+      <div class="gate glass-strong neon-border reveal" data-tilt>
         <div>
           <h3>🔥 Ready? Hol dir ImBurni_Bot_v1 im Discord</h3>
           <p>Join → Anfrage/Ticket → Freischaltung/Setup. Danach läuft Twitch ✕ Discord clean.</p>
@@ -1158,19 +1317,31 @@
   <footer>
     <div class="container">
       <div class="foot reveal">
-        <div>© <span id="year"></span> <span id="footName">ImBurni_Bot_v1</span> • Darkmode • Beta Version V1</div>
+        <div>© <span id="year"></span> <span id="footName">ImBurni</span> • Darkmode • Beta Version V1</div>
         <div style="display:flex; gap:10px; flex-wrap:wrap">
-          <a class="btn" href="#features">Features</a>
-          <a class="btn" href="#preview">Preview</a>
-          <a class="btn" href="#zugang">Bot bekommen</a>
+          <a class="btn small" href="#features">Features</a>
+          <a class="btn small" href="#zugang">Bot bekommen</a>
+          <a class="btn small" href="#streamer">Streamer</a>
         </div>
       </div>
     </div>
   </footer>
 
-  <button class="fab hide" id="fab" type="button" aria-label="Zum Discord">
-    💬 <span>Discord</span>
+  <!-- floating CTA -->
+  <button class="fab" id="fab" type="button" aria-label="Zum Discord">
+    💬 <span>Discord</span> <small>Bot holen</small>
   </button>
+
+  <!-- 🎵 MUSIC (muted on load) -->
+  <audio id="bgm" src="Song.mp3" preload="auto" loop muted playsinline></audio>
+
+  <!-- ✅ ADD-ON: Music Mute Button -->
+  <button class="music-toggle" id="musicToggle" type="button" aria-label="Musik stumm/laut">🔇</button>
+
+  <div class="sound-hint" id="soundHint">
+    🎵 Musik läuft <b>stumm</b> beim Laden. <b>Scroll</b> versucht Ton zu aktivieren.<br/>
+    Außerdem: Buttons haben jetzt <b>Klick-Sound</b> (Browser erlaubt nur nach Interaktion).
+  </div>
 
   <script>
     /* ---------- Basic init ---------- */
@@ -1181,7 +1352,7 @@
     });
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    /* ---------- Copy invite ---------- */
+    /* ---------- Toast ---------- */
     function toast(msg){
       const t = document.createElement('div');
       t.textContent = msg;
@@ -1202,16 +1373,24 @@
       setTimeout(()=>{ t.style.opacity='0'; t.style.transition='opacity .25s ease'; }, 1200);
       setTimeout(()=>{ t.remove(); }, 1500);
     }
+
     async function copyText(text){
       try{ await navigator.clipboard.writeText(text); toast("Invite kopiert ✅"); }
       catch{ toast("Kopieren nicht möglich ❌"); }
     }
-    ["copyDiscord","copyDiscord2","copyDiscord3"].forEach(id=>{
+    ["copyDiscord","copyDiscord2","copyDiscord3","copyDiscord4"].forEach(id=>{
       const el = document.getElementById(id);
       if(el) el.addEventListener('click', ()=>copyText(CONFIG.discordInvite));
     });
 
-    /* ---------- Ripple ---------- */
+    /* ---------- FAB ---------- */
+    const fab = document.getElementById('fab');
+    fab.addEventListener('click', ()=>{
+      location.hash = "#discord";
+      document.querySelector('#discord').scrollIntoView({behavior:'smooth', block:'start'});
+    });
+
+    /* ---------- Fancy Ripple on all buttons/links ---------- */
     function addRipple(el, x, y){
       const r = document.createElement('span');
       r.className = 'ripple';
@@ -1220,17 +1399,162 @@
       el.appendChild(r);
       setTimeout(()=>r.remove(), 700);
     }
+
     document.addEventListener('pointerdown', (e)=>{
       const el = e.target.closest && e.target.closest('.btn, .fab, .nav-links a, summary');
       if(!el) return;
       const rect = el.getBoundingClientRect();
-      addRipple(el, e.clientX - rect.left, e.clientY - rect.top);
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      addRipple(el, x, y);
     }, {passive:true});
 
-    /* ---------- Reveal ---------- */
+    /* ---------- CLICK SOUND (WebAudio, no file needed) ---------- */
+    const ClickFX = (function(){
+      let ctx = null;
+
+      function ensure(){
+        if(ctx) return ctx;
+        const AC = window.AudioContext || window.webkitAudioContext;
+        if(!AC) return null;
+        ctx = new AC();
+        return ctx;
+      }
+
+      async function unlock(){
+        const c = ensure();
+        if(!c) return false;
+        if(c.state === 'suspended'){
+          try{ await c.resume(); }catch{}
+        }
+        return (c.state === 'running');
+      }
+
+      function play(){
+        if(!CONFIG.clickSound) return;
+        const c = ensure();
+        if(!c) return;
+
+        if(c.state !== 'running'){ c.resume().catch(()=>{}); }
+
+        const now = c.currentTime;
+        const vol = Math.max(0, Math.min(1, CONFIG.clickSoundVolume ?? 0.2));
+
+        const osc = c.createOscillator();
+        const gain = c.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(880, now);
+        osc.frequency.exponentialRampToValueAtTime(220, now + 0.045);
+
+        gain.gain.setValueAtTime(0.0001, now);
+        gain.gain.exponentialRampToValueAtTime(vol, now + 0.008);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.055);
+
+        const bufferSize = Math.floor(c.sampleRate * 0.02);
+        const buffer = c.createBuffer(1, bufferSize, c.sampleRate);
+        const data = buffer.getChannelData(0);
+        for(let i=0;i<bufferSize;i++){
+          data[i] = (Math.random()*2 - 1) * (1 - i/bufferSize);
+        }
+        const noise = c.createBufferSource();
+        noise.buffer = buffer;
+
+        const nGain = c.createGain();
+        nGain.gain.setValueAtTime(vol*0.35, now);
+        nGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.03);
+
+        osc.connect(gain).connect(c.destination);
+        noise.connect(nGain).connect(c.destination);
+
+        osc.start(now);
+        noise.start(now);
+
+        osc.stop(now + 0.06);
+        noise.stop(now + 0.035);
+      }
+
+      const unlockOnce = async () => {
+        await unlock();
+        window.removeEventListener('pointerdown', unlockOnce, true);
+        window.removeEventListener('keydown', unlockOnce, true);
+      };
+      window.addEventListener('pointerdown', unlockOnce, true);
+      window.addEventListener('keydown', unlockOnce, true);
+
+      return { play, unlock };
+    })();
+
+    document.addEventListener('click', (e)=>{
+      const el = e.target.closest && e.target.closest('.btn, .fab, .nav-links a, summary');
+      if(!el) return;
+      ClickFX.play();
+    });
+
+    /* ---------- Smooth scroll with offset for sticky nav ---------- */
+    (function(){
+      const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      function scrollToHash(hash){
+        const id = (hash || '').replace('#','').trim();
+        if(!id) return;
+        const el = document.getElementById(id);
+        if(!el) return;
+
+        const nav = document.querySelector('.nav');
+        const navH = nav ? nav.getBoundingClientRect().height : 0;
+        const y = el.getBoundingClientRect().top + window.scrollY - navH - 12;
+        window.scrollTo({ top: Math.max(0, y), behavior: prefersReduced ? 'auto' : 'smooth' });
+      }
+
+      document.addEventListener('click', (e)=>{
+        const a = e.target && e.target.closest ? e.target.closest('a[href^="#"]') : null;
+        if(!a) return;
+        const href = a.getAttribute('href');
+        if(!href || href === '#') return;
+        const targetId = href.slice(1);
+        if(!document.getElementById(targetId)) return;
+
+        e.preventDefault();
+        history.pushState(null, '', href);
+        scrollToHash(href);
+      });
+
+      window.addEventListener('load', ()=>{
+        if(location.hash) scrollToHash(location.hash);
+      });
+    })();
+
+    /* ---------- Active nav highlight (scrollspy) ---------- */
+    (function(){
+      const nav = document.getElementById('navLinks');
+      if(!nav) return;
+
+      const links = Array.from(nav.querySelectorAll('a[href^="#"]'));
+      const targets = links
+        .map(a => ({ a, id: a.getAttribute('href').slice(1), el: document.getElementById(a.getAttribute('href').slice(1)) }))
+        .filter(x => x.el);
+
+      function setActive(id){
+        links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + id));
+      }
+
+      const obs = new IntersectionObserver((entries)=>{
+        const visible = entries
+          .filter(e => e.isIntersecting)
+          .sort((a,b)=> (b.intersectionRatio - a.intersectionRatio))[0];
+        if(visible && visible.target && visible.target.id){
+          setActive(visible.target.id);
+        }
+      }, { rootMargin: "-35% 0px -55% 0px", threshold: [0.12, 0.2, 0.35, 0.5, 0.7] });
+
+      targets.forEach(t => obs.observe(t.el));
+      setActive((location.hash || '#features').slice(1));
+    })();
+
+    /* ---------- Reveal on scroll ---------- */
     (function(){
       const els = Array.from(document.querySelectorAll('.reveal'));
       if(!els.length) return;
+
       const obs = new IntersectionObserver((entries)=>{
         for(const e of entries){
           if(e.isIntersecting){
@@ -1239,16 +1563,333 @@
           }
         }
       }, { threshold: 0.12, rootMargin: "0px 0px -12% 0px" });
+
       els.forEach(el => obs.observe(el));
     })();
+
+    /* ---------- Tilt (super lightweight) ---------- */
+    (function(){
+      const cards = Array.from(document.querySelectorAll('[data-tilt]'));
+      if(!cards.length) return;
+
+      const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if(prefersReduced) return;
+
+      function onMove(e){
+        const el = e.currentTarget;
+        const r = el.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width;
+        const y = (e.clientY - r.top) / r.height;
+        const rx = (y - 0.5) * -7;
+        const ry = (x - 0.5) * 8;
+        el.style.transform = `translateY(-4px) rotateX(${rx}deg) rotateY(${ry}deg)`;
+      }
+      function onLeave(e){
+        const el = e.currentTarget;
+        el.style.transform = '';
+      }
+      cards.forEach(el=>{
+        el.style.transformStyle = 'preserve-3d';
+        el.addEventListener('mousemove', onMove);
+        el.addEventListener('mouseleave', onLeave);
+      });
+    })();
+
+    /* ---------- 🎵 Music: muted autoplay + try unmute on scroll + fallback click ---------- */
+    (function(){
+      const audio = document.getElementById("bgm");
+      const hint = document.getElementById("soundHint");
+      audio.volume = 0.85;
+      audio.loop = true;
+
+      window.addEventListener("load", async () => {
+        try{
+          audio.muted = true;
+          await audio.play();
+        }catch{}
+      });
+
+      let unlocked = false;
+
+      async function unlockSound(){
+        if(unlocked) return true;
+        try{
+          audio.muted = false;
+          audio.volume = 0.85;
+          await audio.play();
+          unlocked = true;
+          setTimeout(()=>{ if(hint) hint.remove(); }, 1200);
+          cleanup();
+          return true;
+        }catch{
+          return false;
+        }
+      }
+
+      const onWheel = async () => { await unlockSound(); };
+      const onScroll = async () => { await unlockSound(); };
+      const onPointer = async () => { await unlockSound(); };
+      const onTouch = async () => { await unlockSound(); };
+      const onKey = async () => { await unlockSound(); };
+
+      function cleanup(){
+        window.removeEventListener("wheel", onWheel, true);
+        window.removeEventListener("scroll", onScroll, true);
+        document.removeEventListener("pointerdown", onPointer, true);
+        document.removeEventListener("touchstart", onTouch, true);
+        document.removeEventListener("keydown", onKey, true);
+      }
+
+      window.addEventListener("wheel", onWheel, {capture:true, passive:true});
+      window.addEventListener("scroll", onScroll, {capture:true, passive:true});
+      document.addEventListener("pointerdown", onPointer, true);
+      document.addEventListener("touchstart", onTouch, {capture:true, passive:true});
+      document.addEventListener("keydown", onKey, true);
+    })();
+
+    /* ---------- Parallax Aurora (mouse) ---------- */
+    (function(){
+      const root = document.documentElement;
+      let tx = 0, ty = 0, cx = 0, cy = 0;
+
+      function update(){
+        cx += (tx - cx) * 0.08;
+        cy += (ty - cy) * 0.08;
+        root.style.setProperty('--gx', cx.toFixed(2) + 'px');
+        root.style.setProperty('--gy', cy.toFixed(2) + 'px');
+        requestAnimationFrame(update);
+      }
+      update();
+
+      function handle(x, y){
+        const w = window.innerWidth || 1;
+        const h = window.innerHeight || 1;
+        tx = ((x / w) - 0.5) * 70;
+        ty = ((y / h) - 0.5) * 70;
+      }
+      window.addEventListener('mousemove', (e)=>handle(e.clientX, e.clientY), {passive:true});
+      window.addEventListener('touchmove', (e)=>{
+        if(!e.touches || !e.touches[0]) return;
+        handle(e.touches[0].clientX, e.touches[0].clientY);
+      }, {passive:true});
+    })();
+
+    /* ---------- Particles ---------- */
+    (function(){
+      const c = document.getElementById('particles');
+      const ctx = c.getContext('2d', { alpha: true });
+      let W = 0, H = 0, dpr = Math.min(2, window.devicePixelRatio || 1);
+
+      function resize(){
+        W = window.innerWidth; H = window.innerHeight;
+        c.width = Math.floor(W * dpr);
+        c.height = Math.floor(H * dpr);
+        c.style.width = W + 'px';
+        c.style.height = H + 'px';
+        ctx.setTransform(dpr,0,0,dpr,0,0);
+      }
+      window.addEventListener('resize', resize, {passive:true});
+      resize();
+
+      const N = Math.round(Math.min(120, Math.max(60, W/14)));
+      const p = Array.from({length:N}).map(() => ({
+        x: Math.random()*W,
+        y: Math.random()*H,
+        r: 0.8 + Math.random()*2.0,
+        vx: (-0.35 + Math.random()*0.7),
+        vy: (-0.24 + Math.random()*0.48),
+        a: 0.12 + Math.random()*0.30
+      }));
+
+      function tick(){
+        ctx.clearRect(0,0,W,H);
+
+        for(const s of p){
+          s.x += s.vx; s.y += s.vy;
+          if(s.x < -20) s.x = W+20;
+          if(s.x > W+20) s.x = -20;
+          if(s.y < -20) s.y = H+20;
+          if(s.y > H+20) s.y = -20;
+
+          ctx.beginPath();
+          ctx.globalAlpha = s.a;
+          ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
+          ctx.fillStyle = 'white';
+          ctx.fill();
+        }
+
+        ctx.globalAlpha = 0.055;
+        for(let i=0;i<p.length;i++){
+          for(let j=i+1;j<p.length;j++){
+            const dx = p[i].x - p[j].x;
+            const dy = p[i].y - p[j].y;
+            const dist = Math.sqrt(dx*dx + dy*dy);
+            if(dist < 130){
+              ctx.beginPath();
+              ctx.moveTo(p[i].x, p[i].y);
+              ctx.lineTo(p[j].x, p[j].y);
+              ctx.strokeStyle = 'white';
+              ctx.lineWidth = 1;
+              ctx.stroke();
+            }
+          }
+        }
+
+        ctx.globalAlpha = 1;
+        requestAnimationFrame(tick);
+      }
+      tick();
+    })();
+
+    /* ---------- Streamer list (Avatar + Live/Offline) ---------- */
+    const streamerGrid = document.getElementById('streamerGrid');
+    const streamerCount = document.getElementById('streamerCount');
+    const streamerUpdated = document.getElementById('streamerUpdated');
+    const streamerSearch = document.getElementById('streamerSearch');
+    const filterWrap = document.getElementById('streamerFilter');
+    const refreshBtn = document.getElementById('streamerRefresh');
+
+    const endpoints = {
+      uptime: (login) => `https://decapi.me/twitch/uptime/${encodeURIComponent(login)}`,
+      avatar: (login) => `https://decapi.me/twitch/avatar/${encodeURIComponent(login)}`
+    };
+
+    const streamerState = {
+      items: CONFIG.streamers.map(n => ({
+        login: String(n || '').trim(),
+        live: null,
+        uptimeText: 'Status wird geladen…',
+        avatarUrl: null
+      })).filter(x => x.login.length > 0),
+      filter: 'all',
+      query: ''
+    };
+
+    function escapeHtml(s){
+      return String(s).replace(/[&<>"']/g, m => ({
+        '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+      }[m]));
+    }
+
+    function renderStreamers(){
+      const q = streamerState.query.toLowerCase().trim();
+      const filtered = streamerState.items.filter(it => {
+        const matchesQuery = !q || it.login.toLowerCase().includes(q);
+        const matchesFilter =
+          streamerState.filter === 'all' ? true :
+          streamerState.filter === 'live' ? it.live === true :
+          streamerState.filter === 'offline' ? it.live === false :
+          true;
+        return matchesQuery && matchesFilter;
+      });
+
+      streamerCount.textContent = `${filtered.length} Streamer angezeigt • ${streamerState.items.length} gesamt`;
+
+      streamerGrid.innerHTML = filtered.map(it => {
+        const loginLower = it.login.toLowerCase();
+        const display = escapeHtml(it.login);
+
+        const liveBadge = it.live === true
+          ? `<span class="badge live"><span class="live-dot"></span>LIVE</span>`
+          : it.live === false
+            ? `<span class="badge"><span class="live-dot"></span>OFFLINE</span>`
+            : `<span class="badge"><span class="live-dot"></span>CHECK…</span>`;
+
+        const uptime = escapeHtml(it.uptimeText || '');
+        const avatar = it.avatarUrl
+          ? `<img src="${it.avatarUrl}" alt="${display} Profilbild" loading="lazy" />`
+          : `<img src="https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_70x70.png" alt="${display} Profilbild" loading="lazy" />`;
+
+        return `
+          <div class="streamer-card glass neon-border reveal in" data-login="${escapeHtml(loginLower)}" data-tilt>
+            <div class="streamer-top">
+              <div class="streamer-left">
+                <div class="avatar">${avatar}</div>
+                <div class="sname">
+                  <b>${display}</b>
+                  <span>twitch.tv/${escapeHtml(loginLower)}</span>
+                </div>
+              </div>
+              ${liveBadge}
+            </div>
+
+            <div class="uptime">${it.live === true ? `🟢 Live seit: <b>${uptime}</b>` : it.live === false ? `⚫ Offline` : `⏳ ${uptime}`}</div>
+
+            <div class="streamer-bottom">
+              <div style="color: var(--faint); font-weight:900">Bot-Nutzer</div>
+              <a class="btn primary" href="https://twitch.tv/${escapeHtml(loginLower)}" target="_blank" rel="noreferrer">Zum Stream</a>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    async function fetchText(url){
+      const res = await fetch(url, { cache: 'no-store' });
+      return await res.text();
+    }
+
+    async function updateStreamer(it){
+      const login = it.login;
+
+      if(!it.avatarUrl){
+        try{
+          const avatarText = (await fetchText(endpoints.avatar(login))).trim();
+          if(avatarText.startsWith('http')) it.avatarUrl = avatarText;
+        }catch{}
+      }
+
+      try{
+        const t = (await fetchText(endpoints.uptime(login))).trim();
+        it.uptimeText = t || 'Unbekannt';
+        if((t || '').toLowerCase().includes('offline')){
+          it.live = false;
+        } else if(t){
+          it.live = true;
+        } else {
+          it.live = null;
+        }
+      }catch{
+        it.live = null;
+        it.uptimeText = 'Status unbekannt';
+      }
+    }
+
+    async function refreshStreamers(){
+      streamerUpdated.textContent = 'Aktualisiere…';
+      renderStreamers();
+
+      for(const it of streamerState.items){
+        await updateStreamer(it);
+        renderStreamers();
+      }
+
+      streamerUpdated.textContent = 'Zuletzt aktualisiert: ' + new Date().toLocaleString('de-DE');
+    }
+
+    streamerSearch.addEventListener('input', ()=>{
+      streamerState.query = streamerSearch.value || '';
+      renderStreamers();
+    });
+
+    filterWrap.querySelectorAll('button[data-filter]').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        filterWrap.querySelectorAll('button[data-filter]').forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+        streamerState.filter = btn.dataset.filter || 'all';
+        renderStreamers();
+      });
+    });
+
+    refreshBtn.addEventListener('click', refreshStreamers);
+
+    renderStreamers();
+    refreshStreamers();
+    setInterval(refreshStreamers, 60000);
 
     /* ---------- FAB show/hide on scroll ---------- */
     (function(){
       const el = document.getElementById('fab');
-      el.addEventListener('click', ()=>{
-        location.hash = "#discord";
-        document.querySelector('#discord').scrollIntoView({behavior:'smooth', block:'start'});
-      });
       function tick(){
         const y = window.scrollY;
         if(y < 220) el.classList.add('hide');
@@ -1258,163 +1899,34 @@
       tick();
     })();
 
-    /* =========================================================
-       ✅ TWITCH PREVIEW SHOWCASE (AUTO LOOP) — BOT ONLY SYSTEM MSGS
-       ========================================================= */
+    /* ✅ ADD-ON: Musik Mute Button Logik */
     (function(){
-      const alertEl = document.getElementById('twAlert');
-      const alertIcon = document.getElementById('twAlertIcon');
-      const alertTitle = document.getElementById('twAlertTitle');
-      const alertSub = document.getElementById('twAlertSub');
-      const chatBody = document.getElementById('twChatBody');
+      const audio = document.getElementById("bgm");
+      const btn = document.getElementById("musicToggle");
+      if(!audio || !btn) return;
 
-      const viewersEl = document.getElementById('twViewers');
-      const uptimeEl = document.getElementById('twUptime');
-      const channelEl = document.getElementById('twChannel');
-
-      if(!alertEl || !chatBody || !channelEl) return;
-
-      const BOT_NAME = CONFIG.botName || "ImBurni_Bot_v1";
-
-      // random channel (preview only)
-      const CHANNELS = [
-        "imburni","imburni_live","imburni_tv",
-        "burniCommunity","burniStream","imburniDE"
-      ];
-
-      // random users for events
-      const USERS = [
-        "neon_king","lunaByte","k0smic","xNova","m4ximo",
-        "pixelRiot","stormyJay","mintyMoon","ghostLag",
-        "frostyKeks","chatNinja","yoloWombat","R3dPanda"
-      ];
-
-      const RAIDERS = ["tricck17","zockerMax","justLena","ProMichi","NeoRaven","KeksTV","DaddelDude"];
-
-      const randInt = (min,max)=> Math.floor(Math.random()*(max-min+1))+min;
-      const pick = (arr)=> arr[randInt(0, arr.length-1)];
-      const safe = (s)=> String(s).replace(/[&<>"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[ch]));
-
-      function showAlert(icon, title, subText){
-        alertIcon.textContent = icon;
-        alertTitle.textContent = title;
-        alertSub.textContent = subText;
-
-        alertEl.classList.remove('show');
-        void alertEl.offsetWidth;
-        alertEl.classList.add('show');
+      function setIcon(){
+        btn.textContent = audio.muted ? "🔇" : "🔊";
       }
 
-      function addBot(textHtml){
-        const msg = document.createElement('div');
-        msg.className = 'tw-msg';
+      const saved = localStorage.getItem("musicMuted");
+      if(saved === "1"){
+        audio.muted = true;
+      }else if(saved === "0"){
+        audio.muted = false;
+        audio.play().catch(()=>{});
+      }
+      setIcon();
 
-        msg.innerHTML = `
-          <div class="tw-user">
-            <span class="tw-role">🤖</span>
-            <span class="tw-name"><span class="n">${safe(BOT_NAME)}</span></span>
-          </div>
-          <div class="tw-text">${textHtml}</div>
-        `;
+      btn.addEventListener("click", async ()=>{
+        audio.muted = !audio.muted;
+        localStorage.setItem("musicMuted", audio.muted ? "1" : "0");
+        setIcon();
 
-        const typing = chatBody.querySelector('.tw-typing');
-        chatBody.insertBefore(msg, typing);
-
-        const msgs = Array.from(chatBody.querySelectorAll('.tw-msg'));
-        if(msgs.length > 10){
-          msgs.slice(0, msgs.length - 10).forEach(x=>x.remove());
+        if(!audio.muted){
+          try{ await audio.play(); }catch{}
         }
-      }
-
-      function clearChat(){
-        Array.from(chatBody.querySelectorAll('.tw-msg')).forEach(x=>x.remove());
-      }
-
-      // fake counters
-      let viewers = 128;
-      let seconds = 42*60 + 19;
-      const fmtTime = (s)=>{
-        const h = String(Math.floor(s/3600)).padStart(2,'0');
-        const m = String(Math.floor((s%3600)/60)).padStart(2,'0');
-        const ss = String(s%60).padStart(2,'0');
-        return `${h}:${m}:${ss}`;
-      };
-      setInterval(()=>{
-        seconds += 1;
-        uptimeEl.textContent = fmtTime(seconds);
-
-        viewers += (Math.random() < 0.55 ? 1 : -1) * (Math.random() < 0.42 ? 1 : 0);
-        viewers = Math.max(42, Math.min(420, viewers));
-        viewersEl.textContent = String(viewers);
-      }, 1000);
-
-      const LOOP = 18000;
-      let timers = [];
-
-      function runLoop(){
-        timers.forEach(t=>clearTimeout(t));
-        timers = [];
-
-        // random channel each loop (preview)
-        channelEl.textContent = pick(CHANNELS);
-
-        clearChat();
-
-        const follower = pick(USERS);
-        const raider = pick(RAIDERS);
-        const raidCount = randInt(15, 160);
-
-        const gambleUser = pick(USERS);
-        const gambleAmount = [50,100,150,200,250,500,750,1000][randInt(0,7)];
-        const win = Math.random() < 0.5;
-        const delta = win ? gambleAmount : -gambleAmount;
-
-        addBot("🔥 Bot ist aktiv. Commands: <b>!punkte</b> • <b>!lurk</b> • <b>!gamble</b>");
-
-        // FOLLOW
-        timers.push(setTimeout(()=>{
-          showAlert("💜", "Neuer Follower!", `${follower} folgt jetzt!`);
-          addBot(`💜 Neuer Follower: <b>${safe(follower)}</b>`);
-        }, 2500));
-
-        // GAMBLE (bot message: command received)
-        timers.push(setTimeout(()=>{
-          addBot(`🎲 <b>${safe(gambleUser)}</b> hat <b>!gamble ${gambleAmount}</b> genutzt…`);
-        }, 6000));
-
-        // GAMBLE RESULT
-        timers.push(setTimeout(()=>{
-          const result = win ? `WIN ✅ <b>+${gambleAmount}</b>` : `LOSE ❌ <b>−${gambleAmount}</b>`;
-          addBot(`🎲 Ergebnis für <b>${safe(gambleUser)}</b>: ${result} Punkte`);
-        }, 7600));
-
-        // RAID
-        timers.push(setTimeout(()=>{
-          showAlert("🔁", "RAID!", `${raider} raidet mit ${raidCount} Viewern!`);
-          addBot(`🔁 Raid von <b>${safe(raider)}</b> mit <b>${raidCount}</b> Viewern!`);
-        }, 10500));
-
-        // AUTO SHOUTOUT
-        timers.push(setTimeout(()=>{
-          addBot(`📢 Auto-Shoutout: Checkt <b>twitch.tv/${safe(raider)}</b> ab! ❤️🔥`);
-        }, 12500));
-
-        timers.push(setTimeout(runLoop, LOOP));
-      }
-
-      // start when preview section is visible (nice for performance)
-      const previewSection = document.getElementById('preview');
-      const io = new IntersectionObserver((entries)=>{
-        const e = entries[0];
-        if(!e) return;
-        if(e.isIntersecting){
-          runLoop();
-          io.disconnect();
-        }
-      }, { threshold: 0.25 });
-
-      if(previewSection) io.observe(previewSection);
-      else runLoop();
+      });
     })();
   </script>
 </body>
