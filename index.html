@@ -995,6 +995,69 @@
   transform: translateY(-1px);
   filter: drop-shadow(0 6px 14px rgba(145,70,255,.35));
 }
+/* --- ImBurni Ultra: Ribbon + RGB Border + Hover --- */
+.streamer-card.founder{
+  transform-style: preserve-3d;
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+.streamer-card.founder:hover{
+  transform: translateY(-6px) scale(1.015);
+  box-shadow: 0 0 0 1px rgba(145, 70, 255, .45), 0 26px 80px rgba(145, 70, 255, .22);
+}
+
+.streamer-card .founder-ribbon{
+  position:absolute;
+  top:14px;
+  right:14px;
+  z-index: 3;
+  padding: 8px 10px;
+  border-radius: 999px;
+  font-weight: 900;
+  letter-spacing: .06em;
+  font-size: .78rem;
+  line-height: 1;
+  background: rgba(10,10,12,.72);
+  border: 1px solid rgba(255,255,255,.12);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 10px 26px rgba(0,0,0,.35);
+  user-select: none;
+  pointer-events: none;
+}
+
+.streamer-card .founder-border{
+  position:absolute;
+  inset:-2px;
+  border-radius: inherit;
+  z-index: 0;
+  padding: 2px;
+  background: conic-gradient(
+    from 0deg,
+    rgba(145,70,255,.95),
+    rgba(26,188,156,.95),
+    rgba(255,0,0,.85),
+    rgba(145,70,255,.95)
+  );
+  animation: rgbSpin 3.2s linear infinite;
+  /* mask to show only border */
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events:none;
+  opacity: .9;
+  filter: drop-shadow(0 14px 28px rgba(145,70,255,.18));
+}
+@keyframes rgbSpin{
+  to{ transform: rotate(360deg); }
+}
+
+/* Keep content above border layer */
+.streamer-card.founder > *:not(.founder-border){
+  position: relative;
+  z-index: 1;
+}
 </style>
 </head>
 
@@ -1876,6 +1939,11 @@
 
         return `
           <div class="streamer-card glass neon-border reveal in${loginLower === "imburni" ? " founder" : ""}" data-login="${escapeHtml(loginLower)}" data-tilt>
+            ${loginLower === "imburni" ? `
+              <div class="founder-border" aria-hidden="true"></div>
+              <div class="founder-ribbon" title="Bot Entwickler | Administrator">👑 FOUNDER</div>
+            ` : ``}
+
             <div class="streamer-top">
               <div class="streamer-left">
                 <div class="avatar">${avatar}</div>
