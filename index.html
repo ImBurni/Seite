@@ -20,9 +20,6 @@
       --muted: rgba(238,240,255,.72);
       --faint: rgba(238,240,255,.50);
 
-      --stroke: rgba(255,255,255,.11);
-      --stroke2: rgba(255,255,255,.18);
-
       /* neon core */
       --o:#ff7a18;     /* orange */
       --p:#a855f7;     /* purple */
@@ -54,8 +51,6 @@
       color:var(--text);
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
       overflow-x:hidden;
-
-      /* BIG aurora base (animated via ::before) */
       background:
         radial-gradient(900px 700px at 18% 10%, rgba(168,85,247,.18), transparent 62%),
         radial-gradient(900px 700px at 85% 14%, rgba(255,122,24,.16), transparent 62%),
@@ -1172,11 +1167,12 @@
       gap:8px;
       align-items:center;
       flex: 0 0 auto;
-      min-width: 120px;
-      max-width: 140px;
+      min-width: 132px;
+      max-width: 160px;
     }
-    .tw-badge{
-      width:22px; height:22px;
+
+    .tw-role{
+      width:24px; height:24px;
       border-radius: 10px;
       display:inline-flex; align-items:center; justify-content:center;
       font-weight: 980;
@@ -1184,13 +1180,23 @@
       background: linear-gradient(135deg, rgba(255,122,24,.98), rgba(168,85,247,.92), rgba(0,234,255,.70));
       box-shadow: 0 16px 52px rgba(168,85,247,.14);
       flex: 0 0 auto;
+      font-size: 13px;
     }
+    .tw-role.mod{background: linear-gradient(135deg, rgba(46,229,157,.98), rgba(0,234,255,.60));}
+    .tw-role.vip{background: linear-gradient(135deg, rgba(255,43,214,.92), rgba(168,85,247,.70));}
+    .tw-role.sub{background: linear-gradient(135deg, rgba(255,122,24,.92), rgba(255,43,214,.55));}
+    .tw-role.bot{background: linear-gradient(135deg, rgba(0,234,255,.92), rgba(70,251,210,.65));}
+
     .tw-name{
       font-weight: 980;
       white-space:nowrap;
       overflow:hidden;
       text-overflow:ellipsis;
     }
+    .tw-name .n{
+      font-weight: 980;
+    }
+
     .tw-text{
       color: rgba(238,240,255,.86);
       font-weight: 900;
@@ -1392,7 +1398,7 @@
     </div>
   </section>
 
-  <!-- ✅ NEW: AUTOMATED TWITCH PREVIEW SHOWCASE -->
+  <!-- ✅ AUTOMATED TWITCH PREVIEW SHOWCASE -->
   <section id="preview">
     <div class="container">
       <div class="section-head reveal">
@@ -1409,7 +1415,7 @@
             <div class="left">
               <span class="tw-pill"><span class="tw-dot" aria-hidden="true"></span>LIVE</span>
               <span style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis">
-                twitch.tv/<span id="twChannel" class="grad" style="font-weight:980">imburni</span>
+                twitch.tv/<span id="twChannel" class="grad" style="font-weight:980">channel</span>
               </span>
             </div>
             <div style="display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end">
@@ -1446,7 +1452,6 @@
             <small>ImBurni_Bot_v1</small>
           </div>
           <div class="tw-chat-body" id="twChatBody" aria-live="polite">
-            <!-- messages injected -->
             <div class="tw-typing" aria-hidden="true">
               <span style="font-weight:950; color: rgba(238,240,255,.78)">Chat läuft…</span>
               <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
@@ -2281,7 +2286,7 @@
     })();
 
     /* =========================================================
-       ✅ TWITCH PREVIEW SHOWCASE (AUTO LOOP)
+       ✅ TWITCH PREVIEW SHOWCASE (AUTO LOOP) — RANDOM CHANNEL + NAMES + NUMBERS
        ========================================================= */
     (function(){
       const alertEl = document.getElementById('twAlert');
@@ -2294,76 +2299,101 @@
       const uptimeEl = document.getElementById('twUptime');
       const channelEl = document.getElementById('twChannel');
 
-      if(!alertEl || !chatBody) return;
+      if(!alertEl || !chatBody || !channelEl) return;
 
-      // Set channel label from CONFIG (optional)
-      channelEl.textContent = (CONFIG.streamers && CONFIG.streamers[0]) ? String(CONFIG.streamers[0]).toLowerCase() : "imburni";
+      // ---------- helpers ----------
+      const CHANNELS = [
+        "imburni", "tricck17", "pixelRiotTV", "lunaByteLive", "keksundgames",
+        "neoRavenDE", "stormyJay", "mintyMoon", "ghostLag", "omegaFox", "valkyria_live"
+      ];
 
-      // Fake live counters
-      let viewers = 128;
-      let seconds = 42*60 + 19; // 00:42:19
+      const USERS = [
+        "neon_king","lunaByte","k0smic","xNova","m4ximo","valkyria","pixelRiot","omegaFox",
+        "stormyJay","mintyMoon","ghostLag","frostyKeks","chatNinja","yoloWombat","R3dPanda",
+        "nightSnipe","b1tWizard","candyViper","kappaCrafter","sodaSamurai","Tricck17","ImBurni"
+      ];
 
-      function fmtTime(s){
-        const h = String(Math.floor(s/3600)).padStart(2,'0');
-        const m = String(Math.floor((s%3600)/60)).padStart(2,'0');
-        const ss = String(s%60).padStart(2,'0');
-        return `${h}:${m}:${ss}`;
+      const RAIDERS = ["tricck17","zockerMax","justLena","ProMichi","NeoRaven","fokusFuchs","KeksTV","DaddelDude","PixelRiotTV"];
+
+      const COLORS = ["#FF7A18","#A855F7","#00EAFF","#46FBD2","#FF2BD6","#2EE59D","#FFD166","#9B5DE5","#00BBF9","#F15BB5"];
+
+      const randInt = (min,max)=> Math.floor(Math.random()*(max-min+1))+min;
+      const pick = (arr)=> arr[randInt(0, arr.length-1)];
+      const safeText = (s)=> String(s).replace(/[&<>"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[ch]));
+
+      function hashColor(name){
+        // deterministic-ish color per name
+        let h = 0;
+        for(let i=0;i<name.length;i++) h = (h*31 + name.charCodeAt(i)) >>> 0;
+        return COLORS[h % COLORS.length];
       }
 
-      setInterval(()=>{
-        seconds += 1;
-        uptimeEl.textContent = fmtTime(seconds);
+      function roleFor(name){
+        const n = name.toLowerCase();
+        if(n.includes("bot") || n === "imburni_bot_v1") return "bot";
+        if(n === "nightmod" || n.includes("mod")) return "mod";
+        if(n.includes("vip")) return "vip";
+        // random subs sometimes
+        return (Math.random() < 0.22) ? "sub" : "none";
+      }
 
-        // small viewer drift
-        viewers += (Math.random() < 0.55 ? 1 : -1) * (Math.random() < 0.42 ? 1 : 0);
-        viewers = Math.max(42, Math.min(420, viewers));
-        viewersEl.textContent = String(viewers);
-      }, 1000);
+      function roleIcon(role){
+        if(role === "mod") return "🛡️";
+        if(role === "vip") return "💎";
+        if(role === "sub") return "⭐";
+        if(role === "bot") return "🤖";
+        return "•";
+      }
 
-      function showAlert(icon, title, sub){
+      function showAlert(icon, title, subText){
         alertIcon.textContent = icon;
         alertTitle.textContent = title;
-        alertSub.textContent = sub;
+        alertSub.textContent = subText;
 
         alertEl.classList.remove('show');
-        // force reflow to restart animation
-        void alertEl.offsetWidth;
+        void alertEl.offsetWidth; // restart animation
         alertEl.classList.add('show');
       }
 
-      function addMsg(user, text, badgeLetter){
+      function addMsg(user, htmlText, role){
         const msg = document.createElement('div');
         msg.className = 'tw-msg';
 
         const u = document.createElement('div');
         u.className = 'tw-user';
 
-        const b = document.createElement('span');
-        b.className = 'tw-badge';
-        b.textContent = badgeLetter || '★';
+        const r = document.createElement('span');
+        const rr = role || roleFor(user);
+        r.className = 'tw-role ' + (rr !== "none" ? rr : "");
+        r.textContent = roleIcon(rr);
 
         const n = document.createElement('span');
         n.className = 'tw-name';
-        n.textContent = user;
 
-        u.appendChild(b);
+        const inner = document.createElement('span');
+        inner.className = 'n';
+        inner.textContent = user;
+        inner.style.color = hashColor(user);
+
+        n.appendChild(inner);
+
+        u.appendChild(r);
         u.appendChild(n);
 
         const t = document.createElement('div');
         t.className = 'tw-text';
-        t.innerHTML = text;
+        t.innerHTML = htmlText; // controlled (we escape where needed)
 
         msg.appendChild(u);
         msg.appendChild(t);
 
-        // insert before typing indicator (last element)
         const typing = chatBody.querySelector('.tw-typing');
         chatBody.insertBefore(msg, typing);
 
-        // keep last ~10 messages
+        // keep last ~11 messages
         const msgs = Array.from(chatBody.querySelectorAll('.tw-msg'));
-        if(msgs.length > 10){
-          msgs.slice(0, msgs.length - 10).forEach(x=>x.remove());
+        if(msgs.length > 11){
+          msgs.slice(0, msgs.length - 11).forEach(x=>x.remove());
         }
       }
 
@@ -2371,51 +2401,97 @@
         Array.from(chatBody.querySelectorAll('.tw-msg')).forEach(x=>x.remove());
       }
 
-      // Timeline steps (ms)
-      const LOOP = 18000;
-      const steps = [
-        { at: 0, fn: ()=>{
-          clearChat();
-          addMsg("NightMod", "Willkommen im Stream 🔥", "M");
-          addMsg("Viewer_One", "lets goooo", "V");
-          addMsg("ImBurni_Bot_v1", "Commands: <b>!punkte</b> • <b>!lurk</b> • <b>!gamble</b>", "B");
-        }},
-        { at: 2500, fn: ()=>{
-          showAlert("💜", "Neuer Follower!", "<neon_king> folgt jetzt — danke dir!");
-          addMsg("System", "<b>neon_king</b> hat gefolgt.", "S");
-        }},
-        { at: 6400, fn: ()=>{
-          addMsg("Viewer_One", "!gamble 250", "V");
-        }},
-        { at: 7400, fn: ()=>{
-          addMsg("ImBurni_Bot_v1", "🎲 <b>Viewer_One</b> gambled <b>250</b> Punkte… Ergebnis: <b>WIN</b> ✅ (+250)", "B");
-        }},
-        { at: 10200, fn: ()=>{
-          showAlert("🔁", "RAID!", "<tricck17> raidet mit <b>38</b> Viewern!");
-          addMsg("System", "Raid: <b>tricck17</b> raidet mit <b>38</b>.", "S");
-        }},
-        { at: 12350, fn: ()=>{
-          addMsg("ImBurni_Bot_v1", "📢 Auto-Shoutout: Checkt <b>twitch.tv/tricck17</b> ab! ❤️🔥", "B");
-        }},
-        { at: 15000, fn: ()=>{
-          addMsg("Chat", "W raiders 💜", "C");
-        }},
-      ];
+      // ---------- fake counters ----------
+      let viewers = 128;
+      let seconds = 42*60 + 19; // 00:42:19
+      const fmtTime = (s)=>{
+        const h = String(Math.floor(s/3600)).padStart(2,'0');
+        const m = String(Math.floor((s%3600)/60)).padStart(2,'0');
+        const ss = String(s%60).padStart(2,'0');
+        return `${h}:${m}:${ss}`;
+      };
 
+      setInterval(()=>{
+        seconds += 1;
+        uptimeEl.textContent = fmtTime(seconds);
+
+        viewers += (Math.random() < 0.55 ? 1 : -1) * (Math.random() < 0.42 ? 1 : 0);
+        viewers = Math.max(42, Math.min(420, viewers));
+        viewersEl.textContent = String(viewers);
+      }, 1000);
+
+      // ---------- loop scenario ----------
+      const LOOP = 19500;
       let timers = [];
+
       function runLoop(){
-        // cleanup old timers
         timers.forEach(t=>clearTimeout(t));
         timers = [];
 
-        steps.forEach(step=>{
-          timers.push(setTimeout(step.fn, step.at));
-        });
+        // randomize per loop (INCLUDING channel)
+        const channel = pick(CHANNELS);
+        channelEl.textContent = channel;
+
+        const follower = pick(USERS);
+        const raider = pick(RAIDERS);
+        const raidCount = randInt(12, 96);
+
+        const chatter = pick(USERS.filter(n=>n!==follower));
+        const gambleUser = pick(USERS.filter(n=>n!==follower && n!==chatter));
+        const gambleAmount = [50,100,150,200,250,500,750,1000][randInt(0,7)];
+        const win = Math.random() < 0.52;
+        const delta = win ? gambleAmount : -gambleAmount;
+
+        const followerSafe = safeText(follower);
+        const raiderSafe = safeText(raider);
+        const chatterSafe = safeText(chatter);
+        const gambleUserSafe = safeText(gambleUser);
+
+        clearChat();
+        addMsg("NightMod", "Willkommen im Stream 🔥", "mod");
+        addMsg(chatterSafe, "lets goooo", "none");
+        addMsg("ImBurni_Bot_v1", "Commands: <b>!punkte</b> • <b>!lurk</b> • <b>!gamble</b>", "bot");
+
+        timers.push(setTimeout(()=>{
+          showAlert("💜", "Neuer Follower!", `${follower} folgt jetzt — danke dir!`);
+          addMsg("System", `<b>${followerSafe}</b> hat gefolgt.`, "none");
+        }, 2600));
+
+        timers.push(setTimeout(()=>{
+          addMsg(gambleUserSafe, `!gamble ${gambleAmount}`, "none");
+        }, 6600));
+
+        timers.push(setTimeout(()=>{
+          const resultWord = win ? "WIN ✅" : "LOSE ❌";
+          const sign = delta > 0 ? "+" : "−";
+          addMsg(
+            "ImBurni_Bot_v1",
+            `🎲 <b>${gambleUserSafe}</b> gambled <b>${gambleAmount}</b> Punkte… Ergebnis: <b>${resultWord}</b> (${sign}${Math.abs(delta)})`,
+            "bot"
+          );
+        }, 7600));
+
+        timers.push(setTimeout(()=>{
+          showAlert("🔁", "RAID!", `${raider} raidet mit ${raidCount} Viewern!`);
+          addMsg("System", `Raid: <b>${raiderSafe}</b> raidet mit <b>${raidCount}</b>.`, "none");
+        }, 10700));
+
+        timers.push(setTimeout(()=>{
+          addMsg(
+            "ImBurni_Bot_v1",
+            `📢 Auto-Shoutout: Checkt <b>twitch.tv/${raiderSafe}</b> ab! ❤️🔥`,
+            "bot"
+          );
+        }, 12800));
+
+        timers.push(setTimeout(()=>{
+          addMsg(pick(USERS), "W raiders 💜", "sub");
+        }, 15400));
 
         timers.push(setTimeout(runLoop, LOOP));
       }
 
-      // start when section becomes visible (nice + no wasted CPU)
+      // start when preview is visible
       const previewSection = document.getElementById('preview');
       const io = new IntersectionObserver((entries)=>{
         const e = entries[0];
@@ -2425,7 +2501,9 @@
           io.disconnect();
         }
       }, { threshold: 0.25 });
-      if(previewSection) io.observe(previewSection); else runLoop();
+
+      if(previewSection) io.observe(previewSection);
+      else runLoop();
     })();
   </script>
 </body>
