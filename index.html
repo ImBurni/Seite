@@ -814,7 +814,7 @@
 
     .streamer-bottom{
       display:flex; align-items:flex-end; justify-content:space-between; gap:12px;
-      margin-top: 6px;
+      margin-top:-4px;
     }
     .uptime{
       color: var(--muted);
@@ -950,7 +950,6 @@
     }
   /* --- ImBurni Premium Highlight --- */
 .streamer-card.founder{
-  overflow: visible;
   position: relative;
   border-color: rgba(145, 70, 255, .9) !important;
   box-shadow: 0 0 0 1px rgba(145, 70, 255, .35), 0 18px 60px rgba(145, 70, 255, .18);
@@ -998,7 +997,6 @@
 }
 /* --- ImBurni Ultra: Ribbon + RGB Border + Hover --- */
 .streamer-card.founder{
-  overflow: visible;
   transform-style: preserve-3d;
   transition: transform .25s ease, box-shadow .25s ease;
 }
@@ -1009,18 +1007,20 @@
 
 .streamer-card .founder-ribbon{
   position:absolute;
-  top:-16px;
-  right:18px;
-  z-index:10;
-  padding: 8px 14px;
+  top:-4px;
+  right:14px;
+  z-index: 5;
+  padding: 8px 10px;
   border-radius: 999px;
   font-weight: 900;
   letter-spacing: .06em;
-  font-size: .75rem;
+  font-size: .78rem;
   line-height: 1;
-  background: linear-gradient(135deg, #9146FF, #1abc9c);
-  color: #fff;
-  box-shadow: 0 12px 28px rgba(145,70,255,.35);
+  background: rgba(10,10,12,.72);
+  border: 1px solid rgba(255,255,255,.12);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 10px 26px rgba(0,0,0,.35);
   user-select: none;
   pointer-events: none;
 }
@@ -1248,7 +1248,7 @@
         </div>
       </div>
 
-      <div class="reveal" style="margin-top:6px; color:var(--muted); font-weight:900; line-height:1.75">
+      <div class="reveal" style="margin-top:-4px; color:var(--muted); font-weight:900; line-height:1.75">
         Tipp: Pack den Discord-Link in deine Twitch Panels, damit Interessenten sofort wissen, wo sie den Bot bekommen.
       </div>
 
@@ -1306,7 +1306,7 @@
             <div class="price-item"><span class="tick">✓</span><div>Sauberer Ablauf für jeden Stream</div></div>
           </div>
 
-          <div style="margin-top:6px; display:flex; gap:10px; flex-wrap:wrap">
+          <div style="margin-top:-4px; display:flex; gap:10px; flex-wrap:wrap">
             <a class="btn primary" href="#discord">💬 Jetzt joinen</a>
             <button class="btn" type="button" id="copyDiscord4">📋 Invite kopieren</button>
           </div>
@@ -1326,7 +1326,7 @@
             <div class="price-item"><span class="tick">✓</span><div>Welche Features aktiv? (Punkte/Lurk/Timeouts)</div></div>
             <div class="price-item"><span class="tick">✓</span><div>Panel-Link zum Discord setzen</div></div>
           </div>
-          <div style="margin-top:6px; color: var(--faint); font-weight:850; line-height:1.55">
+          <div style="margin-top:-4px; color: var(--faint); font-weight:850; line-height:1.55">
             Hinweis: Der Bot läuft 24/7 über deinen PC, du kannst entscheiden, wann der Bot Joint und wann nicht..
           </div>
         </div>
