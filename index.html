@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>ImBurni_Bot_v1 — Twitch ✕ Discord Bot</title>
-  <meta name="description" content="ImBurni_Bot_v1: Twitch Follow Bot, Punkte/Lurk System, Support-Tickets mit Buttons & ID-Timeout System. Zugang nur via Discord, Raid-System." />
+  <meta name="description" content="ImBurni_Bot_v1: Twitch Follow Bot, Punkte/Lurk System, Support-Tickets mit Buttons & ID-Timeout System. Zugang nur via Discord." />
 
   <meta property="og:title" content="ImBurni_Bot_v1 — Twitch ✕ Discord Bot" />
   <meta property="og:description" content="Punkte, Lurk, Support-Tickets mit Buttons & Mod-Timeouts. Zugang nur via Discord." />
@@ -948,12 +948,7 @@
       .bg-conic,.bg-aurora,.logo::after,.shine-underline::before,.grad{animation:none}
       .reveal,.card,.step,.price-card,.streamer-card,.btn,.badge,.chip{transition:none}
     }
-  
-    /* small bullet lists inside cards */
-    .bul{margin:10px 0 0 0; padding-left:18px; color:var(--muted); line-height:1.55}
-    .bul li{margin:6px 0}
-    .cmdline{margin-top:10px; color:var(--muted); line-height:1.8; word-spacing:.15em}
-    </style>
+  </style>
 </head>
 
 <body>
@@ -967,7 +962,7 @@
     const CONFIG = {
       botName: "ImBurni_Bot_v1",
       discordInvite: "https://discord.gg/v8BSRq8C8C",
-      streamers: ["Tricck17"],
+      streamers: ["Tricck17","ImBurni"],
 
       /* click sound */
       clickSound: true,
@@ -1011,7 +1006,7 @@
         <div class="reveal reveal-delay-1">
           <div class="h1">
             <span class="shine-underline"><span class="grad">Feuer</span></span> für deinen Chat.<br />
-            Support über <span class="shine-underline"><span class="grad">Discord</span></span>.
+            Support über <span class="shine-underline"><span class="grad">Discord</span></span> oder <a href="mailto:support@imburni.de" style="color:inherit;text-decoration:underline">Email</a>.
           </div>
 
           <p class="sub">
@@ -1022,6 +1017,7 @@
 
           <div class="hero-cta">
             <a class="btn primary" id="discordBtn1" href="#" target="_blank" rel="noreferrer">💬 Discord beitreten</a>
+            <a class="btn" href="mailto:support@imburni.de">✉️ Email Support</a>
             <a class="btn" href="#features">⚡ Features</a>
             <button class="btn" type="button" id="copyDiscord">📋 Invite kopieren</button>
           </div>
@@ -1080,70 +1076,32 @@
 
         <div class="card glass neon-border reveal reveal-delay-2" data-tilt>
           <h3>💰 Punkte System</h3>
-          <p>Chat-Aktivität gibt Punkte – ideal fürs Engagement.</p>
-          <ul class="bul">
-            <li><b>+10 Punkte</b> pro Nachricht</li>
-            <li><b>!punkte</b> – zeigt deine Punkte</li>
-            <li><b>!top</b> – Top 10 Ranking</li>
-          </ul>
+          <p>Chat-Aktivität gibt Punkte. Commands: <b>!punkte</b>, <b>!top</b>. Perfekt für Engagement.</p>
         </div>
 
         <!-- ✅ ADD-ON: Gamble als deklarierte Bot-Funktion (nur Text) -->
         <div class="card glass neon-border reveal reveal-delay-3" data-tilt>
           <h3>🎲 Gamble (Punkte verspielen)</h3>
-          <p>Risiko-Command: <b>verdoppeln</b> oder <b>alles verlieren</b>.</p>
-          <ul class="bul">
-            <li><b>!gamble [Einsatz]</b> – setze Punkte (z. B. <b>!gamble 250</b>)</li>
-            <li><b>!gamble all</b> – setze alle Punkte</li>
-          </ul>
+          <p>
+            Neuer Command: <b>!gamble</b>.<br/>
+            <b>!gamble all</b> → alle Punkte verspielen.<br/>
+            <b>!gamble &lt;zahl&gt;</b> → nur die angegebene Anzahl verspielen.
+          </p>
         </div>
 
         <div class="card glass neon-border reveal reveal-delay-3" data-tilt>
-          <h3>😴 Lurk System</h3>
-          <p>Lurken lohnt sich – aber nur, wenn es Sinn macht.</p>
-          <ul class="bul">
-            <li><b>!lurk</b> – Lurken starten</li>
-            <li><b>+15 Punkte</b> pro <b>5 Minuten</b></li>
-            <li><b>!lurkliste</b> – aktive Lurker anzeigen</li>
-            <li><b>Nur wenn Stream LIVE &amp; Bot ONLINE</b></li>
-          </ul>
+          <h3>😴 Lurk Rewards</h3>
+          <p><b>!lurk</b> startet Lurk, Rewards laufen weiter. <b>!lurkliste</b> zeigt aktive Lurker.</p>
         </div>
 
         <div class="card glass neon-border reveal reveal-delay-1" data-tilt>
-          <h3>🎫 Ticket System (Discord)</h3>
-          <p>Support schnell &amp; sauber im Discord – inklusive Status-Buttons.</p>
-          <ul class="bul">
-            <li><b>!support [Nachricht]</b> – Ticket erstellen</li>
-            <li>Buttons zum Bearbeiten: <b>In Bearbeitung</b>, <b>Beantwortet</b>, <b>Schließen</b></li>
-            <li><b>Nur Mods</b> (Buttons/Verwaltung)</li>
-          </ul>
+          <h3>🎫 Support Tickets (Discord)</h3>
+          <p>Ticket-Channel wird erstellt, Buttons: <b>In Bearbeitung</b>, <b>Beantwortet</b>, <b>Schließen</b>.</p>
         </div>
 
         <div class="card glass neon-border reveal reveal-delay-2" data-tilt>
-          <h3>⏱️ ID-Timeout System</h3>
-          <p>Einheitliche Timeouts mit festen Gründen (IDs) – sauber für Moderation.</p>
-          <ul class="bul">
-            <li><b>!timeout [Name] [ID]</b> – Timeout mit Grund (ID)</li>
-            <li><b>!reasons</b> – alle Gründe anzeigen</li>
-            <li><b>Nur Mods</b></li>
-          </ul>
-        </div>
-
-        <div class="card glass neon-border reveal reveal-delay-1" data-tilt>
-          <h3>⚡ Raid System</h3>
-          <p>Wenn ein Raid reinkommt, reagiert der Bot automatisch.</p>
-          <ul class="bul">
-            <li>Auto-Raid-Erkennung (EventSub)</li>
-            <li>Auto-Shoutout (Helix)</li>
-            <li>+ Game/Titel/Bio im Chat</li>
-            <li>Cooldown-Fix (kein Spam)</li>
-          </ul>
-        </div>
-
-        <div class="card glass neon-border reveal reveal-delay-2" data-tilt>
-          <h3>⌨️ Commands (Übersicht)</h3>
-          <p>Alle wichtigen Commands auf einen Blick:</p>
-          <p class="cmdline"><b>!punkte</b> <b>!top</b> <b>!level</b> <b>!rank</b> <b>!leveltop</b> <b>!gamble</b> <b>!lurk</b> <b>!lurkliste</b> <b>!support</b> <b>!timeout</b> <b>!reasons</b> <b>!hilfe</b></p>
+          <h3>⏱️ Timeout System (IDs)</h3>
+          <p><b>!reasons</b> listet Gründe, <b>!timeout @user ID</b> setzt Timeouts – nur Mods/Broadcaster.</p>
         </div>
 
         <div class="card glass neon-border reveal reveal-delay-3" data-tilt>
@@ -1175,6 +1133,7 @@
         <div class="gate-actions">
           <a class="btn primary" id="discordBtn2" href="#" target="_blank" rel="noreferrer">💬 Discord joinen</a>
           <button class="btn" type="button" id="copyDiscord2">📋 Invite kopieren</button>
+          <a class="btn" href="mailto:support@imburni.de">✉️ Email Support</a>
           <a class="btn" href="#faq">❓ FAQ</a>
         </div>
       </div>
@@ -1357,6 +1316,29 @@
     </div>
   </section>
 
+<section id="support-email">
+  <div class="container">
+    <div class="section-head reveal">
+      <div>
+        <h2>Email Support</h2>
+        <p class="hint">Wenn Discord gerade nicht geht: Schreib uns direkt eine Mail.</p>
+      </div>
+    </div>
+
+    <div class="glass-strong neon-border reveal" style="padding:18px 18px">
+      <div style="display:flex; gap:14px; align-items:center; justify-content:space-between; flex-wrap:wrap">
+        <div style="font-weight:950">
+          ✉️ <a href="mailto:support@imburni.de" style="color:var(--text); text-decoration:underline">support@imburni.de</a>
+        </div>
+        <a class="btn primary" href="mailto:support@imburni.de">Email schreiben</a>
+      </div>
+      <p style="margin-top:10px; color:var(--muted); font-weight:900; line-height:1.75">
+        Bitte schick kurz: Twitch-Channel, Problem/Beschreibung und (falls relevant) eine Ticket-ID oder Screenshot.
+      </p>
+    </div>
+  </div>
+</section>
+
   <footer>
     <div class="container">
       <div class="foot reveal">
@@ -1364,7 +1346,9 @@
         <div style="display:flex; gap:10px; flex-wrap:wrap">
           <a class="btn small" href="#features">Features</a>
           <a class="btn small" href="#zugang">Bot bekommen</a>
+          <a class="btn small" href="#support-email">Email</a>
           <a class="btn small" href="#streamer">Streamer</a>
+          <a class="btn small" href="mailto:support@imburni.de">Email Support</a>
         </div>
       </div>
     </div>
