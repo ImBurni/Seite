@@ -950,6 +950,7 @@
     }
   /* --- ImBurni Premium Highlight --- */
 .streamer-card.founder{
+  overflow: visible;
   position: relative;
   border-color: rgba(145, 70, 255, .9) !important;
   box-shadow: 0 0 0 1px rgba(145, 70, 255, .35), 0 18px 60px rgba(145, 70, 255, .18);
@@ -997,6 +998,7 @@
 }
 /* --- ImBurni Ultra: Ribbon + RGB Border + Hover --- */
 .streamer-card.founder{
+  overflow: visible;
   transform-style: preserve-3d;
   transition: transform .25s ease, box-shadow .25s ease;
 }
@@ -1007,20 +1009,18 @@
 
 .streamer-card .founder-ribbon{
   position:absolute;
-  top:6px;
-  right:14px;
-  z-index: 5;
-  padding: 8px 10px;
+  top:-16px;
+  right:18px;
+  z-index:10;
+  padding: 8px 14px;
   border-radius: 999px;
   font-weight: 900;
   letter-spacing: .06em;
-  font-size: .78rem;
+  font-size: .75rem;
   line-height: 1;
-  background: rgba(10,10,12,.72);
-  border: 1px solid rgba(255,255,255,.12);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  box-shadow: 0 10px 26px rgba(0,0,0,.35);
+  background: linear-gradient(135deg, #9146FF, #1abc9c);
+  color: #fff;
+  box-shadow: 0 12px 28px rgba(145,70,255,.35);
   user-select: none;
   pointer-events: none;
 }
