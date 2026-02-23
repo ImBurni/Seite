@@ -948,7 +948,57 @@
       .bg-conic,.bg-aurora,.logo::after,.shine-underline::before,.grad{animation:none}
       .reveal,.card,.step,.price-card,.streamer-card,.btn,.badge,.chip{transition:none}
     }
-  </style>
+  
+    /* --- ImBurni Premium Highlight --- */
+    .streamer-card.founder{
+      position: relative;
+      border-color: rgba(145, 70, 255, .9) !important;
+      box-shadow: 0 0 0 1px rgba(145, 70, 255, .35), 0 18px 60px rgba(145, 70, 255, .18);
+      overflow: hidden;
+    }
+    .streamer-card.founder::before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background: radial-gradient(600px 180px at 20% 10%, rgba(145,70,255,.22), transparent 55%),
+                  radial-gradient(520px 200px at 80% 0%, rgba(26,188,156,.18), transparent 60%),
+                  radial-gradient(520px 200px at 60% 100%, rgba(255,0,0,.12), transparent 60%);
+      pointer-events:none;
+      filter: blur(0px);
+      animation: founderGlow 3.2s ease-in-out infinite;
+      opacity: .9;
+    }
+    .streamer-card.founder::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,.10) 20%, transparent 40%);
+      transform: translateX(-60%);
+      animation: founderShine 4.8s ease-in-out infinite;
+      mix-blend-mode: screen;
+      opacity: .7;
+    }
+    @keyframes founderGlow{
+      0%,100%{ opacity:.75; transform: scale(1); }
+      50%{ opacity:1; transform: scale(1.01); }
+    }
+    @keyframes founderShine{
+      0%{ transform: translateX(-70%); }
+      45%{ transform: translateX(140%); }
+      100%{ transform: translateX(140%); }
+    }
+    .badge-crown{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      margin-left:.35rem;
+      font-size: 1.05em;
+      transform: translateY(-1px);
+      filter: drop-shadow(0 6px 14px rgba(145,70,255,.35));
+    }
+
+</style>
 </head>
 
 <body>
@@ -1828,12 +1878,12 @@
           : `<img src="https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_70x70.png" alt="${display} Profilbild" loading="lazy" />`;
 
         return `
-          <div class="streamer-card glass neon-border reveal in" data-login="${escapeHtml(loginLower)}" data-tilt>
+          <div class="streamer-card glass neon-border reveal in${loginLower === \"imburni\" ? \" founder\" : \"\"}" data-login="${escapeHtml(loginLower)}" data-tilt>
             <div class="streamer-top">
               <div class="streamer-left">
                 <div class="avatar">${avatar}</div>
                 <div class="sname">
-                  <b>${display}</b>
+                  <b>${display}${loginLower === "imburni" ? ` <span class="badge-crown" title="Bot Entwickler | Administrator">👑</span>` : ``}</b>
                   <span>twitch.tv/${escapeHtml(loginLower)}</span>
                 </div>
               </div>
