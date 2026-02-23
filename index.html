@@ -791,16 +791,6 @@
     }
     .sname span{font-size: 12px; color: var(--muted); font-weight:950}
 
-    .badge{
-      display:inline-flex; align-items:center; gap:8px;
-      padding: 8px 10px;
-      border-radius: 999px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.05);
-      font-weight:950;
-      color: var(--muted);
-      white-space:nowrap;
-    }
     .live-dot{width:9px; height:9px; border-radius:50%; background: var(--off)}
     .badge.live{
       border-color: rgba(46,229,157,.25);
@@ -948,6 +938,297 @@
       .bg-conic,.bg-aurora,.logo::after,.shine-underline::before,.grad{animation:none}
       .reveal,.card,.step,.price-card,.streamer-card,.btn,.badge,.chip{transition:none}
     }
+
+    /* =========================================================
+       ✅ TWITCH PREVIEW SHOWCASE (AUTO, NO BUTTONS)
+       ========================================================= */
+    .twitch-preview{
+      display:grid;
+      grid-template-columns: 1.35fr .65fr;
+      gap:14px;
+      margin-top:14px;
+    }
+    @media (max-width: 980px){
+      .twitch-preview{grid-template-columns:1fr}
+    }
+
+    .twitch-mock{
+      border-radius: var(--rad2);
+      overflow:hidden;
+      position:relative;
+      min-height: 430px;
+      transform: translateZ(0);
+    }
+
+    .tw-bar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding: 12px 14px;
+      border-bottom: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.32);
+    }
+    .tw-bar .left{
+      display:flex; align-items:center; gap:10px; min-width:0;
+      font-weight: 980;
+    }
+    .tw-pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      color: rgba(238,240,255,.92);
+      font-weight: 950;
+      white-space:nowrap;
+    }
+    .tw-pill .tw-dot{
+      width:9px; height:9px; border-radius:50%;
+      background: var(--ok);
+      box-shadow: 0 0 0 7px rgba(46,229,157,.12);
+    }
+
+    .tw-stage{
+      position:relative;
+      height: 360px;
+      background:
+        radial-gradient(520px 320px at 20% 10%, rgba(255,122,24,.18), transparent 62%),
+        radial-gradient(520px 320px at 92% 26%, rgba(168,85,247,.16), transparent 62%),
+        radial-gradient(520px 320px at 56% 86%, rgba(0,234,255,.12), transparent 62%),
+        linear-gradient(180deg, rgba(0,0,0,.20), rgba(0,0,0,.45));
+      border-top: 1px solid rgba(255,255,255,.06);
+    }
+
+    .tw-video{
+      position:absolute; inset: 14px 14px 14px 14px;
+      border-radius: 26px;
+      border:1px solid rgba(255,255,255,.12);
+      background:
+        radial-gradient(380px 260px at 30% 20%, rgba(255,255,255,.10), transparent 60%),
+        linear-gradient(135deg, rgba(0,0,0,.12), rgba(0,0,0,.42));
+      overflow:hidden;
+      box-shadow: 0 22px 80px rgba(0,0,0,.55);
+    }
+    .tw-video::after{
+      content:"";
+      position:absolute; inset:-160px;
+      background:
+        radial-gradient(520px 320px at 18% 12%, rgba(255,122,24,.14), transparent 62%),
+        radial-gradient(520px 320px at 92% 22%, rgba(168,85,247,.14), transparent 62%),
+        radial-gradient(520px 320px at 56% 80%, rgba(0,234,255,.10), transparent 62%);
+      filter: blur(18px);
+      opacity:.85;
+      pointer-events:none;
+    }
+
+    .tw-hud{
+      position:absolute; left:16px; bottom:16px;
+      display:flex; gap:10px; flex-wrap:wrap;
+      z-index: 2;
+    }
+    .tw-hud .tw-chip{
+      padding: 8px 10px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.38);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      font-weight: 950;
+      color: rgba(238,240,255,.92);
+      box-shadow: 0 14px 44px rgba(0,0,0,.30);
+      white-space:nowrap;
+    }
+    .tw-hud .tw-chip b{color:#fff}
+
+    /* Alerts overlay */
+    .tw-alert{
+      position:absolute;
+      left: 50%;
+      top: 18px;
+      transform: translateX(-50%);
+      z-index: 4;
+      width: min(520px, calc(100% - 36px));
+      opacity: 0;
+      pointer-events:none;
+      border-radius: 22px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.52);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 24px 90px rgba(0,0,0,.55);
+      overflow:hidden;
+    }
+    .tw-alert::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: linear-gradient(90deg,
+        rgba(255,122,24,.0),
+        rgba(255,122,24,.85),
+        rgba(168,85,247,.85),
+        rgba(0,234,255,.85),
+        rgba(255,43,214,.85),
+        rgba(255,122,24,.0));
+      opacity:.40;
+      filter: blur(12px);
+      animation: neonFlow 3.6s linear infinite;
+      pointer-events:none;
+    }
+    .tw-alert .inner{
+      position:relative;
+      padding: 14px 14px;
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+    }
+    .tw-alert .icon{
+      width:44px; height:44px;
+      border-radius: 16px;
+      display:inline-flex; align-items:center; justify-content:center;
+      flex: 0 0 auto;
+      color:#060611;
+      font-weight: 980;
+      background: linear-gradient(135deg, rgba(255,122,24,.98), rgba(168,85,247,.92), rgba(0,234,255,.70));
+      box-shadow: 0 18px 60px rgba(168,85,247,.18);
+    }
+    .tw-alert .txt{
+      display:flex; flex-direction:column; gap:6px;
+      min-width:0;
+    }
+    .tw-alert .txt b{
+      font-size: 16px;
+      letter-spacing:-.2px;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .tw-alert .txt span{
+      color: rgba(238,240,255,.78);
+      font-weight: 900;
+      line-height:1.45;
+    }
+
+    @keyframes alertInOut{
+      0%{opacity:0; transform: translateX(-50%) translateY(-8px) scale(.98); filter: blur(2px)}
+      10%{opacity:1; transform: translateX(-50%) translateY(0) scale(1); filter: blur(0)}
+      80%{opacity:1; transform: translateX(-50%) translateY(0) scale(1)}
+      100%{opacity:0; transform: translateX(-50%) translateY(-8px) scale(.985)}
+    }
+    .tw-alert.show{ animation: alertInOut 4.8s var(--ease) forwards; }
+
+    /* Right chat panel */
+    .tw-chat{
+      border-radius: var(--rad2);
+      overflow:hidden;
+      min-height: 430px;
+      display:flex;
+      flex-direction:column;
+    }
+    .tw-chat-head{
+      display:flex; align-items:center; justify-content:space-between;
+      padding: 12px 14px;
+      border-bottom: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.30);
+      font-weight: 980;
+    }
+    .tw-chat-head small{color: var(--muted); font-weight: 900}
+
+    .tw-chat-body{
+      padding: 12px 12px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      overflow:hidden;
+      flex:1;
+      position:relative;
+    }
+    .tw-chat-body::after{
+      content:"";
+      position:absolute; left:0; right:0; bottom:0;
+      height: 80px;
+      background: linear-gradient(180deg, transparent, rgba(6,6,14,.85));
+      pointer-events:none;
+    }
+
+    .tw-msg{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      padding: 10px 10px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      box-shadow: 0 16px 52px rgba(0,0,0,.28);
+      transform: translateY(8px);
+      opacity:0;
+      animation: msgIn .55s var(--ease) forwards;
+    }
+    @keyframes msgIn{
+      to{transform: translateY(0); opacity:1}
+    }
+
+    .tw-user{
+      display:flex;
+      gap:8px;
+      align-items:center;
+      flex: 0 0 auto;
+      min-width: 120px;
+      max-width: 140px;
+    }
+    .tw-badge{
+      width:22px; height:22px;
+      border-radius: 10px;
+      display:inline-flex; align-items:center; justify-content:center;
+      font-weight: 980;
+      color:#060611;
+      background: linear-gradient(135deg, rgba(255,122,24,.98), rgba(168,85,247,.92), rgba(0,234,255,.70));
+      box-shadow: 0 16px 52px rgba(168,85,247,.14);
+      flex: 0 0 auto;
+    }
+    .tw-name{
+      font-weight: 980;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .tw-text{
+      color: rgba(238,240,255,.86);
+      font-weight: 900;
+      line-height:1.55;
+      min-width:0;
+      word-break: break-word;
+    }
+    .tw-text b{color:#fff}
+
+    /* Tiny typing indicator */
+    .tw-typing{
+      margin-top:auto;
+      padding: 10px 10px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.24);
+      color: rgba(238,240,255,.70);
+      font-weight: 900;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .dots{
+      display:inline-flex; gap:4px; align-items:center;
+    }
+    .dots i{
+      width:6px; height:6px; border-radius:50%;
+      background: rgba(238,240,255,.70);
+      opacity:.35;
+      animation: dot 1.2s ease-in-out infinite;
+    }
+    .dots i:nth-child(2){animation-delay:.15s}
+    .dots i:nth-child(3){animation-delay:.3s}
+    @keyframes dot{
+      0%, 100%{transform: translateY(0); opacity:.35}
+      50%{transform: translateY(-3px); opacity:.85}
+    }
   </style>
 </head>
 
@@ -982,6 +1263,7 @@
 
       <div class="nav-links" id="navLinks">
         <a href="#features">Features</a>
+        <a href="#preview">Preview</a>
         <a href="#zugang">Bot bekommen</a>
         <a href="#pricing">Access</a>
         <a href="#streamer">Streamer</a>
@@ -1078,7 +1360,6 @@
           <p>Chat-Aktivität gibt Punkte. Commands: <b>!punkte</b>, <b>!top</b>. Perfekt für Engagement.</p>
         </div>
 
-        <!-- ✅ ADD-ON: Gamble als deklarierte Bot-Funktion (nur Text) -->
         <div class="card glass neon-border reveal reveal-delay-3" data-tilt>
           <h3>🎲 Gamble (Punkte verspielen)</h3>
           <p>
@@ -1107,6 +1388,75 @@
           <h3>📊 Stats & Persistenz</h3>
           <p>Stats (Nachrichten/Lurk/Timeouts/Starts) werden gespeichert – stabil für lange Streams.</p>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ✅ NEW: AUTOMATED TWITCH PREVIEW SHOWCASE -->
+  <section id="preview">
+    <div class="container">
+      <div class="section-head reveal">
+        <div>
+          <h2><span class="grad">Live Preview</span></h2>
+          <p class="hint">Automatischer Showcase: Follow-Alert, !gamble Chat-Output, Raid + Auto-Shoutout (wie es auf Twitch wirken würde).</p>
+        </div>
+      </div>
+
+      <div class="twitch-preview">
+        <!-- stream mock -->
+        <div class="twitch-mock glass-strong neon-border reveal reveal-delay-1">
+          <div class="tw-bar">
+            <div class="left">
+              <span class="tw-pill"><span class="tw-dot" aria-hidden="true"></span>LIVE</span>
+              <span style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis">
+                twitch.tv/<span id="twChannel" class="grad" style="font-weight:980">imburni</span>
+              </span>
+            </div>
+            <div style="display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end">
+              <span class="tw-pill">👥 <span id="twViewers">128</span></span>
+              <span class="tw-pill">⏱️ <span id="twUptime">00:42:19</span></span>
+            </div>
+          </div>
+
+          <div class="tw-stage">
+            <div class="tw-video" aria-hidden="true"></div>
+
+            <div class="tw-hud" aria-hidden="true">
+              <div class="tw-chip">🎯 Goal: <b>200 Follower</b></div>
+              <div class="tw-chip">🎲 Command: <b>!gamble</b></div>
+              <div class="tw-chip">🔁 Raid: <b>Auto Shoutout</b></div>
+            </div>
+
+            <div class="tw-alert" id="twAlert" aria-live="polite">
+              <div class="inner">
+                <div class="icon" id="twAlertIcon">★</div>
+                <div class="txt">
+                  <b id="twAlertTitle">Alert</b>
+                  <span id="twAlertSub">—</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- chat mock -->
+        <div class="tw-chat glass neon-border reveal reveal-delay-2" aria-label="Twitch Chat Preview">
+          <div class="tw-chat-head">
+            <div>Chat</div>
+            <small>ImBurni_Bot_v1</small>
+          </div>
+          <div class="tw-chat-body" id="twChatBody" aria-live="polite">
+            <!-- messages injected -->
+            <div class="tw-typing" aria-hidden="true">
+              <span style="font-weight:950; color: rgba(238,240,255,.78)">Chat läuft…</span>
+              <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal" style="margin-top:12px; color:var(--faint); font-weight:850; line-height:1.55">
+        Hinweis: Das ist eine <b>Preview</b> (Mock). In echt kommen Alerts über OBS/StreamElements/Streamlabs – der Bot liefert Events/Commands/Outputs.
       </div>
     </div>
   </section>
@@ -1320,6 +1670,7 @@
         <div>© <span id="year"></span> <span id="footName">ImBurni</span> • Darkmode • Beta Version V1</div>
         <div style="display:flex; gap:10px; flex-wrap:wrap">
           <a class="btn small" href="#features">Features</a>
+          <a class="btn small" href="#preview">Preview</a>
           <a class="btn small" href="#zugang">Bot bekommen</a>
           <a class="btn small" href="#streamer">Streamer</a>
         </div>
@@ -1927,6 +2278,154 @@
           try{ await audio.play(); }catch{}
         }
       });
+    })();
+
+    /* =========================================================
+       ✅ TWITCH PREVIEW SHOWCASE (AUTO LOOP)
+       ========================================================= */
+    (function(){
+      const alertEl = document.getElementById('twAlert');
+      const alertIcon = document.getElementById('twAlertIcon');
+      const alertTitle = document.getElementById('twAlertTitle');
+      const alertSub = document.getElementById('twAlertSub');
+      const chatBody = document.getElementById('twChatBody');
+
+      const viewersEl = document.getElementById('twViewers');
+      const uptimeEl = document.getElementById('twUptime');
+      const channelEl = document.getElementById('twChannel');
+
+      if(!alertEl || !chatBody) return;
+
+      // Set channel label from CONFIG (optional)
+      channelEl.textContent = (CONFIG.streamers && CONFIG.streamers[0]) ? String(CONFIG.streamers[0]).toLowerCase() : "imburni";
+
+      // Fake live counters
+      let viewers = 128;
+      let seconds = 42*60 + 19; // 00:42:19
+
+      function fmtTime(s){
+        const h = String(Math.floor(s/3600)).padStart(2,'0');
+        const m = String(Math.floor((s%3600)/60)).padStart(2,'0');
+        const ss = String(s%60).padStart(2,'0');
+        return `${h}:${m}:${ss}`;
+      }
+
+      setInterval(()=>{
+        seconds += 1;
+        uptimeEl.textContent = fmtTime(seconds);
+
+        // small viewer drift
+        viewers += (Math.random() < 0.55 ? 1 : -1) * (Math.random() < 0.42 ? 1 : 0);
+        viewers = Math.max(42, Math.min(420, viewers));
+        viewersEl.textContent = String(viewers);
+      }, 1000);
+
+      function showAlert(icon, title, sub){
+        alertIcon.textContent = icon;
+        alertTitle.textContent = title;
+        alertSub.textContent = sub;
+
+        alertEl.classList.remove('show');
+        // force reflow to restart animation
+        void alertEl.offsetWidth;
+        alertEl.classList.add('show');
+      }
+
+      function addMsg(user, text, badgeLetter){
+        const msg = document.createElement('div');
+        msg.className = 'tw-msg';
+
+        const u = document.createElement('div');
+        u.className = 'tw-user';
+
+        const b = document.createElement('span');
+        b.className = 'tw-badge';
+        b.textContent = badgeLetter || '★';
+
+        const n = document.createElement('span');
+        n.className = 'tw-name';
+        n.textContent = user;
+
+        u.appendChild(b);
+        u.appendChild(n);
+
+        const t = document.createElement('div');
+        t.className = 'tw-text';
+        t.innerHTML = text;
+
+        msg.appendChild(u);
+        msg.appendChild(t);
+
+        // insert before typing indicator (last element)
+        const typing = chatBody.querySelector('.tw-typing');
+        chatBody.insertBefore(msg, typing);
+
+        // keep last ~10 messages
+        const msgs = Array.from(chatBody.querySelectorAll('.tw-msg'));
+        if(msgs.length > 10){
+          msgs.slice(0, msgs.length - 10).forEach(x=>x.remove());
+        }
+      }
+
+      function clearChat(){
+        Array.from(chatBody.querySelectorAll('.tw-msg')).forEach(x=>x.remove());
+      }
+
+      // Timeline steps (ms)
+      const LOOP = 18000;
+      const steps = [
+        { at: 0, fn: ()=>{
+          clearChat();
+          addMsg("NightMod", "Willkommen im Stream 🔥", "M");
+          addMsg("Viewer_One", "lets goooo", "V");
+          addMsg("ImBurni_Bot_v1", "Commands: <b>!punkte</b> • <b>!lurk</b> • <b>!gamble</b>", "B");
+        }},
+        { at: 2500, fn: ()=>{
+          showAlert("💜", "Neuer Follower!", "<neon_king> folgt jetzt — danke dir!");
+          addMsg("System", "<b>neon_king</b> hat gefolgt.", "S");
+        }},
+        { at: 6400, fn: ()=>{
+          addMsg("Viewer_One", "!gamble 250", "V");
+        }},
+        { at: 7400, fn: ()=>{
+          addMsg("ImBurni_Bot_v1", "🎲 <b>Viewer_One</b> gambled <b>250</b> Punkte… Ergebnis: <b>WIN</b> ✅ (+250)", "B");
+        }},
+        { at: 10200, fn: ()=>{
+          showAlert("🔁", "RAID!", "<tricck17> raidet mit <b>38</b> Viewern!");
+          addMsg("System", "Raid: <b>tricck17</b> raidet mit <b>38</b>.", "S");
+        }},
+        { at: 12350, fn: ()=>{
+          addMsg("ImBurni_Bot_v1", "📢 Auto-Shoutout: Checkt <b>twitch.tv/tricck17</b> ab! ❤️🔥", "B");
+        }},
+        { at: 15000, fn: ()=>{
+          addMsg("Chat", "W raiders 💜", "C");
+        }},
+      ];
+
+      let timers = [];
+      function runLoop(){
+        // cleanup old timers
+        timers.forEach(t=>clearTimeout(t));
+        timers = [];
+
+        steps.forEach(step=>{
+          timers.push(setTimeout(step.fn, step.at));
+        });
+
+        timers.push(setTimeout(runLoop, LOOP));
+      }
+
+      // start when section becomes visible (nice + no wasted CPU)
+      const previewSection = document.getElementById('preview');
+      const io = new IntersectionObserver((entries)=>{
+        const e = entries[0];
+        if(!e) return;
+        if(e.isIntersecting){
+          runLoop();
+          io.disconnect();
+        }
+      }, { threshold: 0.25 });
+      if(previewSection) io.observe(previewSection); else runLoop();
     })();
   </script>
 </body>
