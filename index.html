@@ -1096,7 +1096,7 @@
         <a href="#pricing">Access</a>
         <a href="#streamer">Streamer</a>
         <a href="#faq">FAQ</a>
-        <a href="#bewerbung">Bewerbung</a>
+        
         <a href="#discord">Discord</a>
       </div>
 
@@ -1482,99 +1482,6 @@
         </div>
       </div>
     </div>
-  
-
-<section id="bewerbung">
-  <div class="container">
-    <div class="section-head reveal">
-      <div>
-        <h2><span class="grad">Bewerbung</span></h2>
-        <p class="hint">Füll das kurz aus – danach bekommst du den Bot über Discord (Ticket/Setup).</p>
-      </div>
-    </div>
-
-    <div class="glass-strong neon-border reveal" style="padding:22px 18px">
-      <!--
-        ✅ Versand der Bewerbungen:
-        - Am einfachsten: Formspree → du bekommst alles an DEINE Email (ohne eigenen Server).
-        - Ersetze DEIN_CODE mit deinem Formspree-Code: https://formspree.io/f/DEIN_CODE
-      -->
-      <form id="applyForm" action="#" method="POST">
-        
-        <div style="display:grid; gap:14px; margin-bottom:14px">
-          <div class="field glass neon-border">
-            <span aria-hidden="true">🔗</span>
-            <input type="text" name="twitch_link" placeholder="Dein Twitch Channel Link (z.B. https://twitch.tv/deinname)">
-          </div>
-
-          <div class="field glass neon-border">
-            <span aria-hidden="true">👥</span>
-            <input type="text" name="avg_viewers" placeholder="Wie viele Zuschauer hast du im Schnitt? (z.B. 10–25)">
-          </div>
-
-          <div class="field glass neon-border">
-            <span aria-hidden="true">🎂</span>
-            <input type="text" name="age" min="13" max="120" placeholder="Wie alt bist du?">
-          </div>
-
-          <div class="field glass neon-border">
-            <span aria-hidden="true">🎮</span>
-            <input type="text" name="content" placeholder="Was für Content machst du? (Games, IRL, Just Chatting…)">
-          </div>
-
-          <div class="field glass neon-border" style="align-items:flex-start">
-            <span aria-hidden="true" style="padding-top:2px">💡</span>
-            <textarea name="why_bot" placeholder="Warum willst du den Bot nutzen? (z.B. Mods strukturieren, VIP-Giveaways, Support-Tickets…)"
-              style="width:100%; border:0; outline:none; background:transparent; color:var(--text); font-weight:900; resize:vertical; min-height:110px"></textarea>
-          </div>
-
-          <div class="field glass neon-border">
-            <span aria-hidden="true">🗓️</span>
-            <input type="text" name="schedule" placeholder="Wie oft streamst du? (Tage/Zeiten grob)">
-          </div>
-
-          <div class="field glass neon-border">
-            <span aria-hidden="true">🛡️</span>
-            <input type="text" name="mods" placeholder="Wie viele Mods hast du? (z.B. 0 / 2 / 5)">
-          </div>
-
-          <div class="field glass neon-border">
-            <span aria-hidden="true">💬</span>
-            <input type="text" name="discord_name" placeholder="Dein Discord Name (z.B. Name oder Name#1234)">
-          </div>
-
-          <div class="field glass neon-border">
-            <span aria-hidden="true">✉️</span>
-            <input type="text" name="email" placeholder="Deine Email (optional – für Rückfragen)">
-          </div>
-
-          <div class="field glass neon-border" style="align-items:flex-start">
-            <span aria-hidden="true" style="padding-top:2px">⚙️</span>
-            <textarea name="current_setup" placeholder="Welche Bots/Tools nutzt du aktuell? Was soll ersetzt/verbessert werden? (optional)"
-              style="width:100%; border:0; outline:none; background:transparent; color:var(--text); font-weight:900; resize:vertical; min-height:90px"></textarea>
-          </div>
-
-          <label class="field glass neon-border" style="gap:12px; cursor:pointer">
-            <input type="checkbox" name="consent" style="width:18px; height:18px; accent-color: var(--c)">
-            <span style="color:var(--muted); font-weight:900; line-height:1.5">
-              Ich bestätige, dass die Angaben stimmen und ich für Setup/Support über Discord erreichbar bin.
-            </span>
-          </label>
-        </div>
-
-        <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center">
-          <button class="btn primary" type="submit">🚀 Bewerbung absenden</button>
-          <a class="btn" href="#discord">💬 Direkt Discord joinen</a>
-        </div>
-
-        <p style="margin-top:12px; color:var(--faint); font-weight:850; line-height:1.6">
-          Tipp: Wenn du VIP-Gewinnspiele willst, schreib kurz dazu, wie du die Gewinner auswählst (Chat, Wheel, Redeem, etc.).
-        </p>
-      </form>
-    </div>
-  </div>
-</section>
-
 
 </footer>
 
@@ -2185,36 +2092,5 @@
       });
     })();
   </script>
-
-<script>
-document.addEventListener("DOMContentLoaded", function(){
-  const form = document.getElementById("applyForm");
-  if(!form) return;
-
-  form.addEventListener("submit", function(e){
-    e.preventDefault();
-
-    console.log("FORM WORKS ✅");
-    alert("Formular funktioniert ✅\nWenn jetzt nichts an Discord geht, liegt es NICHT am Button.");
-
-    // --- OPTIONAL DISCORD WEBHOOK ---
-    const WEBHOOK = "https://discord.com/api/webhooks/1475989111599796419/Un5XzoaOAHdgcrVnjd_v-f4tvy-rSRXV2ZzYQSrLbfL1OXbSagL-XNVydVoe9afKxZEn";
-
-    if(!WEBHOOK.includes("HIER_DEIN_WEBHOOK")){
-      fetch(WEBHOOK, {
-        method: "POST",
-        mode: "no-cors",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          content: "🔥 Neue Bot Bewerbung (Test)"
-        })
-      });
-    }
-
-    form.reset();
-  });
-});
-</script>
-
 </body>
 </html>
