@@ -1068,8 +1068,1123 @@
   <div class="noise" aria-hidden="true"></div>
   <canvas id="particles" aria-hidden="true"></canvas>
 
+  <script>
+    const CONFIG = {
+      botName: "ImBurni_Bot_v1",
+      discordInvite: "https://discord.gg/v8BSRq8C8C",
+      streamers: ["Tricck17","ImBurni"],
+
+      /* click sound */
+      clickSound: true,
+      clickSoundVolume: 0.22
+    };
+  </script>
+
+  <div class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="#top" aria-label="Start">
+        <div class="logo" aria-hidden="true"></div>
+        <div class="brand-title">
+          <b id="navName">ImBurni_Bot_v1</b>
+          <span>Twitch ✕ Discord Bridge</span>
+        </div>
+      </a>
+
+      <div class="nav-links" id="navLinks">
+        <a href="#features">Features</a>
+        <a href="#zugang">Bot bekommen</a>
+        <a href="#pricing">Access</a>
+        <a href="#streamer">Streamer</a>
+        <a href="#faq">FAQ</a>
+        <a href="#bewerbung">Bewerbung</a>
+        <a href="#discord">Discord</a>
+      </div>
+
+      <div class="nav-actions">
+        <a class="btn primary" id="joinTop" href="#discord">Bot holen</a>
+      </div>
+    </div>
+  </div>
+
+  <header class="hero" id="top">
+    <div class="container">
+      <div class="pill reveal">
+        <span class="dot" aria-hidden="true"></span>
+        <span>Live-ready • Tickets • ID-Timeouts • VIP • Gewinnspiele • Punkte • Lurk</span>
+      </div>
+
+      <div class="hero-grid">
+        <div class="reveal reveal-delay-1">
+          <div class="h1">
+            <span class="shine-underline"><span class="grad">BOAH.</span></span> Das ist nicht nur ein Bot.<br />
+            Das ist <span class="shine-underline"><span class="grad">Kontrolle</span></span> für deinen Chat.
+          </div>
+
+          <p class="sub">
+            <b>ImBurni_Bot_v1</b> ist der <b>All-in-One</b> Twitch ✕ Discord Gamechanger:
+            <b>eigenes Timeout-System</b> (IDs + feste Gründe), ein <b>integriertes Ticket-Support-System</b>
+            (Buttons/Status) und vor allem: <b>VIP automatisch an Nutzer vergeben</b> – sogar in <b>Gewinnspielen</b>.
+            Dazu: Follow-Embeds, Punkte, Lurk, Level, Raid-Erkennung & Auto-Shoutouts – clean, schnell, modern.
+          </p>
+
+          <div class="hero-cta">
+            <a class="btn primary" id="discordBtn1" href="#" target="_blank" rel="noreferrer">💬 Discord beitreten</a>
+            <a class="btn" href="mailto:support@imburni.de">✉️ Email Support</a>
+            <a class="btn" href="#features">⚡ Features</a>
+            <button class="btn" type="button" id="copyDiscord">📋 Invite kopieren</button>
+          </div>
+
+          <div class="alert glass neon-border">
+            🔒 <b>Zugang nur via Discord:</b> Den Bot bekommt man nicht automatisch. Im Discord läuft
+            Freischaltung/Setup + Support (Ticketsystem).
+          </div>
+
+          <div class="proof glass neon-border" style="margin-top:14px">
+            <div class="proof-left">
+              <b>Werde Teil vom HYPE: der Bot, bei dem du denkst: BOAH WOW KRASS ALTER 🔥</b>
+              <span>Timeout-IDs • Ticket-Support • VIP-Gewinnspiele • Punkte/Lurk • 24/7 Ready</span>
+            </div>
+            <div class="proof-badges">
+              <span class="badge">⚡ Fast Setup</span>
+              <span class="badge">🧩 Discord-First</span>
+              <span class="badge">🛡️ Mod-Controls</span>
+              <span class="badge">👑 VIP-Rewards</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-card glass-strong neon-border reveal reveal-delay-2" aria-label="ImBurni_Bot Artwork">
+          <div class="hero-media">
+            <div class="img-wrap">
+              <img src="imburni_bot.png" alt="ImBurni_Bot_v1 Artwork" />
+            </div>
+            <div class="mini">
+              <div class="chip"><small>Bridge</small><b>Twitch ↔ Discord</b></div>
+              <div class="chip"><small>Support</small><b>Tickets + Buttons</b></div>
+              <div class="chip"><small>Mods</small><b>ID-Timeout System</b></div>
+              <div class="chip"><small>Community</small><b>Punkte + Lurk</b></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+    </div>
+  </header>
+
+  <section id="features">
+    <div class="container">
+      <div class="section-head reveal">
+        <div>
+          <h2><span class="grad">Features</span></h2>
+          <p class="hint">Alle Infos kommen bei uns im bald folgenden Forum</p>
+        </div>
+      </div>
+
+      <div class="grid3">
+        <div class="card glass neon-border reveal reveal-delay-1" data-tilt>
+          <h3>🎉 Follow Alerts → Discord</h3>
+          <p>Neue Follower werden automatisch als stylisches Embed im Discord gepostet (Queue/Worker).</p>
+        </div>
+
+        <div class="card glass neon-border reveal reveal-delay-2" data-tilt>
+          <h3>💰 Punkte System</h3>
+          <p>Chat-Aktivität gibt Punkte. Commands: <b>!punkte</b>, <b>!top</b>. Perfekt für Engagement.</p>
+        </div>
+
+        <!-- ✅ ADD-ON: Gamble als deklarierte Bot-Funktion (nur Text) -->
+        <div class="card glass neon-border reveal reveal-delay-3" data-tilt>
+          <h3>🎲 Gamble (Punkte verspielen)</h3>
+          <p>
+            Neuer Command: <b>!gamble</b>.<br/>
+            <b>!gamble all</b> → alle Punkte verspielen.<br/>
+            <b>!gamble &lt;zahl&gt;</b> → nur die angegebene Anzahl verspielen.
+          </p>
+        </div>
+
+        <div class="card glass neon-border reveal reveal-delay-3" data-tilt>
+          <h3>😴 Lurk Rewards</h3>
+          <p><b>!lurk</b> startet Lurk, Rewards laufen weiter. <b>!lurkliste</b> zeigt aktive Lurker.</p>
+        </div>
+
+        <div class="card glass neon-border reveal reveal-delay-1" data-tilt>
+          <h3>🎫 Support Tickets (Discord)</h3>
+          <p>Ticket-Channel wird erstellt, Buttons: <b>In Bearbeitung</b>, <b>Beantwortet</b>, <b>Schließen</b>.</p>
+        </div>
+
+        <div class="card glass neon-border reveal reveal-delay-2" data-tilt>
+          <h3>⏱️ Timeout System (IDs)</h3>
+          <p><b>!reasons</b> listet Gründe, <b>!timeout @user ID</b> setzt Timeouts – nur Mods/Broadcaster.</p>
+        </div>
+
+        <div class="card glass neon-border reveal reveal-delay-3" data-tilt>
+          <h3>📊 Stats & Persistenz</h3>
+          <p>Stats (Nachrichten/Lurk/Timeouts/Starts) werden gespeichert – stabil für lange Streams.</p>
+        </div>
+      
+        <!-- 🔥 Neue Features -->
+        <div class="card glass neon-border reveal reveal-delay-4" data-tilt>
+          <h3>🚨 Raid Erkennung</h3>
+          <p>Automatische Raid-Erkennung (EventSub) + Infos zu Game/Titel/Bio im Chat.</p>
+        </div>
+
+        <div class="card glass neon-border reveal reveal-delay-5" data-tilt>
+          <h3>📢 Automatischer Twitch Shoutout</h3>
+          <p>Bei Raids automatisch Shoutout (Helix) + Cooldown Fix, damit kein Spam entsteht.</p>
+        </div>
+
+        <div class="card glass neon-border reveal reveal-delay-6" data-tilt>
+          <h3>⭐ Level Sammeln</h3>
+          <p>Level durch Aktivität sammeln. Commands: <b>!level</b> & <b>!followage</b></p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="zugang">
+    <div class="container">
+      <div class="section-head reveal">
+        <div>
+          <h2>So bekommst du den Bot</h2>
+          <p class="hint">Kurz & eindeutig: Der Bot wird über Discord freigeschaltet/eingerichtet.</p>
+        </div>
+      </div>
+
+      <div class="gate glass-strong neon-border reveal" data-tilt>
+        <div>
+          <h3>✅ Ablauf</h3>
+          <p>
+            1) Discord joinen<br/>
+            2) Ticket / Anfrage öffnen (Bot für deinen Channel)<br/>
+            3) Support richtet Setup ein oder schaltet dich frei
+          </p>
+        </div>
+        <div class="gate-actions">
+          <a class="btn primary" id="discordBtn2" href="#" target="_blank" rel="noreferrer">💬 Discord joinen</a>
+          <button class="btn" type="button" id="copyDiscord2">📋 Invite kopieren</button>
+          <a class="btn" href="mailto:support@imburni.de">✉️ Email Support</a>
+          <a class="btn" href="#faq">❓ FAQ</a>
+        </div>
+      </div>
+
+      <div class="reveal" style="margin-top:-4px; color:var(--muted); font-weight:900; line-height:1.75">
+        Tipp: Pack den Discord-Link in deine Twitch Panels, damit Interessenten sofort wissen, wo sie den Bot bekommen.
+      </div>
+
+      <div style="margin-top:18px">
+        <div class="section-head reveal" style="margin-bottom:10px">
+          <div>
+            <h2 style="font-size: clamp(18px, 1.8vw, 24px)"><span class="grad">Roadmap</span></h2>
+            <p class="hint" style="margin-top:6px">Versionen werden ständig individuell für Streamer angepasst!</p>
+          </div>
+        </div>
+
+        <div class="roadmap">
+          <div class="step glass neon-border reveal reveal-delay-1" data-tilt>
+            <div class="k"><span class="num">1</span><b>Join & Ticket</b></div>
+            <p>Discord joinen, Ticket öffnen, Infos zu deinem Channel posten.</p>
+          </div>
+          <div class="step glass neon-border reveal reveal-delay-2" data-tilt>
+            <div class="k"><span class="num">2</span><b>Setup & Freischaltung</b></div>
+            <p>Support richtet alles sauber ein (Bridge, Tickets, Mod-IDs, Rewards).</p>
+          </div>
+          <div class="step glass neon-border reveal reveal-delay-3" data-tilt>
+            <div class="k"><span class="num">3</span><b>Live gehen</b></div>
+            <p>Alerts laufen, Punkte/Lurk zählen, Timeouts via IDs — fertig.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing">
+    <div class="container">
+      <div class="section-head reveal">
+        <div>
+          <h2><span class="grad">Access</span></h2>
+          <p class="hint">Kein Checkout, kein Auto-Setup: Zugriff läuft bewusst über Discord (Support + Ticketsystem).</p>
+        </div>
+      </div>
+
+      <div class="pricing">
+        <div class="price-card glass-strong neon-border reveal reveal-delay-1" data-tilt>
+          <div class="price-title">
+            <b>Discord Access</b>
+            <span class="price-tag">Invite → Ticket → Setup</span>
+          </div>
+
+          <div style="color: var(--muted); font-weight:900; line-height:1.75">
+            Du bekommst den Bot nicht “per Klick”. So bleibt’s sauber: kontrollierte Freischaltung, Hilfe beim Setup,
+            klare Zuständigkeiten – und Support direkt im Ticketsystem.
+          </div>
+
+          <div class="price-list">
+            <div class="price-item"><span class="tick">✓</span><div>Freischaltung/Setup über Ticket</div></div>
+            <div class="price-item"><span class="tick">✓</span><div>Support direkt im Discord (Buttons/Status)</div></div>
+            <div class="price-item"><span class="tick">✓</span><div>Mod-Timeouts via IDs (kontrolliert)</div></div>
+            <div class="price-item"><span class="tick">✓</span><div>Sauberer Ablauf für jeden Stream</div></div>
+          </div>
+
+          <div style="margin-top:-4px; display:flex; gap:10px; flex-wrap:wrap">
+            <a class="btn primary" href="#discord">💬 Jetzt joinen</a>
+            <button class="btn" type="button" id="copyDiscord4">📋 Invite kopieren</button>
+          </div>
+        </div>
+
+        <div class="price-card glass neon-border reveal reveal-delay-2" data-tilt>
+          <div class="price-title">
+            <b>Quick Checklist</b>
+            <span class="price-tag">2 Minuten</span>
+          </div>
+          <div style="color: var(--muted); font-weight:900; line-height:1.75">
+            Damit das Setup schnell läuft:
+          </div>
+          <div class="price-list">
+            <div class="price-item"><span class="tick">✓</span><div>Twitch-Channel Name</div></div>
+            <div class="price-item"><span class="tick">✓</span><div>Wer ist Broadcaster/Mods?</div></div>
+            <div class="price-item"><span class="tick">✓</span><div>Welche Features aktiv? (Punkte/Lurk/Timeouts)</div></div>
+            <div class="price-item"><span class="tick">✓</span><div>Panel-Link zum Discord setzen</div></div>
+          </div>
+          <div style="margin-top:-4px; color: var(--faint); font-weight:850; line-height:1.55">
+            Hinweis: Der Bot läuft 24/7 über deinen PC, du kannst entscheiden, wann der Bot Joint und wann nicht..
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ✅ Streamer System -->
+  <section id="streamer">
+    <div class="container">
+      <div class="section-head reveal">
+        <div>
+          <h2>Streamer, die den Bot nutzen</h2>
+          <p class="hint">#MakeThisBotToYourExperience</p>
+        </div>
+      </div>
+
+      <div class="streamer-controls reveal">
+        <div class="field glass neon-border">
+          <span aria-hidden="true">🔎</span>
+          <input id="streamerSearch" type="text" placeholder="Streamer suchen (z.B. tricck17)…" />
+        </div>
+
+        <div class="seg glass neon-border" id="streamerFilter">
+          <button type="button" class="active" data-filter="all">Alle</button>
+          <button type="button" data-filter="live">🟢 Live</button>
+          <button type="button" data-filter="offline">⚫ Offline</button>
+        </div>
+
+        <button class="btn" id="streamerRefresh" type="button">🔁 Aktualisieren</button>
+      </div>
+
+      <div class="streamer-meta reveal">
+        <div id="streamerCount">—</div>
+        <div id="streamerUpdated">—</div>
+      </div>
+
+      <div class="streamer-grid" id="streamerGrid"></div>
+
+      <div class="reveal" style="margin-top:12px; color:var(--faint); font-weight:850; line-height:1.55">
+        Hinweis: Live-Status basiert auf einem einfachen Uptime-Check (kann minimal verzögert sein).
+      </div>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="container">
+      <div class="section-head reveal">
+        <div>
+          <h2><span class="grad">FAQ</span></h2>
+          <p class="hint">Kurz beantwortet – damit jeder es direkt versteht.</p>
+        </div>
+      </div>
+
+      <div class="faq">
+        <details class="glass neon-border reveal reveal-delay-1">
+          <summary>Warum ist Discord Pflicht?</summary>
+          <p>
+            Weil der Bot nicht öffentlich „für jeden“ automatisch verfügbar ist.
+            Discord ist der zentrale Ort für Support, Freischaltung und das Ticketsystem.
+          </p>
+        </details>
+        <details class="glass neon-border reveal reveal-delay-2">
+          <summary>Wie viele Arbeiten an dem Bot?</summary>
+          <p>
+            Der Bot wird nur von ImBurni <b>erstellt</b>.
+          </p>
+        </details>
+        <details class="glass neon-border reveal reveal-delay-3">
+          <summary>Wer kann Tickets erstellen und Timeouts nutzen?</summary>
+          <p>
+            Tickets und Timeouts sind für Broadcaster/Mods gedacht. Damit bleibt alles kontrolliert und sicher.
+          </p>
+        </details>
+        <details class="glass neon-border reveal reveal-delay-4">
+          <summary>Kann ich auch auf die Streamer-Liste?</summary>
+          <p>
+            Ja. Join den Discord und stelle eine Anfrage – dann wird dein Kanal hinzugefügt (wenn du den Bot nutzt).
+          </p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section id="discord">
+    <div class="container">
+      <div class="gate glass-strong neon-border reveal" data-tilt>
+        <div>
+          <h3>🔥 Ready? Hol dir ImBurni_Bot_v1 im Discord</h3>
+          <p>Join → Anfrage/Ticket → Freischaltung/Setup. Danach läuft Twitch ✕ Discord clean.</p>
+        </div>
+        <div class="gate-actions">
+          <a class="btn primary" id="discordBtn3" href="#" target="_blank" rel="noreferrer">💬 Zum Discord</a>
+          <button class="btn" type="button" id="copyDiscord3">📋 Invite kopieren</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<section id="support-email">
+  <div class="container">
+    <div class="section-head reveal">
+      <div>
+        <h2>Email Support</h2>
+        <p class="hint">Wenn Discord gerade nicht geht: Schreib uns direkt eine Mail.</p>
+      </div>
+    </div>
+
+    <div class="glass-strong neon-border reveal" style="padding:18px 18px">
+      <div style="display:flex; gap:14px; align-items:center; justify-content:space-between; flex-wrap:wrap">
+        <div style="font-weight:950">
+          ✉️ <a href="mailto:support@imburni.de" style="color:var(--text); text-decoration:underline">support@imburni.de</a>
+        </div>
+        <a class="btn primary" href="mailto:support@imburni.de">Email schreiben</a>
+      </div>
+      <p style="margin-top:10px; color:var(--muted); font-weight:900; line-height:1.75">
+        Bitte schick kurz: Twitch-Channel, Problem/Beschreibung und (falls relevant) eine Ticket-ID oder Screenshot.
+      </p>
+    </div>
+  </div>
+</section>
+
+  <footer>
+    <div class="container">
+      <div class="foot reveal">
+        <div>© <span id="year"></span> <span id="footName">ImBurni</span> • Darkmode • Beta Version V1</div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap">
+          <a class="btn small" href="#features">Features</a>
+          <a class="btn small" href="#zugang">Bot bekommen</a>
+          <a class="btn small" href="#support-email">Email</a>
+          <a class="btn small" href="#streamer">Streamer</a>
+          <a class="btn small" href="mailto:support@imburni.de">Email Support</a>
+        </div>
+      </div>
+    </div>
   
 
+<section id="bewerbung">
+  <div class="container">
+    <div class="section-head reveal">
+      <div>
+        <h2><span class="grad">Bewerbung</span></h2>
+        <p class="hint">Füll das kurz aus – danach bekommst du den Bot über Discord (Ticket/Setup).</p>
+      </div>
+    </div>
+
+    <div class="glass-strong neon-border reveal" style="padding:22px 18px">
+      <!--
+        ✅ Versand der Bewerbungen:
+        - Am einfachsten: Formspree → du bekommst alles an DEINE Email (ohne eigenen Server).
+        - Ersetze DEIN_CODE mit deinem Formspree-Code: https://formspree.io/f/DEIN_CODE
+      -->
+      <form id="applyForm" action="https://formspree.io/f/DEIN_CODE" method="POST">
+        
+        <div style="display:grid; gap:14px; margin-bottom:14px">
+          <div class="field glass neon-border">
+            <span aria-hidden="true">🔗</span>
+            <input type="url" name="twitch_link" placeholder="Dein Twitch Channel Link (z.B. https://twitch.tv/deinname)" required>
+          </div>
+
+          <div class="field glass neon-border">
+            <span aria-hidden="true">👥</span>
+            <input type="text" name="avg_viewers" placeholder="Wie viele Zuschauer hast du im Schnitt? (z.B. 10–25)" required>
+          </div>
+
+          <div class="field glass neon-border">
+            <span aria-hidden="true">🎂</span>
+            <input type="number" name="age" min="13" max="120" placeholder="Wie alt bist du?" required>
+          </div>
+
+          <div class="field glass neon-border">
+            <span aria-hidden="true">🎮</span>
+            <input type="text" name="content" placeholder="Was für Content machst du? (Games, IRL, Just Chatting…)" required>
+          </div>
+
+          <div class="field glass neon-border" style="align-items:flex-start">
+            <span aria-hidden="true" style="padding-top:2px">💡</span>
+            <textarea name="why_bot" placeholder="Warum willst du den Bot nutzen? (z.B. Mods strukturieren, VIP-Giveaways, Support-Tickets…)" required
+              style="width:100%; border:0; outline:none; background:transparent; color:var(--text); font-weight:900; resize:vertical; min-height:110px"></textarea>
+          </div>
+
+          <div class="field glass neon-border">
+            <span aria-hidden="true">🗓️</span>
+            <input type="text" name="schedule" placeholder="Wie oft streamst du? (Tage/Zeiten grob)" required>
+          </div>
+
+          <div class="field glass neon-border">
+            <span aria-hidden="true">🛡️</span>
+            <input type="text" name="mods" placeholder="Wie viele Mods hast du? (z.B. 0 / 2 / 5)" required>
+          </div>
+
+          <div class="field glass neon-border">
+            <span aria-hidden="true">💬</span>
+            <input type="text" name="discord_name" placeholder="Dein Discord Name (z.B. Name oder Name#1234)" required>
+          </div>
+
+          <div class="field glass neon-border">
+            <span aria-hidden="true">✉️</span>
+            <input type="email" name="email" placeholder="Deine Email (optional – für Rückfragen)">
+          </div>
+
+          <div class="field glass neon-border" style="align-items:flex-start">
+            <span aria-hidden="true" style="padding-top:2px">⚙️</span>
+            <textarea name="current_setup" placeholder="Welche Bots/Tools nutzt du aktuell? Was soll ersetzt/verbessert werden? (optional)"
+              style="width:100%; border:0; outline:none; background:transparent; color:var(--text); font-weight:900; resize:vertical; min-height:90px"></textarea>
+          </div>
+
+          <label class="field glass neon-border" style="gap:12px; cursor:pointer">
+            <input type="checkbox" name="consent" required style="width:18px; height:18px; accent-color: var(--c)">
+            <span style="color:var(--muted); font-weight:900; line-height:1.5">
+              Ich bestätige, dass die Angaben stimmen und ich für Setup/Support über Discord erreichbar bin.
+            </span>
+          </label>
+        </div>
+
+        <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center">
+          <button class="btn primary" type="submit">🚀 Bewerbung absenden</button>
+          <a class="btn" href="#discord">💬 Direkt Discord joinen</a>
+        </div>
+
+        <p style="margin-top:12px; color:var(--faint); font-weight:850; line-height:1.6">
+          Tipp: Wenn du VIP-Gewinnspiele willst, schreib kurz dazu, wie du die Gewinner auswählst (Chat, Wheel, Redeem, etc.).
+        </p>
+      </form>
+    </div>
+  </div>
+</section>
+
+
+</footer>
+
+  <!-- floating CTA -->
+  <button class="fab" id="fab" type="button" aria-label="Zum Discord">
+    💬 <span>Discord</span> <small>Bot holen</small>
+  </button>
+
+  <!-- 🎵 MUSIC (muted on load) -->
+  <audio id="bgm" src="Song.mp3" preload="auto" loop muted playsinline></audio>
+
+  <!-- ✅ ADD-ON: Music Mute Button -->
+  <button class="music-toggle" id="musicToggle" type="button" aria-label="Musik stumm/laut">🔇</button>
+
+  <div class="sound-hint" id="soundHint">
+    🎵 Musik läuft <b>stumm</b> beim Laden. <b>Scroll</b> versucht Ton zu aktivieren.<br/>
+    Außerdem: Buttons haben jetzt <b>Klick-Sound</b> (Browser erlaubt nur nach Interaktion).
+  </div>
+
+  <script>
+    /* ---------- Basic init ---------- */
+    document.getElementById('navName').textContent = CONFIG.botName;
+    document.getElementById('footName').textContent = CONFIG.botName;
+    ["discordBtn1","discordBtn2","discordBtn3"].forEach(id=>{
+      document.getElementById(id).href = CONFIG.discordInvite;
+    });
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    /* ---------- Toast ---------- */
+    function toast(msg){
+      const t = document.createElement('div');
+      t.textContent = msg;
+      t.style.position='fixed';
+      t.style.left='50%';
+      t.style.bottom='26px';
+      t.style.transform='translateX(-50%)';
+      t.style.padding='12px 14px';
+      t.style.borderRadius='14px';
+      t.style.border='1px solid rgba(255,255,255,.16)';
+      t.style.background='rgba(0,0,0,.68)';
+      t.style.color='white';
+      t.style.fontWeight='950';
+      t.style.zIndex=9999;
+      t.style.backdropFilter='blur(10px)';
+      t.style.boxShadow='0 18px 60px rgba(0,0,0,.45)';
+      document.body.appendChild(t);
+      setTimeout(()=>{ t.style.opacity='0'; t.style.transition='opacity .25s ease'; }, 1200);
+      setTimeout(()=>{ t.remove(); }, 1500);
+    }
+
+    async function copyText(text){
+      try{ await navigator.clipboard.writeText(text); toast("Invite kopiert ✅"); }
+      catch{ toast("Kopieren nicht möglich ❌"); }
+    }
+    ["copyDiscord","copyDiscord2","copyDiscord3","copyDiscord4"].forEach(id=>{
+      const el = document.getElementById(id);
+      if(el) el.addEventListener('click', ()=>copyText(CONFIG.discordInvite));
+    });
+
+    /* ---------- FAB ---------- */
+    const fab = document.getElementById('fab');
+    fab.addEventListener('click', ()=>{
+      location.hash = "#discord";
+      document.querySelector('#discord').scrollIntoView({behavior:'smooth', block:'start'});
+    });
+
+    /* ---------- Fancy Ripple on all buttons/links ---------- */
+    function addRipple(el, x, y){
+      const r = document.createElement('span');
+      r.className = 'ripple';
+      r.style.left = x + 'px';
+      r.style.top  = y + 'px';
+      el.appendChild(r);
+      setTimeout(()=>r.remove(), 700);
+    }
+
+    document.addEventListener('pointerdown', (e)=>{
+      const el = e.target.closest && e.target.closest('.btn, .fab, .nav-links a, summary');
+      if(!el) return;
+      const rect = el.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      addRipple(el, x, y);
+    }, {passive:true});
+
+    /* ---------- CLICK SOUND (WebAudio, no file needed) ---------- */
+    const ClickFX = (function(){
+      let ctx = null;
+
+      function ensure(){
+        if(ctx) return ctx;
+        const AC = window.AudioContext || window.webkitAudioContext;
+        if(!AC) return null;
+        ctx = new AC();
+        return ctx;
+      }
+
+      async function unlock(){
+        const c = ensure();
+        if(!c) return false;
+        if(c.state === 'suspended'){
+          try{ await c.resume(); }catch{}
+        }
+        return (c.state === 'running');
+      }
+
+      function play(){
+        if(!CONFIG.clickSound) return;
+        const c = ensure();
+        if(!c) return;
+
+        if(c.state !== 'running'){ c.resume().catch(()=>{}); }
+
+        const now = c.currentTime;
+        const vol = Math.max(0, Math.min(1, CONFIG.clickSoundVolume ?? 0.2));
+
+        const osc = c.createOscillator();
+        const gain = c.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(880, now);
+        osc.frequency.exponentialRampToValueAtTime(220, now + 0.045);
+
+        gain.gain.setValueAtTime(0.0001, now);
+        gain.gain.exponentialRampToValueAtTime(vol, now + 0.008);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.055);
+
+        const bufferSize = Math.floor(c.sampleRate * 0.02);
+        const buffer = c.createBuffer(1, bufferSize, c.sampleRate);
+        const data = buffer.getChannelData(0);
+        for(let i=0;i<bufferSize;i++){
+          data[i] = (Math.random()*2 - 1) * (1 - i/bufferSize);
+        }
+        const noise = c.createBufferSource();
+        noise.buffer = buffer;
+
+        const nGain = c.createGain();
+        nGain.gain.setValueAtTime(vol*0.35, now);
+        nGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.03);
+
+        osc.connect(gain).connect(c.destination);
+        noise.connect(nGain).connect(c.destination);
+
+        osc.start(now);
+        noise.start(now);
+
+        osc.stop(now + 0.06);
+        noise.stop(now + 0.035);
+      }
+
+      const unlockOnce = async () => {
+        await unlock();
+        window.removeEventListener('pointerdown', unlockOnce, true);
+        window.removeEventListener('keydown', unlockOnce, true);
+      };
+      window.addEventListener('pointerdown', unlockOnce, true);
+      window.addEventListener('keydown', unlockOnce, true);
+
+      return { play, unlock };
+    })();
+
+    document.addEventListener('click', (e)=>{
+      const el = e.target.closest && e.target.closest('.btn, .fab, .nav-links a, summary');
+      if(!el) return;
+      ClickFX.play();
+    });
+
+    /* ---------- Smooth scroll with offset for sticky nav ---------- */
+    (function(){
+      const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      function scrollToHash(hash){
+        const id = (hash || '').replace('#','').trim();
+        if(!id) return;
+        const el = document.getElementById(id);
+        if(!el) return;
+
+        const nav = document.querySelector('.nav');
+        const navH = nav ? nav.getBoundingClientRect().height : 0;
+        const y = el.getBoundingClientRect().top + window.scrollY - navH - 12;
+        window.scrollTo({ top: Math.max(0, y), behavior: prefersReduced ? 'auto' : 'smooth' });
+      }
+
+      document.addEventListener('click', (e)=>{
+        const a = e.target && e.target.closest ? e.target.closest('a[href^="#"]') : null;
+        if(!a) return;
+        const href = a.getAttribute('href');
+        if(!href || href === '#') return;
+        const targetId = href.slice(1);
+        if(!document.getElementById(targetId)) return;
+
+        e.preventDefault();
+        history.pushState(null, '', href);
+        scrollToHash(href);
+      });
+
+      window.addEventListener('load', ()=>{
+        if(location.hash) scrollToHash(location.hash);
+      });
+    })();
+
+    /* ---------- Active nav highlight (scrollspy) ---------- */
+    (function(){
+      const nav = document.getElementById('navLinks');
+      if(!nav) return;
+
+      const links = Array.from(nav.querySelectorAll('a[href^="#"]'));
+      const targets = links
+        .map(a => ({ a, id: a.getAttribute('href').slice(1), el: document.getElementById(a.getAttribute('href').slice(1)) }))
+        .filter(x => x.el);
+
+      function setActive(id){
+        links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + id));
+      }
+
+      const obs = new IntersectionObserver((entries)=>{
+        const visible = entries
+          .filter(e => e.isIntersecting)
+          .sort((a,b)=> (b.intersectionRatio - a.intersectionRatio))[0];
+        if(visible && visible.target && visible.target.id){
+          setActive(visible.target.id);
+        }
+      }, { rootMargin: "-35% 0px -55% 0px", threshold: [0.12, 0.2, 0.35, 0.5, 0.7] });
+
+      targets.forEach(t => obs.observe(t.el));
+      setActive((location.hash || '#features').slice(1));
+    })();
+
+    /* ---------- Reveal on scroll ---------- */
+    (function(){
+      const els = Array.from(document.querySelectorAll('.reveal'));
+      if(!els.length) return;
+
+      const obs = new IntersectionObserver((entries)=>{
+        for(const e of entries){
+          if(e.isIntersecting){
+            e.target.classList.add('in');
+            obs.unobserve(e.target);
+          }
+        }
+      }, { threshold: 0.12, rootMargin: "0px 0px -12% 0px" });
+
+      els.forEach(el => obs.observe(el));
+    })();
+
+    /* ---------- Tilt (super lightweight) ---------- */
+    (function(){
+      const cards = Array.from(document.querySelectorAll('[data-tilt]'));
+      if(!cards.length) return;
+
+      const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if(prefersReduced) return;
+
+      function onMove(e){
+        const el = e.currentTarget;
+        const r = el.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width;
+        const y = (e.clientY - r.top) / r.height;
+        const rx = (y - 0.5) * -7;
+        const ry = (x - 0.5) * 8;
+        el.style.transform = `translateY(-4px) rotateX(${rx}deg) rotateY(${ry}deg)`;
+      }
+      function onLeave(e){
+        const el = e.currentTarget;
+        el.style.transform = '';
+      }
+      cards.forEach(el=>{
+        el.style.transformStyle = 'preserve-3d';
+        el.addEventListener('mousemove', onMove);
+        el.addEventListener('mouseleave', onLeave);
+      });
+    })();
+
+    /* ---------- 🎵 Music: muted autoplay + try unmute on scroll + fallback click ---------- */
+    (function(){
+      const audio = document.getElementById("bgm");
+      const hint = document.getElementById("soundHint");
+      audio.volume = 0.85;
+      audio.loop = true;
+
+      window.addEventListener("load", async () => {
+        try{
+          audio.muted = true;
+          await audio.play();
+        }catch{}
+      });
+
+      let unlocked = false;
+
+      async function unlockSound(){
+        if(unlocked) return true;
+        try{
+          audio.muted = false;
+          audio.volume = 0.85;
+          await audio.play();
+          unlocked = true;
+          setTimeout(()=>{ if(hint) hint.remove(); }, 1200);
+          cleanup();
+          return true;
+        }catch{
+          return false;
+        }
+      }
+
+      const onWheel = async () => { await unlockSound(); };
+      const onScroll = async () => { await unlockSound(); };
+      const onPointer = async () => { await unlockSound(); };
+      const onTouch = async () => { await unlockSound(); };
+      const onKey = async () => { await unlockSound(); };
+
+      function cleanup(){
+        window.removeEventListener("wheel", onWheel, true);
+        window.removeEventListener("scroll", onScroll, true);
+        document.removeEventListener("pointerdown", onPointer, true);
+        document.removeEventListener("touchstart", onTouch, true);
+        document.removeEventListener("keydown", onKey, true);
+      }
+
+      window.addEventListener("wheel", onWheel, {capture:true, passive:true});
+      window.addEventListener("scroll", onScroll, {capture:true, passive:true});
+      document.addEventListener("pointerdown", onPointer, true);
+      document.addEventListener("touchstart", onTouch, {capture:true, passive:true});
+      document.addEventListener("keydown", onKey, true);
+    })();
+
+    /* ---------- Parallax Aurora (mouse) ---------- */
+    (function(){
+      const root = document.documentElement;
+      let tx = 0, ty = 0, cx = 0, cy = 0;
+
+      function update(){
+        cx += (tx - cx) * 0.08;
+        cy += (ty - cy) * 0.08;
+        root.style.setProperty('--gx', cx.toFixed(2) + 'px');
+        root.style.setProperty('--gy', cy.toFixed(2) + 'px');
+        requestAnimationFrame(update);
+      }
+      update();
+
+      function handle(x, y){
+        const w = window.innerWidth || 1;
+        const h = window.innerHeight || 1;
+        tx = ((x / w) - 0.5) * 70;
+        ty = ((y / h) - 0.5) * 70;
+      }
+      window.addEventListener('mousemove', (e)=>handle(e.clientX, e.clientY), {passive:true});
+      window.addEventListener('touchmove', (e)=>{
+        if(!e.touches || !e.touches[0]) return;
+        handle(e.touches[0].clientX, e.touches[0].clientY);
+      }, {passive:true});
+    })();
+
+    /* ---------- Particles ---------- */
+    (function(){
+      const c = document.getElementById('particles');
+      const ctx = c.getContext('2d', { alpha: true });
+      let W = 0, H = 0, dpr = Math.min(2, window.devicePixelRatio || 1);
+
+      function resize(){
+        W = window.innerWidth; H = window.innerHeight;
+        c.width = Math.floor(W * dpr);
+        c.height = Math.floor(H * dpr);
+        c.style.width = W + 'px';
+        c.style.height = H + 'px';
+        ctx.setTransform(dpr,0,0,dpr,0,0);
+      }
+      window.addEventListener('resize', resize, {passive:true});
+      resize();
+
+      const N = Math.round(Math.min(120, Math.max(60, W/14)));
+      const p = Array.from({length:N}).map(() => ({
+        x: Math.random()*W,
+        y: Math.random()*H,
+        r: 0.8 + Math.random()*2.0,
+        vx: (-0.35 + Math.random()*0.7),
+        vy: (-0.24 + Math.random()*0.48),
+        a: 0.12 + Math.random()*0.30
+      }));
+
+      function tick(){
+        ctx.clearRect(0,0,W,H);
+
+        for(const s of p){
+          s.x += s.vx; s.y += s.vy;
+          if(s.x < -20) s.x = W+20;
+          if(s.x > W+20) s.x = -20;
+          if(s.y < -20) s.y = H+20;
+          if(s.y > H+20) s.y = -20;
+
+          ctx.beginPath();
+          ctx.globalAlpha = s.a;
+          ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
+          ctx.fillStyle = 'white';
+          ctx.fill();
+        }
+
+        ctx.globalAlpha = 0.055;
+        for(let i=0;i<p.length;i++){
+          for(let j=i+1;j<p.length;j++){
+            const dx = p[i].x - p[j].x;
+            const dy = p[i].y - p[j].y;
+            const dist = Math.sqrt(dx*dx + dy*dy);
+            if(dist < 130){
+              ctx.beginPath();
+              ctx.moveTo(p[i].x, p[i].y);
+              ctx.lineTo(p[j].x, p[j].y);
+              ctx.strokeStyle = 'white';
+              ctx.lineWidth = 1;
+              ctx.stroke();
+            }
+          }
+        }
+
+        ctx.globalAlpha = 1;
+        requestAnimationFrame(tick);
+      }
+      tick();
+    })();
+
+    /* ---------- Streamer list (Avatar + Live/Offline) ---------- */
+    const streamerGrid = document.getElementById('streamerGrid');
+    const streamerCount = document.getElementById('streamerCount');
+    const streamerUpdated = document.getElementById('streamerUpdated');
+    const streamerSearch = document.getElementById('streamerSearch');
+    const filterWrap = document.getElementById('streamerFilter');
+    const refreshBtn = document.getElementById('streamerRefresh');
+
+    const endpoints = {
+      uptime: (login) => `https://decapi.me/twitch/uptime/${encodeURIComponent(login)}`,
+      avatar: (login) => `https://decapi.me/twitch/avatar/${encodeURIComponent(login)}`
+    };
+
+    const streamerState = {
+      items: CONFIG.streamers.map(n => ({
+        login: String(n || '').trim(),
+        live: null,
+        uptimeText: 'Status wird geladen…',
+        avatarUrl: null
+      })).filter(x => x.login.length > 0),
+      filter: 'all',
+      query: ''
+    };
+
+    function escapeHtml(s){
+      return String(s).replace(/[&<>"']/g, m => ({
+        '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+      }[m]));
+    }
+
+    function renderStreamers(){
+      const q = streamerState.query.toLowerCase().trim();
+      const filtered = streamerState.items.filter(it => {
+        const matchesQuery = !q || it.login.toLowerCase().includes(q);
+        const matchesFilter =
+          streamerState.filter === 'all' ? true :
+          streamerState.filter === 'live' ? it.live === true :
+          streamerState.filter === 'offline' ? it.live === false :
+          true;
+        return matchesQuery && matchesFilter;
+      });
+
+      streamerCount.textContent = `${filtered.length} Streamer angezeigt • ${streamerState.items.length} gesamt`;
+
+      streamerGrid.innerHTML = filtered.map(it => {
+        const loginLower = it.login.toLowerCase();
+        const display = escapeHtml(it.login);
+
+        const liveBadge = it.live === true
+          ? `<span class="badge live"><span class="live-dot"></span>LIVE</span>`
+          : it.live === false
+            ? `<span class="badge"><span class="live-dot"></span>OFFLINE</span>`
+            : `<span class="badge"><span class="live-dot"></span>CHECK…</span>`;
+
+        const uptime = escapeHtml(it.uptimeText || '');
+        const avatar = it.avatarUrl
+          ? `<img src="${it.avatarUrl}" alt="${display} Profilbild" loading="lazy" />`
+          : `<img src="https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_70x70.png" alt="${display} Profilbild" loading="lazy" />`;
+
+        return `
+          <div class="streamer-card glass neon-border reveal in${loginLower === "imburni" ? " founder" : ""}" data-login="${escapeHtml(loginLower)}" data-tilt>
+            ${loginLower === "imburni" ? `
+              <div class="founder-border" aria-hidden="true"></div>
+              <div class="founder-ribbon" title="Bot Entwickler | Administrator">👑 FOUNDER</div>
+            ` : ``}
+
+            <div class="streamer-top">
+              <div class="streamer-left">
+                <div class="avatar">${avatar}</div>
+                <div class="sname">
+                  <b>${display}${loginLower === "imburni" ? ` <span class="badge-crown" title="Bot Entwickler | Administrator">👑</span>` : ``}</b>
+                  <span>twitch.tv/${escapeHtml(loginLower)}</span>
+                </div>
+              </div>
+              ${liveBadge}
+            </div>
+
+            <div class="uptime">${it.live === true ? `🟢 Live seit: <b>${uptime}</b>` : it.live === false ? `⚫ Offline` : `⏳ ${uptime}`}</div>
+
+            <div class="streamer-bottom">
+              <div style="color: var(--faint); font-weight:900">${loginLower === "imburni" ? `<span style="color:#1abc9c;font-weight:900;">Bot Entwickler</span> | <span style="color:red;font-weight:900;">Administrator</span>` : `Bot-Nutzer`}</div>
+              <a class="btn primary" href="https://twitch.tv/${escapeHtml(loginLower)}" target="_blank" rel="noreferrer">Zum Stream</a>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    async function fetchText(url){
+      const res = await fetch(url, { cache: 'no-store' });
+      return await res.text();
+    }
+
+    async function updateStreamer(it){
+      const login = it.login;
+
+      if(!it.avatarUrl){
+        try{
+          const avatarText = (await fetchText(endpoints.avatar(login))).trim();
+          if(avatarText.startsWith('http')) it.avatarUrl = avatarText;
+        }catch{}
+      }
+
+      try{
+        const t = (await fetchText(endpoints.uptime(login))).trim();
+        it.uptimeText = t || 'Unbekannt';
+        if((t || '').toLowerCase().includes('offline')){
+          it.live = false;
+        } else if(t){
+          it.live = true;
+        } else {
+          it.live = null;
+        }
+      }catch{
+        it.live = null;
+        it.uptimeText = 'Status unbekannt';
+      }
+    }
+
+    async function refreshStreamers(){
+      streamerUpdated.textContent = 'Aktualisiere…';
+      renderStreamers();
+
+      for(const it of streamerState.items){
+        await updateStreamer(it);
+        renderStreamers();
+      }
+
+      streamerUpdated.textContent = 'Zuletzt aktualisiert: ' + new Date().toLocaleString('de-DE');
+    }
+
+    streamerSearch.addEventListener('input', ()=>{
+      streamerState.query = streamerSearch.value || '';
+      renderStreamers();
+    });
+
+    filterWrap.querySelectorAll('button[data-filter]').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        filterWrap.querySelectorAll('button[data-filter]').forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+        streamerState.filter = btn.dataset.filter || 'all';
+        renderStreamers();
+      });
+    });
+
+    refreshBtn.addEventListener('click', refreshStreamers);
+
+    renderStreamers();
+    refreshStreamers();
+    setInterval(refreshStreamers, 60000);
+
+    /* ---------- FAB show/hide on scroll ---------- */
+    (function(){
+      const el = document.getElementById('fab');
+      function tick(){
+        const y = window.scrollY;
+        if(y < 220) el.classList.add('hide');
+        else el.classList.remove('hide');
+        requestAnimationFrame(tick);
+      }
+      tick();
+    })();
+
+    /* ✅ ADD-ON: Musik Mute Button Logik */
+    (function(){
+      const audio = document.getElementById("bgm");
+      const btn = document.getElementById("musicToggle");
+      if(!audio || !btn) return;
+
+      function setIcon(){
+        btn.textContent = audio.muted ? "🔇" : "🔊";
+      }
+
+      const saved = localStorage.getItem("musicMuted");
+      if(saved === "1"){
+        audio.muted = true;
+      }else if(saved === "0"){
+        audio.muted = false;
+        audio.play().catch(()=>{});
+      }
+      setIcon();
+
+      btn.addEventListener("click", async ()=>{
+        audio.muted = !audio.muted;
+        localStorage.setItem("musicMuted", audio.muted ? "1" : "0");
+        setIcon();
+
+        if(!audio.muted){
+          try{ await audio.play(); }catch{}
+        }
+      });
+    })();
+  </script>
 
 <script>
 const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1475989111599796419/Un5XzoaOAHdgcrVnjd_v-f4tvy-rSRXV2ZzYQSrLbfL1OXbSagL-XNVydVoe9afKxZEn";
@@ -1077,33 +2192,29 @@ const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/147598911159979641
 document.addEventListener("DOMContentLoaded", function(){
 
   const form = document.getElementById("applyForm");
-
-  if(!form){
-    console.log("Form not found");
-    return;
-  }
+  if(!form) return;
 
   form.addEventListener("submit", async function(e){
     e.preventDefault();
 
-    alert("Button funktioniert ✅ – versuche jetzt an Discord zu senden...");
+    console.log("Submit triggered");
 
     const data = {
-      content: "🔥 Neue Bot Bewerbung (Test)",
+      content: "🔥 Neue Bot Bewerbung",
       embeds: [{
         title: "Neue Bewerbung",
         color: 16753920,
         fields: [
-          { name: "Twitch", value: this.twitch_link?.value || "—" },
-          { name: "Ø Zuschauer", value: this.avg_viewers?.value || "—", inline: true },
-          { name: "Alter", value: this.age?.value || "—", inline: true },
-          { name: "Content", value: this.content?.value || "—" },
-          { name: "Warum Bot?", value: this.why_bot?.value || "—" },
-          { name: "Streamplan", value: this.schedule?.value || "—", inline: true },
-          { name: "Mods", value: this.mods?.value || "—", inline: true },
-          { name: "Discord", value: this.discord_name?.value || "—" },
-          { name: "Email", value: this.email?.value || "Nicht angegeben" },
-          { name: "Setup", value: this.current_setup?.value || "Nicht angegeben" }
+          { name: "Twitch", value: form.twitch_link?.value || "—" },
+          { name: "Ø Zuschauer", value: form.avg_viewers?.value || "—", inline: true },
+          { name: "Alter", value: form.age?.value || "—", inline: true },
+          { name: "Content", value: form.content?.value || "—" },
+          { name: "Warum Bot?", value: form.why_bot?.value || "—" },
+          { name: "Streamplan", value: form.schedule?.value || "—", inline: true },
+          { name: "Mods", value: form.mods?.value || "—", inline: true },
+          { name: "Discord", value: form.discord_name?.value || "—" },
+          { name: "Email", value: form.email?.value || "Nicht angegeben" },
+          { name: "Setup", value: form.current_setup?.value || "Nicht angegeben" }
         ],
         timestamp: new Date().toISOString()
       }]
@@ -1117,14 +2228,13 @@ document.addEventListener("DOMContentLoaded", function(){
         body: JSON.stringify(data)
       });
 
-      alert("An Discord gesendet (keine Fehlermeldung erhalten).");
+      alert("Bewerbung abgeschickt (Request gesendet).");
       form.reset();
 
     } catch(err) {
       console.error(err);
       alert("Fehler beim Senden – Konsole prüfen.");
     }
-
   });
 
 });
