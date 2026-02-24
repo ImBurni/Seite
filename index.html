@@ -1499,53 +1499,53 @@
         - Am einfachsten: Formspree → du bekommst alles an DEINE Email (ohne eigenen Server).
         - Ersetze DEIN_CODE mit deinem Formspree-Code: https://formspree.io/f/DEIN_CODE
       -->
-      <form id="applyForm" action="https://formspree.io/f/DEIN_CODE" method="POST">
+      <form id="applyForm" action="#" method="POST">
         
         <div style="display:grid; gap:14px; margin-bottom:14px">
           <div class="field glass neon-border">
             <span aria-hidden="true">🔗</span>
-            <input type="url" name="twitch_link" placeholder="Dein Twitch Channel Link (z.B. https://twitch.tv/deinname)" required>
+            <input type="text" name="twitch_link" placeholder="Dein Twitch Channel Link (z.B. https://twitch.tv/deinname)">
           </div>
 
           <div class="field glass neon-border">
             <span aria-hidden="true">👥</span>
-            <input type="text" name="avg_viewers" placeholder="Wie viele Zuschauer hast du im Schnitt? (z.B. 10–25)" required>
+            <input type="text" name="avg_viewers" placeholder="Wie viele Zuschauer hast du im Schnitt? (z.B. 10–25)">
           </div>
 
           <div class="field glass neon-border">
             <span aria-hidden="true">🎂</span>
-            <input type="number" name="age" min="13" max="120" placeholder="Wie alt bist du?" required>
+            <input type="text" name="age" min="13" max="120" placeholder="Wie alt bist du?">
           </div>
 
           <div class="field glass neon-border">
             <span aria-hidden="true">🎮</span>
-            <input type="text" name="content" placeholder="Was für Content machst du? (Games, IRL, Just Chatting…)" required>
+            <input type="text" name="content" placeholder="Was für Content machst du? (Games, IRL, Just Chatting…)">
           </div>
 
           <div class="field glass neon-border" style="align-items:flex-start">
             <span aria-hidden="true" style="padding-top:2px">💡</span>
-            <textarea name="why_bot" placeholder="Warum willst du den Bot nutzen? (z.B. Mods strukturieren, VIP-Giveaways, Support-Tickets…)" required
+            <textarea name="why_bot" placeholder="Warum willst du den Bot nutzen? (z.B. Mods strukturieren, VIP-Giveaways, Support-Tickets…)"
               style="width:100%; border:0; outline:none; background:transparent; color:var(--text); font-weight:900; resize:vertical; min-height:110px"></textarea>
           </div>
 
           <div class="field glass neon-border">
             <span aria-hidden="true">🗓️</span>
-            <input type="text" name="schedule" placeholder="Wie oft streamst du? (Tage/Zeiten grob)" required>
+            <input type="text" name="schedule" placeholder="Wie oft streamst du? (Tage/Zeiten grob)">
           </div>
 
           <div class="field glass neon-border">
             <span aria-hidden="true">🛡️</span>
-            <input type="text" name="mods" placeholder="Wie viele Mods hast du? (z.B. 0 / 2 / 5)" required>
+            <input type="text" name="mods" placeholder="Wie viele Mods hast du? (z.B. 0 / 2 / 5)">
           </div>
 
           <div class="field glass neon-border">
             <span aria-hidden="true">💬</span>
-            <input type="text" name="discord_name" placeholder="Dein Discord Name (z.B. Name oder Name#1234)" required>
+            <input type="text" name="discord_name" placeholder="Dein Discord Name (z.B. Name oder Name#1234)">
           </div>
 
           <div class="field glass neon-border">
             <span aria-hidden="true">✉️</span>
-            <input type="email" name="email" placeholder="Deine Email (optional – für Rückfragen)">
+            <input type="text" name="email" placeholder="Deine Email (optional – für Rückfragen)">
           </div>
 
           <div class="field glass neon-border" style="align-items:flex-start">
@@ -1555,7 +1555,7 @@
           </div>
 
           <label class="field glass neon-border" style="gap:12px; cursor:pointer">
-            <input type="checkbox" name="consent" required style="width:18px; height:18px; accent-color: var(--c)">
+            <input type="checkbox" name="consent" style="width:18px; height:18px; accent-color: var(--c)">
             <span style="color:var(--muted); font-weight:900; line-height:1.5">
               Ich bestätige, dass die Angaben stimmen und ich für Setup/Support über Discord erreichbar bin.
             </span>
@@ -2187,56 +2187,32 @@
   </script>
 
 <script>
-const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1475989111599796419/Un5XzoaOAHdgcrVnjd_v-f4tvy-rSRXV2ZzYQSrLbfL1OXbSagL-XNVydVoe9afKxZEn";
-
 document.addEventListener("DOMContentLoaded", function(){
-
   const form = document.getElementById("applyForm");
   if(!form) return;
 
-  form.addEventListener("submit", async function(e){
+  form.addEventListener("submit", function(e){
     e.preventDefault();
 
-    console.log("Submit triggered");
+    console.log("FORM WORKS ✅");
+    alert("Formular funktioniert ✅\nWenn jetzt nichts an Discord geht, liegt es NICHT am Button.");
 
-    const data = {
-      content: "🔥 Neue Bot Bewerbung",
-      embeds: [{
-        title: "Neue Bewerbung",
-        color: 16753920,
-        fields: [
-          { name: "Twitch", value: form.twitch_link?.value || "—" },
-          { name: "Ø Zuschauer", value: form.avg_viewers?.value || "—", inline: true },
-          { name: "Alter", value: form.age?.value || "—", inline: true },
-          { name: "Content", value: form.content?.value || "—" },
-          { name: "Warum Bot?", value: form.why_bot?.value || "—" },
-          { name: "Streamplan", value: form.schedule?.value || "—", inline: true },
-          { name: "Mods", value: form.mods?.value || "—", inline: true },
-          { name: "Discord", value: form.discord_name?.value || "—" },
-          { name: "Email", value: form.email?.value || "Nicht angegeben" },
-          { name: "Setup", value: form.current_setup?.value || "Nicht angegeben" }
-        ],
-        timestamp: new Date().toISOString()
-      }]
-    };
+    // --- OPTIONAL DISCORD WEBHOOK ---
+    const WEBHOOK = "HIER_DEIN_WEBHOOK_EINFUEGEN";
 
-    try {
-      await fetch(DISCORD_WEBHOOK_URL, {
+    if(!WEBHOOK.includes("HIER_DEIN_WEBHOOK")){
+      fetch(WEBHOOK, {
         method: "POST",
         mode: "no-cors",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data)
+        body: JSON.stringify({
+          content: "🔥 Neue Bot Bewerbung (Test)"
+        })
       });
-
-      alert("Bewerbung abgeschickt (Request gesendet).");
-      form.reset();
-
-    } catch(err) {
-      console.error(err);
-      alert("Fehler beim Senden – Konsole prüfen.");
     }
-  });
 
+    form.reset();
+  });
 });
 </script>
 
