@@ -1059,9 +1059,54 @@
   z-index: 1;
 }
 </style>
+
+<style>
+.private-badge{
+  position:fixed;
+  top:18px;
+  right:18px;
+  padding:10px 16px;
+  border-radius:30px;
+  font-weight:900;
+  font-size:12px;
+  letter-spacing:1px;
+  background:linear-gradient(90deg,#ff7a18,#a855f7,#00eaff);
+  background-size:200% 200%;
+  animation:gradientMove 4s ease infinite;
+  color:white;
+  z-index:9999;
+  box-shadow:0 0 20px rgba(168,85,247,.6);
+}
+@keyframes gradientMove{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+.dev-status{
+  border-radius:20px;
+  padding:18px;
+  margin-top:20px;
+  border:1px solid rgba(255,255,255,.2);
+  background:rgba(0,0,0,.4);
+  font-weight:900;
+}
+.fake-chat{
+  margin-top:40px;
+  border-radius:20px;
+  padding:18px;
+  background:rgba(0,0,0,.55);
+  border:1px solid rgba(255,255,255,.2);
+}
+.fake-chat-line{
+  margin:6px 0;
+  font-weight:800;
+}
+</style>
+
 </head>
 
 <body>
+<div class="private-badge">🔒 PRIVATE BUILD</div>
   <div class="bg-conic" aria-hidden="true"></div>
   <div class="bg-aurora" aria-hidden="true"></div>
   <div class="grid-overlay" aria-hidden="true"></div>
@@ -1092,16 +1137,17 @@
 
       <div class="nav-links" id="navLinks">
         <a href="#features">Features</a>
-        <a href="#zugang">Bot bekommen</a>
+        <a href="#zugang">Projekt Infos</a>
         <a href="#pricing">Access</a>
         <a href="#streamer">Streamer</a>
         <a href="#faq">FAQ</a>
         
+        <a href="overlay.html">Nuke Overlay</a>
         <a href="#discord">Discord</a>
       </div>
 
       <div class="nav-actions">
-        <a class="btn primary" id="joinTop" href="#discord">Bot holen</a>
+        <a class="btn primary" id="joinTop" href="#discord">Privater Zugang</a>
       </div>
     </div>
   </div>
@@ -1135,8 +1181,7 @@
           </div>
 
           <div class="alert glass neon-border">
-            🔒 <b>Zugang nur via Discord:</b> Den Bot bekommt man nicht automatisch. Im Discord läuft
-            Freischaltung/Setup + Support (Ticketsystem).
+            🔒 <b>Privater Bot – Nicht öffentlich zugänglich:</b><br/>Dieses Projekt ist ein privates Entwicklungsprojekt und nicht öffentlich für die Allgemeinheit bestimmt. Der Zugang erfolgt ausschließlich für Freunde und ausgewählte Streamer.
           </div>
 
           <div class="proof glass neon-border" style="margin-top:14px">
@@ -1170,9 +1215,43 @@
 
       <div class="divider"></div>
     </div>
-  </header>
+  
+<div class="dev-status">
+BOT STATUS: 🟢 ONLINE<br>
+VERSION: v1.3 PRIVATE BUILD<br>
+LAST UPDATE: 02.03.2026<br>
+ACCESS LEVEL: RESTRICTED NETWORK
+</div>
 
-  <section id="features">
+</header>
+
+  
+<section id="demo">
+  <div class="container">
+    <div class="section-head reveal">
+      <div>
+        <h2><span class="grad">Live Chat Demo</span></h2>
+        <p class="hint">Simulation der Bot-Reaktionen</p>
+      </div>
+    </div>
+
+    <div class="fake-chat">
+      <div class="fake-chat-line">User123: !punkte</div>
+      <div class="fake-chat-line">Bot: Du hast 420 Punkte 💰</div>
+
+      <div class="fake-chat-line">User123: !gamble 200</div>
+      <div class="fake-chat-line">Bot: 🎲 Du hast gewonnen! +200 Punkte</div>
+
+      <div class="fake-chat-line">ModMax: !timeout @User123 3</div>
+      <div class="fake-chat-line">Bot: ⏱️ Timeout gesetzt (Grund-ID 3)</div>
+
+      <div class="fake-chat-line">User123: !lurk</div>
+      <div class="fake-chat-line">Bot: 😴 Lurk aktiviert – Punkte laufen weiter.</div>
+    </div>
+  </div>
+</section>
+
+<section id="features">
     <div class="container">
       <div class="section-head reveal">
         <div>
@@ -1475,7 +1554,7 @@
         <div>© <span id="year"></span> <span id="footName">ImBurni</span> • Darkmode • Beta Version V1</div>
         <div style="display:flex; gap:10px; flex-wrap:wrap">
           <a class="btn small" href="#features">Features</a>
-          <a class="btn small" href="#zugang">Bot bekommen</a>
+          <a class="btn small" href="#zugang">Projekt Infos</a>
           <a class="btn small" href="#support-email">Email</a>
           <a class="btn small" href="#streamer">Streamer</a>
           <a class="btn small" href="mailto:support@imburni.de">Email Support</a>
@@ -1484,60 +1563,36 @@
     </div>
 
 
-<section id="bewerbung">
+
+
+
+<section id="datenschutz">
   <div class="container">
-    <div class="section-head">
+    <div class="section-head reveal">
       <div>
-        <h2><span class="grad">Bot Bewerbung</span></h2>
-        <p class="hint">Bewirb dich für den ImBurni Bot – wir melden uns bei dir.</p>
+        <h2><span class="grad">Datenschutz</span></h2>
+        <p class="hint">Dieses Projekt wird privat betrieben.</p>
       </div>
     </div>
 
-    <div class="glass-strong neon-border" style="padding:22px 18px">
-      
-      <form action="https://formsubmit.co/support@imburni.de" method="POST">
-        
-        <input type="hidden" name="_subject" value="Neue ImBurni Bot Bewerbung">
-        <input type="hidden" name="_template" value="table">
-        <input type="hidden" name="_captcha" value="false">
+    <div class="glass-strong neon-border reveal" style="padding:22px 18px">
+      <p><b>Stand: März 2026</b></p>
 
-        <div style="display:grid; gap:14px; margin-bottom:14px">
+      <p><b>Verantwortlicher:</b><br>
+      ImBurni – Privates Projekt<br>
+      Kontakt: support@imburni.de</p>
 
-          <div class="field glass neon-border">
-            <input type="text" name="Twitch Channel" placeholder="Dein Twitch Channel Link" required>
-          </div>
+      <p><b>Server-Log-Dateien:</b><br>
+      Beim Besuch der Website können technisch notwendige Daten wie Browsertyp, Betriebssystem, Uhrzeit und IP-Adresse verarbeitet werden. Diese dienen der Stabilität der Website.</p>
 
-          <div class="field glass neon-border">
-            <input type="text" name="Ø Zuschauer" placeholder="Wie viele Zuschauer im Schnitt?" required>
-          </div>
+      <p><b>Discord & Twitch:</b><br>
+      Bei Nutzung von Discord oder Twitch gelten zusätzlich die Datenschutzbestimmungen der jeweiligen Anbieter.</p>
 
-          <div class="field glass neon-border">
-            <input type="text" name="Alter" placeholder="Wie alt bist du?" required>
-          </div>
+      <p><b>Bot-Daten:</b><br>
+      Innerhalb von Twitch können Chat-Nachrichten, Punkte, Level oder Lurk-Status verarbeitet werden, um die Bot-Funktionen bereitzustellen.</p>
 
-          <div class="field glass neon-border">
-            <input type="text" name="Content" placeholder="Was für Content machst du?" required>
-          </div>
-
-          <div class="field glass neon-border" style="align-items:flex-start">
-            <textarea name="Warum Bot" placeholder="Warum willst du den Bot nutzen?" required
-              style="width:100%; border:0; outline:none; background:transparent; color:var(--text); font-weight:900; resize:vertical; min-height:100px"></textarea>
-          </div>
-
-          <div class="field glass neon-border">
-            <input type="text" name="Discord Name" placeholder="Dein Discord Name" required>
-          </div>
-
-        </div>
-
-        <button class="btn primary" type="submit">🚀 Bewerbung absenden</button>
-
-      </form>
-
-      <p style="margin-top:12px; color:var(--faint); font-weight:850; line-height:1.6">
-        Hinweis: Bitte vergewissere dich Wahrheitsgemäße Angaben zu machen, wir Kontrollieren mit großer Sorgfalt! ( Bitte richtigen Discord Namen angeben, damit wir dich Kontaktieren können! )
-      </p>
-
+      <p><b>Kontakt:</b><br>
+      Bei Fragen zum Datenschutz: support@imburni.de</p>
     </div>
   </div>
 </section>
@@ -1546,7 +1601,7 @@
 
   <!-- floating CTA -->
   <button class="fab" id="fab" type="button" aria-label="Zum Discord">
-    💬 <span>Discord</span> <small>Bot holen</small>
+    💬 <span>Discord</span> <small>Privater Zugang</small>
   </button>
 
   <!-- 🎵 MUSIC (muted on load) -->
