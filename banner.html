@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>ImBurni_Bot_V1 Banner</title>
+<style>
+body{margin:0;background:transparent;overflow:hidden;font-family:Segoe UI,Arial}
+.banner{position:absolute;bottom:40px;left:50%;transform:translate(-50%,160px);
+width:760px;height:120px;border-radius:16px;overflow:hidden;
+background:linear-gradient(120deg,#14121d,#1a1626,#14121d);
+box-shadow:0 0 30px rgba(170,0,255,.25);
+animation:slideIn 1s ease forwards;}
+.banner::before{content:"";position:absolute;inset:0;
+background-image:radial-gradient(circle,rgba(255,255,255,.06) 1px,transparent 1px);
+background-size:14px 14px;}
+.glow{position:absolute;width:300px;height:300px;
+background:radial-gradient(circle,rgba(200,0,255,.35),transparent);
+filter:blur(90px);animation:moveGlow 12s infinite linear;}
+.glow1{left:-120px;bottom:-120px}.glow2{right:-120px;top:-120px}
+@keyframes moveGlow{0%{transform:translate(0,0)}50%{transform:translate(80px,40px)}100%{transform:translate(0,0)}}
+.content{position:relative;display:flex;align-items:center;gap:20px;height:100%;padding:0 40px;}
+.logo{font-size:48px;font-weight:900;color:#c16cff;text-shadow:0 0 20px rgba(200,0,255,.8)}
+.title{font-size:34px;font-weight:800;color:white}
+.sub{font-size:16px;color:#d7c9ff}
+.typing{font-size:14px;margin-top:4px;color:#caaaff;border-right:2px solid #caaaff;white-space:nowrap;overflow:hidden}
+@keyframes slideIn{from{transform:translate(-50%,160px);opacity:0}to{transform:translate(-50%,0);opacity:1}}
+</style>
+</head>
+<body>
+<div class="banner">
+<div class="glow glow1"></div>
+<div class="glow glow2"></div>
+<div class="content">
+<div class="logo">IB</div>
+<div>
+<div class="title">ImBurni_Bot_V1</div>
+<div class="sub">Offizieller Partner</div>
+<div class="typing" id="typing"></div>
+</div>
+</div>
+</div>
+<script>
+const texts=[
+"Twitch × Discord Power Bot",
+"VIP Rewards • Tickets • Punkte",
+"Raid Alerts • Level • Lurk",
+"Moderation • Automation",
+"Community Engagement Tools"
+]
+let i=0,j=0
+function type(){
+const el=document.getElementById("typing")
+if(j<texts[i].length){
+el.textContent+=texts[i].charAt(j);j++;setTimeout(type,40)
+}else{
+setTimeout(()=>{el.textContent="";j=0;i=(i+1)%texts.length;type()},2000)
+}}
+type()
+</script>
+</body>
+</html>
