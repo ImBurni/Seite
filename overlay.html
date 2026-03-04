@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Nuclear Overlay Generator</title>
+<style>
+body{
+background:#05050d;
+font-family:Arial,Helvetica,sans-serif;
+color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+height:100vh;
+margin:0;
+}
+.box{
+background:rgba(255,255,255,0.05);
+border:1px solid rgba(255,255,255,0.1);
+padding:40px;
+border-radius:20px;
+text-align:center;
+width:420px;
+box-shadow:0 0 40px rgba(0,0,0,.6);
+}
+h2{margin-top:0}
+input{
+padding:12px;
+border-radius:10px;
+border:none;
+width:140px;
+font-size:20px;
+text-align:center;
+}
+button{
+margin-top:20px;
+padding:12px 22px;
+border:none;
+border-radius:12px;
+background:linear-gradient(90deg,#ff7a18,#a855f7,#00eaff);
+color:white;
+font-weight:bold;
+cursor:pointer;
+}
+.result{margin-top:20px}
+.result input{
+width:100%;
+margin-top:10px;
+padding:10px;
+}
+</style>
+</head>
+<body>
+<div class="box">
+<h2>BO2 Nuclear Overlay</h2>
+<p>Nukes Anzahl eingeben</p>
+<input id="nukeCount" type="number" value="0" min="0">
+<br>
+<button onclick="generate()">OBS Link erstellen</button>
+<div class="result" id="result"></div>
+</div>
+<script>
+function generate(){
+let nukes = document.getElementById("nukeCount").value
+let url = window.location.origin + "/nuke.html?nukes=" + nukes
+document.getElementById("result").innerHTML =
+`<p>OBS Browser Source</p>
+<input value="${url}">
+<p>Width: 800<br>Height: 200</p>`
+}
+</script>
+</body>
+</html>
