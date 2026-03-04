@@ -1,0 +1,28 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>ImBurni Overlay Generator</title>
+<style>
+body{margin:0;background:#0b0b12;color:white;font-family:Arial;display:flex;align-items:center;justify-content:center;height:100vh}
+.box{background:#151520;padding:40px;border-radius:16px;text-align:center;width:420px}
+button{margin-top:20px;padding:12px 20px;border:none;border-radius:10px;background:#7a00ff;color:white;font-weight:bold;cursor:pointer}
+input{width:100%;margin-top:20px;padding:10px;border-radius:8px;border:none}
+</style>
+</head>
+<body>
+<div class="box">
+<h2>ImBurni Bot Overlay</h2>
+<p>OBS Browser Source erstellen</p>
+<button onclick="generate()">OBS Link generieren</button>
+<input id="result" readonly>
+</div>
+<script>
+function generate(){
+let url = window.location.origin + "/banner.html";
+document.getElementById("result").value = url;
+}
+</script>
+</body>
+</html>
