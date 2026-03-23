@@ -1907,54 +1907,110 @@
     if(refreshBtn) refreshBtn.addEventListener('click', refreshStreamers);
     renderStreamers(); refreshStreamers(); setInterval(refreshStreamers, 60000);
 
-    /* ---------- Zuschauer Liste ---------- */
-    const viewerGrid = document.getElementById('viewerGrid');
-    const viewerTotalCount = document.getElementById('viewerTotalCount');
-    const viewerTodayCount = document.getElementById('viewerTodayCount');
-    const refreshViewersBtn = document.getElementById('refreshViewersBtn');
+/* ---------- Zuschauer Liste ---------- */
+const viewerGrid = document.getElementById('viewerGrid');
+const viewerTotalCount = document.getElementById('viewerTotalCount');
+const viewerTodayCount = document.getElementById('viewerTodayCount');
+const refreshViewersBtn = document.getElementById('refreshViewersBtn');
 
-    async function loadViewers() {
-      try {
-        const response = await fetch('registered_viewers.json?t=' + Date.now());
-        if (!response.ok) throw new Error('Datei nicht gefunden');
-        const data = await response.json();
-        
-        const viewers = Object.values(data);
-        const today = new Date().toISOString().split('T')[0];
-        const todayCount = viewers.filter(v => v.registered_at && v.registered_at.startsWith(today)).length;
-        
-        viewerTotalCount.textContent = viewers.length;
-        viewerTodayCount.textContent = todayCount;
-        
-        if (viewers.length === 0) {
-          viewerGrid.innerHTML = `<div class="empty-viewers"><div style="font-size: 3rem;">👥</div><h3>Noch keine Zuschauer registriert</h3><p>Schreibe <b>!register</b> im Twitch-Chat, um dich einzutragen!</p></div>`;
-          return;
-        }
-        
-        const sorted = viewers.sort((a, b) => new Date(b.registered_at) - new Date(a.registered_at));
-        
-        viewerGrid.innerHTML = sorted.map(viewer => `
-          <div class="viewer-card">
-            <div class="viewer-header">
-              <img class="viewer-avatar" src="${viewer.profile_image_url}" alt="${viewer.display_name}" onerror="this.src='https://static-cdn.jtvnw.net/user-default-pictures-uv/ebe5cd76-b869-49ca-bbf5-6b3bc3a5f510-profile_image-70x70.png'">
-              <div class="viewer-info">
-                <div class="viewer-name">${escapeHtml(viewer.display_name)}</div>
-                <div class="viewer-date">📅 Registriert: ${viewer.registered_date || viewer.registered_at?.split('T')[0]} ${viewer.registered_time ? 'um ' + viewer.registered_time : ''}</div>
-              </div>
-            </div>
-          </div>
-        `).join('');
-      } catch (error) {
-        console.error('Fehler beim Laden der Zuschauer:', error);
-        viewerGrid.innerHTML = `<div class="empty-viewers"><div style="font-size: 3rem;">⚠️</div><h3>Keine Verbindung zur Datenbank</h3><p>Stelle sicher, dass der Bot läuft und die Datei <b>registered_viewers.json</b> existiert.</p><p style="margin-top: 10px;">💡 <b>!register</b> im Twitch-Chat erstellt die Datei automatisch.</p></div>`;
-        viewerTotalCount.textContent = '0';
-        viewerTodayCount.textContent = '0';
-      }
+async function loadViewers() {
+  try {
+    const response = await fetch('registered_viewers.json?t=' + Date.now());
+    if (!response.ok) throw new Error('Datei nicht gefunden');
+
+    const data = await response.json();
+    const viewers = Object.values(data);
+
+    const today = new Date().toISOString().split('T')[0];
+    const todayCount = viewers.filter(v =>
+      v.registered_at && v.registered_at.startsWith(today)
+    ).length;
+
+    viewerTotalCount.textContent = viewers.length;
+    viewerTodayCount.textContent = todayCount;
+
+    if (viewers.length === 0) {
+      viewerGrid.innerHTML = `
+        <div class="empty-viewers">
+          <div style="font-size: 3rem;">👥</div>
+          <h3>Noch keine Zuschauer registriert</h3>
+          <p>Schreibe <b>!register</b> im Twitch-Chat, um dich einzutragen!</p>
+        </div>
+      `;
+      return;
     }
 
-    if(refreshViewersBtn) refreshViewersBtn.addEventListener('click', loadViewers);
-    loadViewers();
-    setInterval(loadViewers, 30000);
+    const sorted = viewers.sort(
+      (a, b) => new Date(b.registered_at) - new Date(a.registered_at)
+    );
+
+    viewerGrid.innerHTML = sorted.map(viewer => `
+      <div class="viewer-card">
+        <div class="viewer-header">
+
+          <img
+            class="viewer-avatar"
+            src="${viewer.profile_image_url}"
+            alt="${viewer.display_name}"
+            onerror="this.src='https://static-cdn.jtvnw.net/user-default-pictures-uv/ebe5cd76-b869-49ca-bbf5-6b3bc3a5f510-profile_image-70x70.png'"
+          >
+
+          <div class="viewer-info">
+
+            <div class="viewer-name">
+              ${escapeHtml(viewer.display_name)}
+            </div>
+
+            <div style="margin:6px 0;">
+              <span style="
+                display:inline-block;
+                padding:4px 10px;
+                border-radius:999px;
+                font-size:0.7rem;
+                font-weight:900;
+                background:linear-gradient(135deg,#9147ff,#00eaff);
+                color:#060611;
+              ">
+                📺 ${viewer.channel || "unknown"}
+              </span>
+            </div>
+
+            <div class="viewer-date">
+              📅 Registriert:
+              ${viewer.registered_date || viewer.registered_at?.split('T')[0]}
+              ${viewer.registered_time ? 'um ' + viewer.registered_time : ''}
+            </div>
+
+          </div>
+        </div>
+      </div>
+    `).join('');
+
+  } catch (error) {
+    console.error('Fehler beim Laden der Zuschauer:', error);
+
+    viewerGrid.innerHTML = `
+      <div class="empty-viewers">
+        <div style="font-size: 3rem;">⚠️</div>
+        <h3>Keine Verbindung zur Datenbank</h3>
+        <p>Stelle sicher, dass der Bot läuft und die Datei <b>registered_viewers.json</b> existiert.</p>
+        <p style="margin-top: 10px;">
+          💡 <b>!register</b> im Twitch-Chat erstellt die Datei automatisch.
+        </p>
+      </div>
+    `;
+
+    viewerTotalCount.textContent = '0';
+    viewerTodayCount.textContent = '0';
+  }
+}
+
+if (refreshViewersBtn) {
+  refreshViewersBtn.addEventListener('click', loadViewers);
+}
+
+loadViewers();
+setInterval(loadViewers, 30000);
 
     /* ---------- FAB show/hide on scroll ---------- */
     (function(){
