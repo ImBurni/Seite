@@ -1069,7 +1069,28 @@
       .bg-conic,.bg-aurora,.logo::after,.shine-underline::before,.grad{animation:none}
       .reveal,.card,.step,.price-card,.streamer-card,.btn,.badge,.chip{transition:none}
     }
-  </style>
+  
+.case-link{
+  padding:10px 12px;
+  border-radius:12px;
+  font-weight:950;
+  position:relative;
+  color:#fff;
+  background: linear-gradient(135deg, rgba(255,122,24,.25), rgba(168,85,247,.25), rgba(0,234,255,.2));
+  border:1px solid rgba(255,255,255,.18);
+  box-shadow:
+    0 0 12px rgba(255,122,24,.35),
+    0 0 18px rgba(168,85,247,.25);
+  transition: all .2s ease;
+}
+.case-link:hover{
+  transform: translateY(-2px) scale(1.03);
+  box-shadow:
+    0 0 20px rgba(255,122,24,.55),
+    0 0 30px rgba(168,85,247,.45);
+}
+
+</style>
 </head>
 
 <body>
@@ -1107,7 +1128,7 @@
         <a href="#streamer">Streamer</a>
         <a href="#zuschauer">📺 Zuschauer</a>
         <a href="#faq">FAQ</a>
-        <a href="banner-generator.html">Bot Overlay</a>
+        <a href="Case.html" class="case-link">🎁 Case-Opening</a>
         <a href="#discord">Discord</a>
       </div>
 
