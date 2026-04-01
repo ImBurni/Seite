@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>🔥 ULTRA CASE OPENING</title>
+
+<style>
+body{
+  margin:0;
+  background:radial-gradient(circle at center,#060612,#000);
+  color:white;
+  font-family:sans-serif;
+  text-align:center;
+  overflow:hidden;
+}
+
+/* BUTTON */
+button{
+  padding:16px 26px;
+  font-size:20px;
+  border:none;
+  border-radius:16px;
+  cursor:pointer;
+  background:linear-gradient(90deg,#ff7a18,#a855f7,#00eaff);
+  color:black;
+  font-weight:bold;
+  margin-top:20px;
+  transition:.2s;
+}
+button:hover{
+  transform:scale(1.05);
+}
+
+/* CASE AREA */
+#case{
+  width:100%;
+  height:220px;
+  overflow:hidden;
+  position:relative;
+  margin-top:80px;
+}
+
+/* SPIN TRACK */
+#items{
+  display:flex;
+  position:absolute;
+  left:0;
+  top:0;
+  height:100%;
+  align-items:center;
+  will-change: transform;
+}
+
+/* ITEMS */
+.item{
+  width:130px;
+  height:130px;
+  margin:0 12px;
+  border-radius:14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:bold;
+  transition:.2s;
+}
+
+/* RARITY */
+.common{background:#555;}
+.rare{background:#3b82f6;}
+.epic{background:#a855f7;}
+.legendary{
+  background:#f59e0b;
+  box-shadow:0 0 25px gold;
+}
+.mythic{
+  background:#ff2bd6;
+  box-shadow:0 0 40px #ff2bd6;
+}
+
+/* CENTER */
+#center{
+  position:absolute;
+  top:0;
+  left:50%;
+  width:4px;
+  height:100%;
+  background:white;
+  transform:translateX(-50%);
+}
+
+/* RESULT */
+#result{
+  margin-top:40px;
+  font-size:32px;
+  font-weight:bold;
+  transition:.3s;
+}
+
+/* PARTICLES */
+.particle{
+  position:absolute;
+  width:6px;
+  height:6px;
+  background:white;
+  border-radius:50%;
+  pointer-events:none;
+}
+
+/* SHAKE */
+.shake{
+  animation:shake 0.3s;
+}
+@keyframes shake{
+  0%{transform:translate(0)}
+  25%{transform:translate(-5px,5px)}
+  50%{transform:translate(5px,-5px)}
+  75%{transform:translate(-5px,5px)}
+  100%{transform:translate(0)}
+}
+
+/* FLASH */
+.flash{
+  position:absolute;
+  inset:0;
+  background:white;
+  opacity:0;
+  pointer-events:none;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>🎁 ULTRA CASE OPENING</h1>
+
+<button onclick="openCase()">OPEN CASE</button>
+
+<div id="case">
+  <div id="center"></div>
+  <div id="items"></div>
+</div>
+
+<div id="result"></div>
+<div class="flash" id="flash"></div>
+
+<audio id="spin" src="https://cdn.pixabay.com/audio/2022/03/15/audio_115b9c6e76.mp3"></audio>
+<audio id="boom" src="https://cdn.pixabay.com/audio/2022/03/15/audio_c9b3c0c1b7.mp3"></audio>
+
+<script>
+const items = [
+  {name:"50 Punkte", class:"common"},
+  {name:"100 Punkte", class:"rare"},
+  {name:"200 Punkte", class:"epic"},
+  {name:"500 Punkte", class:"legendary"},
+  {name:"1000 Punkte", class:"mythic"}
+];
+
+const container = document.getElementById("items");
+const spinSound = document.getElementById("spin");
+const boomSound = document.getElementById("boom");
+
+function generateItems(){
+  container.innerHTML = "";
+  for(let i=0;i<80;i++){
+    const item = items[Math.floor(Math.random()*items.length)];
+    const div = document.createElement("div");
+    div.className = "item " + item.class;
+    div.innerText = item.name;
+    container.appendChild(div);
+  }
+}
+
+function openCase(){
+  generateItems();
+
+  spinSound.currentTime = 0;
+  spinSound.play();
+
+  const total = container.scrollWidth;
+  const stop = Math.floor(Math.random() * (total - window.innerWidth));
+
+  container.style.transition = "transform 5s cubic-bezier(.05,.8,.1,1)";
+  container.style.transform = `translateX(-${stop}px)`;
+
+  // slow motion am ende
+  setTimeout(()=>{
+    container.style.transition = "transform 1s ease-out";
+  },4000);
+
+  setTimeout(()=>{
+    spinSound.pause();
+    explode();
+    showResult();
+  },5200);
+}
+
+function showResult(){
+  const itemsList = document.querySelectorAll(".item");
+  let closest = null;
+  let best = 99999;
+
+  itemsList.forEach(el=>{
+    const rect = el.getBoundingClientRect();
+    const center = window.innerWidth/2;
+    const dist = Math.abs(center - (rect.left + rect.width/2));
+
+    if(dist < best){
+      best = dist;
+      closest = el;
+    }
+  });
+
+  if(closest){
+    closest.style.transform = "scale(1.4)";
+    closest.style.boxShadow = "0 0 60px white";
+
+    document.getElementById("result").innerText =
+      "🔥 GEWONNEN: " + closest.innerText;
+
+    if(closest.classList.contains("mythic")){
+      megaEffect();
+    }
+  }
+}
+
+function explode(){
+  document.body.classList.add("shake");
+  boomSound.play();
+
+  const flash = document.getElementById("flash");
+  flash.style.opacity = 1;
+  setTimeout(()=>flash.style.opacity=0,150);
+
+  for(let i=0;i<40;i++){
+    const p = document.createElement("div");
+    p.className = "particle";
+
+    p.style.left = "50%";
+    p.style.top = "50%";
+
+    const angle = Math.random()*360;
+    const dist = Math.random()*200;
+
+    const x = Math.cos(angle)*dist;
+    const y = Math.sin(angle)*dist;
+
+    document.body.appendChild(p);
+
+    p.animate([
+      {transform:"translate(0,0)",opacity:1},
+      {transform:`translate(${x}px,${y}px)`,opacity:0}
+    ],{
+      duration:800,
+      easing:"ease-out"
+    });
+
+    setTimeout(()=>p.remove(),800);
+  }
+
+  setTimeout(()=>document.body.classList.remove("shake"),300);
+}
+
+function megaEffect(){
+  document.body.style.background = "radial-gradient(circle,#ff2bd6,#000)";
+  setTimeout(()=>{
+    document.body.style.background = "radial-gradient(circle,#060612,#000)";
+  },800);
+}
+</script>
+
+</body>
+</html>
