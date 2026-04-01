@@ -2,87 +2,96 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<title>🔥 ULTRA CASE OPENING</title>
+<title>Case Opening</title>
 
 <style>
 body{
   margin:0;
-  background:radial-gradient(circle at center,#060612,#000);
+  background:#0c0c12;
   color:white;
-  font-family:sans-serif;
+  font-family:Inter, sans-serif;
   text-align:center;
-  overflow:hidden;
 }
 
 /* BUTTON */
-button{
-  padding:16px 26px;
-  font-size:20px;
+#openBtn{
+  margin-top:40px;
+  padding:14px 24px;
+  border-radius:12px;
   border:none;
-  border-radius:16px;
   cursor:pointer;
-  background:linear-gradient(90deg,#ff7a18,#a855f7,#00eaff);
-  color:black;
-  font-weight:bold;
-  margin-top:20px;
-  transition:.2s;
-}
-button:hover{
-  transform:scale(1.05);
+  background:linear-gradient(90deg,#5865f2,#7c3aed);
+  color:white;
+  font-weight:600;
 }
 
-/* CASE AREA */
+/* CASE */
 #case{
-  width:100%;
-  height:220px;
+  margin-top:60px;
+  height:160px;
   overflow:hidden;
   position:relative;
-  margin-top:80px;
 }
 
-/* SPIN TRACK */
-#items{
-  display:flex;
+/* FADE */
+#case::before,
+#case::after{
+  content:"";
   position:absolute;
-  left:0;
   top:0;
+  width:200px;
   height:100%;
-  align-items:center;
-  will-change: transform;
+  z-index:5;
+  pointer-events:none;
 }
 
-/* ITEMS */
+#case::before{
+  left:0;
+  background:linear-gradient(to right,#0c0c12,transparent);
+}
+#case::after{
+  right:0;
+  background:linear-gradient(to left,#0c0c12,transparent);
+}
+
+/* TRACK */
+#track{
+  display:flex;
+  align-items:center;
+  height:100%;
+  position:absolute;
+  will-change:transform;
+}
+
+/* ITEM */
 .item{
-  width:130px;
-  height:130px;
-  margin:0 12px;
-  border-radius:14px;
+  width:120px;
+  height:120px;
+  margin:0 8px;
+  border-radius:12px;
+  background:#1b1b24;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-weight:bold;
+  font-size:14px;
   transition:.2s;
 }
 
 /* RARITY */
-.common{background:#555;}
-.rare{background:#3b82f6;}
-.epic{background:#a855f7;}
-.legendary{
-  background:#f59e0b;
-  box-shadow:0 0 25px gold;
-}
+.common{background:#2a2a33;}
+.rare{background:#2563eb;}
+.epic{background:#7c3aed;}
+.legendary{background:#f59e0b;}
 .mythic{
   background:#ff2bd6;
-  box-shadow:0 0 40px #ff2bd6;
+  box-shadow:0 0 20px #ff2bd6;
 }
 
 /* CENTER */
 #center{
   position:absolute;
-  top:0;
   left:50%;
-  width:4px;
+  width:2px;
   height:100%;
   background:white;
   transform:translateX(-50%);
@@ -91,182 +100,94 @@ button:hover{
 /* RESULT */
 #result{
   margin-top:40px;
-  font-size:32px;
-  font-weight:bold;
-  transition:.3s;
+  font-size:24px;
 }
-
-/* PARTICLES */
-.particle{
-  position:absolute;
-  width:6px;
-  height:6px;
-  background:white;
-  border-radius:50%;
-  pointer-events:none;
-}
-
-/* SHAKE */
-.shake{
-  animation:shake 0.3s;
-}
-@keyframes shake{
-  0%{transform:translate(0)}
-  25%{transform:translate(-5px,5px)}
-  50%{transform:translate(5px,-5px)}
-  75%{transform:translate(-5px,5px)}
-  100%{transform:translate(0)}
-}
-
-/* FLASH */
-.flash{
-  position:absolute;
-  inset:0;
-  background:white;
-  opacity:0;
-  pointer-events:none;
-}
-
 </style>
 </head>
 
 <body>
 
-<h1>🎁 ULTRA CASE OPENING</h1>
+<h2>🎁 Case Opening</h2>
 
-<button onclick="openCase()">OPEN CASE</button>
+<button id="openBtn">OPEN</button>
 
 <div id="case">
   <div id="center"></div>
-  <div id="items"></div>
+  <div id="track"></div>
 </div>
 
 <div id="result"></div>
-<div class="flash" id="flash"></div>
 
+<!-- 🔊 SOUND FIX (LOCAL CLICK TRIGGER) -->
 <audio id="spin" src="https://cdn.pixabay.com/audio/2022/03/15/audio_115b9c6e76.mp3"></audio>
-<audio id="boom" src="https://cdn.pixabay.com/audio/2022/03/15/audio_c9b3c0c1b7.mp3"></audio>
+<audio id="win" src="https://cdn.pixabay.com/audio/2022/03/15/audio_c9b3c0c1b7.mp3"></audio>
 
 <script>
 const items = [
-  {name:"50 Punkte", class:"common"},
-  {name:"100 Punkte", class:"rare"},
-  {name:"200 Punkte", class:"epic"},
-  {name:"500 Punkte", class:"legendary"},
-  {name:"1000 Punkte", class:"mythic"}
+  {name:"50", class:"common", weight:50},
+  {name:"100", class:"rare", weight:30},
+  {name:"200", class:"epic", weight:15},
+  {name:"500", class:"legendary", weight:4},
+  {name:"1000", class:"mythic", weight:1}
 ];
 
-const container = document.getElementById("items");
-const spinSound = document.getElementById("spin");
-const boomSound = document.getElementById("boom");
+const track = document.getElementById("track");
+const btn = document.getElementById("openBtn");
 
-function generateItems(){
-  container.innerHTML = "";
-  for(let i=0;i<80;i++){
-    const item = items[Math.floor(Math.random()*items.length)];
-    const div = document.createElement("div");
-    div.className = "item " + item.class;
-    div.innerText = item.name;
-    container.appendChild(div);
+function weighted(){
+  let total = items.reduce((a,b)=>a+b.weight,0);
+  let r = Math.random()*total;
+  for(let i of items){
+    if(r < i.weight) return i;
+    r -= i.weight;
   }
 }
 
-function openCase(){
-  generateItems();
+function build(winner){
+  track.innerHTML="";
+
+  for(let i=0;i<60;i++){
+    let item = i===50 ? winner : weighted();
+
+    const div = document.createElement("div");
+    div.className = "item " + item.class;
+    div.innerText = item.name;
+    track.appendChild(div);
+  }
+}
+
+btn.onclick = ()=>{
+  const spinSound = document.getElementById("spin");
+  const winSound = document.getElementById("win");
 
   spinSound.currentTime = 0;
   spinSound.play();
 
-  const total = container.scrollWidth;
-  const stop = Math.floor(Math.random() * (total - window.innerWidth));
+  const winner = weighted();
+  build(winner);
 
-  container.style.transition = "transform 5s cubic-bezier(.05,.8,.1,1)";
-  container.style.transform = `translateX(-${stop}px)`;
+  const itemWidth = 136; // inkl margin
+  const centerIndex = 50;
 
-  // slow motion am ende
-  setTimeout(()=>{
-    container.style.transition = "transform 1s ease-out";
-  },4000);
+  const offset = (centerIndex * itemWidth) - (window.innerWidth/2) + (itemWidth/2);
+
+  track.style.transition = "transform 4.5s cubic-bezier(.1,.8,.2,1)";
+  track.style.transform = `translateX(-${offset}px)`;
 
   setTimeout(()=>{
     spinSound.pause();
-    explode();
-    showResult();
-  },5200);
-}
+    winSound.play();
 
-function showResult(){
-  const itemsList = document.querySelectorAll(".item");
-  let closest = null;
-  let best = 99999;
+    const itemsDOM = document.querySelectorAll(".item");
+    const el = itemsDOM[centerIndex];
 
-  itemsList.forEach(el=>{
-    const rect = el.getBoundingClientRect();
-    const center = window.innerWidth/2;
-    const dist = Math.abs(center - (rect.left + rect.width/2));
-
-    if(dist < best){
-      best = dist;
-      closest = el;
-    }
-  });
-
-  if(closest){
-    closest.style.transform = "scale(1.4)";
-    closest.style.boxShadow = "0 0 60px white";
+    el.style.transform="scale(1.2)";
+    el.style.boxShadow="0 0 40px white";
 
     document.getElementById("result").innerText =
-      "🔥 GEWONNEN: " + closest.innerText;
-
-    if(closest.classList.contains("mythic")){
-      megaEffect();
-    }
-  }
-}
-
-function explode(){
-  document.body.classList.add("shake");
-  boomSound.play();
-
-  const flash = document.getElementById("flash");
-  flash.style.opacity = 1;
-  setTimeout(()=>flash.style.opacity=0,150);
-
-  for(let i=0;i<40;i++){
-    const p = document.createElement("div");
-    p.className = "particle";
-
-    p.style.left = "50%";
-    p.style.top = "50%";
-
-    const angle = Math.random()*360;
-    const dist = Math.random()*200;
-
-    const x = Math.cos(angle)*dist;
-    const y = Math.sin(angle)*dist;
-
-    document.body.appendChild(p);
-
-    p.animate([
-      {transform:"translate(0,0)",opacity:1},
-      {transform:`translate(${x}px,${y}px)`,opacity:0}
-    ],{
-      duration:800,
-      easing:"ease-out"
-    });
-
-    setTimeout(()=>p.remove(),800);
-  }
-
-  setTimeout(()=>document.body.classList.remove("shake"),300);
-}
-
-function megaEffect(){
-  document.body.style.background = "radial-gradient(circle,#ff2bd6,#000)";
-  setTimeout(()=>{
-    document.body.style.background = "radial-gradient(circle,#060612,#000)";
-  },800);
-}
+      "Gewonnen: " + el.innerText + " Punkte";
+  },4600);
+};
 </script>
 
 </body>
