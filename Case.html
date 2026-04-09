@@ -1,243 +1,95 @@
 <!DOCTYPE html>
-<html lang="de">
+<html>
 <head>
 <meta charset="UTF-8">
-<title>🎰 Title Casino</title>
+<title>Login Casino</title>
 
 <style>
 body {
-    margin: 0;
-    background: radial-gradient(circle at top, #1e293b, #020617);
+    background: #020617;
     color: white;
-    font-family: Arial;
     text-align: center;
-}
-
-h1 {
-    margin-top: 30px;
-    font-size: 40px;
-    text-shadow: 0 0 20px #22c55e;
+    font-family: Arial;
 }
 
 button {
-    padding: 12px 25px;
+    padding: 15px 25px;
     font-size: 18px;
-    border: none;
     background: #22c55e;
-    color: black;
+    border: none;
     cursor: pointer;
-    border-radius: 10px;
-    transition: 0.2s;
 }
 
-button:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 20px #22c55e;
-}
-
-#slot {
+#code {
     font-size: 30px;
-    margin-top: 40px;
-    height: 60px;
-    transition: 0.2s;
-}
-
-.glow {
-    animation: glow 1s infinite alternate;
-}
-
-@keyframes glow {
-    from { text-shadow: 0 0 10px #22c55e; }
-    to { text-shadow: 0 0 25px #22c55e; }
-}
-
-.win {
-    animation: win 0.6s ease;
-}
-
-@keyframes win {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.4); }
-    100% { transform: scale(1); }
-}
-
-.box {
-    margin-top: 30px;
-}
-
-#info {
     margin-top: 20px;
-    font-size: 18px;
-    opacity: 0.8;
 }
 </style>
 </head>
 
 <body>
 
-<h1>🎰 TITLE CASINO</h1>
+<h1>🔐 Twitch Login</h1>
 
-<div class="box">
-    <button onclick="login()">🔐 Login</button>
-    <button onclick="spin()">🎲 Spin</button>
-</div>
+<button onclick="getCode()">Login starten</button>
 
-<div id="slot">---</div>
-<div id="info"></div>
+<div id="code"></div>
+<div id="status"></div>
 
 <script>
 
-// ------------------
-// STATE
-// ------------------
-let user = null;
-let tokens = 5;
+let currentCode = null;
 
-// ------------------
-// TITLES SYSTEM
-// ------------------
-let titles = [];
+// ----------------------
+// CODE GENERIEREN
+// ----------------------
+function getCode() {
 
-function createTitles() {
-    for (let i = 1; i <= 100; i++) {
+    currentCode = generateCode();
 
-        let rarity = "common";
-        let chance = 70;
+    document.getElementById("code").innerText =
+        "Dein Code: " + currentCode;
 
-        if (i <= 5) { rarity = "legendary"; chance = 1; }
-        else if (i <= 15) { rarity = "epic"; chance = 5; }
-        else if (i <= 40) { rarity = "rare"; chance = 15; }
+    document.getElementById("status").innerText =
+        "👉 Schreibe im Chat: !confirm " + currentCode;
 
-        titles.push({
-            id: "title_" + i,
-            name: getStyledName(i, rarity),
-            rarity: rarity,
-            chance: chance
-        });
+    checkLogin();
+}
+
+// ----------------------
+// FAKE CODE (Website)
+// ----------------------
+function generateCode() {
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    let code = "";
+    for (let i = 0; i < 6; i++) {
+        code += chars[Math.floor(Math.random() * chars.length)];
     }
+    return code;
 }
 
-function getStyledName(i, rarity) {
-    if (rarity === "legendary") return "👑 𝓛𝓮𝓰𝓮𝓷𝓭 #" + i;
-    if (rarity === "epic") return "🔥 𝐄𝐩𝐢𝐜 #" + i;
-    if (rarity === "rare") return "💎 𝕽𝖆𝖗𝖊 #" + i;
-    return "⚡ Title #" + i;
-}
+// ----------------------
+// CHECK LOGIN
+// ----------------------
+function checkLogin() {
 
-createTitles();
+    let interval = setInterval(async () => {
 
-// ------------------
-// LOGIN
-// ------------------
-function login() {
-    let name = prompt("Twitch Name:");
-    if (!name) return;
+        try {
+            let res = await fetch("login_sessions.json");
+            let data = await res.json();
 
-    user = {
-        id: name.toLowerCase(),
-        name: name
-    };
+            if (data[currentCode]) {
 
-    document.getElementById("info").innerText =
-        "✅ Eingeloggt als " + user.name + " | Tokens: " + tokens;
-}
+                document.getElementById("status").innerText =
+                    "✅ Eingeloggt als " + data[currentCode].user;
 
-// ------------------
-// SPIN ANIMATION
-// ------------------
-async function spin() {
+                clearInterval(interval);
+            }
 
-    if (!user) {
-        alert("Bitte einloggen!");
-        return;
-    }
+        } catch {}
 
-    if (tokens <= 0) {
-        alert("Keine Tokens!");
-        return;
-    }
-
-    tokens--;
-
-    let slot = document.getElementById("slot");
-    slot.classList.add("glow");
-
-    // Fake Slot Animation
-    for (let i = 0; i < 15; i++) {
-        let rand = titles[Math.floor(Math.random() * titles.length)];
-        slot.innerText = rand.name;
-        await sleep(80 + i * 10);
-    }
-
-    let win = getRandomTitle();
-
-    slot.innerText = win.name;
-    slot.classList.remove("glow");
-    slot.classList.add("win");
-
-    setTimeout(() => slot.classList.remove("win"), 600);
-
-    document.getElementById("info").innerText =
-        `🎉 ${user.name} gewinnt ${win.name} | Tokens: ${tokens}`;
-
-    save(win.id);
-}
-
-// ------------------
-// RANDOM LOGIC
-// ------------------
-function getRandomTitle() {
-    let pool = [];
-
-    titles.forEach(t => {
-        for (let i = 0; i < t.chance; i++) {
-            pool.push(t);
-        }
-    });
-
-    return pool[Math.floor(Math.random() * pool.length)];
-}
-
-// ------------------
-// SAVE
-// ------------------
-function save(title) {
-
-    let data = JSON.parse(localStorage.getItem("titles") || "{}");
-
-    if (!data[user.id]) {
-        data[user.id] = {
-            name: user.name,
-            titles: [],
-            tokens: tokens
-        };
-    }
-
-    if (!data[user.id].titles.includes(title)) {
-        data[user.id].titles.push(title);
-    }
-
-    data[user.id].tokens = tokens;
-
-    localStorage.setItem("titles", JSON.stringify(data));
-
-    download(data);
-}
-
-// ------------------
-// DOWNLOAD JSON
-// ------------------
-function download(data) {
-    let blob = new Blob([JSON.stringify(data, null, 2)], {type: "application/json"});
-    let a = document.createElement("a");
-    a.href = URL.createObjectURL(blob);
-    a.download = "titles.json";
-    a.click();
-}
-
-// ------------------
-function sleep(ms) {
-    return new Promise(r => setTimeout(r, ms));
+    }, 2000);
 }
 
 </script>
