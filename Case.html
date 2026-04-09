@@ -1,98 +1,374 @@
 <!DOCTYPE html>
-<html>
+<html lang="de">
 <head>
-<meta charset="UTF-8">
-<title>Login Casino</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>ImBurni Bot V1 | Feature in Entwicklung</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<style>
-body {
-    background: #020617;
-    color: white;
-    text-align: center;
-    font-family: Arial;
-}
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0a0e1a 0%, #0c0f17 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', 'Poppins', system-ui, -apple-system, sans-serif;
+            padding: 20px;
+        }
 
-button {
-    padding: 15px 25px;
-    font-size: 18px;
-    background: #22c55e;
-    border: none;
-    cursor: pointer;
-}
+        /* Hauptcontainer - clean & modern */
+        .container {
+            max-width: 750px;
+            width: 100%;
+            background: rgba(18, 22, 35, 0.85);
+            backdrop-filter: blur(12px);
+            border-radius: 48px;
+            padding: 50px 35px;
+            text-align: center;
+            border: 1px solid rgba(100, 150, 255, 0.25);
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.4);
+            transition: transform 0.2s ease;
+        }
 
-#code {
-    font-size: 30px;
-    margin-top: 20px;
-}
-</style>
+        /* Bot Header */
+        .bot-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #1e2438;
+            padding: 8px 24px;
+            border-radius: 100px;
+            margin-bottom: 30px;
+            border-left: 4px solid #3b82f6;
+            border-right: 4px solid #3b82f6;
+        }
+        .bot-badge span {
+            font-weight: 700;
+            color: #8ba5ff;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+        .bot-icon {
+            font-size: 1.3rem;
+        }
+
+        /* Haupttitel */
+        h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff, #8ba5ff, #3b82f6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 20px;
+            letter-spacing: -0.5px;
+        }
+
+        .status-message {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #e2e8f0;
+            margin-bottom: 15px;
+        }
+
+        .sub-message {
+            color: #94a3b8;
+            font-size: 1rem;
+            margin-bottom: 40px;
+            border-bottom: 1px dashed #334155;
+            display: inline-block;
+            padding-bottom: 8px;
+        }
+
+        /* Countdown Timer */
+        .countdown-box {
+            background: #0f121e;
+            border-radius: 40px;
+            padding: 35px 20px;
+            margin: 25px 0;
+            border: 1px solid #2d3a5e;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.3), 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        .timer-title {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #60a5fa;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+
+        .timer-grid {
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        .time-card {
+            background: #07090f;
+            border-radius: 24px;
+            padding: 18px 16px;
+            min-width: 90px;
+            text-align: center;
+            border: 1px solid #2a3456;
+            transition: all 0.2s;
+        }
+
+        .time-number {
+            font-size: 3rem;
+            font-weight: 800;
+            font-family: 'Monaco', 'Courier New', monospace;
+            background: linear-gradient(135deg, #f0f4ff, #b9c8ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 3px;
+        }
+
+        .time-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            color: #7e8aa8;
+            margin-top: 8px;
+            letter-spacing: 1.5px;
+        }
+
+        /* Fortschrittsbalken */
+        .progress-section {
+            margin-top: 30px;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: #a0afd0;
+            margin-bottom: 8px;
+        }
+
+        .progress-bar-bg {
+            background: #0b0e16;
+            border-radius: 30px;
+            height: 8px;
+            overflow: hidden;
+            border: 1px solid #2a3a60;
+        }
+
+        .progress-fill {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            border-radius: 30px;
+            transition: width 0.4s ease;
+        }
+
+        /* Bot Info Footer */
+        .bot-info {
+            margin-top: 35px;
+            padding-top: 20px;
+            border-top: 1px solid #1e293b;
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+            font-size: 0.8rem;
+            color: #7c8db0;
+        }
+
+        .bot-info span {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .dev-note {
+            background: #00000055;
+            padding: 5px 12px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            color: #8ba5ff;
+        }
+
+        /* Responsive */
+        @media (max-width: 550px) {
+            .container { padding: 30px 20px; }
+            h1 { font-size: 1.9rem; }
+            .status-message { font-size: 1.1rem; }
+            .time-card { min-width: 65px; padding: 12px 8px; }
+            .time-number { font-size: 2rem; }
+            .timer-grid { gap: 10px; }
+        }
+
+        /* Kleine Animation für das Bot-Icon */
+        @keyframes pulse {
+            0% { opacity: 0.7; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.05); }
+        }
+        .bot-icon {
+            animation: pulse 1.5s infinite alternate;
+        }
+    </style>
 </head>
-
 <body>
+    <div class="container">
+        <div class="bot-badge">
+            <span class="bot-icon">🤖</span>
+            <span>IMBURNI BOT V1</span>
+            <span class="bot-icon">⚡</span>
+        </div>
 
-<h1>🔐 Twitch Login</h1>
+        <h1>⚙️ IN ENTWICKLUNG</h1>
+        <div class="status-message">Diese Funktion wird aktuell programmiert</div>
+        <div class="sub-message">🔧 Bald für deinen ImBurni Bot verfügbar 🔧</div>
 
-<button onclick="getCode()">Login starten</button>
+        <div class="countdown-box">
+            <div class="timer-title">📅 RELEASE-COUNTDOWN</div>
+            <div class="timer-grid" id="countdownGrid">
+                <div class="time-card">
+                    <div class="time-number" id="months">00</div>
+                    <div class="time-label">Monate</div>
+                </div>
+                <div class="time-card">
+                    <div class="time-number" id="days">00</div>
+                    <div class="time-label">Tage</div>
+                </div>
+                <div class="time-card">
+                    <div class="time-number" id="hours">00</div>
+                    <div class="time-label">Stunden</div>
+                </div>
+                <div class="time-card">
+                    <div class="time-number" id="minutes">00</div>
+                    <div class="time-label">Minuten</div>
+                </div>
+                <div class="time-card">
+                    <div class="time-number" id="seconds">00</div>
+                    <div class="time-label">Sekunden</div>
+                </div>
+            </div>
 
-<div id="code"></div>
-<div id="status"></div>
+            <div class="progress-section">
+                <div class="progress-header">
+                    <span>📊 Entwicklungsfortschritt</span>
+                    <span id="progressPercent">0%</span>
+                </div>
+                <div class="progress-bar-bg">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+            </div>
+        </div>
 
-<script>
+        <div class="bot-info">
+            <span>🤖 ImBurni Bot V1</span>
+            <span>⚙️ OBS Browser Source kompatibel</span>
+            <span>📡 Automatische Updates folgen</span>
+        </div>
+        <div class="dev-note">
+            🚀 Feature erscheint in 8 Monaten – Countdown läuft präzise
+        </div>
+    </div>
 
-let currentCode = null;
-
-// ----------------------
-// CODE GENERIEREN
-// ----------------------
-function getCode() {
-
-    currentCode = generateCode();
-
-    document.getElementById("code").innerText =
-        "Dein Code: " + currentCode;
-
-    document.getElementById("status").innerText =
-        "👉 Schreibe im Chat: !confirm " + currentCode;
-
-    checkLogin();
-}
-
-// ----------------------
-// FAKE CODE (Website)
-// ----------------------
-function generateCode() {
-    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    let code = "";
-    for (let i = 0; i < 6; i++) {
-        code += chars[Math.floor(Math.random() * chars.length)];
-    }
-    return code;
-}
-
-// ----------------------
-// CHECK LOGIN
-// ----------------------
-function checkLogin() {
-
-    let interval = setInterval(async () => {
-
-        try {
-            let res = await fetch("login_sessions.json");
-            let data = await res.json();
-
-            if (data[currentCode]) {
-
-                document.getElementById("status").innerText =
-                    "✅ Eingeloggt als " + data[currentCode].user;
-
-                clearInterval(interval);
+    <script>
+        (function() {
+            // Ziel: 8 Monate ab dem aktuellen Datum (exakt)
+            let targetDate = new Date();
+            // 8 Monate hinzufügen
+            targetDate.setMonth(targetDate.getMonth() + 8);
+            // Auf 00:00 Uhr setzen für saubere Darstellung
+            targetDate.setHours(0, 0, 0, 0);
+            
+            // Falls der heutige Tag im Zielmonat nicht existiert (z.B. 31. März -> 30. November), 
+            // wird das von setMonth automatisch korrigiert. Das ist korrektes Verhalten.
+            
+            // Gesamtdauer in Sekunden für Fortschrittsbalken (vom Start bis Ziel)
+            const startDate = new Date();
+            startDate.setHours(0, 0, 0, 0);
+            const totalMs = targetDate.getTime() - startDate.getTime();
+            const totalSecondsPlanned = totalMs / 1000;
+            
+            function updateCountdown() {
+                const now = new Date().getTime();
+                const distance = targetDate.getTime() - now;
+                
+                // Wenn Countdown abgelaufen
+                if (distance <= 0) {
+                    document.getElementById('months').innerText = "00";
+                    document.getElementById('days').innerText = "00";
+                    document.getElementById('hours').innerText = "00";
+                    document.getElementById('minutes').innerText = "00";
+                    document.getElementById('seconds').innerText = "00";
+                    document.getElementById('progressPercent').innerText = "100%";
+                    document.getElementById('progressFill').style.width = "100%";
+                    // Statusnachricht anpassen
+                    const statusDiv = document.querySelector('.status-message');
+                    if (statusDiv) statusDiv.innerHTML = "✨ Feature ist jetzt verfügbar! ✨";
+                    return;
+                }
+                
+                // Berechnung der verbleibenden Zeit
+                const totalSecondsRemaining = Math.floor(distance / 1000);
+                const seconds = totalSecondsRemaining % 60;
+                const minutes = Math.floor(totalSecondsRemaining / 60) % 60;
+                const hours = Math.floor(totalSecondsRemaining / 3600) % 24;
+                const totalDaysRemaining = Math.floor(distance / (1000 * 3600 * 24));
+                
+                // Monate basierend auf 30,44 Tage pro Monat (präzise für 8 Monate)
+                let months = Math.floor(totalDaysRemaining / 30.44);
+                let days = Math.floor(totalDaysRemaining % 30.44);
+                
+                // Begrenzung auf maximal 8 Monate (da wir exakt +8 Monate gesetzt haben)
+                if (months > 8) months = 8;
+                if (months === 8 && days > 0) days = Math.min(days, 30);
+                
+                // Führende Nullen setzen
+                document.getElementById('months').innerText = months.toString().padStart(2, '0');
+                document.getElementById('days').innerText = days.toString().padStart(2, '0');
+                document.getElementById('hours').innerText = hours.toString().padStart(2, '0');
+                document.getElementById('minutes').innerText = minutes.toString().padStart(2, '0');
+                document.getElementById('seconds').innerText = seconds.toString().padStart(2, '0');
+                
+                // Fortschrittsbalken basierend auf verstrichener Zeit / Gesamtzeit
+                const elapsedSeconds = totalSecondsPlanned - totalSecondsRemaining;
+                let progress = (elapsedSeconds / totalSecondsPlanned) * 100;
+                progress = Math.min(100, Math.max(0, progress));
+                document.getElementById('progressPercent').innerText = Math.floor(progress) + "%";
+                document.getElementById('progressFill').style.width = progress + "%";
             }
-
-        } catch {}
-
-    }, 2000);
-}
-
-</script>
-
+            
+            // Sofort ausführen und dann jede Sekunde aktualisieren
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+            
+            // Kleiner zusätzlicher Effekt: animierte Hintergrundfarbe für die Time-Cards (dezent)
+            const cards = document.querySelectorAll('.time-card');
+            setInterval(() => {
+                if (Math.random() > 0.85) {
+                    cards.forEach(card => {
+                        card.style.transform = 'translateY(-2px)';
+                        card.style.borderColor = '#5a7dcd';
+                        setTimeout(() => {
+                            if(card) card.style.transform = '';
+                            if(card) card.style.borderColor = '#2a3456';
+                        }, 150);
+                    });
+                }
+            }, 800);
+            
+            // Für OBS Browser Source: Sorge dafür, dass die Seite sich bei Bedarf anpasst
+            window.addEventListener('resize', () => {
+                // kein spezielles Verhalten nötig, aber sicherstellen dass nichts bricht
+            });
+            
+            // Konsole log für Bot-Entwickler (unsichtbar, aber hilfreich)
+            console.log("[ImBurni Bot V1] Feature-Countdown aktiv - 8 Monate bis zum Release");
+        })();
+    </script>
 </body>
 </html>
