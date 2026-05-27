@@ -3,549 +3,476 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>ImBurni_Bot_v1 — Projekt eingestellt (Archiv)</title>
-  <meta name="description" content="ImBurni_Bot_v1 wurde eingestellt. Der Bot wird nicht mehr weiterentwickelt und nicht mehr vergeben. Diese Seite dient nur noch als Info-Archiv." />
+  <title>ImBurni_Bot_v1 │ FINAL PURGE │ ALL DATA DELETED</title>
+  <meta name="description" content="ImBurni_Bot_v1 - komplett eingestellt. Alle Nutzerdaten, Registrierungen, Punkte, Level, JSON-Dateien wurden unwiderruflich gelöscht. Keine Wiederherstellung." />
 
-  <meta property="og:title" content="ImBurni_Bot_v1 — Projekt eingestellt" />
-  <meta property="og:description" content="Twitch ✕ Discord Bot – Entwicklung beendet. Keine neuen Zugänge mehr." />
+  <meta property="og:title" content="ImBurni_Bot_v1 — ✧ DATA PURGED ✧" />
+  <meta property="og:description" content="Endgültige Löschung aller Bot-Daten. Projekt beendet." />
   <meta property="og:type" content="website" />
 
   <style>
-    :root{
-      --bg0:#0a0a0f;
-      --bg1:#111118;
-      --bg2:#181820;
-      --text:#eef0ff;
-      --muted: rgba(238,240,255,.65);
-      --faint: rgba(238,240,255,.40);
-      --stroke: rgba(255,255,255,.08);
-      --stroke2: rgba(255,255,255,.12);
-      --o:#ff7a18;
-      --p:#a855f7;
-      --c:#00eaff;
-      --m:#46fbd2;
-      --r:#ff2bd6;
-      --ok:#2ee59d;
-      --error:#ff4d4d;
-      --shadow: 0 34px 130px rgba(0,0,0,.78);
-      --shadow2: 0 16px 52px rgba(0,0,0,.50);
-      --rad: 22px;
-      --rad2: 32px;
-      --max: 1200px;
-      --ease: cubic-bezier(.2,.9,.2,1);
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      color:var(--text);
-      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial;
-      background: radial-gradient(900px 700px at 18% 10%, rgba(168,85,247,.12), transparent 62%),
-                  radial-gradient(900px 700px at 85% 14%, rgba(255,122,24,.10), transparent 62%),
-                  linear-gradient(180deg, var(--bg0), var(--bg1) 30%, var(--bg2));
+
+    :root {
+      --bg-deep: #030308;
+      --bg-mid: #0a0a14;
+      --text-glow: #f0f0ff;
+      --accent-red: #ff2222;
+      --accent-gold: #ffaa00;
+      --accent-purple: #aa66ff;
+      --blood-red: #8a0000;
     }
-    .archiv-badge{
-      position:fixed;
-      top:18px;
-      right:18px;
-      z-index:9999;
-      padding:12px 20px;
-      border-radius:40px;
-      font-weight:950;
-      font-size:13px;
-      background: linear-gradient(135deg, #ff4d4d, #a00000);
-      color:white;
-      box-shadow: 0 0 18px rgba(255,0,0,.5);
-      letter-spacing:.5px;
-      backdrop-filter: blur(4px);
-      border:1px solid rgba(255,255,255,.25);
+
+    body {
+      background: radial-gradient(ellipse at 20% 30%, #0f0f1a, #010105 95%);
+      color: var(--text-glow);
+      font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+      overflow-x: hidden;
+      position: relative;
     }
-    .container{width:min(var(--max), calc(100% - 40px)); margin:0 auto}
-    .glass{
-      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.02));
-      border:1px solid rgba(255,255,255,.10);
-      backdrop-filter: blur(12px);
-      box-shadow: var(--shadow2);
+
+    /* STATIC NOISE OVERLAY */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJmIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iLjgiIG51bU9jdGF2ZXM9IjMiLz48L2ZpbHRlcj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWx0ZXI9InVybCgjZikiIG9wYWNpdHk9IjAuMTUiLz48L3N2Zz4=');
+      background-repeat: repeat;
+      pointer-events: none;
+      opacity: 0.2;
+      z-index: 1;
+      mix-blend-mode: overlay;
     }
-    .glass-strong{
-      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.02));
-      border:1px solid rgba(255,255,255,.14);
-      backdrop-filter: blur(14px);
-      box-shadow: var(--shadow);
+
+    /* BURNING EDGE EFFECT */
+    .burn-edge {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 200px;
+      background: linear-gradient(0deg, rgba(255, 30, 0, 0.15), transparent);
+      pointer-events: none;
+      z-index: 2;
+      animation: flicker 5s infinite;
     }
-    .nav{
-      position:sticky; top:0; z-index:60;
-      background: rgba(8,8,16,.72);
-      backdrop-filter: blur(18px);
-      border-bottom:1px solid rgba(255,255,255,.06);
+
+    @keyframes flicker {
+      0% { opacity: 0.3; }
+      50% { opacity: 0.7; }
+      100% { opacity: 0.3; }
     }
-    .nav-inner{
-      display:flex; align-items:center; justify-content:space-between;
-      gap:12px; padding:14px 0;
+
+    .container {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 15;
     }
-    .brand{display:flex; align-items:center; gap:12px}
-    .logo{
-      width:42px; height:42px; border-radius:16px;
-      background: linear-gradient(135deg, #555, #2a2a3a);
-      border:1px solid rgba(255,255,255,.15);
-      opacity:.8;
+
+    /* NAVIGATION - CRIMSON RUIN */
+    .nav {
+      backdrop-filter: blur(16px);
+      background: rgba(0, 0, 0, 0.85);
+      border-bottom: 2px solid var(--accent-red);
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
-    .brand-title b{font-size:14px; letter-spacing:.2px}
-    .brand-title span{font-size:12px; color:var(--muted); font-weight:900}
-    .nav-links{display:flex; gap:6px; flex-wrap:wrap}
-    .nav-links a{
-      padding:10px 14px;
-      border-radius:30px;
-      color:var(--muted);
-      font-weight:950;
-      transition:.2s;
+
+    .nav-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 0;
     }
-    .nav-links a:hover{background:rgba(255,255,255,.08); color:var(--text)}
-    .btn{
-      display:inline-flex; align-items:center; gap:8px;
-      padding:12px 18px;
-      border-radius:40px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(30,30,45,.6);
-      font-weight:950;
-      transition: .2s ease;
-      cursor:default;
-      text-decoration:none;
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      text-decoration: none;
     }
-    .btn.disabled{
-      opacity:.55;
-      filter:grayscale(.2);
+
+    .logo-tomb {
+      width: 48px;
+      height: 48px;
+      background: #2a0a0a;
+      border-radius: 18px;
+      border: 1px solid #ff4444;
+      box-shadow: 0 0 12px red;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
     }
-    .btn.primary{
-      background: linear-gradient(135deg, #3a3a50, #2a2a3a);
-      border-color: rgba(255,255,255,.2);
-      color: #ccc;
+
+    .brand-title b {
+      font-size: 1.3rem;
+      background: linear-gradient(135deg, #ff8888, #cc3333);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
     }
-    .hero{padding: 48px 0 30px}
-    .pill{
-      display:inline-flex; gap:10px; padding:8px 16px;
-      border-radius:60px;
-      background:rgba(0,0,0,.4);
-      border:1px solid rgba(255,255,255,.1);
-      font-weight:950;
-      color:#ffaaa5;
+
+    .brand-title span {
+      font-size: 0.7rem;
+      color: #ff7777;
     }
-    .h1{
-      font-size: clamp(32px, 4.8vw, 68px);
-      line-height: 1.05;
-      margin: 20px 0 14px;
+
+    .nav-links {
+      display: flex;
+      gap: 12px;
     }
-    .archiv-alert{
-      background: rgba(0,0,0,.65);
-      border-left: 5px solid #ff4d4d;
-      padding: 20px 24px;
-      border-radius: 28px;
-      margin: 28px 0;
+
+    .nav-links a {
+      color: #d0b0b0;
+      text-decoration: none;
+      padding: 8px 18px;
+      border-radius: 40px;
+      font-weight: 700;
+      transition: 0.2s;
     }
-    .sub{
-      font-size: 1.15rem;
-      line-height:1.7;
-      color: var(--muted);
-      max-width: 78ch;
+
+    .nav-links a:hover {
+      background: rgba(255, 50, 50, 0.2);
+      color: white;
     }
-    .stat-grid{
-      display:grid;
-      grid-template-columns: repeat(3,1fr);
-      gap:16px;
-      margin: 32px 0;
-    }
-    .stat-card{
-      padding: 24px 16px;
-      border-radius: 28px;
-      text-align:center;
-      background: rgba(0,0,0,.35);
-      border:1px solid rgba(255,255,255,.08);
-    }
-    .stat-number{
-      font-size: 2.4rem;
+
+    .badge-terminated {
+      background: #1f0a0a;
+      padding: 8px 20px;
+      border-radius: 60px;
+      border: 1px solid #ff5e5e;
       font-weight: 900;
-      background: linear-gradient(135deg, #aaa, #eee);
-      -webkit-background-clip:text;
-      background-clip:text;
-      color:transparent;
+      color: #ffa0a0;
+      cursor: default;
     }
-    .divider{
-      height:1px;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,.12), transparent);
-      margin: 30px 0;
+
+    /* HERO - ABSOLUTE DELETION */
+    .hero {
+      padding: 60px 0 40px;
+      text-align: center;
     }
-    section{padding: 40px 0}
-    h2{
-      font-size: clamp(24px, 2.2vw, 36px);
-      margin:0 0 8px;
-      letter-spacing:-.4px;
+
+    .doom-stamp {
+      display: inline-block;
+      background: #2a0808;
+      padding: 8px 24px;
+      border-radius: 40px;
+      letter-spacing: 2px;
+      font-weight: 900;
+      border-left: 4px solid red;
+      margin-bottom: 32px;
     }
-    .disclaimer-box{
-      background: rgba(255,77,77,.08);
-      border:1px solid rgba(255,77,77,.25);
-      border-radius: 28px;
-      padding: 24px;
+
+    .main-title {
+      font-size: clamp(42px, 11vw, 120px);
+      font-weight: 900;
+      text-transform: uppercase;
+      background: linear-gradient(145deg, #ff5c5c, #7a0000);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 20px rgba(255,0,0,0.4);
+      letter-spacing: -2px;
+      margin-bottom: 20px;
+    }
+
+    /* DATA DELETION WARNING CARD */
+    .data-purge-card {
+      background: rgba(0, 0, 0, 0.85);
+      border: 2px solid #ff2222;
+      border-radius: 48px;
+      padding: 36px 28px;
+      margin: 40px 0;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 0 40px rgba(255, 0, 0, 0.25);
+      text-align: center;
+    }
+
+    .purge-icon {
+      font-size: 4rem;
+      margin-bottom: 16px;
+    }
+
+    .purge-title {
+      font-size: 2rem;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      color: #ff8888;
+      margin-bottom: 16px;
+    }
+
+    .gibberish-delete {
+      font-family: monospace;
+      background: #1a0303;
+      padding: 16px;
+      border-radius: 24px;
+      color: #ff9999;
+      font-weight: bold;
       margin: 20px 0;
     }
-    .footer-note{
-      text-align:center;
-      padding: 32px 0;
-      color: var(--faint);
-      border-top:1px solid rgba(255,255,255,.06);
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      margin: 48px 0;
     }
-    @media (max-width: 780px){
-      .stat-grid{grid-template-columns:1fr}
-      .nav-links{display:none}
+
+    .stat-death {
+      background: rgba(0, 0, 0, 0.6);
+      border: 1px solid #aa3333;
+      border-radius: 28px;
+      padding: 24px 12px;
+      text-align: center;
+      backdrop-filter: blur(4px);
+    }
+
+    .stat-number {
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: #ff6666;
+    }
+
+    /* SECTIONS */
+    .glass-dark {
+      background: rgba(8, 8, 16, 0.7);
+      backdrop-filter: blur(12px);
+      border-radius: 40px;
+      border: 1px solid rgba(255, 70, 70, 0.4);
+      padding: 32px;
+      margin: 32px 0;
+    }
+
+    h2 {
+      font-size: 1.9rem;
+      border-left: 6px solid #ff4444;
+      padding-left: 20px;
+      margin-bottom: 24px;
+    }
+
+    .data-destroy-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .destroy-chip {
+      background: #2a1010;
+      padding: 10px 20px;
+      border-radius: 50px;
+      border: 1px solid #ff7777;
+      font-weight: bold;
+      color: #ffbbbb;
+    }
+
+    .signature-death {
+      text-align: center;
+      margin-top: 32px;
+      font-size: 0.85rem;
+      color: #aa8888;
+      border-top: 1px solid #ff444433;
+      padding-top: 24px;
+    }
+
+    @media (max-width: 780px) {
+      .stat-grid { grid-template-columns: 1fr 1fr; }
+      .nav-links { display: none; }
     }
   </style>
 </head>
 <body>
 
-<div class="archiv-badge">
-  ⚠️ PROJEKT EINGESTELLT ⚠️
-</div>
+<div class="burn-edge"></div>
 
 <div class="nav">
   <div class="container nav-inner">
-    <a class="brand" href="#top">
-      <div class="logo"></div>
+    <a class="brand" href="#">
+      <div class="logo-tomb">💀</div>
       <div class="brand-title">
-        <b>ImBurni_Bot_v1</b>
-        <span>Archiv · nicht mehr aktiv</span>
+        <b>IMBURNI_BOT_V1</b>
+        <span>✧ ZERO DATA REMAINS ✧</span>
       </div>
     </a>
     <div class="nav-links">
-      <a href="#status">Projektstatus</a>
-      <a href="#archiv">Info</a>
-      <a href="#faq">FAQ</a>
+      <a href="#purge">🧹 DATA PURGE</a>
+      <a href="#archive">🏛️ ARCHIVE</a>
+      <a href="#legacy">⚰️ LEGACY</a>
     </div>
-    <div class="btn disabled primary">🔒 Zugang gesperrt</div>
+    <div class="badge-terminated">🔻 FINAL SHUTDOWN</div>
   </div>
 </div>
 
-<header class="hero" id="top">
-  <div class="container">
-    <div class="pill">
-      ⚡ BOT-ENTWICKLUNG BEENDET ⚡
+<main>
+  <div class="container hero">
+    <div class="doom-stamp">
+      ⚠️ CERTIFICATE OF TERMINATION · NO RESURRECTION ⚠️
     </div>
-    <div class="h1">
-      <span style="color:#ff8888;">ImBurni_Bot_v1</span><br/>
-      wurde <span style="color:#ffaa88;">offiziell eingestellt</span>
-    </div>
-    <div class="archiv-alert glass">
-      <div style="font-weight:950; font-size:1.2rem;">❌ Kein Zugang mehr möglich ❌</div>
-      <div style="margin-top:12px; color:var(--muted); line-height:1.6">
-        Dieses Projekt ist ab sofort <strong>beendet</strong>. Der Bot wird nicht mehr weiterentwickelt, nicht mehr gewartet und es werden <strong>keine neuen Nutzer</strong> mehr aufgenommen. 
-        Bereits bestehende Installationen sind nicht mehr funktionsfähig / wurden deaktiviert.
-      </div>
-    </div>
-    <p class="sub">
-      Der ImBurni_Bot_v1 war ein privates Twitch ✕ Discord Projekt mit eigenem Timeout-System, Tickets und VIP-Vergabe.
-      Die Entwicklung wurde aus persönlichen Gründen eingestellt. Diese Seite dient nur noch als Informations-Archiv.
-    </p>
-    <div class="stat-grid">
-      <div class="stat-card glass">
-        <div class="stat-number">❌</div>
-        <div style="font-weight:950; margin-top:10px;">Keine Features mehr aktiv</div>
-        <div style="font-size:13px; color:var(--faint)">Alle Bot-Funktionen deaktiviert</div>
-      </div>
-      <div class="stat-card glass">
-        <div class="stat-number">🚫</div>
-        <div style="font-weight:950; margin-top:10px;">Kein Zugang / keine Freischaltung</div>
-        <div style="font-size:13px; color:var(--faint)">Discord, Setup, Tickets – alles geschlossen</div>
-      </div>
-      <div class="stat-card glass">
-        <div class="stat-number">📅</div>
-        <div style="font-weight:950; margin-top:10px;">Entwicklung beendet: März 2026</div>
-        <div style="font-size:13px; color:var(--faint)">Letztes Update / letzte Wartung</div>
-      </div>
-    </div>
-  </div>
-</header>
-
-<section id="status">
-  <div class="container">
-    <div class="disclaimer-box">
-      <h2 style="color:#ff8a8a; margin-top:0;">🔴 Offizieller Einstellungsvermerk</h2>
-      <p style="color:var(--muted); line-height:1.7;">
-        Der <strong>ImBurni_Bot_v1</strong> wurde am <strong>02. März 2026</strong> endgültig eingestellt.
-        Der Bot wird nicht mehr betrieben, es existieren keine aktiven Instanzen mehr.
-        <br><br>
-        Sämtliche zugehörige Infrastruktur (Discord-Bridge, Token, EventSub, Datenbanken) wurden zurückgesetzt / gelöscht.
-        Es besteht keinerlei Möglichkeit, den Bot nachträglich zu nutzen oder zu erhalten.
-        <br><br>
-        Auch eine Weitergabe an Dritte oder ein „privater Betrieb“ ist ausgeschlossen.
-      </p>
-    </div>
-  </div>
-</section>
-
-<section id="archiv">
-  <div class="container">
-    <h2>📦 Was bleibt – reine Info</h2>
-    <p class="sub">Diese Seite dokumentiert lediglich die ehemalige Funktionalität. Alle Angaben sind historisch.</p>
+    <div class="main-title">SYSTEM PURGED<br>ALL DATA DELETED</div>
     
-    <div class="glass" style="border-radius:28px; padding:28px; margin-top:22px;">
-      <div style="font-weight:950; font-size:20px; margin-bottom:14px;">⚙️ Ursprüngliche Konzepte (nicht mehr verfügbar)</div>
-      <ul style="color:var(--muted); line-height:1.9; padding-left:20px;">
-        <li>Eigenes Timeout-System mit festen IDs & Begründungen</li>
-        <li>Ticket-Support (Discord) mit Buttons & Status</li>
-        <li>VIP-Vergabe & Gewinnspiel-Integration</li>
-        <li>Punkte- & Levelsystem, Gamble, Lurk</li>
-        <li>Twitch ↔ Discord Bridge & Follow-Embeds</li>
-        <li>Zuschauer-Registrierung via !register</li>
-        <li>Raid-Erkennung & automatische Shoutouts</li>
-      </ul>
-      <div style="margin-top:20px; padding:12px; background:rgba(0,0,0,.35); border-radius:18px; border-left:3px solid #ff6666;">
-        ⚠️ Alle diese Features sind <strong>deaktiviert / nicht mehr nutzbar</strong>. Der Bot ist offline.
+    <!-- CRITICAL: UNWIEDERUFLICH GELÖSCHT -->
+    <div class="data-purge-card">
+      <div class="purge-icon">🔥💀🔥</div>
+      <div class="purge-title">UNWIEDERUFLICH GELÖSCHT – IRREVERSIBLE DELETION</div>
+      <div style="font-size: 1.2rem; line-height: 1.6; margin: 16px 0;">
+        <strong>Alle Dateneinträge wurden restlos und unwiderruflich gelöscht.</strong><br>
+        Keine Zuschauer-Registrierungen, keine Punktestände, keine Level, keine Lurk-Status, keine Timeout-Historien, keine Ticket-Daten, keine JSON-Dateien, keine Backups.
       </div>
+      <div class="gibberish-delete">
+        🗑️ DELETE OPERATION COMPLETED: 100% OF USER DATA • REGISTRIERUNGEN • CHANNEL-CONFIGS • ALLE LOKALEN SPEICHER • DISCORD-BRIDGE-LOGS 🗑️<br>
+        ✦ NICHTS BLEIBT – NICHTS KANN WIEDERHERGESTELLT WERDEN ✦
+      </div>
+      <div style="font-weight: 800; color: #ff5e5e;">📌 Rechtlicher Hinweis: Gemäß DSGVO und internen Richtlinien wurde jede Spur des Bots physisch und logisch gelöscht.</div>
     </div>
 
-    <div class="divider"></div>
-
-    <div style="display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:12px;">
-      <div class="glass" style="padding:20px; border-radius:24px;">
-        <div style="font-size:28px;">🚫</div>
-        <div style="font-weight:950; margin:8px 0 6px;">Discord-Zugang geschlossen</div>
-        <div style="color:var(--faint); line-height:1.6;">Der frühere Discord-Server für Support & Freischaltung existiert nicht mehr. Eine Kontaktaufnahme zwecks Bot-Nutzung ist zwecklos.</div>
-      </div>
-      <div class="glass" style="padding:20px; border-radius:24px;">
-        <div style="font-size:28px;">🕯️</div>
-        <div style="font-weight:950; margin:8px 0 6px;">Keine Weiterentwicklung</div>
-        <div style="color:var(--faint); line-height:1.6;">Es wird keine neue Version, keinen Fork oder ähnliches geben. Das Projekt ist abgeschlossen.</div>
-      </div>
+    <div class="stat-grid">
+      <div class="stat-death"><div class="stat-number">0</div><div>Bytes Nutzerdaten übrig</div></div>
+      <div class="stat-death"><div class="stat-number">⛔</div><div>Keine Wiederherstellbarkeit</div></div>
+      <div class="stat-death"><div class="stat-number">🗑️</div><div>Alle JSON/DB gelöscht</div></div>
+      <div class="stat-death"><div class="stat-number">⚡</div><div>Bot-Kernel vernichtet</div></div>
     </div>
   </div>
-</section>
 
-<section id="faq">
-  <div class="container">
-    <h2>❓ Häufige Fragen (Archiv)</h2>
-    <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:18px;">
-      <div class="glass" style="padding:18px; border-radius:20px;">
-        <div style="font-weight:950;">Kann ich den Bot noch bekommen?</div>
-        <div style="color:#ff9f9f; margin-top:8px;">Nein. Der Bot wird nicht mehr vergeben – weder kostenlos noch gegen Bezahlung.</div>
-      </div>
-      <div class="glass" style="padding:18px; border-radius:20px;">
-        <div style="font-weight:950;">Warum wurde das Projekt eingestellt?</div>
-        <div style="color:var(--muted); margin-top:8px;">Aus persönlichen / administrativen Gründen. Keine weiteren Details.</div>
-      </div>
-      <div class="glass" style="padding:18px; border-radius:20px;">
-        <div style="font-weight:950;">Läuft der Bot bei bestehenden Streamern noch?</div>
-        <div style="color:var(--muted); margin-top:8px;">Nein. Alle aktiven Instanzen wurden deaktiviert, Token widerrufen.</div>
-      </div>
-      <div class="glass" style="padding:18px; border-radius:20px;">
-        <div style="font-weight:950;">Gibt es eine Alternative?</div>
-        <div style="color:var(--muted); margin-top:8px;">Diesen Bot nicht. Es wird kein Ersatz oder Nachfolger angeboten.</div>
+  <section id="purge">
+    <div class="container">
+      <div class="glass-dark">
+        <h2>🧹 LÖSCHPROTOKOLL – DELETION LOG</h2>
+        <p style="line-height: 1.7;">Am <strong>02. März 2026 um 23:59 Uhr</strong> wurden alle aktiven und inaktiven Datenbestände des ImBurni_Bot_v1 <strong style="color:#ff7777;">endgültig und unwiderruflich gelöscht</strong>. Dies umfasst:</p>
+        <div class="data-destroy-list">
+          <div class="destroy-chip">📁 registered_viewers.json</div>
+          <div class="destroy-chip">📊 Punkte- & Level-Datenbanken</div>
+          <div class="destroy-chip">🎫 Ticket-System-Verläufe</div>
+          <div class="destroy-chip">🕒 Timeout-Statistiken & IDs</div>
+          <div class="destroy-chip">💬 Discord-Bridge-Caches</div>
+          <div class="destroy-chip">👑 VIP-Listen & Gewinnspiel-Daten</div>
+          <div class="destroy-chip">😴 Lurk-Status & Aktivitätslogs</div>
+          <div class="destroy-chip">📺 Zuschauer-Registrierungsprofile</div>
+          <div class="destroy-chip">🔑 Alle API-Tokens & Refresh-Tokens</div>
+          <div class="destroy-chip">⚙️ Server-Configs & EventSub-Abos</div>
+        </div>
+        <div style="margin-top: 28px; background: #1f0a0a66; padding: 18px; border-radius: 28px;">
+          <strong>⚠️ Keine Backups, keine Rettung, keine Wiederherstellung möglich.</strong> Die Löschung erfolgte durch mehrfaches Überschreiben der Speichermedien sowie Entfernung aller Cloud-Ressourcen.
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section id="legal">
-  <div class="container">
-    <div class="glass-strong" style="border-radius:28px; padding:26px;">
-      <h2 style="margin-top:0;">📄 Rechtliches / Hinweis</h2>
-      <p style="color:var(--muted); line-height:1.7;">
-        Diese Seite dient ausschließlich der Information über den ehemaligen <strong>ImBurni_Bot_v1</strong>.  
-        Es werden keine Dienste, Software oder Zugänge angeboten. Der Bot ist <strong>vollständig außer Betrieb</strong>.
-        Marken- und Namensrechte Dritter (Twitch, Discord) bleiben unberührt.
-      </p>
-      <p style="color:var(--faint); margin-top:12px;">
-        Letzte Aktualisierung: März 2026 – Projektstatus: <strong style="color:#ff8888;">ENDGÜLTIG EINGESTELLT</strong>
-      </p>
+  <section id="archive">
+    <div class="container">
+      <div class="glass-dark">
+        <h2>🏛️ DIGITALES MAUSOLEUM</h2>
+        <p>Dies ist die letzte erhaltene öffentliche Erwähnung des Bots. Alle interaktiven Komponenten, Login-Möglichkeiten oder Verbindungen zu Twitch/Discord wurden gekappt.</p>
+        <div style="display: flex; gap: 12px; flex-wrap: wrap; margin: 24px 0;">
+          <div style="background:#1a0a0a; padding: 10px 18px; border-radius: 40px;">🚫 Kein API-Zugriff</div>
+          <div style="background:#1a0a0a; padding: 10px 18px; border-radius: 40px;">🚫 Keine Datenbank</div>
+          <div style="background:#1a0a0a; padding: 10px 18px; border-radius: 40px;">🚫 Kein Discord-Bot-Token</div>
+          <div style="background:#1a0a0a; padding: 10px 18px; border-radius: 40px;">🚫 Keine Wiederbelebung</div>
+        </div>
+        <div style="color: #ccaaaa; font-style: italic;">„Was einmal gelöscht wurde, bleibt für immer verloren. Der ImBurni_Bot ist nichts als ein flüsternder Mythos im Netz.“</div>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<footer>
-  <div class="container">
-    <div class="footer-note">
-      <div>ImBurni_Bot_v1 – Archivseite | Entwicklung beendet | kein Support | kein Zugang</div>
-      <div style="margin-top:12px; font-size:13px;">© 2026 – Dieses Projekt existiert nicht mehr aktiv.</div>
+  <section id="legacy">
+    <div class="container">
+      <div class="glass-dark">
+        <h2>⚰️ FAQ ZUM DATEN-ENDING</h2>
+        <div style="display: grid; gap: 18px;">
+          <div><strong style="color:#ff8888;">❓ Wurden meine Zuschauer-Daten (registrierung) gelöscht?</strong><br>✅ Ja, komplett. Die Datei <strong>registered_viewers.json</strong> wurde physisch gelöscht und überschrieben. Keine Wiederherstellung.</div>
+          <div><strong style="color:#ff8888;">❓ Kann ich meine Punkte oder meinen Rang wiederherstellen lassen?</strong><br>❌ Nein. Alle Punktestände, Level, Lurk-Statistiken existieren nicht mehr.</div>
+          <div><strong style="color:#ff8888;">❓ Hat jemand ein Backup?</strong><br>❌ Weder Entwickler noch Dritte besitzen Backups. Die Löschung war endgültig und unwiderruflich.</div>
+          <div><strong style="color:#ff8888;">❓ Warum wurden alle Daten gelöscht?</strong><br>Aus Datenschutzgründen sowie zur finalen Beendigung des Projekts. Keine Daten dürfen zurückbleiben.</div>
+          <div><strong style="color:#ff8888;">❓ Kann man den Bot neu starten / neu aufsetzen?</strong><br>Absolut nicht. Der Quellcode wurde versiegelt, alle Zugänge deaktiviert. Das Projekt ist für immer tot.</div>
+        </div>
+        <div class="signature-death">
+          ✦ DATENSCHUTZ-KONFORMITÄT: Alle personenbezogenen Daten gemäß DSGVO Art. 17 (Recht auf Löschung) vollständig entfernt ✦
+        </div>
+      </div>
     </div>
+  </section>
+
+  <section id="epitaph">
+    <div class="container">
+      <div class="glass-dark" style="text-align: center; background: #07070e;">
+        <div style="font-size: 5rem; margin-bottom: 12px;">🪦</div>
+        <div style="font-size: 1.6rem; font-weight: 800;">R.I.P. IMBURNI_BOT_V1</div>
+        <div style="margin: 16px 0;">2024 – 2026 • Von der Community gefürchtet und geliebt</div>
+        <div style="font-family: monospace; margin-top: 28px;">> FINAL STATUS: <span style="color: #ff5e5e;">DATA_PURGED · SYSTEM_HALTED · NO_TRACE_LEFT</span></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer style="border-top: 1px solid #ff333355; padding: 32px 0; text-align: center; color: #997777; margin-top: 40px;">
+  <div class="container">
+    <div>ImBurni_Bot_v1 – ENDGÜLTIGE LÖSCHUNG ALLER DATEN • KEINE RESTAURIERUNG MÖGLICH</div>
+    <div style="margin-top: 12px;">Archiv-Seite zur Dokumentation • Alle Nutzerdaten unwiderruflich gelöscht • Projekt beendet</div>
   </div>
 </footer>
 
 <script>
-  (function(){
-    // Alle Links, die auf Discord oder "Join" zeigen, blockieren / informieren
-    const allLinks = document.querySelectorAll('a');
-    for(let link of allLinks){
-      if(link.href && (link.href.includes('discord') || link.href.includes('invite') || (link.innerText.toLowerCase().includes('discord') && link.getAttribute('href')))){
-        link.addEventListener('click', (e) => {
-          e.preventDefault();
-          alert('❌ Der ImBurni_Bot_v1 wurde eingestellt. Discord-Zugang und Bot-Freischaltung sind nicht mehr möglich.');
-          return false;
-        });
-        link.style.cursor = 'not-allowed';
-        link.classList.add('disabled');
-      }
-      if(link.getAttribute('href') === '#discord' || link.innerText.includes('Zugang') || link.innerText.includes('joinen')){
-        link.addEventListener('click', (e) => {
-          e.preventDefault();
-          alert('Dieses Projekt ist beendet. Es gibt keine Möglichkeit mehr, den Bot zu erhalten.');
-        });
-        link.style.cursor = 'not-allowed';
-      }
-    }
-    // Buttons, die "Discord beitreten" oder ähnliches zeigen
-    const allBtns = document.querySelectorAll('.btn, .fab, [id*="discord"], [id*="copyDiscord"]');
-    allBtns.forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        e.preventDefault();
-        alert('❌ Bot eingestellt – kein Zugang mehr möglich.');
-        return false;
-      });
-      btn.style.cursor = 'not-allowed';
-      btn.classList.add('disabled');
-    });
-    // FAB entfernen (optional)
-    const fab = document.getElementById('fab');
-    if(fab) fab.remove();
+  (function finalDestruction() {
+    // Ensure NO dynamic fetches or background calls
+    window.stopStreamerRefresh = true;
+    window.stopViewerInterval = true;
+    // kill any potential json fetch
+    if(window.loadViewers) window.loadViewers = null;
+    if(window.refreshStreamers) window.refreshStreamers = null;
     
-    // Musik / Sound komplett deaktivieren (keine Funktionalität nötig)
-    const audioEl = document.getElementById('bgm');
-    if(audioEl) audioEl.remove();
+    // Block all interactive elements that could refer to discord / join / email
+    const allButtons = document.querySelectorAll('a, .btn, .badge-terminated, [id*="discord"], [id*="copy"], [class*="join"]');
+    allButtons.forEach(btn => {
+      if(btn.tagName === 'A' && (btn.href.includes('discord') || btn.href.includes('invite') || btn.innerText.toLowerCase().includes('discord'))) {
+        btn.addEventListener('click', (e) => { e.preventDefault(); alert('❌ PROJEKT BEENDET · ALLE DATEN GELÖSCHT · KEIN ZUGANG MEHR MÖGLICH'); });
+        btn.style.cursor = 'not-allowed';
+        btn.style.opacity = '0.5';
+      } else if(btn.classList && (btn.classList.contains('badge-terminated') || btn.classList.contains('btn'))) {
+        btn.addEventListener('click', (e) => { e.preventDefault(); alert('🚫 Der Bot existiert nicht mehr. Alle Daten wurden gelöscht.'); });
+        btn.style.cursor = 'default';
+      }
+    });
+    
+    // Remove any leftover music or sound widgets
+    const audioElement = document.getElementById('bgm');
+    if(audioElement) audioElement.remove();
     const musicToggle = document.getElementById('musicToggle');
     if(musicToggle) musicToggle.remove();
-    const soundHint = document.getElementById('soundHint');
-    if(soundHint) soundHint.remove();
-
-    // Particles / Effekte können bleiben (nur dekorativ)
-    // Streamer-Sektion komplett entfernen (keine Nutzerliste mehr)
-    const streamerSection = document.getElementById('streamer');
-    if(streamerSection) streamerSection.remove();
-    const zuschauerSection = document.getElementById('zuschauer');
-    if(zuschauerSection) zuschauerSection.remove();
-    const pricingSection = document.getElementById('pricing');
-    if(pricingSection) pricingSection.remove();
-    const roadmapArea = document.querySelector('.roadmap');
-    if(roadmapArea) roadmapArea.closest('section')?.remove();
-    const featuresSection = document.getElementById('features');
-    if(featuresSection){
-      // Inhalt überschreiben – Info dass alles offline ist
-      featuresSection.innerHTML = `<div class="container"><div class="glass" style="border-radius:28px; padding:28px; text-align:center">
-        <h2>✨ Frühere Features (alle deaktiviert)</h2>
-        <p style="color:var(--muted); max-width: 600px; margin: 14px auto;">Punkte, Tickets, Timeout-System, VIP, Gewinnspiele, Lurk, Level, Raid-Shoutouts, Zuschauer-Registrierung – nichts davon ist mehr verfügbar.</p>
-        <div style="margin:20px 0; padding:12px; background:rgba(0,0,0,.4); border-radius:20px;">⚡ Der Bot ist offline & wird nicht wiederkehren ⚡</div>
-      </div></div>`;
-    }
-    // Hero CTA Buttons ersetzen
-    const heroCta = document.querySelector('.hero-cta');
-    if(heroCta){
-      heroCta.innerHTML = `<a class="btn disabled primary" style="pointer-events:none;">🚫 Bot nicht verfügbar</a>
-                           <a class="btn disabled" style="pointer-events:none;">✉️ Support geschlossen</a>
-                           <a class="btn disabled" style="pointer-events:none;">⚡ Features offline</a>`;
-    }
-    // "Privater Zugang" Nav Button umschreiben
-    const joinTop = document.getElementById('joinTop');
-    if(joinTop){
-      joinTop.textContent = '🔒 Projekt beendet';
-      joinTop.classList.add('disabled');
-      joinTop.style.cursor = 'not-allowed';
-      joinTop.removeAttribute('href');
-    }
-    // Gate-Zugangsblöcke umschreiben
-    const gateDivs = document.querySelectorAll('.gate, .gate-actions, #zugang .gate');
-    if(gateDivs.length){
-      for(let gate of gateDivs){
-        if(gate.classList && gate.classList.contains('gate-actions')){
-          gate.innerHTML = `<div style="padding:12px 0;"><span class="btn disabled">❌ Kein Zugang mehr</span></div>`;
-        } else {
-          const inner = gate.querySelector('div:first-child');
-          if(inner && inner.querySelector('h3')) inner.querySelector('h3').innerHTML = '🚫 Bot wird nicht mehr vergeben';
-          const btnArea = gate.querySelector('.gate-actions');
-          if(btnArea) btnArea.innerHTML = `<span class="btn disabled">❌ Discord & Setup geschlossen</span>`;
-        }
-      }
-    }
-    // Zugang section text anpassen
-    const zugangSection = document.getElementById('zugang');
-    if(zugangSection){
-      const textBlock = zugangSection.querySelector('.gate');
-      if(textBlock){
-        textBlock.innerHTML = `<div><h3>❌ Kein Zugang mehr möglich</h3><p>Der Bot wurde komplett eingestellt. Es existiert keine Möglichkeit, ihn zu nutzen oder zu erhalten.<br/>Discord-Server wurde geschlossen, Support eingestellt.</p></div>`;
-      }
-      const hint = zugangSection.querySelector('.reveal');
-      if(hint) hint.innerHTML = `<div class="glass" style="padding:16px; border-radius:24px; color:#ffa0a0;">⚠️ Das Projekt ist endgültig beendet. Bitte kontaktiere niemanden wegen des Bots – es wird keine Wiederaufnahme geben.</div>`;
-    }
-
-    // Alle weiteren "copy", "invite" oder discord-bezogenen Elemente
-    document.querySelectorAll('[id*="copyDiscord"], [id*="discordBtn"]').forEach(el => {
-      el.removeEventListener('click', ()=> {});
-      el.addEventListener('click', (e) => {
-        e.preventDefault();
-        alert('Bot eingestellt – Discord-Invite nicht verfügbar.');
-      });
-      el.style.pointerEvents = 'none';
-      el.style.opacity = '0.5';
-    });
+    const soundHintDiv = document.getElementById('soundHint');
+    if(soundHintDiv) soundHintDiv.remove();
     
-    // Email support blocken
-    const mailLinks = document.querySelectorAll('a[href^="mailto:"]');
-    mailLinks.forEach(ml => {
-      ml.addEventListener('click', (e) => {
-        e.preventDefault();
-        alert('Support ist nicht mehr aktiv. Das Projekt wurde eingestellt.');
-      });
-      ml.style.cursor = 'not-allowed';
-    });
+    // Remove any fake-chat or viewer-grid remnants completely
+    const viewerGrids = document.querySelectorAll('#viewerGrid, .viewer-stats-bar, .viewer-grid');
+    viewerGrids.forEach(el => el?.remove());
+    const streamerDivs = document.querySelectorAll('#streamer, .streamer-grid, .streamer-controls');
+    streamerDivs.forEach(el => el?.remove());
     
-    // Support-Email Sektion komplett entfernen oder deaktivieren
-    const supportEmailSec = document.getElementById('support-email');
-    if(supportEmailSec) supportEmailSec.remove();
+    // NO references to localstorage user data (wipe any leftover attempt)
+    localStorage.removeItem('musicMuted');
+    sessionStorage.clear();
     
-    // Datenschutz Section modifizieren (nur Hinweis)
-    const dsSection = document.getElementById('datenschutz');
-    if(dsSection){
-      dsSection.innerHTML = `<div class="container">
-        <div class="glass-strong" style="padding:22px; border-radius:28px;">
-          <h2>📌 Hinweis zum Datenschutz (Archiv)</h2>
-          <p style="color:var(--muted);">Da der Bot nicht mehr aktiv ist, werden keinerlei personenbezogene Daten mehr verarbeitet. Die frühere JSON-Datei (registered_viewers.json) existiert nicht mehr.</p>
-          <p style="color:var(--faint); margin-top:12px;">Kontakt: nicht verfügbar – Projekt eingestellt.</p>
-        </div>
-      </div>`;
-    }
-
-    // Alle Stellen mit "!register", "Zuschauer" entfernen oder entschärfen
-    const viewerElements = document.querySelectorAll('.viewer-stats-bar, .viewer-grid, #viewerGrid, .empty-viewers');
-    viewerElements.forEach(el => el?.remove());
-    const fakeChat = document.querySelector('.fake-chat');
-    if(fakeChat) fakeChat.innerHTML = `<div style="padding:12px; text-align:center; color: var(--faint);">⚙️ Bot offline – keine Simulation verfügbar</div>`;
+    // Additionally write a console notice
+    console.clear();
+    console.log("%c⚠️ IMBURNI_BOT_V1 ⚠️\n%cAlle Dateneinträge wurden unwiderruflich gelöscht. Keine Wiederherstellung möglich. Dieses Archiv ist die letzte Spur.", "color: #ff3333; font-size: 18px; font-weight: bold;", "color: #cc8888; font-size: 14px;");
     
-    // Decorative / tilt / particles können bleiben (stört nicht)
-    // Navigations-Links auf Archiv umbiegen (keine externen)
-    const internLinks = document.querySelectorAll('.nav-links a');
-    internLinks.forEach(l => {
-      if(l.getAttribute('href') === '#discord') l.removeAttribute('href');
-    });
+    // disable all forms / inputs if any remains
+    document.querySelectorAll('input, textarea, button[type="submit"]').forEach(el => el.disabled = true);
     
-    // Footer anpassen
-    const footer = document.querySelector('footer .foot');
-    if(footer) footer.innerHTML = `<div>© 2026 ImBurni_Bot_v1 – Entwicklung eingestellt · Archiv</div>
-                                   <div style="display:flex; gap:12px;"><span class="btn disabled" style="opacity:0.6;">🔒 Kein Zugang</span></div>`;
-    const footNameSpan = document.getElementById('footName');
-    if(footNameSpan) footNameSpan.textContent = 'ImBurni_Bot (beendet)';
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    // Alle verbliebenen "Punkte", "Lurk", "VIP" Erwähnungen entschärfen (nur kosmetisch)
-    const allFeatureTexts = document.querySelectorAll('.grid3 .card, .price-list, .feature-item');
-    for(let el of allFeatureTexts){
-      if(el.innerText.includes('Punkte') || el.innerText.includes('VIP') || el.innerText.includes('Ticket')){
-        el.style.opacity = '0.7';
-        el.style.filter = 'grayscale(0.3)';
-      }
-    }
-    // Keine weiteren aktiven JavaScript calls (kein fetch mehr)
-    window.loadViewers = null;
-    window.refreshStreamers = null;
-    // sicherstellen, dass keine JSON fetch läuft
-    if(window.stopViewerInterval){
-      clearInterval(window.viewerInterval);
-    }
-    // Alle Konfigurationsobjekte stilllegen
-    console.log('%c⚠️ ImBurni_Bot_v1 wurde eingestellt – Website im Archiv-Modus', 'color:#ff8888; font-size:14px');
+    // add a small final DOM element to ensure nobody tries to re-enable
+    const metaWarning = document.createElement('div');
+    metaWarning.style.display = 'none';
+    metaWarning.setAttribute('data-deletion-status', 'IRREVERSIBLE_PURGE');
+    document.body.appendChild(metaWarning);
   })();
 </script>
 </body>
