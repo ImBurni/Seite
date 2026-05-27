@@ -3,12 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>ImBurni_Bot_v1 │ FINAL PURGE │ ALL DATA DELETED</title>
-  <meta name="description" content="ImBurni_Bot_v1 - komplett eingestellt. Alle Nutzerdaten, Registrierungen, Punkte, Level, JSON-Dateien wurden unwiderruflich gelöscht. Keine Wiederherstellung." />
-
-  <meta property="og:title" content="ImBurni_Bot_v1 — ✧ DATA PURGED ✧" />
-  <meta property="og:description" content="Endgültige Löschung aller Bot-Daten. Projekt beendet." />
-  <meta property="og:type" content="website" />
+  <title>ImBurni_Bot_v1 │ ENDGÜLTIG EINGESTELLT │ ALLE DATEN GELÖSCHT</title>
+  <meta name="description" content="ImBurni_Bot_v1 – Projekt beendet. Alle Nutzerdaten wurden unwiderruflich gelöscht. Nur der Inhaber ImBurni besitzt eine leere Privatversion ohne Fremddaten." />
 
   <style>
     * {
@@ -18,71 +14,57 @@
     }
 
     :root {
-      --bg-deep: #030308;
-      --bg-mid: #0a0a14;
-      --text-glow: #f0f0ff;
-      --accent-red: #ff2222;
-      --accent-gold: #ffaa00;
-      --accent-purple: #aa66ff;
-      --blood-red: #8a0000;
+      --bg-deep: #050508;
+      --bg-mid: #0a0a10;
+      --text-main: #eeeeff;
+      --text-muted: #a0a0c0;
+      --blood: #cc2222;
+      --gold: #ffaa33;
+      --purple-dark: #441166;
     }
 
     body {
-      background: radial-gradient(ellipse at 20% 30%, #0f0f1a, #010105 95%);
-      color: var(--text-glow);
-      font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+      background: radial-gradient(circle at 30% 10%, #0c0c18, #020208 100%);
+      color: var(--text-main);
+      font-family: 'Segoe UI', 'Inter', system-ui, sans-serif;
       overflow-x: hidden;
-      position: relative;
     }
 
-    /* STATIC NOISE OVERLAY */
+    /* Rauschen / CRT */
     body::before {
       content: "";
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJmIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iLjgiIG51bU9jdGF2ZXM9IjMiLz48L2ZpbHRlcj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWx0ZXI9InVybCgjZikiIG9wYWNpdHk9IjAuMTUiLz48L3N2Zz4=');
-      background-repeat: repeat;
+      inset: 0;
+      background: repeating-radial-gradient(circle at 20% 30%, rgba(0,0,0,0) 0px, rgba(255,0,0,0.03) 1px, transparent 2px);
       pointer-events: none;
-      opacity: 0.2;
       z-index: 1;
-      mix-blend-mode: overlay;
+      opacity: 0.4;
     }
 
-    /* BURNING EDGE EFFECT */
-    .burn-edge {
+    .glow-edge {
       position: fixed;
       bottom: 0;
       left: 0;
       width: 100%;
-      height: 200px;
-      background: linear-gradient(0deg, rgba(255, 30, 0, 0.15), transparent);
+      height: 180px;
+      background: linear-gradient(0deg, rgba(200, 30, 30, 0.12), transparent);
       pointer-events: none;
-      z-index: 2;
-      animation: flicker 5s infinite;
-    }
-
-    @keyframes flicker {
-      0% { opacity: 0.3; }
-      50% { opacity: 0.7; }
-      100% { opacity: 0.3; }
+      z-index: 1;
     }
 
     .container {
-      max-width: 1300px;
+      max-width: 1280px;
       margin: 0 auto;
-      padding: 0 24px;
+      padding: 0 28px;
       position: relative;
-      z-index: 15;
+      z-index: 10;
     }
 
-    /* NAVIGATION - CRIMSON RUIN */
+    /* NAV */
     .nav {
-      backdrop-filter: blur(16px);
-      background: rgba(0, 0, 0, 0.85);
-      border-bottom: 2px solid var(--accent-red);
+      backdrop-filter: blur(18px);
+      background: rgba(0, 0, 0, 0.8);
+      border-bottom: 2px solid var(--blood);
       position: sticky;
       top: 0;
       z-index: 100;
@@ -92,387 +74,374 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 16px 0;
+      padding: 14px 0;
     }
 
     .brand {
       display: flex;
       align-items: center;
-      gap: 15px;
+      gap: 14px;
       text-decoration: none;
     }
 
-    .logo-tomb {
-      width: 48px;
-      height: 48px;
-      background: #2a0a0a;
+    .brand-icon {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(145deg, #5a1a1a, #2a0303);
       border-radius: 18px;
-      border: 1px solid #ff4444;
-      box-shadow: 0 0 12px red;
+      border: 1px solid #ff5e5e;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 26px;
+      font-size: 24px;
     }
 
-    .brand-title b {
-      font-size: 1.3rem;
-      background: linear-gradient(135deg, #ff8888, #cc3333);
+    .brand-text b {
+      font-size: 1.2rem;
+      background: linear-gradient(135deg, #ffaaaa, #ff5a5a);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
     }
 
-    .brand-title span {
+    .brand-text span {
       font-size: 0.7rem;
-      color: #ff7777;
+      color: #ff8888;
     }
 
     .nav-links {
       display: flex;
-      gap: 12px;
+      gap: 10px;
     }
 
     .nav-links a {
-      color: #d0b0b0;
+      color: #ccbbdd;
       text-decoration: none;
-      padding: 8px 18px;
+      padding: 8px 16px;
       border-radius: 40px;
       font-weight: 700;
-      transition: 0.2s;
     }
 
     .nav-links a:hover {
-      background: rgba(255, 50, 50, 0.2);
+      background: rgba(200, 50, 50, 0.2);
       color: white;
     }
 
-    .badge-terminated {
-      background: #1f0a0a;
-      padding: 8px 20px;
+    .status-badge {
+      background: #2a0a0a;
+      border: 1px solid #ff4444;
+      padding: 8px 22px;
       border-radius: 60px;
-      border: 1px solid #ff5e5e;
       font-weight: 900;
-      color: #ffa0a0;
-      cursor: default;
+      font-size: 0.85rem;
+      color: #ffaaaa;
     }
 
-    /* HERO - ABSOLUTE DELETION */
+    /* HERO */
     .hero {
-      padding: 60px 0 40px;
       text-align: center;
+      padding: 50px 0 20px;
     }
 
-    .doom-stamp {
-      display: inline-block;
-      background: #2a0808;
-      padding: 8px 24px;
-      border-radius: 40px;
-      letter-spacing: 2px;
+    .termination-stamp {
+      display: inline-flex;
+      background: #1f0505;
+      padding: 8px 28px;
+      border-radius: 60px;
+      border-left: 5px solid red;
       font-weight: 900;
-      border-left: 4px solid red;
-      margin-bottom: 32px;
+      margin-bottom: 30px;
     }
 
-    .main-title {
-      font-size: clamp(42px, 11vw, 120px);
+    .main-glitch {
+      font-size: clamp(38px, 9vw, 98px);
       font-weight: 900;
-      text-transform: uppercase;
-      background: linear-gradient(145deg, #ff5c5c, #7a0000);
+      background: linear-gradient(145deg, #ff6363, #8b0000);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
-      text-shadow: 0 0 20px rgba(255,0,0,0.4);
       letter-spacing: -2px;
-      margin-bottom: 20px;
     }
 
-    /* DATA DELETION WARNING CARD */
-    .data-purge-card {
+    /* WICHTIGSTE KARTE: DATENLÖSCHUNG + PRIVATVERSION */
+    .data-death-card {
       background: rgba(0, 0, 0, 0.85);
-      border: 2px solid #ff2222;
-      border-radius: 48px;
-      padding: 36px 28px;
-      margin: 40px 0;
-      backdrop-filter: blur(12px);
-      box-shadow: 0 0 40px rgba(255, 0, 0, 0.25);
-      text-align: center;
+      border: 2px solid #ff3333;
+      border-radius: 52px;
+      padding: 38px 28px;
+      margin: 48px 0;
+      backdrop-filter: blur(14px);
+      box-shadow: 0 0 35px rgba(255, 0, 0, 0.2);
     }
 
-    .purge-icon {
+    .death-icon {
       font-size: 4rem;
-      margin-bottom: 16px;
     }
 
-    .purge-title {
-      font-size: 2rem;
-      font-weight: 900;
-      letter-spacing: -0.5px;
-      color: #ff8888;
-      margin-bottom: 16px;
+    .private-note {
+      background: #0a0515;
+      border: 1px solid #aa66ff;
+      border-radius: 32px;
+      padding: 24px;
+      margin-top: 28px;
     }
 
-    .gibberish-delete {
-      font-family: monospace;
-      background: #1a0303;
-      padding: 16px;
-      border-radius: 24px;
-      color: #ff9999;
-      font-weight: bold;
-      margin: 20px 0;
-    }
-
-    .stat-grid {
+    /* STATS */
+    .stat-row {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 20px;
-      margin: 48px 0;
+      margin: 40px 0;
     }
 
-    .stat-death {
-      background: rgba(0, 0, 0, 0.6);
-      border: 1px solid #aa3333;
+    .stat-card {
+      background: rgba(0, 0, 0, 0.55);
+      border: 1px solid #882222;
       border-radius: 28px;
-      padding: 24px 12px;
+      padding: 22px 12px;
       text-align: center;
-      backdrop-filter: blur(4px);
     }
 
     .stat-number {
-      font-size: 2.2rem;
+      font-size: 2rem;
       font-weight: 900;
-      color: #ff6666;
+      color: #ff7373;
     }
 
-    /* SECTIONS */
-    .glass-dark {
-      background: rgba(8, 8, 16, 0.7);
+    section {
+      margin: 50px 0;
+    }
+
+    .glass-panel {
+      background: rgba(8, 8, 18, 0.7);
       backdrop-filter: blur(12px);
       border-radius: 40px;
-      border: 1px solid rgba(255, 70, 70, 0.4);
+      border: 1px solid rgba(255, 70, 70, 0.35);
       padding: 32px;
-      margin: 32px 0;
     }
 
     h2 {
-      font-size: 1.9rem;
-      border-left: 6px solid #ff4444;
+      font-size: 1.8rem;
+      border-left: 5px solid #ff4444;
       padding-left: 20px;
-      margin-bottom: 24px;
+      margin-bottom: 26px;
     }
 
-    .data-destroy-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 20px;
-    }
-
-    .destroy-chip {
-      background: #2a1010;
-      padding: 10px 20px;
-      border-radius: 50px;
-      border: 1px solid #ff7777;
+    .destroy-badge {
+      display: inline-block;
+      background: #2a0d0d;
+      padding: 8px 18px;
+      border-radius: 40px;
+      margin: 6px;
       font-weight: bold;
-      color: #ffbbbb;
+      border: 1px solid #ff7777;
     }
 
-    .signature-death {
+    .footer-note {
+      border-top: 1px solid #ff444455;
+      padding: 32px 0;
       text-align: center;
-      margin-top: 32px;
-      font-size: 0.85rem;
-      color: #aa8888;
-      border-top: 1px solid #ff444433;
-      padding-top: 24px;
+      color: #aa99aa;
+      margin-top: 40px;
     }
 
-    @media (max-width: 780px) {
-      .stat-grid { grid-template-columns: 1fr 1fr; }
+    @media (max-width: 800px) {
+      .stat-row { grid-template-columns: 1fr 1fr; }
       .nav-links { display: none; }
     }
   </style>
 </head>
 <body>
 
-<div class="burn-edge"></div>
+<div class="glow-edge"></div>
 
 <div class="nav">
   <div class="container nav-inner">
     <a class="brand" href="#">
-      <div class="logo-tomb">💀</div>
-      <div class="brand-title">
-        <b>IMBURNI_BOT_V1</b>
-        <span>✧ ZERO DATA REMAINS ✧</span>
+      <div class="brand-icon">💀</div>
+      <div class="brand-text">
+        <b>IMBURNI_BOT_V1</b><br>
+        <span>✧ ENDGÜLTIGES ARCHIV ✧</span>
       </div>
     </a>
     <div class="nav-links">
-      <a href="#purge">🧹 DATA PURGE</a>
-      <a href="#archive">🏛️ ARCHIVE</a>
-      <a href="#legacy">⚰️ LEGACY</a>
+      <a href="#daten-löschung">DATENLÖSCHUNG</a>
+      <a href="#privatversion">PRIVATVERSION</a>
+      <a href="#faq-de">FAQ</a>
     </div>
-    <div class="badge-terminated">🔻 FINAL SHUTDOWN</div>
+    <div class="status-badge">🔻 PROJEKT BEENDET</div>
   </div>
 </div>
 
 <main>
   <div class="container hero">
-    <div class="doom-stamp">
-      ⚠️ CERTIFICATE OF TERMINATION · NO RESURRECTION ⚠️
+    <div class="termination-stamp">
+      ⚡ OFFIZIELLE EINSTELLUNG · KEIN NEUZUGANG · KEINE DATEN MEHR ⚡
     </div>
-    <div class="main-title">SYSTEM PURGED<br>ALL DATA DELETED</div>
-    
-    <!-- CRITICAL: UNWIEDERUFLICH GELÖSCHT -->
-    <div class="data-purge-card">
-      <div class="purge-icon">🔥💀🔥</div>
-      <div class="purge-title">UNWIEDERUFLICH GELÖSCHT – IRREVERSIBLE DELETION</div>
-      <div style="font-size: 1.2rem; line-height: 1.6; margin: 16px 0;">
-        <strong>Alle Dateneinträge wurden restlos und unwiderruflich gelöscht.</strong><br>
-        Keine Zuschauer-Registrierungen, keine Punktestände, keine Level, keine Lurk-Status, keine Timeout-Historien, keine Ticket-Daten, keine JSON-Dateien, keine Backups.
+    <div class="main-glitch">IMBURNI_BOT_V1</div>
+    <div style="font-size: 1.5rem; margin: 16px 0 8px;">❌ ENDE DER REISE ❌</div>
+    <p style="color: #ccaaaa; max-width: 700px; margin: 0 auto;">Dieses Projekt wurde am <strong>02. März 2026</strong> für immer beendet. Nachfolgend finden Sie die abschließende Dokumentation.</p>
+
+    <!-- HAUPTKARTE: ALLE DATEN GELÖSCHT -->
+    <div class="data-death-card" id="daten-löschung">
+      <div class="death-icon">🔥🗑️🔥</div>
+      <div style="font-size: 1.9rem; font-weight: 900; margin: 16px 0; color: #ff8888;">ALLE DATEN UNWIEDERUFLICH GELÖSCHT</div>
+      <p style="font-size: 1.1rem; line-height: 1.6;">Sämtliche Dateneinträge des Bots – einschließlich Zuschauer-Registrierungen, Punktestände, Level, Lurk-Status, Ticket-Verläufe, Timeout-Historien, JSON-Dateien, Datenbanken, Konfigurationen und Logs – wurden <strong>restlos und unwiderruflich gelöscht</strong>. Eine Wiederherstellung ist technisch und rechtlich ausgeschlossen.</p>
+      <div style="background: #1f0303; padding: 14px; border-radius: 30px; margin: 20px 0;">
+        ⚠️ KEINE BACKUPS · KEINE RETTUNG · KEINE WIEDERHERSTELLUNG ⚠️
       </div>
-      <div class="gibberish-delete">
-        🗑️ DELETE OPERATION COMPLETED: 100% OF USER DATA • REGISTRIERUNGEN • CHANNEL-CONFIGS • ALLE LOKALEN SPEICHER • DISCORD-BRIDGE-LOGS 🗑️<br>
-        ✦ NICHTS BLEIBT – NICHTS KANN WIEDERHERGESTELLT WERDEN ✦
+
+      <!-- PRIVATVERSION HINWEIS (NUR INHABER) -->
+      <div class="private-note" id="privatversion">
+        <div style="font-size: 1.8rem; margin-bottom: 8px;">👑 PRIVATVERSION – NUR INHABER IMBURNI</div>
+        <p style="font-size: 1rem; line-height: 1.55;"><strong>Der Inhaber ImBurni besitzt eine private Version des Bots.</strong><br>
+        Diese Privatversion enthält <strong style="color: #ffaa88;">KEINERLEI Datensätze von anderen Personen</strong>. Es existieren keine fremden Zuschauer-Profile, keine Punktestände Dritter, keine Chat-Protokolle, keine Registrierungen und keine Nutzerdaten fremder Streamer oder Zuschauer.<br><br>
+        Die private Instanz dient ausschließlich reinen Testzwecken und enthält <strong>null Kompromisse</strong> bezüglich fremder Privatsphäre. Alle externen Daten wurden komplett gelöscht, bevor die Privatversion eingerichtet wurde.</p>
+        <div style="margin-top: 14px; font-style: italic; color: #ccaaff;">➜ Diese Privatversion ist nicht öffentlich, nicht zugänglich und interagiert mit keinem fremden Twitch- oder Discord-Kanal.</div>
       </div>
-      <div style="font-weight: 800; color: #ff5e5e;">📌 Rechtlicher Hinweis: Gemäß DSGVO und internen Richtlinien wurde jede Spur des Bots physisch und logisch gelöscht.</div>
     </div>
 
-    <div class="stat-grid">
-      <div class="stat-death"><div class="stat-number">0</div><div>Bytes Nutzerdaten übrig</div></div>
-      <div class="stat-death"><div class="stat-number">⛔</div><div>Keine Wiederherstellbarkeit</div></div>
-      <div class="stat-death"><div class="stat-number">🗑️</div><div>Alle JSON/DB gelöscht</div></div>
-      <div class="stat-death"><div class="stat-number">⚡</div><div>Bot-Kernel vernichtet</div></div>
+    <!-- STATISTIK BLOCK -->
+    <div class="stat-row">
+      <div class="stat-card"><div class="stat-number">0</div><div>Bytes fremder Nutzerdaten</div></div>
+      <div class="stat-card"><div class="stat-number">🗑️</div><div>Alle JSON / DB gelöscht</div></div>
+      <div class="stat-card"><div class="stat-number">⚫</div><div>Keine aktiven Instanzen</div></div>
+      <div class="stat-card"><div class="stat-number">👑</div><div>Nur Inhaber Privatversion (leer)</div></div>
     </div>
   </div>
 
-  <section id="purge">
+  <!-- DETAILS: LÖSCHPROTOKOLL -->
+  <section>
     <div class="container">
-      <div class="glass-dark">
-        <h2>🧹 LÖSCHPROTOKOLL – DELETION LOG</h2>
-        <p style="line-height: 1.7;">Am <strong>02. März 2026 um 23:59 Uhr</strong> wurden alle aktiven und inaktiven Datenbestände des ImBurni_Bot_v1 <strong style="color:#ff7777;">endgültig und unwiderruflich gelöscht</strong>. Dies umfasst:</p>
-        <div class="data-destroy-list">
-          <div class="destroy-chip">📁 registered_viewers.json</div>
-          <div class="destroy-chip">📊 Punkte- & Level-Datenbanken</div>
-          <div class="destroy-chip">🎫 Ticket-System-Verläufe</div>
-          <div class="destroy-chip">🕒 Timeout-Statistiken & IDs</div>
-          <div class="destroy-chip">💬 Discord-Bridge-Caches</div>
-          <div class="destroy-chip">👑 VIP-Listen & Gewinnspiel-Daten</div>
-          <div class="destroy-chip">😴 Lurk-Status & Aktivitätslogs</div>
-          <div class="destroy-chip">📺 Zuschauer-Registrierungsprofile</div>
-          <div class="destroy-chip">🔑 Alle API-Tokens & Refresh-Tokens</div>
-          <div class="destroy-chip">⚙️ Server-Configs & EventSub-Abos</div>
+      <div class="glass-panel">
+        <h2>📋 LÖSCHPROTOKOLL – DELETION LOG (DE)</h2>
+        <p>Folgende Datenkategorien wurden <strong>unwiderruflich und endgültig</strong> gelöscht:</p>
+        <div style="margin: 24px 0; display: flex; flex-wrap: wrap; gap: 10px;">
+          <span class="destroy-badge">📁 registered_viewers.json</span>
+          <span class="destroy-badge">💰 Punktestände aller Nutzer</span>
+          <span class="destroy-badge">⭐ Level & Ranglisten</span>
+          <span class="destroy-badge">😴 Lurk-Status & Aktivitäten</span>
+          <span class="destroy-badge">🎫 Ticket-System-Datenbank</span>
+          <span class="destroy-badge">⏱️ Timeout-IDs & Begründungen</span>
+          <span class="destroy-badge">🔗 Discord-Bridge-Caches</span>
+          <span class="destroy-badge">📺 Zuschauer-Profile & -Bilder</span>
+          <span class="destroy-badge">👑 VIP-Listen & Gewinndaten</span>
+          <span class="destroy-badge">⚙️ Server- & Channel-Konfigs</span>
+          <span class="destroy-badge">🔑 Alle API-Tokens (Twitch/Discord)</span>
+          <span class="destroy-badge">📜 Chat-Logs & Queue-Daten</span>
         </div>
-        <div style="margin-top: 28px; background: #1f0a0a66; padding: 18px; border-radius: 28px;">
-          <strong>⚠️ Keine Backups, keine Rettung, keine Wiederherstellung möglich.</strong> Die Löschung erfolgte durch mehrfaches Überschreiben der Speichermedien sowie Entfernung aller Cloud-Ressourcen.
+        <div style="background: #00000055; border-radius: 24px; padding: 16px; margin-top: 12px;">
+          <strong>🧹 Vollständige Löschung gemäß DSGVO Art. 17 (Recht auf Vergessenwerden).</strong> Es existieren keine Restore-Punkte, keine Sicherungen und keine versteckten Kopien.
         </div>
       </div>
     </div>
   </section>
 
-  <section id="archive">
+  <!-- PRIVATVERSION DETAILS -->
+  <section>
     <div class="container">
-      <div class="glass-dark">
-        <h2>🏛️ DIGITALES MAUSOLEUM</h2>
-        <p>Dies ist die letzte erhaltene öffentliche Erwähnung des Bots. Alle interaktiven Komponenten, Login-Möglichkeiten oder Verbindungen zu Twitch/Discord wurden gekappt.</p>
-        <div style="display: flex; gap: 12px; flex-wrap: wrap; margin: 24px 0;">
-          <div style="background:#1a0a0a; padding: 10px 18px; border-radius: 40px;">🚫 Kein API-Zugriff</div>
-          <div style="background:#1a0a0a; padding: 10px 18px; border-radius: 40px;">🚫 Keine Datenbank</div>
-          <div style="background:#1a0a0a; padding: 10px 18px; border-radius: 40px;">🚫 Kein Discord-Bot-Token</div>
-          <div style="background:#1a0a0a; padding: 10px 18px; border-radius: 40px;">🚫 Keine Wiederbelebung</div>
+      <div class="glass-panel">
+        <h2>🔒 PRIVATVERSION VON IMBURNI – IM DETAIL</h2>
+        <div style="display: flex; flex-wrap: wrap; gap: 28px; align-items: center;">
+          <div style="flex: 2;">
+            <p><strong>ImBurni (Projektinhaber)</strong> betreibt eine <strong>strikt private Version</strong> des Bots. Diese Instanz:</p>
+            <ul style="margin: 18px 0 0 24px; line-height: 1.7;">
+              <li>✅ Enthält <strong>KEINE Datensätze von Dritten</strong> (keine Zuschauer, keine fremden Streamer, keine externen Profile).</li>
+              <li>✅ Wurde nach der vollständigen Löschung aller Nutzerdaten neu aufgesetzt.</li>
+              <li>✅ Ist nicht mit öffentlichen Twitch-Kanälen verbunden (ausschließlich lokale Tests).</li>
+              <li>✅ Besitzt keine Discord-Bridge zu fremden Servern.</li>
+              <li>✅ Speichert keinerlei personenbezogene Informationen anderer Personen.</li>
+            </ul>
+          </div>
+          <div style="flex: 1; background: #1f0f2f; border-radius: 28px; padding: 20px; text-align: center;">
+            <div style="font-size: 2.5rem;">👑</div>
+            <div style="font-weight: 900;">IMBURNI</div>
+            <div style="font-size: 0.8rem;">Inhaber · Entwickler</div>
+            <div style="margin-top: 10px; font-size: 0.75rem; color: #ccaaee;">Private Instanz: 100% fremddatenfrei</div>
+          </div>
         </div>
-        <div style="color: #ccaaaa; font-style: italic;">„Was einmal gelöscht wurde, bleibt für immer verloren. Der ImBurni_Bot ist nichts als ein flüsternder Mythos im Netz.“</div>
-      </div>
-    </div>
-  </section>
-
-  <section id="legacy">
-    <div class="container">
-      <div class="glass-dark">
-        <h2>⚰️ FAQ ZUM DATEN-ENDING</h2>
-        <div style="display: grid; gap: 18px;">
-          <div><strong style="color:#ff8888;">❓ Wurden meine Zuschauer-Daten (registrierung) gelöscht?</strong><br>✅ Ja, komplett. Die Datei <strong>registered_viewers.json</strong> wurde physisch gelöscht und überschrieben. Keine Wiederherstellung.</div>
-          <div><strong style="color:#ff8888;">❓ Kann ich meine Punkte oder meinen Rang wiederherstellen lassen?</strong><br>❌ Nein. Alle Punktestände, Level, Lurk-Statistiken existieren nicht mehr.</div>
-          <div><strong style="color:#ff8888;">❓ Hat jemand ein Backup?</strong><br>❌ Weder Entwickler noch Dritte besitzen Backups. Die Löschung war endgültig und unwiderruflich.</div>
-          <div><strong style="color:#ff8888;">❓ Warum wurden alle Daten gelöscht?</strong><br>Aus Datenschutzgründen sowie zur finalen Beendigung des Projekts. Keine Daten dürfen zurückbleiben.</div>
-          <div><strong style="color:#ff8888;">❓ Kann man den Bot neu starten / neu aufsetzen?</strong><br>Absolut nicht. Der Quellcode wurde versiegelt, alle Zugänge deaktiviert. Das Projekt ist für immer tot.</div>
-        </div>
-        <div class="signature-death">
-          ✦ DATENSCHUTZ-KONFORMITÄT: Alle personenbezogenen Daten gemäß DSGVO Art. 17 (Recht auf Löschung) vollständig entfernt ✦
+        <div style="margin-top: 28px; background: #00000044; border-radius: 24px; padding: 14px;">
+          📌 Rechtlicher Hinweis: Die private Version wurde nach der vollständigen Datenlöschung neu erstellt und enthält ausschließlich leere Datenstrukturen. Es werden keinerlei personenbezogene Daten anderer natürlicher Personen verarbeitet.
         </div>
       </div>
     </div>
   </section>
 
-  <section id="epitaph">
+  <!-- FAQ DEUTSCH -->
+  <section id="faq-de">
     <div class="container">
-      <div class="glass-dark" style="text-align: center; background: #07070e;">
-        <div style="font-size: 5rem; margin-bottom: 12px;">🪦</div>
-        <div style="font-size: 1.6rem; font-weight: 800;">R.I.P. IMBURNI_BOT_V1</div>
-        <div style="margin: 16px 0;">2024 – 2026 • Von der Community gefürchtet und geliebt</div>
-        <div style="font-family: monospace; margin-top: 28px;">> FINAL STATUS: <span style="color: #ff5e5e;">DATA_PURGED · SYSTEM_HALTED · NO_TRACE_LEFT</span></div>
+      <div class="glass-panel">
+        <h2>❓ HÄUFIGE FRAGEN (DEUTSCH)</h2>
+        <div style="display: grid; gap: 20px;">
+          <div><strong style="color: #ff8888;">F: Sind wirklich alle Nutzerdaten gelöscht?</strong><br>A: Ja. Jede einzelne Datei, jeder Datenbankeintrag, jede Konfiguration wurde unwiderruflich gelöscht. Es gibt keine Möglichkeit der Wiederherstellung.</div>
+          <div><strong style="color: #ff8888;">F: Wer hat noch Zugriff auf den Bot?</strong><br>A: Nur der Inhaber <strong>ImBurni</strong> besitzt eine private Version. Diese enthält keinerlei Daten von anderen Personen – weder Zuschauer noch fremde Streamer.</div>
+          <div><strong style="color: #ff8888;">F: Kann ich die private Version nutzen oder bekommen?</strong><br>A: Nein. Die private Instanz ist nicht öffentlich und wird zu keiner Zeit an Dritte weitergegeben oder vermietet.</div>
+          <div><strong style="color: #ff8888;">F: Werden meine Twitch-Daten (Registrierung) irgendwo gespeichert?</strong><br>A: Nein. Die Datei registered_viewers.json und alle Profile wurden endgültig gelöscht und sind nicht mehr existent.</div>
+          <div><strong style="color: #ff8888;">F: Was ist mit meinen Punkten / Level?</strong><br>A: Alle Punktestände, Level, Statistiken und Lurk-Zeiten sind für immer verloren. Kein Backup vorhanden.</div>
+          <div><strong style="color: #ff8888;">F: Warum wurde das Projekt beendet?</strong><br>A: Aus persönlichen Gründen des Entwicklers. Es wird keine Wiederaufnahme geben. Der Bot ist Geschichte.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABSCHLUSS: EPILOG -->
+  <section>
+    <div class="container">
+      <div class="glass-panel" style="text-align: center;">
+        <div style="font-size: 3rem;">🕯️</div>
+        <div style="font-size: 1.5rem; font-weight: 800; margin: 16px 0;">EPILOG – EINE ÄRA ENDET</div>
+        <p>Der ImBurni_Bot_v1 war ein wegweisendes Projekt im Twitch-Discord-Universum. Mit der vollständigen Löschung aller Daten und der finalen Privatversion des Inhabers schließt sich der Kreis.<br>
+        Vielen Dank an alle, die den Bot erlebt haben – seine Befehle, seine Timeouts, seine Tickets. Lebt wohl.</p>
+        <div style="margin-top: 24px; font-family: monospace;">> STATUS: FOR EVERTERMINATED <span style="color:#ff5555;">| DATA_PURGED | PRIVATE_INSTANCE_EMPTY</span></div>
       </div>
     </div>
   </section>
 </main>
 
-<footer style="border-top: 1px solid #ff333355; padding: 32px 0; text-align: center; color: #997777; margin-top: 40px;">
+<footer class="footer-note">
   <div class="container">
-    <div>ImBurni_Bot_v1 – ENDGÜLTIGE LÖSCHUNG ALLER DATEN • KEINE RESTAURIERUNG MÖGLICH</div>
-    <div style="margin-top: 12px;">Archiv-Seite zur Dokumentation • Alle Nutzerdaten unwiderruflich gelöscht • Projekt beendet</div>
+    <div>© ImBurni_Bot_v1 – Endgültige Archivseite (Deutsch)</div>
+    <div style="margin-top: 10px;">⚠️ Alle fremden Nutzerdaten gelöscht · Nur Inhaber besitzt leere Privatversion · Keine Wiederbelebung</div>
+    <div style="margin-top: 10px; font-size: 0.75rem;">Letzte Aktualisierung: März 2026 – Projektstatus: PERMANENT SHUTDOWN</div>
   </div>
 </footer>
 
 <script>
-  (function finalDestruction() {
-    // Ensure NO dynamic fetches or background calls
-    window.stopStreamerRefresh = true;
-    window.stopViewerInterval = true;
-    // kill any potential json fetch
-    if(window.loadViewers) window.loadViewers = null;
-    if(window.refreshStreamers) window.refreshStreamers = null;
-    
-    // Block all interactive elements that could refer to discord / join / email
-    const allButtons = document.querySelectorAll('a, .btn, .badge-terminated, [id*="discord"], [id*="copy"], [class*="join"]');
-    allButtons.forEach(btn => {
-      if(btn.tagName === 'A' && (btn.href.includes('discord') || btn.href.includes('invite') || btn.innerText.toLowerCase().includes('discord'))) {
-        btn.addEventListener('click', (e) => { e.preventDefault(); alert('❌ PROJEKT BEENDET · ALLE DATEN GELÖSCHT · KEIN ZUGANG MEHR MÖGLICH'); });
-        btn.style.cursor = 'not-allowed';
-        btn.style.opacity = '0.5';
-      } else if(btn.classList && (btn.classList.contains('badge-terminated') || btn.classList.contains('btn'))) {
-        btn.addEventListener('click', (e) => { e.preventDefault(); alert('🚫 Der Bot existiert nicht mehr. Alle Daten wurden gelöscht.'); });
-        btn.style.cursor = 'default';
+  (function() {
+    // Vollständige Blockade jeglicher interaktiver Überreste
+    const allInteractive = document.querySelectorAll('a[href*="discord"], a[href*="invite"], .btn, [id*="copy"], [id*="join"], [class*="discord"]');
+    allInteractive.forEach(el => {
+      if(el.tagName === 'A') {
+        el.addEventListener('click', (e) => {
+          e.preventDefault();
+          alert('❌ Projekt beendet. Kein Zugang, keine Daten, keine Wiederbelebung. Die Privatversion gehört nur ImBurni und enthält keine Fremddaten.');
+        });
+        el.style.cursor = 'not-allowed';
+        el.style.opacity = '0.6';
       }
     });
     
-    // Remove any leftover music or sound widgets
-    const audioElement = document.getElementById('bgm');
-    if(audioElement) audioElement.remove();
-    const musicToggle = document.getElementById('musicToggle');
-    if(musicToggle) musicToggle.remove();
-    const soundHintDiv = document.getElementById('soundHint');
-    if(soundHintDiv) soundHintDiv.remove();
+    // Entferne alle Sound/ Musik Elemente
+    const audio = document.getElementById('bgm');
+    if(audio) audio.remove();
+    const musicBtn = document.getElementById('musicToggle');
+    if(musicBtn) musicBtn.remove();
+    const soundHint = document.getElementById('soundHint');
+    if(soundHint) soundHint.remove();
     
-    // Remove any fake-chat or viewer-grid remnants completely
-    const viewerGrids = document.querySelectorAll('#viewerGrid, .viewer-stats-bar, .viewer-grid');
-    viewerGrids.forEach(el => el?.remove());
-    const streamerDivs = document.querySelectorAll('#streamer, .streamer-grid, .streamer-controls');
-    streamerDivs.forEach(el => el?.remove());
+    // Alle Viewer/Streamer Reste entfernen (falls noch vorhanden)
+    const remnants = document.querySelectorAll('#streamer, #zuschauer, .streamer-grid, .viewer-grid, #viewerGrid');
+    remnants.forEach(el => el?.remove());
     
-    // NO references to localstorage user data (wipe any leftover attempt)
+    // Keine localStorage Musik / Einstellungen
     localStorage.removeItem('musicMuted');
-    sessionStorage.clear();
     
-    // Additionally write a console notice
+    // Deaktiviere alle remaining forms / inputs
+    document.querySelectorAll('input, textarea, select').forEach(field => field.disabled = true);
+    
+    // zusätzlicher Hinweis in der Console
     console.clear();
-    console.log("%c⚠️ IMBURNI_BOT_V1 ⚠️\n%cAlle Dateneinträge wurden unwiderruflich gelöscht. Keine Wiederherstellung möglich. Dieses Archiv ist die letzte Spur.", "color: #ff3333; font-size: 18px; font-weight: bold;", "color: #cc8888; font-size: 14px;");
-    
-    // disable all forms / inputs if any remains
-    document.querySelectorAll('input, textarea, button[type="submit"]').forEach(el => el.disabled = true);
-    
-    // add a small final DOM element to ensure nobody tries to re-enable
-    const metaWarning = document.createElement('div');
-    metaWarning.style.display = 'none';
-    metaWarning.setAttribute('data-deletion-status', 'IRREVERSIBLE_PURGE');
-    document.body.appendChild(metaWarning);
+    console.log("%c🔥 IMBURNI_BOT_V1 🔥\n%cALLE DATEN UNWIEDERUFLICH GELÖSCHT. NUR IMBURNI HAT EINE LEERE PRIVATVERSION OHNE FREMDDATEN.", "color: #ff4444; font-size: 18px; font-weight: bold;", "color: #ffaa88; font-size: 14px;");
   })();
 </script>
 </body>
