@@ -31,7 +31,6 @@
             padding: 20px;
         }
 
-        /* Glow-Effekt Hintergrund */
         .glow-orbe {
             position: fixed;
             width: 600px;
@@ -165,7 +164,7 @@
             background: rgba(145, 70, 255, 0.06);
         }
 
-        /* ===== PARTNER BANNER ===== */
+        /* ===== PARTNER BANNER (neutral gehalten) ===== */
         .partner-section {
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.06);
@@ -230,56 +229,9 @@
             color: #9146ff;
         }
 
-        /* ===== LIVE STATUS ===== */
+        /* Live-Status ausgeblendet – kein Partner-Bezug mehr */
         .live-status {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 8px 20px 8px 16px;
-            border-radius: 40px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            min-width: 140px;
-            justify-content: center;
-        }
-        .live-status .dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            display: inline-block;
-            flex-shrink: 0;
-        }
-        .live-status .dot--live {
-            background: #eb0400;
-            box-shadow: 0 0 16px rgba(235, 4, 0, 0.6);
-            animation: pulse 1.8s ease-in-out infinite;
-        }
-        .live-status .dot--offline {
-            background: #4a5362;
-            animation: none;
-        }
-        .live-status .label--live {
-            color: #eb0400;
-            font-weight: 700;
-        }
-        .live-status .label--offline {
-            color: #6b7582;
-        }
-        .live-status .status-text {
-            font-weight: 400;
-            color: #9aa3af;
-        }
-        .live-status .uptime-text {
-            font-weight: 400;
-            color: #1db954;
-            font-size: 0.75rem;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.3; transform: scale(0.8); }
+            display: none;
         }
 
         .partner-actions {
@@ -531,13 +483,6 @@
             .partner-section {
                 padding: 20px 16px 26px;
             }
-            .live-status {
-                min-width: 120px;
-                font-size: 0.8rem;
-                padding: 6px 14px 6px 12px;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
         }
     </style>
 </head>
@@ -575,32 +520,33 @@
             </div>
         </header>
 
-        <!-- ===== PARTNER SECTION ===== -->
+        <!-- ===== PARTNER SECTION (neutral, kein SeaSideClassic) ===== -->
         <div class="partner-section">
             <div class="partner-badge">
-                <i class="fas fa-handshake"></i> Offizieller Partner
+                <i class="fas fa-handshake"></i> Partner-Programm
             </div>
 
             <div class="partner-banner">
-                <img src="SeaSideClassic.png" alt="SeaSideClassic Partner Banner" />
+                <!-- Platzhalter-Banner – zeigt generisches Spotify/Twitch Theme -->
+                <div style="padding: 18px 10px; display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; background: #1a1a2a; border-radius: 12px;">
+                    <i class="fab fa-spotify" style="font-size: 2.8rem; color: #1db954;"></i>
+                    <i class="fas fa-plus" style="color: #9aa3af; font-size: 1.6rem;"></i>
+                    <i class="fab fa-twitch" style="font-size: 2.8rem; color: #9146ff;"></i>
+                    <span style="font-weight: 600; color: #eaeef2; letter-spacing: 0.5px; font-size: 1.1rem;">Offizieller Partner-Bot</span>
+                </div>
             </div>
 
             <div class="partner-info">
                 <div class="partner-name">
-                    <i class="fab fa-twitch"></i> SeaSideClassic
+                    <i class="fab fa-twitch"></i> Dein Twitch-Kanal
                 </div>
 
-                <!-- Live Status -->
-                <div class="live-status" id="liveStatus">
-                    <span class="dot" id="statusDot"></span>
-                    <span id="statusLabel">Lade Status …</span>
-                    <span id="uptimeLabel" class="uptime-text"></span>
-                </div>
+                <!-- Live-Status wurde komplett entfernt (kein Bezug zu SeaSideClassic) -->
             </div>
 
             <div class="partner-actions">
-                <a href="https://www.twitch.tv/seasideclassic" target="_blank" class="btn btn--twitch">
-                    <i class="fab fa-twitch"></i> Zum Twitch-Kanal
+                <a href="#" class="btn btn--twitch" style="pointer-events: none; opacity: 0.6;">
+                    <i class="fab fa-twitch"></i> Twitch-Integration aktiv
                 </a>
             </div>
         </div>
@@ -661,8 +607,8 @@
                 <div class="icon icon--partner"><i class="fas fa-handshake"></i></div>
                 <h3>🤝 Partner-Programm</h3>
                 <p>
-                    Der Bot wird in Partnerschaft mit <span class="highlight">SeaSideClassic</span> 
-                    betrieben – <span class="highlight">24/7</span> für die Community da!
+                    Der Bot wird in Partnerschaft mit ausgewählten Streamern betrieben – 
+                    <span class="highlight">24/7</span> für die Community da!
                 </p>
             </div>
 
@@ -723,92 +669,24 @@
             <p>
                 <i class="fas fa-code"></i> SpotifyBot · 
                 <i class="fab fa-twitch"></i> Twitch-Integration · 
-                <i class="fas fa-handshake"></i> Partner: SeaSideClassic
+                <i class="fas fa-handshake"></i> Partner-Programm
                 <br />
                 <span style="color:#4a5362;">© 2026 · Alle Rechte vorbehalten</span>
             </p>
-            <div class="last-updated" id="lastUpdated">Live-Status wird aktualisiert...</div>
+            <div class="last-updated" id="lastUpdated">Bot bereit – Verbinde mit deinem Twitch-Channel</div>
         </footer>
 
     </div>
 
-    <!-- ===== LIVE STATUS SCRIPT (mit decapi.me API) ===== -->
+    <!-- Kein Live-Status-Script mehr – komplett neutral -->
     <script>
         (function() {
-            const TWITCH_USER = 'seasideclassic';
-            const statusDot = document.getElementById('statusDot');
-            const statusLabel = document.getElementById('statusLabel');
-            const uptimeLabel = document.getElementById('uptimeLabel');
+            // Einfache Aktualisierung der Fußzeile (kein Live-Status)
             const lastUpdated = document.getElementById('lastUpdated');
-
-            async function checkLiveStatus() {
-                try {
-                    // 1. Uptime abfragen (decapi.me ist zuverlässig und braucht kein Client-ID)
-                    const uptimeRes = await fetch(`https://decapi.me/twitch/uptime/${TWITCH_USER}`);
-                    const uptimeText = await uptimeRes.text();
-                    
-                    // Prüfen ob Live (wenn "offline" oder Fehler kommt, ist er offline)
-                    const isLive = uptimeText && 
-                                   !uptimeText.toLowerCase().includes('offline') && 
-                                   !uptimeText.toLowerCase().includes('error') &&
-                                   uptimeText.length > 3;
-                    
-                    if (isLive) {
-                        // LIVE
-                        statusDot.className = 'dot dot--live';
-                        
-                        // Uptime formatieren
-                        let uptimeDisplay = uptimeText.trim();
-                        // Wenn die Uptime in Sekunden kommt, formatieren wir sie schöner
-                        if (uptimeDisplay.includes(':')) {
-                            // Ist schon formatiert
-                        } else {
-                            // Versuche Sekunden in lesbares Format umzuwandeln
-                            try {
-                                const seconds = parseInt(uptimeDisplay);
-                                if (!isNaN(seconds)) {
-                                    const hours = Math.floor(seconds / 3600);
-                                    const minutes = Math.floor((seconds % 3600) / 60);
-                                    const secs = seconds % 60;
-                                    if (hours > 0) {
-                                        uptimeDisplay = `${hours}h ${minutes}m ${secs}s`;
-                                    } else if (minutes > 0) {
-                                        uptimeDisplay = `${minutes}m ${secs}s`;
-                                    } else {
-                                        uptimeDisplay = `${secs}s`;
-                                    }
-                                }
-                            } catch(e) {}
-                        }
-                        
-                        statusLabel.innerHTML = `<span class="label--live">● LIVE</span>`;
-                        uptimeLabel.textContent = `seit ${uptimeDisplay}`;
-                        uptimeLabel.style.color = '#1db954';
-                    } else {
-                        // OFFLINE
-                        statusDot.className = 'dot dot--offline';
-                        statusLabel.innerHTML = `<span class="label--offline">● OFFLINE</span>`;
-                        uptimeLabel.textContent = 'Nicht live';
-                        uptimeLabel.style.color = '#6b7582';
-                    }
-                    
-                    // Letzte Aktualisierung
-                    const now = new Date();
-                    lastUpdated.textContent = `🔄 Zuletzt aktualisiert: ${now.toLocaleTimeString('de-DE')}`;
-                    
-                } catch (error) {
-                    console.warn('Live-Status Fehler:', error);
-                    statusDot.className = 'dot dot--offline';
-                    statusLabel.innerHTML = `<span class="label--offline">● OFFLINE</span>`;
-                    uptimeLabel.textContent = 'Status unbekannt';
-                    uptimeLabel.style.color = '#6b7582';
-                }
+            if (lastUpdated) {
+                const now = new Date();
+                lastUpdated.textContent = `🔄 Bot-Status: Aktiv · ${now.toLocaleTimeString('de-DE')}`;
             }
-
-            // Beim Laden prüfen
-            checkLiveStatus();
-            // Alle 30 Sekunden aktualisieren
-            setInterval(checkLiveStatus, 30000);
         })();
     </script>
 
