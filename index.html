@@ -1,3 +1,32 @@
+
+
+index (6).html
+Datei
+
+ImBurni_Bot_AutoLogin.zip
+ZIP-Archiv
+Die Website soll einen Download haben wo leute sich das hier runterladen können also die Zip wenn sie auf Jetzt Downloaden klicken lädt der Ordner runter
+
+Ja. Damit beim Klick auf „Jetzt Downloaden“ direkt die ZIP-Datei heruntergeladen wird, muss der Button auf die ZIP-Datei zeigen und das download-Attribut besitzen. Die HTML-Datei hast du hochgeladen. 
+
+
+Ich habe dir bereits eine angepasste Version erstellt:
+
+📄 index_download.html
+
+Der Button verwendet jetzt:
+
+<a href="ImBurni_Bot_AutoLogin.zip" download class="btn btn--primary">
+    <i class="fas fa-download"></i> Jetzt Downloaden
+</a>
+Wichtig:
+
+Lege ImBurni_Bot_AutoLogin.zip in denselben Ordner wie die HTML-Datei auf deinem Webserver.
+
+Dann startet der Download automatisch, wenn Besucher auf „Jetzt Downloaden“ klicken.
+
+Falls du die Seite auf GitHub Pages, Netlify oder einem Webserver hostest, funktioniert das genauso.
+
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -692,3 +721,199 @@
 
 </body>
 </html>
+
+der ordner ist zu groß für Github
+
+Wenn die ZIP-Datei zu groß für GitHub ist, hast du mehrere Möglichkeiten:
+
+GitHub Releases (empfohlen)
+
+Lade den Quellcode auf GitHub hoch.
+
+Erstelle unter Releases eine neue Version.
+
+Hänge die ZIP-Datei dort an.
+
+Den Download-Link kannst du dann auf deiner Website verwenden.
+
+Git LFS
+
+Für große Dateien bis mehrere GB.
+
+Etwas aufwendiger einzurichten und mit Bandbreitenlimits.
+
+Cloud-Speicher
+
+Google Drive
+
+Dropbox
+
+OneDrive
+
+MEGA
+
+Dann verlinkst du den direkten Download auf deiner Website.
+
+Kostenloser Dateihost
+
+Dienste wie SourceForge oder itch.io (für Software) eignen sich ebenfalls.
+
+Empfehlung
+Wenn es sich um ein Bot-Programm handelt, ist GitHub Releases die sauberste Lösung. Besucher klicken auf „Jetzt Downloaden“ und laden die ZIP direkt von GitHub herunter.
+
+Falls deine ZIP größer als 2 GB ist, ist GitHub selbst für Releases keine gute Wahl. Dann wären z. B. Google Drive, MEGA oder ein eigener Webserver besser.
+
+Wie groß ist deine ZIP-Datei (MB oder GB)?
+
+
+
+Bibliothek
+/
+index (6).html
+Mehr Aktionen
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>SpotifyBot 🎵 – Twitch x Spotify</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet" />
+    <!-- Font Awesome 6 (free) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0b0b12;
+            color: #eaeef2;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-image: radial-gradient(ellipse at 10% 20%, rgba(29, 185, 84, 0.08) 0%, transparent 60%),
+                              radial-gradient(ellipse at 90% 80%, rgba(145, 70, 255, 0.08) 0%, transparent 60%);
+            padding: 20px;
+        }
+
+        .glow-orbe {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            filter: blur(140px);
+            opacity: 0.2;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .glow-orbe--grün {
+            top: -200px;
+            left: -200px;
+            background: #1db954;
+        }
+        .glow-orbe--lila {
+            bottom: -200px;
+            right: -200px;
+            background: #9146ff;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1100px;
+            width: 100%;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
