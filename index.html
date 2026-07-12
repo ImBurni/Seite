@@ -1,694 +1,697 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>SpotifyBot 🎵 – Twitch x Spotify</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>⚡ ImBurni_Bot • CYBER MAX ⚡</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* ----- RESET & BASE (Dark Cyber) ----- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', 'Segoe UI', system-ui, sans-serif;
+    }
 
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet" />
-    <!-- Font Awesome 6 (free) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+    body {
+      min-height: 100vh;
+      background: #05070e;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1.5rem;
+      position: relative;
+      overflow-x: hidden;
+      /* Hintergrund mit mehreren dynamischen Radials */
+      background-image: 
+        radial-gradient(circle at 20% 30%, rgba(0, 255, 200, 0.12) 0%, transparent 45%),
+        radial-gradient(circle at 80% 70%, rgba(200, 0, 255, 0.12) 0%, transparent 45%),
+        radial-gradient(circle at 50% 50%, rgba(0, 100, 255, 0.05) 0%, transparent 70%),
+        repeating-linear-gradient(45deg, rgba(255,255,255,0.01) 0px, rgba(255,255,255,0.01) 2px, transparent 2px, transparent 8px);
+    }
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    /* ---- CANVAS für Partikel-Hintergrund ---- */
+    #particle-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background: #0b0b12;
-            color: #eaeef2;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background-image: radial-gradient(ellipse at 10% 20%, rgba(29, 185, 84, 0.08) 0%, transparent 60%),
-                              radial-gradient(ellipse at 90% 80%, rgba(145, 70, 255, 0.08) 0%, transparent 60%);
-            padding: 20px;
-        }
+    /* ----- MAIN CARD: EXTREM GLAS + 3D ----- */
+    .bot-card {
+      position: relative;
+      z-index: 10;
+      max-width: 1100px;
+      width: 100%;
+      background: rgba(8, 12, 25, 0.45);
+      backdrop-filter: blur(24px) saturate(220%);
+      -webkit-backdrop-filter: blur(24px) saturate(220%);
+      border-radius: 4.5rem;
+      padding: 3rem 3rem;
+      box-shadow: 
+        0 30px 80px rgba(0, 0, 0, 0.9),
+        0 0 0 1.5px rgba(0, 255, 200, 0.15) inset,
+        0 0 60px rgba(0, 200, 255, 0.15),
+        0 0 120px rgba(150, 0, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      transform: perspective(1200px) rotateX(2deg) rotateY(-1deg) scale(1);
+      transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+      animation: floatIn 1s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+      overflow: hidden;
+    }
 
-        .glow-orbe {
-            position: fixed;
-            width: 600px;
-            height: 600px;
-            border-radius: 50%;
-            filter: blur(140px);
-            opacity: 0.2;
-            z-index: 0;
-            pointer-events: none;
-        }
-        .glow-orbe--grün {
-            top: -200px;
-            left: -200px;
-            background: #1db954;
-        }
-        .glow-orbe--lila {
-            bottom: -200px;
-            right: -200px;
-            background: #9146ff;
-        }
+    .bot-card:hover {
+      transform: perspective(1200px) rotateX(0deg) rotateY(0deg) scale(1.01);
+      box-shadow: 0 30px 100px rgba(0, 200, 255, 0.25), 0 0 0 2px rgba(0, 255, 200, 0.2) inset;
+    }
 
-        .container {
-            position: relative;
-            z-index: 1;
-            max-width: 1100px;
-            width: 100%;
-        }
+    /* Animierter, mehrfarbiger Glow-Orbit */
+    .bot-card::before {
+      content: '';
+      position: absolute;
+      top: -60%;
+      left: -60%;
+      width: 220%;
+      height: 220%;
+      background: conic-gradient(from 0deg at 50% 50%, 
+        transparent 0%, rgba(0, 255, 200, 0.06) 15%, transparent 30%, 
+        rgba(200, 0, 255, 0.06) 50%, transparent 65%, 
+        rgba(0, 150, 255, 0.06) 80%, transparent 100%);
+      animation: rotateGlow 18s linear infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
 
-        /* ===== HEADER ===== */
-        .header {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            margin-bottom: 48px;
-        }
+    @keyframes rotateGlow {
+      0% { transform: rotate(0deg) scale(1.2); }
+      100% { transform: rotate(360deg) scale(1.2); }
+    }
 
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: rgba(29, 185, 84, 0.15);
-            border: 1px solid rgba(29, 185, 84, 0.3);
-            padding: 8px 20px 8px 16px;
-            border-radius: 60px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: #1db954;
-            letter-spacing: 0.3px;
-            margin-bottom: 28px;
-            backdrop-filter: blur(4px);
-        }
-        .badge i {
-            font-size: 0.9rem;
-        }
+    /* Zweiter, fließender Lichtschein */
+    .bot-card::after {
+      content: '';
+      position: absolute;
+      top: -10%;
+      left: -10%;
+      width: 120%;
+      height: 120%;
+      background: radial-gradient(ellipse at 30% 40%, rgba(0, 255, 200, 0.04), transparent 60%);
+      filter: blur(50px);
+      animation: shiftLight 8s ease-in-out infinite alternate;
+      z-index: 0;
+    }
 
-        .header h1 {
-            font-size: 3.8rem;
-            font-weight: 900;
-            letter-spacing: -1px;
-            line-height: 1.1;
-            margin-bottom: 12px;
-            background: linear-gradient(135deg, #ffffff 0%, #c0c9d4 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .header h1 span {
-            background: linear-gradient(135deg, #1db954, #1ed760);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+    @keyframes shiftLight {
+      0% { transform: translate(-5%, -5%) scale(1); opacity: 0.3; }
+      100% { transform: translate(10%, 10%) scale(1.3); opacity: 0.7; }
+    }
 
-        .subheadline {
-            font-size: 1.25rem;
-            font-weight: 400;
-            color: #9aa3af;
-            max-width: 600px;
-            margin: 0 auto 10px;
-        }
-        .subheadline i {
-            color: #9146ff;
-            margin: 0 4px;
-        }
+    @keyframes floatIn {
+      0% { opacity: 0; transform: perspective(1200px) rotateX(6deg) translateY(40px) scale(0.92); }
+      100% { opacity: 1; transform: perspective(1200px) rotateX(2deg) translateY(0) scale(1); }
+    }
 
-        .header-cta {
-            margin-top: 32px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 16px;
-            justify-content: center;
-        }
+    .content {
+      position: relative;
+      z-index: 5;
+    }
 
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 14px 34px;
-            border-radius: 60px;
-            font-weight: 600;
-            font-size: 1rem;
-            text-decoration: none;
-            transition: all 0.25s ease;
-            border: none;
-            cursor: pointer;
-        }
-        .btn--primary {
-            background: #1db954;
-            color: #0b0b12;
-            box-shadow: 0 8px 24px rgba(29, 185, 84, 0.25);
-        }
-        .btn--primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 14px 32px rgba(29, 185, 84, 0.35);
-        }
-        .btn--twitch {
-            background: #9146ff;
-            color: #fff;
-            box-shadow: 0 8px 24px rgba(145, 70, 255, 0.25);
-        }
-        .btn--twitch:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 14px 32px rgba(145, 70, 255, 0.35);
-        }
-        .btn--outline {
-            background: transparent;
-            color: #eaeef2;
-            border: 1.5px solid #2a2a38;
-        }
-        .btn--outline:hover {
-            border-color: #9146ff;
-            background: rgba(145, 70, 255, 0.06);
-        }
+    /* ----- HEADER mit NEON-BADGES ----- */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1.2rem;
+      margin-bottom: 1.8rem;
+      padding-bottom: 1.8rem;
+      border-bottom: 1px solid rgba(0, 255, 200, 0.08);
+    }
 
-        /* ===== PARTNER BANNER (neutral gehalten) ===== */
-        .partner-section {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 28px;
-            padding: 32px 30px 38px;
-            margin: 16px 0 48px;
-            text-align: center;
-        }
-        .partner-section .partner-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: rgba(255, 215, 0, 0.08);
-            border: 1px solid rgba(255, 215, 0, 0.15);
-            padding: 6px 18px 6px 14px;
-            border-radius: 40px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: #f9c74f;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-            margin-bottom: 18px;
-        }
-        .partner-section .partner-badge i {
-            font-size: 0.7rem;
-        }
+    .badge-group {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
 
-        .partner-banner {
-            max-width: 100%;
-            border-radius: 18px;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            margin-bottom: 20px;
-            display: block;
-            background: #14141e;
-            padding: 10px 0;
-        }
-        .partner-banner img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 12px;
-            display: block;
-            margin: 0 auto;
-        }
+    .badge {
+      background: rgba(0, 255, 200, 0.04);
+      border: 1px solid rgba(0, 255, 200, 0.15);
+      padding: 0.4rem 1.6rem;
+      border-radius: 100px;
+      font-size: 0.7rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #b0f0e8;
+      text-shadow: 0 0 12px rgba(0, 255, 200, 0.2);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
 
-        .partner-info {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: center;
-            gap: 20px 40px;
-            margin-top: 12px;
-        }
+    .badge i {
+      color: #00ffc3;
+      font-size: 0.8rem;
+    }
 
-        .partner-name {
-            font-size: 1.4rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .partner-name i {
-            color: #9146ff;
-        }
+    .badge:hover {
+      background: rgba(0, 255, 200, 0.1);
+      border-color: #00ffc3;
+      box-shadow: 0 0 30px #00ffc320;
+    }
 
-        /* Live-Status ausgeblendet – kein Partner-Bezug mehr */
-        .live-status {
-            display: none;
-        }
+    .status-bot {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      background: rgba(255, 0, 200, 0.04);
+      border: 1px solid rgba(255, 0, 200, 0.15);
+      padding: 0.4rem 1.8rem 0.4rem 1.2rem;
+      border-radius: 100px;
+      color: #ffb0f0;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
 
-        .partner-actions {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 14px;
-            justify-content: center;
-            margin-top: 18px;
-        }
+    .pulse-dot {
+      width: 14px;
+      height: 14px;
+      background: #00ffb3;
+      border-radius: 50%;
+      box-shadow: 0 0 25px #00ffb3, 0 0 60px #00ffb360;
+      animation: pulse 1.4s ease-in-out infinite;
+    }
 
-        /* ===== FEATURES ===== */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 24px;
-            margin: 50px 0 56px;
-        }
+    @keyframes pulse {
+      0% { opacity: 0.3; transform: scale(0.7); box-shadow: 0 0 0 0 #00ffb380; }
+      50% { opacity: 1; transform: scale(1.2); box-shadow: 0 0 30px 10px #00ffb340; }
+      100% { opacity: 0.3; transform: scale(0.7); box-shadow: 0 0 0 0 #00ffb380; }
+    }
 
-        .feature-card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(6px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 24px;
-            padding: 28px 24px 30px;
-            transition: all 0.3s ease;
-        }
-        .feature-card:hover {
-            border-color: rgba(29, 185, 84, 0.2);
-            background: rgba(255, 255, 255, 0.06);
-            transform: translateY(-4px);
-        }
-        .feature-card .icon {
-            font-size: 2rem;
-            margin-bottom: 16px;
-            display: inline-block;
-            background: rgba(29, 185, 84, 0.08);
-            padding: 10px;
-            border-radius: 16px;
-            color: #1db954;
-        }
-        .feature-card .icon--twitch {
-            color: #9146ff;
-            background: rgba(145, 70, 255, 0.08);
-        }
-        .feature-card .icon--token {
-            color: #f9c74f;
-            background: rgba(249, 199, 79, 0.08);
-        }
-        .feature-card .icon--partner {
-            color: #ff6b6b;
-            background: rgba(255, 107, 107, 0.08);
-        }
-        .feature-card h3 {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-        .feature-card p {
-            font-size: 0.95rem;
-            line-height: 1.6;
-            color: #9aa3af;
-        }
-        .feature-card .highlight {
-            color: #eaeef2;
-            font-weight: 500;
-        }
+    h1 {
+      font-size: 3.4rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #e0f5ff, #70ffd0, #c080ff, #ff70c0);
+      background-size: 300% 300%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -2px;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 0.2rem;
+      animation: gradShift 6s ease-in-out infinite alternate;
+      filter: drop-shadow(0 0 30px rgba(0, 200, 255, 0.2));
+    }
 
-        /* ===== COMMANDS ===== */
-        .commands-section {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            border-radius: 28px;
-            padding: 32px 30px 38px;
-            margin: 16px 0 48px;
-        }
-        .commands-section h2 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 6px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .commands-section h2 i {
-            color: #1db954;
-            font-size: 1.6rem;
-        }
-        .commands-section .sub {
-            color: #9aa3af;
-            margin-bottom: 24px;
-            font-size: 0.95rem;
-        }
+    @keyframes gradShift {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+    }
 
-        .cmd-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px 14px;
-        }
-        .cmd-tag {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            padding: 10px 20px;
-            border-radius: 40px;
-            font-family: 'Inter', monospace;
-            font-weight: 500;
-            font-size: 0.9rem;
-            color: #c8d0da;
-            transition: all 0.2s;
-            letter-spacing: 0.2px;
-        }
-        .cmd-tag:hover {
-            border-color: #1db954;
-            color: #fff;
-            background: rgba(29, 185, 84, 0.06);
-        }
-        .cmd-tag i {
-            margin-right: 8px;
-            font-size: 0.8rem;
-            color: #1db954;
-        }
-        .cmd-tag--mod {
-            border-color: rgba(145, 70, 255, 0.2);
-        }
-        .cmd-tag--mod i {
-            color: #9146ff;
-        }
+    h1 i {
+      -webkit-text-fill-color: initial;
+      color: #00ffd0;
+      filter: drop-shadow(0 0 25px #00ffd0);
+      font-size: 3rem;
+    }
 
-        /* ===== BEWERBUNG ===== */
-        .apply-box {
-            background: linear-gradient(145deg, rgba(29, 185, 84, 0.04), rgba(145, 70, 255, 0.04));
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 28px;
-            padding: 40px 34px;
-            text-align: center;
-            margin-top: 10px;
-        }
-        .apply-box h2 {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-        .apply-box h2 i {
-            color: #1db954;
-            margin-right: 10px;
-        }
-        .apply-box .highlight-text {
-            color: #1db954;
-            font-weight: 600;
-        }
-        .apply-box p {
-            color: #9aa3af;
-            max-width: 580px;
-            margin: 10px auto 28px;
-            font-size: 1.05rem;
-            line-height: 1.6;
-        }
-        .apply-box .btn--apply {
-            background: #9146ff;
-            color: #fff;
-            box-shadow: 0 8px 24px rgba(145, 70, 255, 0.25);
-            border: none;
-            font-size: 1.05rem;
-            padding: 16px 44px;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .apply-box .btn--apply:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 14px 32px rgba(145, 70, 255, 0.35);
-        }
-        .apply-box .hinweis {
-            margin-top: 20px;
-            font-size: 0.85rem;
-            color: #6b7582;
-        }
-        .apply-box .hinweis i {
-            margin-right: 6px;
-            color: #f9c74f;
-        }
+    .subhead {
+      color: rgba(255, 255, 255, 0.3);
+      font-size: 1rem;
+      letter-spacing: 2px;
+      margin-top: -0.4rem;
+      margin-bottom: 2.2rem;
+      border-left: 4px solid #00d4ff;
+      padding-left: 1.4rem;
+      text-transform: uppercase;
+      font-weight: 300;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
 
-        /* ===== FOOTER ===== */
-        .footer {
-            margin-top: 50px;
-            text-align: center;
-            font-size: 0.9rem;
-            color: #4a5362;
-            border-top: 1px solid rgba(255, 255, 255, 0.04);
-            padding-top: 30px;
-            width: 100%;
-        }
-        .footer a {
-            color: #9aa3af;
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-        .footer a:hover {
-            color: #1db954;
-        }
+    .subhead i {
+      color: #9146ff;
+      font-size: 1.4rem;
+    }
 
-        .last-updated {
-            font-size: 0.7rem;
-            margin-top: 8px;
-            opacity: 0.7;
-            color: #6b7582;
-        }
+    /* ----- FEATURE GRID (mit 3D-Hover) ----- */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.8rem;
+      margin: 2.8rem 0 2.8rem;
+    }
 
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 640px) {
-            .header h1 {
-                font-size: 2.6rem;
-            }
-            .subheadline {
-                font-size: 1rem;
-            }
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
-            .commands-section {
-                padding: 24px 18px;
-            }
-            .apply-box {
-                padding: 30px 20px;
-            }
-            .btn {
-                width: 100%;
-                justify-content: center;
-            }
-            .header-cta {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .cmd-grid {
-                gap: 8px;
-            }
-            .cmd-tag {
-                font-size: 0.8rem;
-                padding: 8px 16px;
-            }
-            .partner-info {
-                flex-direction: column;
-                gap: 12px;
-            }
-            .partner-name {
-                font-size: 1.2rem;
-            }
-            .partner-section {
-                padding: 20px 16px 26px;
-            }
-        }
-    </style>
+    .feature-item {
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 2.5rem;
+      padding: 1.5rem 1.2rem 1.5rem 1.8rem;
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      cursor: default;
+      transform: rotateY(0deg) translateZ(0);
+    }
+
+    .feature-item:hover {
+      transform: perspective(600px) rotateY(4deg) translateZ(20px) scale(1.03);
+      border-color: rgba(0, 255, 200, 0.3);
+      background: rgba(0, 255, 200, 0.04);
+      box-shadow: 0 20px 40px -10px rgba(0, 200, 255, 0.3), 0 0 40px rgba(0, 255, 200, 0.05);
+    }
+
+    .feature-item i {
+      font-size: 2rem;
+      min-width: 2.6rem;
+      color: #00d4ff;
+      text-shadow: 0 0 30px #00d4ff50;
+      transition: all 0.3s;
+    }
+
+    .feature-item:hover i {
+      transform: scale(1.1) rotate(-3deg);
+      color: #ff70c0;
+      text-shadow: 0 0 40px #ff70c070;
+    }
+
+    .feature-item span {
+      color: rgba(255, 255, 255, 0.8);
+      font-weight: 300;
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
+
+    .feature-item strong {
+      color: #b2f0e8;
+      font-weight: 600;
+      display: block;
+      font-size: 1rem;
+    }
+
+    /* ----- BEFEHLE (EXTREME CHIPS) ----- */
+    .command-section {
+      margin: 2.5rem 0 2.2rem;
+    }
+
+    .command-section h3 {
+      color: rgba(255, 255, 255, 0.3);
+      font-weight: 300;
+      letter-spacing: 3px;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .command-section h3 i {
+      color: #00ffc3;
+      font-size: 1.2rem;
+      filter: drop-shadow(0 0 20px #00ffc3);
+    }
+
+    .command-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem 1rem;
+      background: rgba(0, 0, 0, 0.25);
+      border-radius: 3rem;
+      padding: 1.5rem 2rem;
+      border: 1px solid rgba(255, 255, 255, 0.02);
+      backdrop-filter: blur(4px);
+    }
+
+    .chip {
+      background: rgba(0, 200, 255, 0.02);
+      border: 1px solid rgba(0, 200, 255, 0.06);
+      padding: 0.4rem 1.6rem;
+      border-radius: 100px;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      color: #b0e5ff;
+      transition: all 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+      backdrop-filter: blur(4px);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .chip.mod {
+      border-color: rgba(255, 70, 220, 0.15);
+      color: #ffb3e6;
+      background: rgba(255, 70, 220, 0.02);
+    }
+
+    .chip:hover {
+      transform: scale(1.08) translateY(-3px);
+      background: rgba(0, 255, 200, 0.08);
+      border-color: #00ffb3;
+      box-shadow: 0 0 30px #00ffb320, 0 8px 20px rgba(0,0,0,0.3);
+      color: #fff;
+    }
+
+    .chip.mod:hover {
+      border-color: #ff70c0;
+      background: rgba(255, 70, 220, 0.08);
+      box-shadow: 0 0 30px #ff70c020;
+      color: #fff;
+    }
+
+    .chip i {
+      opacity: 0.6;
+      font-size: 0.7rem;
+    }
+
+    /* ----- ROW DUO (3D-Panels) ----- */
+    .row-duo {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin: 2.8rem 0 1.8rem;
+    }
+
+    @media (max-width: 680px) {
+      .row-duo { grid-template-columns: 1fr; gap: 1.5rem; }
+    }
+
+    .info-panel {
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 2.8rem;
+      padding: 1.8rem 2rem;
+      border: 1px solid rgba(255, 255, 255, 0.02);
+      backdrop-filter: blur(12px);
+      transition: all 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+      transform: perspective(800px) rotateX(0deg);
+    }
+
+    .info-panel:hover {
+      transform: perspective(800px) rotateX(2deg) translateY(-8px);
+      border-color: rgba(0, 255, 200, 0.12);
+      background: rgba(0, 20, 30, 0.3);
+      box-shadow: 0 20px 50px -10px rgba(0, 200, 255, 0.1);
+    }
+
+    .info-panel h4 {
+      color: #fff;
+      font-weight: 500;
+      font-size: 1.3rem;
+      margin-bottom: 0.6rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .info-panel h4 i {
+      color: #00d4ff;
+      filter: drop-shadow(0 0 20px #00d4ff);
+    }
+
+    .info-panel p {
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 1.2rem;
+    }
+
+    .btn-glow {
+      background: linear-gradient(135deg, #00d4ff15, #a855f715);
+      border: 1px solid #00d4ff30;
+      padding: 0.7rem 2.2rem;
+      border-radius: 100px;
+      color: #d6f0ff;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      transition: all 0.3s;
+      cursor: default;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 0 30px #00d4ff08;
+      font-size: 0.9rem;
+    }
+
+    .btn-glow i {
+      color: #00ffc3;
+    }
+
+    .btn-glow:hover {
+      background: linear-gradient(135deg, #00d4ff30, #a855f730);
+      border-color: #00ffc3;
+      box-shadow: 0 0 60px #00d4ff20, 0 10px 30px rgba(0,0,0,0.3);
+      transform: scale(1.04) translateY(-3px);
+    }
+
+    /* ----- FOOTER (mit Leiste) ----- */
+    .footer-note {
+      margin-top: 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.02);
+      padding-top: 1.8rem;
+      color: rgba(255, 255, 255, 0.15);
+      font-size: 0.75rem;
+      letter-spacing: 0.5px;
+    }
+
+    .footer-note i {
+      color: #00d4ff;
+      margin-right: 0.3rem;
+    }
+
+    .footer-note .heart {
+      color: #ff70c0;
+      animation: heartBeat 1.5s ease-in-out infinite;
+    }
+
+    @keyframes heartBeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.4); }
+    }
+
+    /* ----- SCROLLBAR ----- */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #05070e; }
+    ::-webkit-scrollbar-thumb { background: #00d4ff40; border-radius: 10px; }
+  </style>
 </head>
 <body>
 
-    <!-- Glow-Orbs -->
-    <div class="glow-orbe glow-orbe--grün"></div>
-    <div class="glow-orbe glow-orbe--lila"></div>
+  <!-- CANVAS für Partikel -->
+  <canvas id="particle-canvas"></canvas>
 
-    <div class="container">
-
-        <!-- ===== HEADER ===== -->
-        <header class="header">
-            <div class="badge">
-                <i class="fas fa-check-circle"></i> Privat · Kostenlos · Nur auf Anfrage
-            </div>
-
-            <h1>
-                Spotify <span>Bot</span><br />
-                für <span>Twitch</span>
-            </h1>
-
-            <p class="subheadline">
-                <i class="fas fa-music"></i> Songwünsche mit <strong>Token</strong>-System · 
-                <i class="fas fa-robot"></i> vollständig <strong>plugin-basiert</strong>
-            </p>
-
-            <div class="header-cta">
-                <a href="#apply" class="btn btn--primary">
-                    <i class="fas fa-paper-plane"></i> Zugang beantragen
-                </a>
-                <a href="#features" class="btn btn--outline">
-                    <i class="fas fa-chevron-down"></i> Features entdecken
-                </a>
-            </div>
-        </header>
-
-        <!-- ===== PARTNER SECTION (neutral, kein SeaSideClassic) ===== -->
-        <div class="partner-section">
-            <div class="partner-badge">
-                <i class="fas fa-handshake"></i> Partner-Programm
-            </div>
-
-            <div class="partner-banner">
-                <!-- Platzhalter-Banner – zeigt generisches Spotify/Twitch Theme -->
-                <div style="padding: 18px 10px; display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; background: #1a1a2a; border-radius: 12px;">
-                    <i class="fab fa-spotify" style="font-size: 2.8rem; color: #1db954;"></i>
-                    <i class="fas fa-plus" style="color: #9aa3af; font-size: 1.6rem;"></i>
-                    <i class="fab fa-twitch" style="font-size: 2.8rem; color: #9146ff;"></i>
-                    <span style="font-weight: 600; color: #eaeef2; letter-spacing: 0.5px; font-size: 1.1rem;">Offizieller Partner-Bot</span>
-                </div>
-            </div>
-
-            <div class="partner-info">
-                <div class="partner-name">
-                    <i class="fab fa-twitch"></i> Dein Twitch-Kanal
-                </div>
-
-                <!-- Live-Status wurde komplett entfernt (kein Bezug zu SeaSideClassic) -->
-            </div>
-
-            <div class="partner-actions">
-                <a href="#" class="btn btn--twitch" style="pointer-events: none; opacity: 0.6;">
-                    <i class="fab fa-twitch"></i> Twitch-Integration aktiv
-                </a>
-            </div>
+  <!-- HAUPT-CARD -->
+  <div class="bot-card">
+    <div class="content">
+      <!-- HEADER -->
+      <div class="header">
+        <div class="badge-group">
+          <span class="badge"><i class="fas fa-lock"></i> Privat</span>
+          <span class="badge"><i class="fas fa-gem"></i> Kostenlos</span>
+          <span class="badge"><i class="fas fa-shield-alt"></i> Nur auf Anfrage</span>
         </div>
-
-        <!-- ===== FEATURES ===== -->
-        <div id="features" class="features-grid">
-
-            <div class="feature-card">
-                <div class="icon"><i class="fas fa-ticket-alt"></i></div>
-                <h3>🎫 Song-Token System</h3>
-                <p>
-                    Jeder Zuschauer erhält regelmäßig <span class="highlight">1 Token</span> 
-                    (alle 30 Minuten, max. <span class="highlight">6</span>). 
-                    <br />Ein Songwunsch kostet <span class="highlight">1 Token</span>.
-                </p>
-            </div>
-
-            <div class="feature-card">
-                <div class="icon icon--twitch"><i class="fab fa-twitch"></i></div>
-                <h3>🔗 Twitch-Integration</h3>
-                <p>
-                    <span class="highlight">Nur Spotify-Links</span> werden akzeptiert – 
-                    alle anderen URLs werden <span class="highlight">automatisch gelöscht</span> 
-                    (erfordert Bot-Mod-Rechte).
-                </p>
-            </div>
-
-            <div class="feature-card">
-                <div class="icon icon--token"><i class="fas fa-coins"></i></div>
-                <h3>🛠️ Mod-Tools</h3>
-                <p>
-                    <span class="highlight">!give</span>, <span class="highlight">!remove</span>, 
-                    <span class="highlight">!tokensall</span> – 
-                    Mods und Streamer können Tokens manuell verwalten.
-                </p>
-            </div>
-
-            <div class="feature-card">
-                <div class="icon"><i class="fas fa-sliders-h"></i></div>
-                <h3>🎛️ Playback Control</h3>
-                <p>
-                    <span class="highlight">!play</span>, <span class="highlight">!stop</span>, 
-                    <span class="highlight">!vol</span> – 
-                    Streamer &amp; Mods steuern die Wiedergabe direkt aus dem Chat.
-                </p>
-            </div>
-
-            <div class="feature-card">
-                <div class="icon"><i class="fas fa-plug"></i></div>
-                <h3>🧩 Plugin-basiert</h3>
-                <p>
-                    Der Bot besteht aus <span class="highlight">losgelösten Plugins</span> – 
-                    jede Funktion kann einzeln aktiviert oder erweitert werden.
-                </p>
-            </div>
-
-            <div class="feature-card">
-                <div class="icon icon--partner"><i class="fas fa-handshake"></i></div>
-                <h3>🤝 Partner-Programm</h3>
-                <p>
-                    Der Bot wird in Partnerschaft mit ausgewählten Streamern betrieben – 
-                    <span class="highlight">24/7</span> für die Community da!
-                </p>
-            </div>
-
+        <div class="status-bot">
+          <span class="pulse-dot"></span> 24/7 · LIVE
         </div>
+      </div>
 
-        <!-- ===== COMMANDS ===== -->
-        <div class="commands-section">
-            <h2>
-                <i class="fas fa-terminal"></i> Verfügbare Befehle
-            </h2>
-            <p class="sub">
-                <i class="fas fa-user"></i> Alle Viewer · 
-                <i class="fas fa-user-shield"></i> Nur Mods/Streamer
-            </p>
+      <!-- TITEL -->
+      <h1>
+        <i class="fab fa-spotify"></i> ImBurni_Bot
+      </h1>
+      <div class="subhead">
+        <i class="fab fa-twitch"></i> Songwünsche · Token-System · Plugin-basiert
+        <span style="background: rgba(0,255,200,0.05); padding: 0.2rem 1.2rem; border-radius: 100px; border: 1px solid rgba(0,255,200,0.1); font-size: 0.65rem; color: #00ffc3;">NEXT-GEN</span>
+      </div>
 
-            <div class="cmd-grid">
-                <span class="cmd-tag"><i class="fas fa-music"></i> !song &lt;titel&gt;</span>
-                <span class="cmd-tag"><i class="fas fa-list-ul"></i> !songs</span>
-                <span class="cmd-tag"><i class="fas fa-forward"></i> !skip</span>
-                <span class="cmd-tag"><i class="fas fa-ticket-alt"></i> !tokens</span>
-                <span class="cmd-tag"><i class="fas fa-ticket-alt"></i> !tokens @user</span>
-                <span class="cmd-tag cmd-tag--mod"><i class="fas fa-gift"></i> !give @user 3</span>
-                <span class="cmd-tag cmd-tag--mod"><i class="fas fa-trash-alt"></i> !remove @user 2</span>
-                <span class="cmd-tag cmd-tag--mod"><i class="fas fa-chart-simple"></i> !tokensall</span>
-                <span class="cmd-tag cmd-tag--mod"><i class="fas fa-undo-alt"></i> !resetokens</span>
-                <span class="cmd-tag cmd-tag--mod"><i class="fas fa-play"></i> !play</span>
-                <span class="cmd-tag cmd-tag--mod"><i class="fas fa-stop"></i> !stop</span>
-                <span class="cmd-tag cmd-tag--mod"><i class="fas fa-volume-up"></i> !vol 50</span>
-                <span class="cmd-tag"><i class="fas fa-sign-in-alt"></i> !spotifylogin</span>
-                <span class="cmd-tag"><i class="fas fa-question-circle"></i> !help</span>
-                <span class="cmd-tag"><i class="fas fa-plug"></i> !plugins</span>
-            </div>
+      <!-- FEATURES -->
+      <div class="feature-grid">
+        <div class="feature-item">
+          <i class="fas fa-ticket-alt"></i>
+          <span><strong>🎫 Token-System</strong>1 Token / 30 min · max. 6</span>
         </div>
-
-        <!-- ===== BEWERBUNG ===== -->
-        <div id="apply" class="apply-box">
-            <h2>
-                <i class="fas fa-hand-paper"></i> Zugang beantragen
-            </h2>
-            <p>
-                Der Bot ist <span class="highlight-text">privat</span> und wird nur 
-                an ausgewählte Channels vergeben. 
-                <br />
-                <strong>Kostenlos</strong> – aber du musst ihn beantragen.
-            </p>
-
-            <a href="https://discord.gg/uebdFtUSeA" target="_blank" class="btn btn--apply">
-                <i class="fas fa-paper-plane"></i> Jetzt beantragen
-            </a>
-
-            <div class="hinweis">
-                <i class="fas fa-info-circle"></i> Nach Prüfung erhältst du eine Freischaltung.
-            </div>
+        <div class="feature-item">
+          <i class="fab fa-twitch"></i>
+          <span><strong>🔗 Twitch-Integration</strong>Nur Spotify-Links</span>
         </div>
+        <div class="feature-item">
+          <i class="fas fa-sliders-h"></i>
+          <span><strong>🛠️ Mod-Tools</strong>!give · !remove · !tokensall</span>
+        </div>
+        <div class="feature-item">
+          <i class="fas fa-play-circle"></i>
+          <span><strong>🎛️ Playback Control</strong>!play · !stop · !vol</span>
+        </div>
+        <div class="feature-item">
+          <i class="fas fa-puzzle-piece"></i>
+          <span><strong>🧩 Plugin-basiert</strong>Jede Funktion erweiterbar</span>
+        </div>
+        <div class="feature-item">
+          <i class="fas fa-handshake"></i>
+          <span><strong>🤝 Partner-Programm</strong>Exklusive Channels</span>
+        </div>
+      </div>
 
-        <!-- ===== FOOTER ===== -->
-        <footer class="footer">
-            <p>
-                <i class="fas fa-code"></i> SpotifyBot · 
-                <i class="fab fa-twitch"></i> Twitch-Integration · 
-                <i class="fas fa-handshake"></i> Partner-Programm
-                <br />
-                <span style="color:#4a5362;">© 2026 · Alle Rechte vorbehalten</span>
-            </p>
-            <div class="last-updated" id="lastUpdated">Bot bereit – Verbinde mit deinem Twitch-Channel</div>
-        </footer>
+      <!-- BEFEHLE -->
+      <div class="command-section">
+        <h3><i class="fas fa-terminal"></i> Verfügbare Befehle</h3>
+        <div class="command-chips">
+          <span class="chip"><i class="fas fa-music"></i> !song</span>
+          <span class="chip"><i class="fas fa-list"></i> !songs</span>
+          <span class="chip"><i class="fas fa-forward"></i> !skip</span>
+          <span class="chip"><i class="fas fa-coins"></i> !tokens</span>
+          <span class="chip mod"><i class="fas fa-user-cog"></i> !give @user 3</span>
+          <span class="chip mod"><i class="fas fa-user-minus"></i> !remove @user 2</span>
+          <span class="chip mod"><i class="fas fa-users"></i> !tokensall</span>
+          <span class="chip mod"><i class="fas fa-undo-alt"></i> !resetokens</span>
+          <span class="chip mod"><i class="fas fa-play"></i> !play</span>
+          <span class="chip mod"><i class="fas fa-stop"></i> !stop</span>
+          <span class="chip mod"><i class="fas fa-volume-up"></i> !vol 50</span>
+          <span class="chip"><i class="fas fa-spotify"></i> !spotifylogin</span>
+          <span class="chip"><i class="fas fa-question-circle"></i> !help</span>
+          <span class="chip"><i class="fas fa-plug"></i> !plugins</span>
+        </div>
+        <div style="display: flex; gap: 1.5rem; margin-top: 0.8rem; font-size: 0.65rem; color: rgba(255,255,255,0.15); letter-spacing: 0.5px;">
+          <span><i class="fas fa-circle" style="color:#ff70c0; font-size: 0.3rem;"></i> Mods / Streamer</span>
+          <span><i class="fas fa-circle" style="color:#70d0ff; font-size: 0.3rem;"></i> Alle Viewer</span>
+        </div>
+      </div>
 
+      <!-- ROW: PARTNER + ZUGANG -->
+      <div class="row-duo">
+        <div class="info-panel">
+          <h4><i class="fas fa-crown" style="color: #ffd700;"></i> Partner-Programm</h4>
+          <p>Der Bot wird in Partnerschaft mit ausgewählten Streamern betrieben – 24/7 für die Community da!</p>
+          <span class="btn-glow"><i class="fas fa-star"></i> Exklusiv</span>
+        </div>
+        <div class="info-panel">
+          <h4><i class="fas fa-key"></i> Zugang beantragen</h4>
+          <p>Privat & nur an ausgewählte Channels. <strong style="color:#fff;">Kostenlos</strong> – aber du musst ihn beantragen.</p>
+          <span class="btn-glow"><i class="fas fa-paper-plane"></i> Jetzt anfragen</span>
+          <span style="display: block; margin-top: 0.6rem; font-size: 0.7rem; color: rgba(255,255,255,0.15);">Nach Prüfung erhältst du eine Freischaltung.</span>
+        </div>
+      </div>
+
+      <!-- FOOTER -->
+      <div class="footer-note">
+        <span><i class="fas fa-bolt" style="color: #00d4ff;"></i> CYBER MAX · ImBurni_Bot</span>
+        <span><i class="fas fa-code"></i> Made with <i class="fas fa-heart heart"></i> · 2026</span>
+      </div>
     </div>
+  </div>
 
-    <!-- Kein Live-Status-Script mehr – komplett neutral -->
-    <script>
-        (function() {
-            // Einfache Aktualisierung der Fußzeile (kein Live-Status)
-            const lastUpdated = document.getElementById('lastUpdated');
-            if (lastUpdated) {
-                const now = new Date();
-                lastUpdated.textContent = `🔄 Bot-Status: Aktiv · ${now.toLocaleTimeString('de-DE')}`;
-            }
-        })();
-    </script>
+  <script>
+    // ============================================================
+    //  PARTIKEL-HINTERGRUND (Canvas) – für den maximalen Wow-Effekt
+    // ============================================================
+    const canvas = document.getElementById('particle-canvas');
+    const ctx = canvas.getContext('2d');
+    let width, height;
+    let particles = [];
+    const PARTICLE_COUNT = 110;
+
+    function resize() {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width;
+      canvas.height = height;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * width;
+        this.y = Math.random() * height;
+        this.size = Math.random() * 2.2 + 0.6;
+        this.speedX = (Math.random() - 0.5) * 0.3;
+        this.speedY = (Math.random() - 0.5) * 0.3;
+        this.opacity = Math.random() * 0.6 + 0.2;
+        // Farbakzente: cyan, magenta, weiß
+        const hue = Math.random() > 0.6 ? (Math.random() * 60 + 180) : (Math.random() > 0.5 ? 300 : 0);
+        this.color = `hsla(${hue}, 80%, 70%, `;
+      }
+
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.x < 0 || this.x > width) this.speedX *= -1;
+        if (this.y < 0 || this.y > height) this.speedY *= -1;
+      }
+
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = this.color + this.opacity + ')';
+        ctx.fill();
+        // kleines Glühen
+        if (this.size > 1.8) {
+          ctx.shadowColor = this.color + '0.3)';
+          ctx.shadowBlur = 20;
+          ctx.fill();
+          ctx.shadowBlur = 0;
+        }
+      }
+    }
+
+    // Partikel initialisieren
+    for (let i = 0; i < PARTICLE_COUNT; i++) {
+      particles.push(new Particle());
+    }
+
+    // Verbindungen (Linien) zwischen nahen Partikeln
+    function drawLines() {
+      for (let a = 0; a < particles.length; a++) {
+        for (let b = a + 1; b < particles.length; b++) {
+          const dx = particles[a].x - particles[b].x;
+          const dy = particles[a].y - particles[b].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 150) {
+            const opacity = 1 - (dist / 150);
+            ctx.beginPath();
+            ctx.moveTo(particles[a].x, particles[a].y);
+            ctx.lineTo(particles[b].x, particles[b].y);
+            ctx.strokeStyle = `rgba(0, 200, 255, ${opacity * 0.12})`;
+            ctx.lineWidth = 0.5;
+            ctx.stroke();
+          }
+        }
+      }
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, width, height);
+      for (let p of particles) {
+        p.update();
+        p.draw();
+      }
+      drawLines();
+      requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
+  </script>
 
 </body>
 </html>
