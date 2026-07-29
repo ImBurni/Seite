@@ -5,17 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>SpotifyBot 🎵 – Premium Twitch x Spotify Integration</title>
 
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet" />
-    <!-- Font Awesome 6 (free) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
 
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Inter', sans-serif;
@@ -82,42 +76,18 @@
             z-index: 0;
             pointer-events: none;
         }
-        .glow-orbe--grün {
-            top: -200px;
-            left: -200px;
-            background: #1db954;
-            animation: pulseGlow 8s ease-in-out infinite;
-        }
-        .glow-orbe--lila {
-            bottom: -200px;
-            right: -200px;
-            background: #9146ff;
-            animation: pulseGlow 10s ease-in-out infinite 1s;
-        }
-        .glow-orbe--blau {
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 800px;
-            height: 800px;
-            background: #1a6df5;
-            opacity: 0.05;
-            animation: pulseGlow 12s ease-in-out infinite 2s;
-        }
+        .glow-orbe--grün { top: -200px; left: -200px; background: #1db954; animation: pulseGlow 8s ease-in-out infinite; }
+        .glow-orbe--lila { bottom: -200px; right: -200px; background: #9146ff; animation: pulseGlow 10s ease-in-out infinite 1s; }
+        .glow-orbe--blau { top: 50%; left: 50%; transform: translate(-50%, -50%); width: 800px; height: 800px; background: #1a6df5; opacity: 0.05; animation: pulseGlow 12s ease-in-out infinite 2s; }
         
         @keyframes pulseGlow {
             0%, 100% { opacity: 0.10; transform: scale(1); }
             50% { opacity: 0.20; transform: scale(1.1); }
         }
 
-        .container {
-            position: relative;
-            z-index: 1;
-            max-width: 1200px;
-            width: 100%;
-        }
+        .container { position: relative; z-index: 1; max-width: 1200px; width: 100%; }
 
-        /* ---- HEADER ---- */
+        /* --- Header --- */
         .header {
             display: flex;
             flex-direction: column;
@@ -126,7 +96,6 @@
             margin-bottom: 48px;
             animation: fadeInDown 0.8s ease-out;
         }
-
         @keyframes fadeInDown {
             from { opacity: 0; transform: translateY(-30px); }
             to { opacity: 1; transform: translateY(0); }
@@ -148,19 +117,9 @@
             backdrop-filter: blur(8px);
             transition: all 0.3s ease;
         }
-        .badge:hover {
-            background: rgba(29, 185, 84, 0.18);
-            border-color: rgba(29, 185, 84, 0.4);
-            transform: scale(1.02);
-        }
-        .badge i {
-            font-size: 0.9rem;
-            animation: spin 4s linear infinite;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+        .badge:hover { background: rgba(29, 185, 84, 0.18); border-color: rgba(29, 185, 84, 0.4); transform: scale(1.02); }
+        .badge i { font-size: 0.9rem; animation: spin 4s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
         .header h1 {
             font-size: 4.5rem;
@@ -180,10 +139,7 @@
             -webkit-text-fill-color: transparent;
             animation: shimmer 4s ease-in-out infinite;
         }
-        @keyframes shimmer {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
+        @keyframes shimmer { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
 
         .subheadline {
             font-size: 1.3rem;
@@ -193,14 +149,8 @@
             margin: 0 auto 10px;
             letter-spacing: 0.3px;
         }
-        .subheadline i {
-            color: #9146ff;
-            margin: 0 6px;
-        }
-        .subheadline .highlight-text {
-            color: #1db954;
-            font-weight: 600;
-        }
+        .subheadline i { color: #9146ff; margin: 0 6px; }
+        .subheadline .highlight-text { color: #1db954; font-weight: 600; }
 
         .header-cta {
             margin-top: 36px;
@@ -237,57 +187,27 @@
             transition: all 0.5s ease;
             transform: translate(-50%, -50%);
         }
-        .btn:active::after {
-            width: 300px;
-            height: 300px;
-        }
+        .btn:active::after { width: 300px; height: 300px; }
 
-        .btn--primary {
-            background: linear-gradient(135deg, #1db954, #1ed760);
-            color: #0a0a12;
-            box-shadow: 0 8px 32px rgba(29, 185, 84, 0.3);
-        }
-        .btn--primary:hover {
-            transform: translateY(-4px) scale(1.02);
-            box-shadow: 0 16px 48px rgba(29, 185, 84, 0.45);
-        }
+        .btn--primary { background: linear-gradient(135deg, #1db954, #1ed760); color: #0a0a12; box-shadow: 0 8px 32px rgba(29, 185, 84, 0.3); }
+        .btn--primary:hover { transform: translateY(-4px) scale(1.02); box-shadow: 0 16px 48px rgba(29, 185, 84, 0.45); }
 
-        .btn--twitch {
-            background: linear-gradient(135deg, #9146ff, #7a3bdd);
-            color: #fff;
-            box-shadow: 0 8px 32px rgba(145, 70, 255, 0.3);
-        }
-        .btn--twitch:hover {
-            transform: translateY(-4px) scale(1.02);
-            box-shadow: 0 16px 48px rgba(145, 70, 255, 0.45);
-        }
+        .btn--twitch { background: linear-gradient(135deg, #9146ff, #7a3bdd); color: #fff; box-shadow: 0 8px 32px rgba(145, 70, 255, 0.3); }
+        .btn--twitch:hover { transform: translateY(-4px) scale(1.02); box-shadow: 0 16px 48px rgba(145, 70, 255, 0.45); }
 
-        .btn--outline {
-            background: rgba(255, 255, 255, 0.04);
-            color: #eaeef2;
-            border: 1.5px solid rgba(255, 255, 255, 0.12);
-            backdrop-filter: blur(4px);
-        }
-        .btn--outline:hover {
-            border-color: #9146ff;
-            background: rgba(145, 70, 255, 0.08);
-            transform: translateY(-4px);
-        }
+        .btn--outline { background: rgba(255, 255, 255, 0.04); color: #eaeef2; border: 1.5px solid rgba(255, 255, 255, 0.12); backdrop-filter: blur(4px); }
+        .btn--outline:hover { border-color: #9146ff; background: rgba(145, 70, 255, 0.08); transform: translateY(-4px); }
 
-        .btn--discord {
-            background: linear-gradient(135deg, #5865F2, #4752c4);
-            color: #fff;
-            box-shadow: 0 8px 32px rgba(88, 101, 242, 0.3);
-        }
-        .btn--discord:hover {
-            transform: translateY(-4px) scale(1.02);
-            box-shadow: 0 16px 48px rgba(88, 101, 242, 0.45);
-        }
+        .btn--discord { background: linear-gradient(135deg, #5865F2, #4752c4); color: #fff; box-shadow: 0 8px 32px rgba(88, 101, 242, 0.3); }
+        .btn--discord:hover { transform: translateY(-4px) scale(1.02); box-shadow: 0 16px 48px rgba(88, 101, 242, 0.45); }
 
-        /* ---- STATS BAR ---- */
+        .btn--gold { background: linear-gradient(135deg, #f9c74f, #f8961e); color: #0a0a12; box-shadow: 0 8px 32px rgba(249, 199, 79, 0.3); }
+        .btn--gold:hover { transform: translateY(-4px) scale(1.02); box-shadow: 0 16px 48px rgba(249, 199, 79, 0.45); }
+
+        /* --- Stats --- */
         .stats-bar {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
             gap: 20px;
             margin: 40px 0 50px;
             background: rgba(255, 255, 255, 0.02);
@@ -296,27 +216,11 @@
             padding: 28px 20px;
             backdrop-filter: blur(8px);
         }
-        .stat-item {
-            text-align: center;
-            padding: 12px;
-        }
-        .stat-item .number {
-            font-size: 2.2rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #1db954, #9146ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            display: block;
-        }
-        .stat-item .label {
-            font-size: 0.8rem;
-            color: #6b7582;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 4px;
-        }
+        .stat-item { text-align: center; padding: 12px; }
+        .stat-item .number { font-size: 2.2rem; font-weight: 800; background: linear-gradient(135deg, #1db954, #9146ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: block; }
+        .stat-item .label { font-size: 0.8rem; color: #6b7582; text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
 
-        /* ---- PARTNER / STREAMER SECTION ---- */
+        /* --- Partner Section --- */
         .partner-section {
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.05);
@@ -325,7 +229,6 @@
             margin: 16px 0 48px;
             text-align: center;
             backdrop-filter: blur(8px);
-            transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
         }
@@ -339,17 +242,9 @@
             background: conic-gradient(from 0deg, transparent, rgba(145, 70, 255, 0.03), transparent, rgba(29, 185, 84, 0.03), transparent);
             animation: rotateBg 20s linear infinite;
         }
-        @keyframes rotateBg {
-            100% { transform: rotate(360deg); }
-        }
-        .partner-section>* {
-            position: relative;
-            z-index: 1;
-        }
-
-        .partner-section:hover {
-            border-color: rgba(145, 70, 255, 0.2);
-        }
+        @keyframes rotateBg { 100% { transform: rotate(360deg); } }
+        .partner-section>* { position: relative; z-index: 1; }
+        .partner-section:hover { border-color: rgba(145, 70, 255, 0.2); }
 
         .partner-section .partner-badge {
             display: inline-flex;
@@ -366,11 +261,8 @@
             text-transform: uppercase;
             margin-bottom: 20px;
         }
-        .partner-section .partner-badge i {
-            font-size: 0.8rem;
-        }
+        .partner-section .partner-badge i { font-size: 0.8rem; }
 
-        /* ---- STREAMER CONTROLS (wie ImBurni Seite) ---- */
         .streamer-controls {
             display: flex;
             gap: 12px;
@@ -389,21 +281,9 @@
             background: rgba(255, 255, 255, 0.04);
             border: 1px solid rgba(255, 255, 255, 0.12);
             backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
         }
-        .field input {
-            width: 100%;
-            border: 0;
-            outline: none;
-            background: transparent;
-            color: #eaeef2;
-            font-weight: 950;
-            font-size: 14px;
-        }
-        .field input::placeholder {
-            color: rgba(238, 240, 255, 0.46);
-            font-weight: 850;
-        }
+        .field input { width: 100%; border: 0; outline: none; background: transparent; color: #eaeef2; font-weight: 950; font-size: 14px; }
+        .field input::placeholder { color: rgba(238, 240, 255, 0.46); font-weight: 850; }
 
         .seg {
             display: flex;
@@ -414,7 +294,6 @@
             background: rgba(255, 255, 255, 0.04);
             border: 1px solid rgba(255, 255, 255, 0.12);
             backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
         }
         .seg button {
             border: 1px solid transparent;
@@ -426,11 +305,7 @@
             cursor: pointer;
             transition: .16s ease;
         }
-        .seg button:hover {
-            background: rgba(255, 255, 255, 0.07);
-            color: #eaeef2;
-            transform: translateY(-1px);
-        }
+        .seg button:hover { background: rgba(255, 255, 255, 0.07); color: #eaeef2; transform: translateY(-1px); }
         .seg button.active {
             background: linear-gradient(135deg, rgba(29, 185, 84, 0.22), rgba(168, 85, 247, 0.18), rgba(0, 234, 255, 0.12));
             border-color: rgba(255, 255, 255, 0.14);
@@ -465,13 +340,8 @@
             border: 1px solid rgba(255, 255, 255, 0.12);
             box-shadow: 0 16px 52px rgba(0, 0, 0, 0.50);
             backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
         }
-        .streamer-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 24px 90px rgba(0, 0, 0, 0.55);
-            border-color: rgba(255, 255, 255, 0.18);
-        }
+        .streamer-card:hover { transform: translateY(-4px); box-shadow: 0 24px 90px rgba(0, 0, 0, 0.55); border-color: rgba(255, 255, 255, 0.18); }
 
         .streamer-top {
             display: flex;
@@ -496,52 +366,15 @@
             flex: 0 0 auto;
             box-shadow: 0 12px 36px rgba(0, 0, 0, 0.40);
         }
-        .avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-        .sname {
-            display: flex;
-            flex-direction: column;
-            min-width: 0;
-        }
-        .sname b {
-            font-size: 16px;
-            letter-spacing: -0.2px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .sname span {
-            font-size: 12px;
-            color: rgba(238, 240, 255, 0.72);
-            font-weight: 950;
-        }
+        .avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .sname { display: flex; flex-direction: column; min-width: 0; }
+        .sname b { font-size: 16px; letter-spacing: -0.2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .sname span { font-size: 12px; color: rgba(238, 240, 255, 0.72); font-weight: 950; }
 
-        .badge.live {
-            border-color: rgba(46, 229, 157, 0.25);
-            background: rgba(46, 229, 157, 0.10);
-            color: rgba(238, 240, 255, 0.92);
-        }
-        .live-dot {
-            width: 9px;
-            height: 9px;
-            border-radius: 50%;
-            background: rgba(238, 240, 255, 0.35);
-            display: inline-block;
-            margin-right: 6px;
-        }
-        .badge.live .live-dot {
-            background: #2ee59d;
-            box-shadow: 0 0 0 7px rgba(46, 229, 157, 0.12);
-            animation: pulseDot 1.2s ease-in-out infinite;
-        }
-        @keyframes pulseDot {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.4; transform: scale(0.8); }
-        }
+        .badge.live { border-color: rgba(46, 229, 157, 0.25); background: rgba(46, 229, 157, 0.10); color: rgba(238, 240, 255, 0.92); }
+        .live-dot { width: 9px; height: 9px; border-radius: 50%; background: rgba(238, 240, 255, 0.35); display: inline-block; margin-right: 6px; }
+        .badge.live .live-dot { background: #2ee59d; box-shadow: 0 0 0 7px rgba(46, 229, 157, 0.12); animation: pulseDot 1.2s ease-in-out infinite; }
+        @keyframes pulseDot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.8); } }
         .badge {
             display: inline-flex;
             align-items: center;
@@ -564,14 +397,9 @@
             gap: 12px;
             margin-top: -4px;
         }
-        .uptime {
-            color: rgba(238, 240, 255, 0.72);
-            font-weight: 900;
-            line-height: 1.55;
-            max-width: 56ch;
-        }
+        .uptime { color: rgba(238, 240, 255, 0.72); font-weight: 900; line-height: 1.55; max-width: 56ch; }
 
-        /* ---- FEATURES ---- */
+        /* --- Features Grid --- */
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -595,45 +423,13 @@
             transform: translateY(-6px);
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
         }
-        .feature-card .icon {
-            font-size: 2.2rem;
-            margin-bottom: 18px;
-            display: inline-block;
-            background: rgba(29, 185, 84, 0.08);
-            padding: 14px;
-            border-radius: 18px;
-            color: #1db954;
-            transition: all 0.3s ease;
-        }
-        .feature-card h3 {
-            font-size: 1.25rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-            letter-spacing: -0.3px;
-        }
-        .feature-card p {
-            font-size: 0.95rem;
-            line-height: 1.7;
-            color: #9aa3af;
-        }
-        .feature-card .highlight {
-            color: #eaeef2;
-            font-weight: 600;
-        }
-        .feature-card .feature-tag {
-            display: inline-block;
-            margin-top: 14px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            color: #1db954;
-            background: rgba(29, 185, 84, 0.08);
-            padding: 4px 14px;
-            border-radius: 40px;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-        }
+        .feature-card .icon { font-size: 2.2rem; margin-bottom: 18px; display: inline-block; background: rgba(29, 185, 84, 0.08); padding: 14px; border-radius: 18px; color: #1db954; transition: all 0.3s ease; }
+        .feature-card h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 10px; letter-spacing: -0.3px; }
+        .feature-card p { font-size: 0.95rem; line-height: 1.7; color: #9aa3af; }
+        .feature-card .highlight { color: #eaeef2; font-weight: 600; }
+        .feature-card .feature-tag { display: inline-block; margin-top: 14px; font-size: 0.7rem; font-weight: 600; color: #1db954; background: rgba(29, 185, 84, 0.08); padding: 4px 14px; border-radius: 40px; letter-spacing: 0.5px; text-transform: uppercase; }
 
-        /* ---- COMMANDS ---- */
+        /* --- Commands --- */
         .commands-section {
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.04);
@@ -642,47 +438,12 @@
             margin: 16px 0 48px;
             backdrop-filter: blur(8px);
         }
-        .commands-section h2 {
-            font-size: 1.7rem;
-            font-weight: 700;
-            margin-bottom: 6px;
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-        .commands-section h2 i {
-            color: #1db954;
-            font-size: 1.8rem;
-        }
-        .commands-section .sub {
-            color: #9aa3af;
-            margin-bottom: 28px;
-            font-size: 0.95rem;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 16px;
-            align-items: center;
-        }
-        .commands-section .sub .badge-user {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: rgba(255, 255, 255, 0.04);
-            padding: 4px 14px;
-            border-radius: 40px;
-            font-size: 0.75rem;
-            color: #9aa3af;
-        }
-        .commands-section .sub .badge-mod {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: rgba(145, 70, 255, 0.08);
-            padding: 4px 14px;
-            border-radius: 40px;
-            font-size: 0.75rem;
-            color: #9146ff;
-        }
+        .commands-section h2 { font-size: 1.7rem; font-weight: 700; margin-bottom: 6px; display: flex; align-items: center; gap: 14px; }
+        .commands-section h2 i { color: #1db954; font-size: 1.8rem; }
+        .commands-section .sub { color: #9aa3af; margin-bottom: 28px; font-size: 0.95rem; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; }
+        .commands-section .sub .badge-user { display: inline-flex; align-items: center; gap: 6px; background: rgba(255, 255, 255, 0.04); padding: 4px 14px; border-radius: 40px; font-size: 0.75rem; color: #9aa3af; }
+        .commands-section .sub .badge-mod { display: inline-flex; align-items: center; gap: 6px; background: rgba(145, 70, 255, 0.08); padding: 4px 14px; border-radius: 40px; font-size: 0.75rem; color: #9146ff; }
+        .commands-section .sub .badge-admin { display: inline-flex; align-items: center; gap: 6px; background: rgba(255, 107, 107, 0.08); padding: 4px 14px; border-radius: 40px; font-size: 0.75rem; color: #ff6b6b; }
 
         .cmd-grid {
             display: flex;
@@ -700,32 +461,29 @@
             color: #c8d0da;
             transition: all 0.3s ease;
             letter-spacing: 0.2px;
+            cursor: pointer;
         }
-        .cmd-tag:hover {
-            border-color: #1db954;
-            color: #fff;
-            background: rgba(29, 185, 84, 0.06);
-            transform: translateY(-2px);
-        }
-        .cmd-tag i {
-            margin-right: 8px;
-            font-size: 0.8rem;
-            color: #1db954;
-        }
-        .cmd-tag--mod {
-            border-color: rgba(145, 70, 255, 0.15);
-        }
-        .cmd-tag--mod i {
-            color: #9146ff;
-        }
-        .cmd-tag--admin {
-            border-color: rgba(255, 107, 107, 0.15);
-        }
-        .cmd-tag--admin i {
-            color: #ff6b6b;
+        .cmd-tag:hover { border-color: #1db954; color: #fff; background: rgba(29, 185, 84, 0.06); transform: translateY(-2px); }
+        .cmd-tag i { margin-right: 8px; font-size: 0.8rem; color: #1db954; }
+        .cmd-tag--mod { border-color: rgba(145, 70, 255, 0.15); }
+        .cmd-tag--mod i { color: #9146ff; }
+        .cmd-tag--admin { border-color: rgba(255, 107, 107, 0.15); }
+        .cmd-tag--admin i { color: #ff6b6b; }
+
+        .cmd-section-title {
+            width: 100%;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #6b7582;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-top: 8px;
+            margin-bottom: 4px;
+            padding: 6px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
         }
 
-        /* ---- APPLY BOX ---- */
+        /* --- Apply Box --- */
         .apply-box {
             background: linear-gradient(145deg, rgba(29, 185, 84, 0.05), rgba(145, 70, 255, 0.05));
             border: 1px solid rgba(255, 255, 255, 0.06);
@@ -747,62 +505,17 @@
             background: conic-gradient(from 0deg, transparent, rgba(29, 185, 84, 0.03), transparent, rgba(145, 70, 255, 0.03), transparent);
             animation: rotateBg 20s linear infinite;
         }
-        .apply-box>* {
-            position: relative;
-            z-index: 1;
-        }
-        .apply-box h2 {
-            font-size: 2.2rem;
-            font-weight: 800;
-            margin-bottom: 10px;
-        }
-        .apply-box h2 i {
-            color: #1db954;
-            margin-right: 12px;
-        }
-        .apply-box .highlight-text {
-            color: #1db954;
-            font-weight: 700;
-        }
-        .apply-box p {
-            color: #9aa3af;
-            max-width: 600px;
-            margin: 12px auto 32px;
-            font-size: 1.05rem;
-            line-height: 1.7;
-        }
-        .apply-box .btn--apply {
-            background: linear-gradient(135deg, #9146ff, #7a3bdd);
-            color: #fff;
-            box-shadow: 0 8px 32px rgba(145, 70, 255, 0.3);
-            border: none;
-            font-size: 1.05rem;
-            padding: 18px 50px;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 14px;
-        }
-        .apply-box .btn--apply:hover {
-            transform: translateY(-4px) scale(1.02);
-            box-shadow: 0 16px 48px rgba(145, 70, 255, 0.45);
-        }
-        .apply-box .hinweis {
-            margin-top: 24px;
-            font-size: 0.85rem;
-            color: #6b7582;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-        .apply-box .hinweis i {
-            color: #f9c74f;
-        }
+        .apply-box>* { position: relative; z-index: 1; }
+        .apply-box h2 { font-size: 2.2rem; font-weight: 800; margin-bottom: 10px; }
+        .apply-box h2 i { color: #1db954; margin-right: 12px; }
+        .apply-box .highlight-text { color: #1db954; font-weight: 700; }
+        .apply-box p { color: #9aa3af; max-width: 600px; margin: 12px auto 32px; font-size: 1.05rem; line-height: 1.7; }
+        .apply-box .btn--apply { background: linear-gradient(135deg, #9146ff, #7a3bdd); color: #fff; box-shadow: 0 8px 32px rgba(145, 70, 255, 0.3); border: none; font-size: 1.05rem; padding: 18px 50px; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 14px; }
+        .apply-box .btn--apply:hover { transform: translateY(-4px) scale(1.02); box-shadow: 0 16px 48px rgba(145, 70, 255, 0.45); }
+        .apply-box .hinweis { margin-top: 24px; font-size: 0.85rem; color: #6b7582; display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap; }
+        .apply-box .hinweis i { color: #f9c74f; }
 
-        /* ---- FOOTER ---- */
+        /* --- Footer --- */
         .footer {
             margin-top: 60px;
             text-align: center;
@@ -812,38 +525,14 @@
             padding-top: 34px;
             width: 100%;
         }
-        .footer a {
-            color: #9aa3af;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-        .footer a:hover {
-            color: #1db954;
-        }
-        .footer .footer-links {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px 32px;
-            margin-bottom: 16px;
-        }
-        .footer .footer-links a {
-            font-size: 0.85rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .footer .footer-links a i {
-            font-size: 0.9rem;
-        }
-        .last-updated {
-            font-size: 0.7rem;
-            margin-top: 8px;
-            opacity: 0.7;
-            color: #6b7582;
-        }
+        .footer a { color: #9aa3af; text-decoration: none; transition: color 0.3s ease; }
+        .footer a:hover { color: #1db954; }
+        .footer .footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px 32px; margin-bottom: 16px; }
+        .footer .footer-links a { font-size: 0.85rem; display: inline-flex; align-items: center; gap: 6px; }
+        .footer .footer-links a i { font-size: 0.9rem; }
+        .last-updated { font-size: 0.7rem; margin-top: 8px; opacity: 0.7; color: #6b7582; }
 
-        /* ---- RESPONSIVE ---- */
+        /* --- Responsive --- */
         @media (max-width: 768px) {
             .header h1 { font-size: 3rem; }
             .subheadline { font-size: 1rem; }
@@ -860,33 +549,26 @@
             .streamer-grid { grid-template-columns: 1fr; }
             .streamer-controls { flex-direction: column; align-items: stretch; }
         }
-
         @media (max-width: 480px) {
             .header h1 { font-size: 2.2rem; }
             .stats-bar { grid-template-columns: 1fr 1fr; }
             .stat-item .number { font-size: 1.4rem; }
         }
 
-        /* ---- REVEAL ---- */
-        .reveal {
-            opacity: 0;
-            transform: translateY(18px) scale(.985);
-            transition: opacity .7s cubic-bezier(.2,.9,.2,1), transform .7s cubic-bezier(.2,.9,.2,1);
-            will-change: transform, opacity;
-        }
-        .reveal.in {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-        }
+        .reveal { opacity: 0; transform: translateY(18px) scale(.985); transition: opacity .7s cubic-bezier(.2,.9,.2,1), transform .7s cubic-bezier(.2,.9,.2,1); will-change: transform, opacity; }
+        .reveal.in { opacity: 1; transform: translateY(0) scale(1); }
         .reveal-delay-1 { transition-delay: .06s; }
         .reveal-delay-2 { transition-delay: .12s; }
         .reveal-delay-3 { transition-delay: .18s; }
         .reveal-delay-4 { transition-delay: .24s; }
+        .reveal-delay-5 { transition-delay: .30s; }
+        .reveal-delay-6 { transition-delay: .36s; }
+        .reveal-delay-7 { transition-delay: .42s; }
+        .reveal-delay-8 { transition-delay: .48s; }
     </style>
 </head>
 <body>
 
-    <!-- Particles -->
     <div class="particles">
         <div class="particle"></div><div class="particle"></div><div class="particle"></div>
         <div class="particle"></div><div class="particle"></div><div class="particle"></div>
@@ -894,7 +576,6 @@
         <div class="particle"></div><div class="particle"></div><div class="particle"></div>
     </div>
 
-    <!-- Glow Orbs -->
     <div class="glow-orbe glow-orbe--grün"></div>
     <div class="glow-orbe glow-orbe--lila"></div>
     <div class="glow-orbe glow-orbe--blau"></div>
@@ -935,33 +616,22 @@
             </div>
         </header>
 
-        <!-- ===== STATS BAR ===== -->
+        <!-- ===== STATS ===== -->
         <div class="stats-bar">
-            <div class="stat-item">
-                <span class="number">24/7</span>
-                <span class="label">Verfügbarkeit</span>
-            </div>
-            <div class="stat-item">
-                <span class="number">∞</span>
-                <span class="label">Songwünsche</span>
-            </div>
-            <div class="stat-item">
-                <span class="number">100%</span>
-                <span class="label">Kostenlos</span>
-            </div>
-            <div class="stat-item">
-                <span class="number">🔌</span>
-                <span class="label">Plugin-basiert</span>
-            </div>
+            <div class="stat-item"><span class="number">24/7</span><span class="label">Verfügbarkeit</span></div>
+            <div class="stat-item"><span class="number">∞</span><span class="label">Songwünsche</span></div>
+            <div class="stat-item"><span class="number">100%</span><span class="label">Kostenlos</span></div>
+            <div class="stat-item"><span class="number">🔌</span><span class="label">Plugin-basiert</span></div>
+            <div class="stat-item"><span class="number">⏱️</span><span class="label">Laufzeit-System</span></div>
+            <div class="stat-item"><span class="number">🎫</span><span class="label">Gutscheine</span></div>
         </div>
 
-        <!-- ===== PARTNER / STREAMER SECTION ===== -->
+        <!-- ===== PARTNER / STREAMER ===== -->
         <div class="partner-section">
             <div class="partner-badge">
                 <i class="fas fa-crown"></i> Partner-Streamer · Exklusive Integration
             </div>
 
-            <!-- Streamer Controls (wie ImBurni Seite) -->
             <div class="streamer-controls reveal">
                 <div class="field">
                     <span aria-hidden="true">🔎</span>
@@ -998,97 +668,165 @@
 
         <!-- ===== FEATURES ===== -->
         <div id="features" class="features-grid">
+            <!-- Spotify Core -->
             <div class="feature-card reveal reveal-delay-1">
+                <div class="icon"><i class="fas fa-music"></i></div>
+                <h3>🎵 Spotify Songwünsche</h3>
+                <p>Zuschauer können Songs direkt aus dem Chat wünschen – mit <span class="highlight">Channel Points</span> oder dem <span class="highlight">internen Punktesystem</span>.</p>
+                <span class="feature-tag"><i class="fas fa-star"></i> Kern-Funktion</span>
+            </div>
+
+            <div class="feature-card reveal reveal-delay-2">
                 <div class="icon"><i class="fas fa-trophy"></i></div>
                 <h3>🏆 Channel Points System</h3>
-                <p>Jeder Zuschauer kann mit seinen <span class="highlight">Channel Points</span> Songs wünschen! <span class="highlight">100 Points</span> pro Wunsch.</p>
-                <span class="feature-tag"><i class="fas fa-star"></i> Twitch integriert</span>
-            </div>
-
-            <div class="feature-card reveal reveal-delay-2">
-                <div class="icon"><i class="fab fa-twitch"></i></div>
-                <h3>🔗 Twitch-Integration</h3>
-                <p><span class="highlight">Nur Spotify-Links</span> werden akzeptiert – alle anderen URLs werden <span class="highlight">automatisch gelöscht</span>.</p>
-                <span class="feature-tag"><i class="fas fa-shield-alt"></i> Spam-Schutz</span>
+                <p><span class="highlight">100 Channel Points</span> pro Songwunsch. Kein Affiliate? Kein Problem – das <span class="highlight">interne Punktesystem</span> springt ein!</p>
+                <span class="feature-tag"><i class="fab fa-twitch"></i> Twitch integriert</span>
             </div>
 
             <div class="feature-card reveal reveal-delay-3">
-                <div class="icon"><i class="fas fa-gem"></i></div>
+                <div class="icon"><i class="fas fa-user-shield"></i></div>
                 <h3>🛠️ Mod-Tools</h3>
-                <p><span class="highlight">Mods und Streamer</span> haben volle Kontrolle über die Wiedergabe und können bei Problemen eingreifen.</p>
-                <span class="feature-tag"><i class="fas fa-user-shield"></i> Volle Kontrolle</span>
-            </div>
-
-            <div class="feature-card reveal reveal-delay-1">
-                <div class="icon"><i class="fas fa-sliders-h"></i></div>
-                <h3>🎛️ Playback Control</h3>
-                <p><span class="highlight">!play</span>, <span class="highlight">!stop</span>, <span class="highlight">!vol</span> – Streamer &amp; Mods steuern die Wiedergabe direkt aus dem Chat.</p>
-                <span class="feature-tag"><i class="fas fa-volume-up"></i> Vollständige Kontrolle</span>
-            </div>
-
-            <div class="feature-card reveal reveal-delay-2">
-                <div class="icon"><i class="fas fa-plug"></i></div>
-                <h3>🧩 Plugin-basiert</h3>
-                <p>Der Bot besteht aus <span class="highlight">losgelösten Plugins</span> – jede Funktion kann einzeln aktiviert oder erweitert werden.</p>
-                <span class="feature-tag"><i class="fas fa-code"></i> Modular & Erweiterbar</span>
-            </div>
-
-            <div class="feature-card reveal reveal-delay-3">
-                <div class="icon"><i class="fas fa-handshake"></i></div>
-                <h3>🤝 Partner-Programm</h3>
-                <p>Der Bot wird in Partnerschaft mit ausgewählten Streamern betrieben – <span class="highlight">24/7</span> für die Community da!</p>
-                <span class="feature-tag"><i class="fas fa-crown"></i> Exklusiv</span>
+                <p><span class="highlight">Mods und Streamer</span> haben volle Kontrolle: <span class="highlight">!skip</span>, <span class="highlight">!play</span>, <span class="highlight">!stop</span>, <span class="highlight">!vol</span> – alles aus dem Chat.</p>
+                <span class="feature-tag"><i class="fas fa-gavel"></i> Volle Kontrolle</span>
             </div>
 
             <div class="feature-card reveal reveal-delay-4">
-                <div class="icon"><i class="fas fa-robot"></i></div>
-                <h3>🤖 Automatische Token-Refresh</h3>
-                <p>Spotify Tokens werden <span class="highlight">automatisch erneuert</span> – der Bot läuft stabil und zuverlässig.</p>
-                <span class="feature-tag"><i class="fas fa-sync"></i> 100% Automatisch</span>
+                <div class="icon"><i class="fas fa-plug"></i></div>
+                <h3>🧩 Plugin-basiert</h3>
+                <p>Der Bot besteht aus <span class="highlight">losgelösten Plugins</span> – jede Funktion kann einzeln aktiviert, deaktiviert oder erweitert werden.</p>
+                <span class="feature-tag"><i class="fas fa-code"></i> Modular</span>
+            </div>
+
+            <!-- Laufzeit & Coins -->
+            <div class="feature-card reveal reveal-delay-5">
+                <div class="icon"><i class="fas fa-clock"></i></div>
+                <h3>⏱️ Laufzeit-System</h3>
+                <p>Streamer können <span class="highlight">Bot-Laufzeit</span> kaufen – mit <span class="highlight">Community-Coins</span> oder über die <span class="highlight">Web-Oberfläche</span>. Bei Ablauf werden alle Befehle blockiert.</p>
+                <span class="feature-tag"><i class="fas fa-hourglass-half"></i> Automatisch</span>
+            </div>
+
+            <div class="feature-card reveal reveal-delay-6">
+                <div class="icon"><i class="fas fa-coins"></i></div>
+                <h3>💰 Community Coin System</h3>
+                <p><span class="highlight">Burni Coins</span> – eine reine Community-Währung für Gutscheine, Laufzeit und Plugin-Anfragen. <span class="highlight">Kein echter Geldwert!</span></p>
+                <span class="feature-tag"><i class="fas fa-gamepad"></i> Spielerisch</span>
+            </div>
+
+            <div class="feature-card reveal reveal-delay-7">
+                <div class="icon"><i class="fas fa-ticket-alt"></i></div>
+                <h3>🎫 Gutschein-System</h3>
+                <p>Erstelle <span class="highlight">Gutscheine</span> für Community-Coins mit einem Klick. Einlösbar über eine <span class="highlight">Web-Oberfläche</span> – perfekt für Giveaways!</p>
+                <span class="feature-tag"><i class="fas fa-gift"></i> Giveaway-ready</span>
+            </div>
+
+            <div class="feature-card reveal reveal-delay-8">
+                <div class="icon"><i class="fas fa-hand-holding-usd"></i></div>
+                <h3>💳 Plugin Anfragen</h3>
+                <p>Zuschauer können <span class="highlight">individuelle Plugins</span> anfragen – mit Preisverhandlung und Bezahlung in <span class="highlight">Community-Coins</span>.</p>
+                <span class="feature-tag"><i class="fas fa-puzzle-piece"></i> Custom</span>
+            </div>
+
+            <!-- Support & Co -->
+            <div class="feature-card reveal reveal-delay-1">
+                <div class="icon"><i class="fas fa-headset"></i></div>
+                <h3>🎫 Support-Tickets</h3>
+                <p><span class="highlight">Verifizierte Nutzer</span> können Support-Tickets erstellen. Das Team hat einen <span class="highlight">eigenen Discord-Channel</span> für jeden Ticket.</p>
+                <span class="feature-tag"><i class="fab fa-discord"></i> Discord integriert</span>
+            </div>
+
+            <div class="feature-card reveal reveal-delay-2">
+                <div class="icon"><i class="fas fa-check-circle"></i></div>
+                <h3>🔐 2-Faktor Verifikation</h3>
+                <p><span class="highlight">Discord + Twitch</span> Verifikation mit einmaligem Code. <span class="highlight">Nur verifizierte</span> Nutzer können Tickets und Plugin-Anfragen erstellen.</p>
+                <span class="feature-tag"><i class="fas fa-shield-alt"></i> Sicher</span>
+            </div>
+
+            <div class="feature-card reveal reveal-delay-3">
+                <div class="icon"><i class="fas fa-rocket"></i></div>
+                <h3>🚀 Raid-Shoutouts</h3>
+                <p>Automatische <span class="highlight">Shoutouts</span> bei Raids – der Bot erkennt Raids und bedankt sich mit einem <span class="highlight">!shoutout</span> im Chat.</p>
+                <span class="feature-tag"><i class="fas fa-bolt"></i> Automatisch</span>
+            </div>
+
+            <div class="feature-card reveal reveal-delay-4">
+                <div class="icon"><i class="fas fa-filter"></i></div>
+                <h3>🎵 Songfilter</h3>
+                <p>Blockiert <span class="highlight">Playlists, Alben</span> und Songs über <span class="highlight">6 Minuten</span> – für einen reibungslosen Stream.</p>
+                <span class="feature-tag"><i class="fas fa-sliders-h"></i> Spam-Schutz</span>
             </div>
 
             <div class="feature-card reveal reveal-delay-5">
-                <div class="icon"><i class="fas fa-users"></i></div>
-                <h3>👥 Community-Fokus</h3>
-                <p>Der Bot wurde entwickelt, um die <span class="highlight">Community-Interaktion</span> zu fördern und den Stream unterhaltsamer zu machen.</p>
-                <span class="feature-tag"><i class="fas fa-heart"></i> Für die Community</span>
+                <div class="icon"><i class="fas fa-robot"></i></div>
+                <h3>🤖 Automatische Token-Refresh</h3>
+                <p>Spotify- und Twitch-Tokens werden <span class="highlight">automatisch erneuert</span> – der Bot läuft stabil und zuverlässig.</p>
+                <span class="feature-tag"><i class="fas fa-sync"></i> Wartungsfrei</span>
+            </div>
+
+            <div class="feature-card reveal reveal-delay-6">
+                <div class="icon"><i class="fas fa-lock"></i></div>
+                <h3>🔒 Lizenz-System</h3>
+                <p><span class="highlight">Nur autorisierte Streamer</span> können den Bot nutzen. Die Lizenz wird automatisch geprüft und bei Änderungen aktualisiert.</p>
+                <span class="feature-tag"><i class="fas fa-key"></i> Sicher</span>
             </div>
         </div>
 
         <!-- ===== COMMANDS ===== -->
         <div class="commands-section">
-            <h2>
-                <i class="fas fa-terminal"></i> Verfügbare Befehle
-            </h2>
+            <h2><i class="fas fa-terminal"></i> Verfügbare Befehle</h2>
             <div class="sub">
                 <span class="badge-user"><i class="fas fa-user"></i> Alle Viewer</span>
-                <span class="badge-mod"><i class="fas fa-user-shield"></i> Nur Mods/Streamer</span>
+                <span class="badge-mod"><i class="fas fa-user-shield"></i> Mods/Streamer</span>
+                <span class="badge-admin"><i class="fas fa-crown"></i> Nur Streamer</span>
                 <span style="color: #6b7582; font-size: 0.85rem;">
-                    <i class="fas fa-info-circle"></i> Klicke auf einen Befehl für Details
+                    <i class="fas fa-info-circle"></i> Klicke für Details
                 </span>
             </div>
 
             <div class="cmd-grid">
-                <span class="cmd-tag" title="Zeigt aktuellen Song oder fügt Song hinzu"><i class="fas fa-music"></i> !song &lt;titel&gt;</span>
+                <span class="cmd-section-title">🎵 Spotify</span>
+                <span class="cmd-tag" title="Song wünschen oder aktuellen Song anzeigen"><i class="fas fa-music"></i> !song &lt;titel/link&gt;</span>
                 <span class="cmd-tag" title="Zeigt die nächsten 5 Songs in der Queue"><i class="fas fa-list-ul"></i> !songs</span>
-                <span class="cmd-tag" title="Überspringt den aktuellen Song"><i class="fas fa-forward"></i> !skip</span>
-                <span class="cmd-tag cmd-tag--mod" title="Setzt Queue fort (Mods only)"><i class="fas fa-play"></i> !play</span>
-                <span class="cmd-tag cmd-tag--mod" title="Stoppt die Wiedergabe (Mods only)"><i class="fas fa-stop"></i> !stop</span>
-                <span class="cmd-tag cmd-tag--mod" title="Ändert die Lautstärke (Mods only)"><i class="fas fa-volume-up"></i> !vol 50</span>
-                <span class="cmd-tag cmd-tag--admin" title="Spotify Login (Streamer only)"><i class="fas fa-sign-in-alt"></i> !spotifylogin</span>
-                <span class="cmd-tag cmd-tag--admin" title="Credentials einrichten (Streamer only)"><i class="fas fa-cog"></i> !spotifyconfig</span>
-                <span class="cmd-tag cmd-tag--admin" title="Credentials zurücksetzen (Streamer only)"><i class="fas fa-undo"></i> !spotifyreset</span>
-                <span class="cmd-tag" title="Zeigt Hilfe an"><i class="fas fa-question-circle"></i> !help</span>
+                <span class="cmd-tag cmd-tag--mod" title="Überspringt den aktuellen Song"><i class="fas fa-forward"></i> !skip</span>
+                <span class="cmd-tag cmd-tag--mod" title="Setzt die Wiedergabe fort"><i class="fas fa-play"></i> !play</span>
+                <span class="cmd-tag cmd-tag--mod" title="Stoppt die Wiedergabe"><i class="fas fa-stop"></i> !stop</span>
+                <span class="cmd-tag cmd-tag--mod" title="Ändert die Lautstärke (0-100)"><i class="fas fa-volume-up"></i> !vol 50</span>
+                <span class="cmd-tag cmd-tag--admin" title="Spotify Login (nur Streamer)"><i class="fas fa-sign-in-alt"></i> !spotifylogin</span>
+                <span class="cmd-tag cmd-tag--admin" title="Credentials einrichten (nur Streamer)"><i class="fas fa-cog"></i> !spotifyconfig</span>
+                <span class="cmd-tag cmd-tag--admin" title="Credentials zurücksetzen (nur Streamer)"><i class="fas fa-undo"></i> !spotifyreset</span>
+
+                <span class="cmd-section-title">💰 Community Coins</span>
+                <span class="cmd-tag" title="Zeigt deinen Coin-Kontostand"><i class="fas fa-coins"></i> !coins</span>
+                <span class="cmd-tag" title="Zeigt den Kontostand eines anderen Users"><i class="fas fa-coins"></i> !coins @user</span>
+                <span class="cmd-tag" title="Top 10 Coin-Holder"><i class="fas fa-trophy"></i> !topcoins</span>
+                <span class="cmd-tag cmd-tag--admin" title="Gibt Coins (nur ImBurni)"><i class="fas fa-gift"></i> !give @user 10</span>
+                <span class="cmd-tag cmd-tag--admin" title="Entfernt Coins (nur ImBurni)"><i class="fas fa-minus-circle"></i> !remove @user 5</span>
+                <span class="cmd-tag cmd-tag--admin" title="Setzt Coins (nur ImBurni)"><i class="fas fa-edit"></i> !set @user 100</span>
+
+                <span class="cmd-section-title">⏱️ Laufzeit</span>
+                <span class="cmd-tag" title="Zeigt die verbleibende Laufzeit"><i class="fas fa-clock"></i> !laufzeit</span>
+                <span class="cmd-tag" title="Link zum Laufzeit-Kauf"><i class="fas fa-shopping-cart"></i> !laufzeitkaufen</span>
+
+                <span class="cmd-section-title">🎫 Support & Verifikation</span>
+                <span class="cmd-tag" title="Erstellt ein Support-Ticket"><i class="fas fa-ticket-alt"></i> !support &lt;text&gt;</span>
+                <span class="cmd-tag" title="Zeigt deinen Verifizierungsstatus"><i class="fas fa-check-circle"></i> !verify</span>
+                <span class="cmd-tag" title="Verifizierung mit Code abschließen"><i class="fas fa-check-circle"></i> !verify &lt;code&gt;</span>
+                <span class="cmd-tag" title="Entfernt deine Verifikation"><i class="fas fa-times-circle"></i> !unverify</span>
+                <span class="cmd-tag" title="Zeigt deine offenen Tickets"><i class="fas fa-list"></i> !ticket list</span>
+                <span class="cmd-tag cmd-tag--mod" title="Schließt ein Ticket (Mods/Streamer)"><i class="fas fa-door-closed"></i> !ticket close &lt;ID&gt;</span>
+                <span class="cmd-tag cmd-tag--mod" title="Alle offenen Tickets (Mods/Streamer)"><i class="fas fa-list-ul"></i> !ticket all</span>
+
+                <span class="cmd-section-title">🔧 Allgemein</span>
+                <span class="cmd-tag" title="Zeigt Hilfe / alle Befehle"><i class="fas fa-question-circle"></i> !help</span>
                 <span class="cmd-tag" title="Zeigt alle aktiven Plugins"><i class="fas fa-plug"></i> !plugins</span>
-                <span class="cmd-tag" title="Zeigt die Discord Einladung"><i class="fab fa-discord"></i> !discord</span>
+                <span class="cmd-tag" title="Discord Einladung"><i class="fab fa-discord"></i> !discord</span>
+                <span class="cmd-tag" title="Raid-Status anzeigen"><i class="fas fa-arrow-right"></i> !raid</span>
+                <span class="cmd-tag cmd-tag--admin" title="Update im Discord posten (nur ImBurni)"><i class="fas fa-bullhorn"></i> !update &lt;text&gt;</span>
             </div>
         </div>
 
         <!-- ===== BEWERBUNG ===== -->
         <div id="apply" class="apply-box">
-            <h2>
-                <i class="fas fa-hand-paper"></i> Zugang beantragen
-            </h2>
+            <h2><i class="fas fa-hand-paper"></i> Zugang beantragen</h2>
             <p>
                 Der Bot ist <span class="highlight-text">privat</span> und wird nur 
                 an ausgewählte Channels vergeben. 
@@ -1102,6 +840,9 @@
                 </a>
                 <a href="https://discord.gg/ENneVkA3Py" target="_blank" class="btn btn--discord">
                     <i class="fab fa-discord"></i> Discord beitreten
+                </a>
+                <a href="https://discord.gg/ENneVkA3Py" target="_blank" class="btn btn--gold">
+                    <i class="fas fa-gift"></i> Gutscheine einlösen
                 </a>
             </div>
 
@@ -1137,19 +878,15 @@
             'use strict';
 
             // ============================
-            // STREAMER CONFIG (wie ImBurni Seite)
+            // STREAMER CONFIG
             // ============================
             
             const CONFIG = {
-                streamers: ["Lero_361"],  // Hier können weitere Partner hinzugefügt werden
+                streamers: ["Lero_361"],
                 clickSound: true,
                 clickSoundVolume: 0.22
             };
 
-            // ============================
-            // STREAMER LIST (wie ImBurni Seite)
-            // ============================
-            
             const streamerGrid = document.getElementById('streamerGrid');
             const streamerCount = document.getElementById('streamerCount');
             const streamerUpdated = document.getElementById('streamerUpdated');
@@ -1257,7 +994,6 @@
                 streamerUpdated.textContent = 'Zuletzt aktualisiert: ' + new Date().toLocaleString('de-DE'); 
             }
 
-            // Event Listeners
             if (streamerSearch) {
                 streamerSearch.addEventListener('input', () => { 
                     streamerState.query = streamerSearch.value || ''; 
@@ -1280,7 +1016,6 @@
                 refreshBtn.addEventListener('click', refreshStreamers);
             }
 
-            // Initial laden und alle 60 Sekunden aktualisieren
             renderStreamers(); 
             refreshStreamers(); 
             setInterval(refreshStreamers, 60000);
@@ -1385,7 +1120,6 @@
                 });
             });
 
-            // Toast Animation CSS
             const style = document.createElement('style');
             style.textContent = `
                 @keyframes fadeInUp {
