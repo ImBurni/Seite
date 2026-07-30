@@ -25,7 +25,7 @@
             position: relative;
         }
 
-        /* ===== FEUER / FLAMMEN HINTERGRUND ===== */
+        /* ===== FEUER HINTERGRUND ===== */
         body::before {
             content: '';
             position: fixed;
@@ -48,7 +48,7 @@
             100% { opacity: 1.2; }
         }
 
-        /* ===== GLUT / ASCHE PARTIKEL ===== */
+        /* ===== GLUT / ASCHE ===== */
         .embers {
             position: fixed;
             top: 0;
@@ -140,7 +140,7 @@
             width: 100%;
         }
 
-        /* ===== HEADER – FEURIG ===== */
+        /* ===== HEADER ===== */
         .header {
             text-align: center;
             margin-bottom: 48px;
@@ -353,7 +353,7 @@
 
         .streamer-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px;
         }
         .streamer-card {
@@ -381,10 +381,68 @@
             border: 1px solid rgba(255, 100, 0, 0.15);
             flex: 0 0 auto;
             background: #14141e;
+            position: relative;
         }
         .avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        
+        /* ===== LEUCHTENDE KRONE FÜR IMBURNI ===== */
+        .crown-owner {
+            position: absolute;
+            top: -12px;
+            right: -12px;
+            font-size: 1.2rem;
+            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.8)) drop-shadow(0 0 30px rgba(255, 215, 0, 0.4));
+            animation: crownGlow 1.5s ease-in-out infinite alternate;
+            z-index: 2;
+            background: rgba(0,0,0,0.5);
+            border-radius: 50%;
+            padding: 2px;
+            line-height: 1;
+        }
+        @keyframes crownGlow {
+            0% { filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.6)) drop-shadow(0 0 20px rgba(255, 215, 0, 0.2)); transform: scale(1); }
+            100% { filter: drop-shadow(0 0 20px rgba(255, 215, 0, 1)) drop-shadow(0 0 50px rgba(255, 215, 0, 0.6)); transform: scale(1.15); }
+        }
+
         .sname b { font-size: 1rem; color: #f0e0d0; }
         .sname span { font-size: 0.7rem; color: rgba(238, 220, 210, 0.4); }
+
+        /* Owner/Developer Labels */
+        .owner-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.55rem;
+            font-weight: 700;
+            color: #ffd700;
+            background: rgba(255, 215, 0, 0.12);
+            border: 1px solid rgba(255, 215, 0, 0.15);
+            padding: 2px 10px;
+            border-radius: 40px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 4px;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+        }
+        .owner-label i { font-size: 0.6rem; color: #ffd700; }
+
+        .dev-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.55rem;
+            font-weight: 700;
+            color: #9146ff;
+            background: rgba(145, 70, 255, 0.12);
+            border: 1px solid rgba(145, 70, 255, 0.15);
+            padding: 2px 10px;
+            border-radius: 40px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 4px;
+        }
+        .dev-label i { font-size: 0.6rem; color: #9146ff; }
+
         .live-badge {
             margin-left: auto;
             display: inline-flex;
@@ -695,7 +753,8 @@
             </div>
 
             <div class="partner-actions" style="display:flex; flex-wrap:wrap; gap:12px; margin-top:20px;">
-                <a href="https://twitch.tv/Lero_361" target="_blank" class="btn btn--twitch"><i class="fab fa-twitch"></i> Zum Kanal</a>
+                <a href="https://twitch.tv/ImBurni" target="_blank" class="btn btn--twitch"><i class="fab fa-twitch"></i> ImBurni</a>
+                <a href="https://twitch.tv/Lero_361" target="_blank" class="btn btn--twitch"><i class="fab fa-twitch"></i> Lero_361</a>
                 <a href="https://discord.gg/ENneVkA3Py" target="_blank" class="btn btn--discord"><i class="fab fa-discord"></i> Support & Hilfe</a>
                 <button class="btn btn--outline-fire" id="refreshBtn"><i class="fas fa-sync"></i> Aktualisieren</button>
             </div>
@@ -841,6 +900,7 @@
                 <a href="#features"><i class="fas fa-cube"></i> Features</a>
                 <a href="#apply"><i class="fas fa-hand-paper"></i> Zugang</a>
                 <a href="https://discord.gg/ENneVkA3Py" target="_blank"><i class="fab fa-discord"></i> Discord</a>
+                <a href="https://twitch.tv/ImBurni" target="_blank"><i class="fab fa-twitch"></i> ImBurni</a>
                 <a href="https://twitch.tv/Lero_361" target="_blank"><i class="fab fa-twitch"></i> Lero_361</a>
             </div>
             <p>
@@ -856,22 +916,30 @@
         (function() {
             'use strict';
 
-            // ===== HIER KANNST DU STREAMER HINZUFÜGEN =====
+            // ===== STREAMER LISTE =====
             const STREAMERS = [
-                { login: 'Lero_361', name: 'Lero_361' }
-                { login: 'ImBurni', name: 'ImBurni' }
+                { 
+                    login: 'ImBurni', 
+                    name: 'ImBurni',
+                    isOwner: true,
+                    isDeveloper: true
+                },
+                { 
+                    login: 'Lero_361', 
+                    name: 'Lero_361',
+                    isOwner: false,
+                    isDeveloper: false
+                }
                 // Füge hier weitere Streamer hinzu:
-                // { login: 'dein_streamer', name: 'Dein Name' }
+                // { login: 'dein_streamer', name: 'Dein Name', isOwner: false, isDeveloper: false }
             ];
 
             const grid = document.getElementById('streamerGrid');
             const countEl = document.getElementById('streamerCount');
             const updatedEl = document.getElementById('streamerUpdated');
 
-            // Fallback-Avatar
             const FALLBACK_AVATAR = 'https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_70x70.png';
 
-            // Live-Status von Twitch holen (via decapi.me)
             async function checkLiveStatus(login) {
                 try {
                     const res = await fetch(`https://decapi.me/twitch/uptime/${encodeURIComponent(login)}`, {
@@ -888,7 +956,6 @@
                 }
             }
 
-            // Avatar von Twitch holen
             async function getAvatar(login) {
                 try {
                     const res = await fetch(`https://decapi.me/twitch/avatar/${encodeURIComponent(login)}`, {
@@ -916,7 +983,9 @@
                         name: s.name || s.login,
                         avatar: avatar,
                         live: status.isLive,
-                        uptime: status.uptime
+                        uptime: status.uptime,
+                        isOwner: s.isOwner || false,
+                        isDeveloper: s.isDeveloper || false
                     });
                 }
                 return cards;
@@ -927,7 +996,6 @@
                     grid.innerHTML = `
                         <div style="grid-column:1/-1; text-align:center; color:#8a7a70; padding:40px 0;">
                             <i class="fas fa-info-circle"></i> Keine Streamer konfiguriert.
-                            <br /><span style="font-size:0.8rem;">Füge sie im JavaScript-Code hinzu.</span>
                         </div>
                     `;
                     countEl.textContent = '0 Streamer';
@@ -940,6 +1008,15 @@
                     const displayName = c.name;
                     const avatar = c.avatar || FALLBACK_AVATAR;
 
+                    // Labels für Owner/Developer
+                    let labels = '';
+                    if (c.isOwner) {
+                        labels += `<span class="owner-label"><i class="fas fa-crown"></i> Inhaber</span> `;
+                    }
+                    if (c.isDeveloper) {
+                        labels += `<span class="dev-label"><i class="fas fa-code"></i> Entwickler</span>`;
+                    }
+
                     const liveBadge = c.live ?
                         `<span class="live-badge"><span class="dot"></span> LIVE</span>` :
                         `<span class="offline-badge">⚫ OFFLINE</span>`;
@@ -948,22 +1025,31 @@
                         `🔥 Live seit: <b>${c.uptime}</b>` :
                         `⚫ Offline`;
 
+                    // Krone für ImBurni (nur beim Avatar)
+                    const crownHtml = c.isOwner ? 
+                        `<span class="crown-owner"><i class="fas fa-crown" style="color:#ffd700;"></i></span>` : 
+                        '';
+
                     return `
                         <div class="streamer-card">
                             <div class="streamer-top">
                                 <div class="avatar">
+                                    ${crownHtml}
                                     <img src="${avatar}" alt="${displayName}" loading="lazy" />
                                 </div>
                                 <div class="sname">
                                     <b>${displayName}</b>
                                     <span>twitch.tv/${login.toLowerCase()}</span>
+                                    <div style="display:flex; gap:4px; flex-wrap:wrap; margin-top:2px;">
+                                        ${labels}
+                                    </div>
                                 </div>
                                 ${liveBadge}
                             </div>
                             <div class="streamer-uptime">${uptimeText}</div>
                             <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
                                 <span style="font-size:0.65rem; color:rgba(238,220,210,0.2);">
-                                    ${login.toLowerCase() === 'lero_361' ? '👑 Partner' : 'Bot-Nutzer'}
+                                    ${c.isOwner ? '👑 Inhaber & Entwickler' : 'Bot-Nutzer'}
                                 </span>
                                 <a href="https://twitch.tv/${login.toLowerCase()}" target="_blank" 
                                    style="font-size:0.7rem; color:#ff6a00; text-decoration:none; font-weight:600;">
@@ -989,13 +1075,8 @@
                 }
             }
 
-            // Initial laden
             refresh();
-
-            // Refresh-Button
             document.getElementById('refreshBtn')?.addEventListener('click', refresh);
-
-            // Auto-Refresh alle 60 Sekunden
             setInterval(refresh, 60000);
 
             // Uhrzeit
@@ -1040,6 +1121,7 @@
             });
 
             console.log('🔥 ImBurniBot – Feurige Version geladen!');
+            console.log('👑 Inhaber & Entwickler: ImBurni');
             console.log('📺 Streamer:', STREAMERS.map(s => s.login).join(', '));
         })();
     </script>
