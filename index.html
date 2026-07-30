@@ -48,7 +48,7 @@
             100% { opacity: 1.2; }
         }
 
-        /* ===== FLIMMERNDE PARTIKEL (Glut/Asche) ===== */
+        /* ===== GLUT / ASCHE PARTIKEL ===== */
         .embers {
             position: fixed;
             top: 0;
@@ -80,10 +80,6 @@
         .ember:nth-child(10) { left: 15%; animation-delay: 7s; animation-duration: 16s; }
         .ember:nth-child(11) { left: 45%; animation-delay: 3s; animation-duration: 14s; }
         .ember:nth-child(12) { left: 75%; animation-delay: 5s; animation-duration: 18s; }
-        .ember:nth-child(13) { left: 5%; animation-delay: 8s; animation-duration: 22s; }
-        .ember:nth-child(14) { left: 55%; animation-delay: 1s; animation-duration: 11s; }
-        .ember:nth-child(15) { left: 85%; animation-delay: 9s; animation-duration: 20s; }
-
         @keyframes floatEmber {
             0% { transform: translateY(100vh) scale(0) rotate(0deg); opacity: 0; }
             15% { opacity: 1; }
@@ -91,7 +87,7 @@
             100% { transform: translateY(-10vh) scale(1.5) rotate(720deg); opacity: 0; }
         }
 
-        /* ===== GLOW-ORBS (FEURIG) ===== */
+        /* ===== GLOW-ORBS ===== */
         .glow-orbe {
             position: fixed;
             border-radius: 50%;
@@ -151,7 +147,6 @@
             position: relative;
         }
 
-        /* FEURIGER TITEL mit Flammen-Gradient */
         .main-title {
             font-size: 5.5rem;
             font-weight: 900;
@@ -162,8 +157,7 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: fireGradient 3s ease-in-out infinite alternate;
-            text-shadow: 0 0 80px rgba(255, 80, 0, 0.3), 0 0 160px rgba(255, 50, 0, 0.15);
-            filter: drop-shadow(0 0 40px rgba(255, 80, 0, 0.2));
+            text-shadow: 0 0 80px rgba(255, 80, 0, 0.3);
         }
         .main-title span {
             background: linear-gradient(135deg, #ffcc00, #ff8c00, #ffcc00);
@@ -178,7 +172,6 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* FEURIGE GLUT unter dem Titel */
         .main-title::after {
             content: '';
             position: absolute;
@@ -197,7 +190,6 @@
             100% { width: 80%; opacity: 1; }
         }
 
-        /* ICONS – FEURIGER GLOW */
         .brand-icons {
             display: flex;
             justify-content: center;
@@ -217,7 +209,6 @@
             border-radius: 60px;
             border: 1px solid rgba(255, 100, 0, 0.20);
             backdrop-filter: blur(8px);
-            box-shadow: 0 0 30px rgba(255, 80, 0, 0.05), inset 0 0 30px rgba(255, 80, 0, 0.03);
             transition: all 0.3s ease;
         }
         .brand-icons .icon-item:hover {
@@ -252,7 +243,6 @@
             justify-content: center;
         }
 
-        /* ===== BUTTONS – FEURIG ===== */
         .btn {
             display: inline-flex;
             align-items: center;
@@ -328,16 +318,14 @@
             color: #f0e0d0;
             border: 1.5px solid rgba(255, 100, 0, 0.25);
             backdrop-filter: blur(4px);
-            box-shadow: 0 0 30px rgba(255, 80, 0, 0.05);
         }
         .btn--outline-fire:hover {
             border-color: rgba(255, 150, 0, 0.5);
             background: rgba(255, 80, 0, 0.10);
             transform: translateY(-3px);
-            box-shadow: 0 0 50px rgba(255, 80, 0, 0.15);
         }
 
-        /* ===== PARTNER / STREAMER – FEURIG ===== */
+        /* ===== PARTNER ===== */
         .partner-section {
             background: rgba(255, 60, 0, 0.04);
             border: 1px solid rgba(255, 100, 0, 0.12);
@@ -345,7 +333,6 @@
             padding: 32px 30px;
             margin: 16px 0 48px;
             backdrop-filter: blur(8px);
-            box-shadow: 0 0 60px rgba(255, 80, 0, 0.04), inset 0 0 60px rgba(255, 80, 0, 0.02);
         }
         .partner-badge {
             display: inline-flex;
@@ -361,7 +348,6 @@
             text-transform: uppercase;
             letter-spacing: 0.6px;
             margin-bottom: 20px;
-            text-shadow: 0 0 20px rgba(255, 180, 0, 0.15);
         }
         .partner-badge i { color: #ffcc00; }
 
@@ -376,13 +362,11 @@
             border-radius: 24px;
             padding: 18px 18px 20px;
             transition: all 0.3s ease;
-            backdrop-filter: blur(4px);
         }
         .streamer-card:hover {
             border-color: rgba(255, 150, 0, 0.25);
             transform: translateY(-4px);
             box-shadow: 0 20px 60px rgba(255, 80, 0, 0.10);
-            background: rgba(255, 60, 0, 0.06);
         }
         .streamer-top {
             display: flex;
@@ -397,7 +381,6 @@
             border: 1px solid rgba(255, 100, 0, 0.15);
             flex: 0 0 auto;
             background: #14141e;
-            box-shadow: 0 0 30px rgba(255, 80, 0, 0.05);
         }
         .avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
         .sname b { font-size: 1rem; color: #f0e0d0; }
@@ -414,7 +397,6 @@
             border: 1px solid rgba(255, 80, 0, 0.15);
             padding: 4px 12px;
             border-radius: 40px;
-            text-shadow: 0 0 20px rgba(255, 80, 0, 0.2);
         }
         .live-badge .dot {
             width: 7px;
@@ -452,7 +434,7 @@
             margin-top: 16px;
         }
 
-        /* ===== FEATURES – FEURIG ===== */
+        /* ===== FEATURES ===== */
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -465,13 +447,11 @@
             border-radius: 24px;
             padding: 28px 24px 30px;
             transition: all 0.35s ease;
-            backdrop-filter: blur(4px);
         }
         .feature-card:hover {
             border-color: rgba(255, 150, 0, 0.20);
             background: rgba(255, 60, 0, 0.05);
             transform: translateY(-5px);
-            box-shadow: 0 20px 60px rgba(255, 80, 0, 0.06);
         }
         .feature-card .icon {
             font-size: 2rem;
@@ -481,7 +461,6 @@
             padding: 12px;
             border-radius: 16px;
             color: #ff8c00;
-            box-shadow: 0 0 30px rgba(255, 80, 0, 0.05);
         }
         .feature-card h3 {
             font-size: 1.15rem;
@@ -497,7 +476,6 @@
         .feature-card .highlight {
             color: #ff8c00;
             font-weight: 600;
-            text-shadow: 0 0 20px rgba(255, 140, 0, 0.15);
         }
         .feature-tag {
             display: inline-block;
@@ -510,10 +488,9 @@
             border-radius: 40px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            border: 1px solid rgba(255, 100, 0, 0.06);
         }
 
-        /* ===== COMMANDS – FEURIG ===== */
+        /* ===== COMMANDS ===== */
         .commands-section {
             background: rgba(255, 60, 0, 0.03);
             border: 1px solid rgba(255, 100, 0, 0.08);
@@ -521,7 +498,6 @@
             padding: 32px 28px;
             margin: 16px 0 48px;
             backdrop-filter: blur(8px);
-            box-shadow: 0 0 60px rgba(255, 80, 0, 0.03);
         }
         .commands-section h2 {
             font-size: 1.5rem;
@@ -556,14 +532,12 @@
             font-size: 0.8rem;
             color: #d4c8c0;
             transition: all 0.25s ease;
-            cursor: default;
         }
         .cmd-tag:hover {
             border-color: rgba(255, 150, 0, 0.3);
             background: rgba(255, 80, 0, 0.06);
             color: #fff;
             transform: translateY(-2px);
-            box-shadow: 0 0 30px rgba(255, 80, 0, 0.05);
         }
         .cmd-tag i { margin-right: 8px; color: #ff6a00; }
         .cmd-section-title {
@@ -579,7 +553,7 @@
             margin-bottom: 4px;
         }
 
-        /* ===== APPLY – FEURIG ===== */
+        /* ===== APPLY ===== */
         .apply-box {
             background: linear-gradient(145deg, rgba(255, 80, 0, 0.05), rgba(180, 40, 255, 0.05));
             border: 1px solid rgba(255, 100, 0, 0.10);
@@ -588,7 +562,6 @@
             text-align: center;
             margin-top: 8px;
             backdrop-filter: blur(8px);
-            box-shadow: 0 0 80px rgba(255, 80, 0, 0.03), inset 0 0 80px rgba(255, 80, 0, 0.02);
         }
         .apply-box h2 {
             font-size: 2rem;
@@ -596,11 +569,10 @@
             margin-bottom: 8px;
             color: #f0e0d0;
         }
-        .apply-box h2 i { color: #ff6a00; margin-right: 12px; text-shadow: 0 0 30px rgba(255, 80, 0, 0.2); }
+        .apply-box h2 i { color: #ff6a00; margin-right: 12px; }
         .apply-box .highlight {
             color: #ff8c00;
             font-weight: 700;
-            text-shadow: 0 0 20px rgba(255, 140, 0, 0.2);
         }
         .apply-box p {
             color: #b0a098;
@@ -637,7 +609,6 @@
         }
         .footer-links a { font-size: 0.8rem; display: inline-flex; align-items: center; gap: 6px; }
 
-        /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
             .main-title { font-size: 3.5rem; }
             .brand-icons { gap: 14px; }
@@ -669,9 +640,8 @@
 </head>
 <body>
 
-    <!-- ===== GLUT / ASCHE PARTIKEL ===== -->
+    <!-- ===== GLUT / ASCHE ===== -->
     <div class="embers">
-        <div class="ember"></div><div class="ember"></div><div class="ember"></div>
         <div class="ember"></div><div class="ember"></div><div class="ember"></div>
         <div class="ember"></div><div class="ember"></div><div class="ember"></div>
         <div class="ember"></div><div class="ember"></div><div class="ember"></div>
@@ -686,7 +656,7 @@
 
     <div class="container">
 
-        <!-- ===== HEADER – FEURIG ===== -->
+        <!-- ===== HEADER ===== -->
         <header class="header">
             <h1 class="main-title">
                 ImBurni<span>Bot</span>
@@ -716,7 +686,7 @@
             </div>
 
             <div class="streamer-grid" id="streamerGrid">
-                <!-- JS -->
+                <!-- Wird per JS befüllt -->
             </div>
 
             <div class="streamer-meta">
@@ -736,67 +706,67 @@
             <div class="feature-card reveal reveal-delay-1">
                 <div class="icon"><i class="fas fa-music"></i></div>
                 <h3>🎵 Songwünsche</h3>
-                <p>Zuschauer wünschen Songs über <span class="highlight">Channel Points</span> oder das interne Punktesystem.</p>
-                <span class="feature-tag">Kern-Funktion</span>
+                <p>Zuschauer wünschen Songs über <span class="highlight">Channel Points</span> oder das interne System.</p>
+                <span class="feature-tag">Kern</span>
             </div>
             <div class="feature-card reveal reveal-delay-2">
                 <div class="icon"><i class="fas fa-trophy"></i></div>
                 <h3>🏆 Channel Points</h3>
-                <p><span class="highlight">100 Punkte</span> pro Wunsch. Kein Affiliate? Das interne System springt ein.</p>
-                <span class="feature-tag">Twitch integriert</span>
+                <p><span class="highlight">100 Punkte</span> pro Wunsch. Kein Affiliate? Internes System springt ein.</p>
+                <span class="feature-tag">Twitch</span>
             </div>
             <div class="feature-card reveal reveal-delay-3">
                 <div class="icon"><i class="fas fa-user-shield"></i></div>
                 <h3>🛠️ Mod-Tools</h3>
-                <p><span class="highlight">!skip</span>, <span class="highlight">!play</span>, <span class="highlight">!stop</span>, <span class="highlight">!vol</span> – volle Kontrolle aus dem Chat.</p>
-                <span class="feature-tag">Volle Kontrolle</span>
+                <p><span class="highlight">!skip</span>, <span class="highlight">!play</span>, <span class="highlight">!stop</span>, <span class="highlight">!vol</span> – volle Kontrolle.</p>
+                <span class="feature-tag">Kontrolle</span>
             </div>
             <div class="feature-card reveal reveal-delay-4">
                 <div class="icon"><i class="fas fa-plug"></i></div>
                 <h3>🧩 Plugin-basiert</h3>
-                <p>Jede Funktion ist ein <span class="highlight">losgelöstes Plugin</span> – aktivierbar, deaktivierbar, erweiterbar.</p>
+                <p>Jede Funktion ist ein <span class="highlight">losgelöstes Plugin</span> – erweiterbar.</p>
                 <span class="feature-tag">Modular</span>
             </div>
             <div class="feature-card reveal reveal-delay-5">
                 <div class="icon"><i class="fas fa-clock"></i></div>
                 <h3>⏱️ Laufzeit-System</h3>
-                <p>Streamer kaufen <span class="highlight">Bot-Laufzeit</span> mit Community-Coins oder über die Web-Oberfläche.</p>
+                <p>Streamer kaufen <span class="highlight">Bot-Laufzeit</span> mit Community-Coins.</p>
                 <span class="feature-tag">Automatisch</span>
             </div>
             <div class="feature-card reveal reveal-delay-6">
                 <div class="icon"><i class="fas fa-coins"></i></div>
                 <h3>💰 Community Coins</h3>
-                <p><span class="highlight">Burni Coins</span> – reine Community-Währung für Gutscheine, Laufzeit und Plugins.</p>
+                <p><span class="highlight">Burni Coins</span> – Community-Währung für Gutscheine &amp; Plugins.</p>
                 <span class="feature-tag">Spielerisch</span>
             </div>
             <div class="feature-card reveal reveal-delay-7">
                 <div class="icon"><i class="fas fa-ticket-alt"></i></div>
                 <h3>🎫 Gutschein-System</h3>
-                <p>Erstelle <span class="highlight">Gutscheine</span> für Coins mit einem Klick – perfekt für Giveaways.</p>
-                <span class="feature-tag">Giveaway-ready</span>
+                <p>Erstelle <span class="highlight">Gutscheine</span> für Coins – perfekt für Giveaways.</p>
+                <span class="feature-tag">Giveaway</span>
             </div>
             <div class="feature-card reveal reveal-delay-8">
                 <div class="icon"><i class="fas fa-hand-holding-usd"></i></div>
                 <h3>💳 Plugin Anfragen</h3>
-                <p>Zuschauer können <span class="highlight">individuelle Plugins</span> anfragen – bezahlbar mit Coins.</p>
+                <p>Zuschauer können <span class="highlight">individuelle Plugins</span> anfragen.</p>
                 <span class="feature-tag">Custom</span>
             </div>
             <div class="feature-card reveal reveal-delay-1">
                 <div class="icon"><i class="fas fa-headset"></i></div>
                 <h3>🎫 Support-Tickets</h3>
-                <p><span class="highlight">Verifizierte</span> Nutzer erstellen Tickets – das Team hat einen eigenen Discord-Channel.</p>
-                <span class="feature-tag">Discord integriert</span>
+                <p><span class="highlight">Verifizierte</span> Nutzer erstellen Tickets – eigener Discord-Channel.</p>
+                <span class="feature-tag">Discord</span>
             </div>
             <div class="feature-card reveal reveal-delay-2">
                 <div class="icon"><i class="fas fa-check-circle"></i></div>
                 <h3>🔐 2-Faktor Verifikation</h3>
-                <p><span class="highlight">Discord + Twitch</span> Verifikation mit einmaligem Code – nur für verifizierte Nutzer.</p>
+                <p><span class="highlight">Discord + Twitch</span> Verifikation mit einmaligem Code.</p>
                 <span class="feature-tag">Sicher</span>
             </div>
             <div class="feature-card reveal reveal-delay-3">
                 <div class="icon"><i class="fas fa-rocket"></i></div>
                 <h3>🚀 Raid-Shoutouts</h3>
-                <p>Automatische <span class="highlight">Shoutouts</span> bei Raids – der Bot erkennt Raids und bedankt sich.</p>
+                <p>Automatische <span class="highlight">Shoutouts</span> bei Raids – der Bot erkennt sie.</p>
                 <span class="feature-tag">Automatisch</span>
             </div>
             <div class="feature-card reveal reveal-delay-4">
@@ -811,7 +781,7 @@
         <section class="commands-section">
             <h2><i class="fas fa-terminal"></i> Befehle</h2>
             <div class="sub">
-                <span><i class="fas fa-user"></i> Alle Viewer</span>
+                <span><i class="fas fa-user"></i> Alle</span>
                 <span><i class="fas fa-user-shield"></i> Mods/Streamer</span>
                 <span><i class="fas fa-crown"></i> Nur Streamer</span>
             </div>
@@ -858,7 +828,7 @@
             <div class="apply-actions">
                 <a href="https://discord.gg/ENneVkA3Py" target="_blank" class="btn btn--fire"><i class="fas fa-paper-plane"></i> Jetzt beantragen</a>
                 <a href="https://discord.gg/ENneVkA3Py" target="_blank" class="btn btn--discord"><i class="fab fa-discord"></i> Discord beitreten</a>
-                <a href="https://discord.gg/ENneVkA3Py" target="_blank" class="btn btn--gold"><i class="fas fa-gift"></i> Gutscheine einlösen</a>
+                <a href="https://discord.gg/ENneVkA3Py" target="_blank" class="btn btn--gold"><i class="fas fa-gift"></i> Gutscheine</a>
             </div>
             <div style="margin-top:16px; font-size:0.85rem; color:#8a7a70;">
                 <i class="fas fa-info-circle"></i> Nach Prüfung erhältst du eine Freischaltung. · <i class="fas fa-fire" style="color:#ff6a00;"></i> 24-48 Stunden
@@ -886,81 +856,146 @@
         (function() {
             'use strict';
 
-            const STREAMERS = ["Lero_361"];
+            // ===== HIER KANNST DU STREAMER HINZUFÜGEN =====
+            const STREAMERS = [
+                { login: 'Lero_361', name: 'Lero_361' }
+                { login: 'ImBurni', name: 'ImBurni' }
+                // Füge hier weitere Streamer hinzu:
+                // { login: 'dein_streamer', name: 'Dein Name' }
+            ];
 
             const grid = document.getElementById('streamerGrid');
             const countEl = document.getElementById('streamerCount');
             const updatedEl = document.getElementById('streamerUpdated');
 
-            async function fetchText(url) {
-                const res = await fetch(url, { cache: 'no-store' });
-                return await res.text();
+            // Fallback-Avatar
+            const FALLBACK_AVATAR = 'https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_70x70.png';
+
+            // Live-Status von Twitch holen (via decapi.me)
+            async function checkLiveStatus(login) {
+                try {
+                    const res = await fetch(`https://decapi.me/twitch/uptime/${encodeURIComponent(login)}`, {
+                        cache: 'no-store'
+                    });
+                    const text = await res.text();
+                    const isLive = text && !text.toLowerCase().includes('offline') && !text.includes('404');
+                    return {
+                        isLive: isLive,
+                        uptime: isLive ? text : 'Offline'
+                    };
+                } catch {
+                    return { isLive: false, uptime: 'Fehler' };
+                }
             }
 
-            function escapeHtml(s) {
-                return String(s).replace(/[&<>"']/g, m => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[m]));
+            // Avatar von Twitch holen
+            async function getAvatar(login) {
+                try {
+                    const res = await fetch(`https://decapi.me/twitch/avatar/${encodeURIComponent(login)}`, {
+                        cache: 'no-store'
+                    });
+                    const text = await res.text();
+                    if (text && text.startsWith('http')) {
+                        return text;
+                    }
+                    return FALLBACK_AVATAR;
+                } catch {
+                    return FALLBACK_AVATAR;
+                }
             }
 
             async function loadStreamers() {
                 const cards = [];
-                for (const login of STREAMERS) {
-                    const avatarUrl = `https://decapi.me/twitch/avatar/${encodeURIComponent(login)}`;
-                    let uptimeRaw = 'offline';
-                    try {
-                        uptimeRaw = await fetchText(`https://decapi.me/twitch/uptime/${encodeURIComponent(login)}`);
-                    } catch {}
-                    const isLive = uptimeRaw && !uptimeRaw.toLowerCase().includes('offline');
+                for (const s of STREAMERS) {
+                    const [status, avatar] = await Promise.all([
+                        checkLiveStatus(s.login),
+                        getAvatar(s.login)
+                    ]);
                     cards.push({
-                        login,
-                        avatar: avatarUrl,
-                        live: isLive,
-                        uptime: isLive ? uptimeRaw : 'Offline'
+                        login: s.login,
+                        name: s.name || s.login,
+                        avatar: avatar,
+                        live: status.isLive,
+                        uptime: status.uptime
                     });
                 }
                 return cards;
             }
 
             function renderCards(cards) {
+                if (!cards || cards.length === 0) {
+                    grid.innerHTML = `
+                        <div style="grid-column:1/-1; text-align:center; color:#8a7a70; padding:40px 0;">
+                            <i class="fas fa-info-circle"></i> Keine Streamer konfiguriert.
+                            <br /><span style="font-size:0.8rem;">Füge sie im JavaScript-Code hinzu.</span>
+                        </div>
+                    `;
+                    countEl.textContent = '0 Streamer';
+                    updatedEl.textContent = '—';
+                    return;
+                }
+
                 grid.innerHTML = cards.map(c => {
-                    const login = escapeHtml(c.login);
-                    const avatar = c.avatar ? `<img src="${c.avatar}" alt="${login}" loading="lazy" />` :
-                        `<img src="https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_70x70.png" alt="${login}" loading="lazy" />`;
+                    const login = c.login;
+                    const displayName = c.name;
+                    const avatar = c.avatar || FALLBACK_AVATAR;
+
                     const liveBadge = c.live ?
                         `<span class="live-badge"><span class="dot"></span> LIVE</span>` :
                         `<span class="offline-badge">⚫ OFFLINE</span>`;
-                    const uptimeText = c.live ? `🔥 Live seit: <b>${escapeHtml(c.uptime)}</b>` : `⚫ Offline`;
+
+                    const uptimeText = c.live ?
+                        `🔥 Live seit: <b>${c.uptime}</b>` :
+                        `⚫ Offline`;
+
                     return `
                         <div class="streamer-card">
                             <div class="streamer-top">
-                                <div class="avatar">${avatar}</div>
+                                <div class="avatar">
+                                    <img src="${avatar}" alt="${displayName}" loading="lazy" />
+                                </div>
                                 <div class="sname">
-                                    <b>${login}</b>
+                                    <b>${displayName}</b>
                                     <span>twitch.tv/${login.toLowerCase()}</span>
                                 </div>
                                 ${liveBadge}
                             </div>
                             <div class="streamer-uptime">${uptimeText}</div>
                             <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
-                                <span style="font-size:0.65rem; color:rgba(238,220,210,0.2);">${login.toLowerCase() === "lero_361" ? "👑 Partner" : "Bot-Nutzer"}</span>
-                                <a href="https://twitch.tv/${login.toLowerCase()}" target="_blank" style="font-size:0.7rem; color:#ff6a00; text-decoration:none; font-weight:600;">
+                                <span style="font-size:0.65rem; color:rgba(238,220,210,0.2);">
+                                    ${login.toLowerCase() === 'lero_361' ? '👑 Partner' : 'Bot-Nutzer'}
+                                </span>
+                                <a href="https://twitch.tv/${login.toLowerCase()}" target="_blank" 
+                                   style="font-size:0.7rem; color:#ff6a00; text-decoration:none; font-weight:600;">
                                     <i class="fab fa-twitch"></i> Zum Stream
                                 </a>
                             </div>
                         </div>
                     `;
                 }).join('');
+
                 countEl.textContent = `${cards.length} Streamer geladen`;
                 updatedEl.textContent = 'Zuletzt aktualisiert: ' + new Date().toLocaleString('de-DE');
             }
 
             async function refresh() {
                 updatedEl.textContent = '🔥 Aktualisiere…';
-                const data = await loadStreamers();
-                renderCards(data);
+                try {
+                    const data = await loadStreamers();
+                    renderCards(data);
+                } catch (err) {
+                    console.error('Fehler beim Laden der Streamer:', err);
+                    updatedEl.textContent = '⚠️ Fehler beim Laden';
+                }
             }
 
+            // Initial laden
             refresh();
+
+            // Refresh-Button
             document.getElementById('refreshBtn')?.addEventListener('click', refresh);
+
+            // Auto-Refresh alle 60 Sekunden
             setInterval(refresh, 60000);
 
             // Uhrzeit
@@ -968,7 +1003,12 @@
             if (lastUpdated) {
                 function updateClock() {
                     const now = new Date();
-                    const timeStr = now.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
+                    const timeStr = now.toLocaleTimeString('de-DE', {
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        second: '2-digit',
+                        hour12: false
+                    });
                     lastUpdated.textContent = `🔥 Bot-Status: Aktiv · ${timeStr} Uhr`;
                 }
                 updateClock();
@@ -978,7 +1018,12 @@
             // Reveal
             document.querySelectorAll('.reveal').forEach(el => {
                 const obs = new IntersectionObserver((entries) => {
-                    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
+                    entries.forEach(e => {
+                        if (e.isIntersecting) {
+                            e.target.classList.add('in');
+                            obs.unobserve(e.target);
+                        }
+                    });
                 }, { threshold: 0.1 });
                 obs.observe(el);
             });
@@ -995,6 +1040,7 @@
             });
 
             console.log('🔥 ImBurniBot – Feurige Version geladen!');
+            console.log('📺 Streamer:', STREAMERS.map(s => s.login).join(', '));
         })();
     </script>
 
