@@ -48,7 +48,6 @@
             margin: 0 auto;
         }
 
-        /* Header */
         .header {
             display: flex;
             align-items: center;
@@ -78,7 +77,6 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* Status Grid */
         .status-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -153,7 +151,6 @@
         .badge.yellow { background: rgba(255, 204, 0, 0.12); color: #ffcc00; border: 1px solid rgba(255, 204, 0, 0.15); }
         .badge.gray { background: rgba(255, 255, 255, 0.04); color: #665a50; border: 1px solid rgba(255, 255, 255, 0.06); }
 
-        /* Footer */
         .footer {
             margin-top: 60px;
             text-align: center;
@@ -171,6 +168,13 @@
             margin-top: 8px;
         }
 
+        .status-loading {
+            text-align: center;
+            padding: 40px;
+            color: #8a7a70;
+            grid-column: 1 / -1;
+        }
+
         @media (max-width: 768px) {
             .header h1 { font-size: 1.6rem; }
             .status-grid { grid-template-columns: 1fr; }
@@ -180,18 +184,18 @@
 <body>
 
     <div class="container">
-        <!-- Header -->
         <div class="header">
             <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Zurück</a>
             <h1><i class="fas fa-server" style="color: #ff6a00; -webkit-text-fill-color: #ff6a00;"></i> Bot-Status</h1>
         </div>
 
-        <!-- Status Grid -->
         <div class="status-grid" id="statusGrid">
-            <!-- Wird per JS befüllt -->
+            <div class="status-loading">
+                <i class="fas fa-spinner fa-spin" style="font-size: 2rem;"></i>
+                <p style="margin-top: 12px;">Lade Status...</p>
+            </div>
         </div>
 
-        <!-- Footer -->
         <footer class="footer">
             <a href="index.html"><i class="fas fa-home"></i> Zurück zur Hauptseite</a>
             <div class="last-updated" id="lastUpdated">🔄 Wird geladen…</div>
@@ -203,111 +207,257 @@
             'use strict';
 
             // ============================================================
-            // BOT-STATUS DATEN (Hier kannst du die Werte anpassen)
+            // BOT-STATUS (wird vom Plugin gesetzt - NUR DAS WIRD GEÄNDERT!)
             // ============================================================
             const statusData = {
-    bot: {
-        name: 'ImBurniBot',
-        status: 'online',
-        uptime: 'Aktiv',
-        version: 'v2.4.1',
-        lastRestart: '07.08.2026, 16:53 Uhr'
-    },
-    spotify: {
-        status: 'online',
-        connected: true,
-        currentSong: 'Songname - Künstler',
-        device: 'PC (Windows)'
-    },
-    twitch: {
-        status: 'online',
-        connected: true,
-        channel: 'ImBurni',
-        viewers: 42
-    },
-    discord: {
-        status: 'online',
-        connected: true,
-        server: 'ImBurni Community',
-        members: 127
-    },
-    database: {
-        status: 'online',
-        connected: true,
-        lastSync: 'Vor 2 Minuten'
-    }
-};
+                bot: {
+                    name: 'ImBurniBot',
+                    status: 'online',
+                    uptime: 'Aktiv',
+                    version: 'v2.4.1',
+                    lastRestart: '07.08.2026, 16:24 Uhr'
+                }
+            };
+
+            // ============================================================
+            // ÖFFENTLICHE API STATUS CHECKS
+            // ============================================================
+
+            async function checkTwitchStatus() {
+                try {
+                    const [uptimeRes, viewersRes] = await Promise.all([
+                        fetch('https://decapi.me/twitch/uptime/imburni', { cache: 'no-store' }),
+                        fetch('https://decapi.me/twitch/viewercount/imburni', { cache: 'no-store' })
+                    ]);
+
+                    const uptime = await uptimeRes.text();
+                    const viewers = await viewersRes.text();
+
+                    const isLive = uptime && !uptime.toLowerCase().includes('offline') && !uptime.includes('404');
+                    const viewerCount = parseInt(viewers) || 0;
+
+                    return {
+                        status: isLive ? 'online' : 'offline',
+                        connected: true,
+                        channel: 'ImBurni',
+                        viewers: isLive ? `${viewerCount}` : 'Offline',
+                        detail: isLive ? `🟢 LIVE (${viewerCount} Viewer)` : '🔴 Offline'
+                    };
+                } catch (error) {
+                    return {
+                        status: 'offline',
+                        connected: false,
+                        channel: 'ImBurni',
+                        viewers: 'Fehler',
+                        detail: '❌ API nicht erreichbar'
+                    };
+                }
+            }
+
+            async function checkSpotifyStatus() {
+                try {
+                    // Öffentlicher Spotify Web API Status
+                    // Wir prüfen den Status der Spotify API
+                    const res = await fetch('https://api.spotify.com/v1/search?q=test&type=track&limit=1', {
+                        headers: { 'Accept': 'application/json' }
+                    });
+                    
+                    if (res.status === 200) {
+                        return {
+                            status: 'online',
+                            connected: true,
+                            currentSong: '✅ API erreichbar',
+                            device: 'Public API',
+                            detail: '🟢 API erreichbar'
+                        };
+                    } else if (res.status === 401 || res.status === 403) {
+                        return {
+                            status: 'warning',
+                            connected: false,
+                            currentSong: '🟡 API benötigt Auth',
+                            device: 'Public API',
+                            detail: '🟡 Authentifizierung erforderlich'
+                        };
+                    } else {
+                        return {
+                            status: 'offline',
+                            connected: false,
+                            currentSong: '❌ API nicht erreichbar',
+                            device: 'Public API',
+                            detail: `🔴 Status: ${res.status}`
+                        };
+                    }
+                } catch (error) {
+                    return {
+                        status: 'offline',
+                        connected: false,
+                        currentSong: '❌ API nicht erreichbar',
+                        device: 'Public API',
+                        detail: '🔴 Spotify API offline'
+                    };
+                }
+            }
+
+            async function checkDiscordStatus() {
+                try {
+                    // Öffentlicher Discord Server Widget
+                    const res = await fetch('https://discord.com/api/v10/guilds/744192376393957396/widget.json', {
+                        cache: 'no-store'
+                    });
+                    
+                    if (res.status === 200) {
+                        const data = await res.json();
+                        const members = data.members ? data.members.length : 0;
+                        const presence = data.presence_count || 0;
+                        return {
+                            status: 'online',
+                            connected: true,
+                            server: 'ImBurni Community',
+                            members: `${members} Mitglieder (${presence} online)`,
+                            detail: `🟢 Online (${members} Mitglieder)`
+                        };
+                    } else if (res.status === 404) {
+                        return {
+                            status: 'offline',
+                            connected: false,
+                            server: 'Widget deaktiviert',
+                            members: '-',
+                            detail: '🔴 Discord Widget deaktiviert'
+                        };
+                    } else {
+                        return {
+                            status: 'warning',
+                            connected: false,
+                            server: 'API Fehler',
+                            members: '-',
+                            detail: `🟡 Status: ${res.status}`
+                        };
+                    }
+                } catch (error) {
+                    return {
+                        status: 'offline',
+                        connected: false,
+                        server: 'Nicht erreichbar',
+                        members: '-',
+                        detail: '🔴 Discord API offline'
+                    };
+                }
+            }
+
+            async function checkDatabaseStatus() {
+                try {
+                    // GitHub API Status (Datenbank-Server)
+                    const start = Date.now();
+                    const res = await fetch('https://api.github.com/rate_limit', {
+                        cache: 'no-store',
+                        headers: { 'Accept': 'application/vnd.github.v3+json' }
+                    });
+                    const ping = Date.now() - start;
+                    
+                    if (res.status === 200) {
+                        return {
+                            status: 'online',
+                            connected: true,
+                            lastSync: `${ping}ms Ping`,
+                            detail: `🟢 Online (${ping}ms)`
+                        };
+                    } else {
+                        return {
+                            status: 'warning',
+                            connected: false,
+                            lastSync: `Status: ${res.status}`,
+                            detail: `🟡 Status: ${res.status}`
+                        };
+                    }
+                } catch (error) {
+                    return {
+                        status: 'offline',
+                        connected: false,
+                        lastSync: '❌ Nicht erreichbar',
+                        detail: '🔴 GitHub API offline'
+                    };
+                }
+            }
 
             // ============================================================
             // RENDER FUNKTION
             // ============================================================
-            function renderStatus() {
+
+            function renderStatus(twitch, spotify, discord, database) {
                 const grid = document.getElementById('statusGrid');
+
+                const botStatus = statusData.bot.status || 'online';
+                const botMap = {
+                    'online': { icon: 'green', text: '🟢 Online', class: 'online', badge: 'green', badgeText: 'Aktiv' },
+                    'offline': { icon: 'red', text: '🔴 Offline', class: 'offline', badge: 'red', badgeText: 'Inaktiv' },
+                    'warning': { icon: 'yellow', text: '🟡 Achtung', class: 'warning', badge: 'yellow', badgeText: 'Warnung' }
+                };
+                const bot = botMap[botStatus] || botMap['online'];
 
                 const cards = [
                     {
                         icon: 'fa-robot',
-                        iconColor: statusData.bot.status === 'online' ? 'green' : statusData.bot.status === 'warning' ? 'yellow' : 'red',
+                        iconColor: bot.icon,
                         title: '🤖 Bot',
-                        status: statusData.bot.status === 'online' ? '🟢 Online' : statusData.bot.status === 'warning' ? '🟡 Achtung' : '🔴 Offline',
-                        statusClass: statusData.bot.status === 'online' ? 'online' : statusData.bot.status === 'warning' ? 'warning' : 'offline',
-                        badge: statusData.bot.status === 'online' ? 'green' : statusData.bot.status === 'warning' ? 'yellow' : 'red',
-                        badgeText: statusData.bot.status === 'online' ? 'Aktiv' : statusData.bot.status === 'warning' ? 'Warnung' : 'Inaktiv',
+                        status: bot.text,
+                        statusClass: bot.class,
+                        badge: bot.badge,
+                        badgeText: bot.badgeText,
                         details: [
-                            { icon: 'fa-clock', text: `Uptime: ${statusData.bot.uptime}` },
-                            { icon: 'fa-tag', text: `Version: ${statusData.bot.version}` },
-                            { icon: 'fa-redo', text: `Neustart: ${statusData.bot.lastRestart}` }
+                            { icon: 'fa-clock', text: `Uptime: ${statusData.bot.uptime || 'Aktiv'}` },
+                            { icon: 'fa-tag', text: `Version: ${statusData.bot.version || 'v2.4.1'}` },
+                            { icon: 'fa-redo', text: `Neustart: ${statusData.bot.lastRestart || '-'}` }
                         ]
                     },
                     {
                         icon: 'fa-spotify',
-                        iconColor: statusData.spotify.status === 'online' ? 'green' : 'red',
+                        iconColor: spotify.status === 'online' ? 'green' : spotify.status === 'warning' ? 'yellow' : 'red',
                         title: '🎵 Spotify',
-                        status: statusData.spotify.connected ? '🟢 Verbunden' : '🔴 Getrennt',
-                        statusClass: statusData.spotify.connected ? 'online' : 'offline',
-                        badge: statusData.spotify.connected ? 'green' : 'red',
-                        badgeText: statusData.spotify.connected ? 'Verbunden' : 'Getrennt',
+                        status: spotify.connected ? '🟢 Online' : '🔴 Offline',
+                        statusClass: spotify.connected ? 'online' : 'offline',
+                        badge: spotify.connected ? 'green' : 'red',
+                        badgeText: spotify.connected ? 'Online' : 'Offline',
                         details: [
-                            { icon: 'fa-music', text: `Song: ${statusData.spotify.currentSong}` },
-                            { icon: 'fa-device', text: `Gerät: ${statusData.spotify.device}` }
+                            { icon: 'fa-music', text: `Status: ${spotify.currentSong || '-'}` },
+                            { icon: 'fa-device', text: `API: ${spotify.device || '-'}` }
                         ]
                     },
                     {
                         icon: 'fa-twitch',
-                        iconColor: statusData.twitch.status === 'online' ? 'green' : 'red',
+                        iconColor: twitch.status === 'online' ? 'green' : 'red',
                         title: '📺 Twitch',
-                        status: statusData.twitch.connected ? '🟢 Verbunden' : '🔴 Getrennt',
-                        statusClass: statusData.twitch.connected ? 'online' : 'offline',
-                        badge: statusData.twitch.connected ? 'green' : 'red',
-                        badgeText: statusData.twitch.connected ? 'Verbunden' : 'Getrennt',
+                        status: twitch.connected ? '🟢 Online' : '🔴 Offline',
+                        statusClass: twitch.connected ? 'online' : 'offline',
+                        badge: twitch.connected ? 'green' : 'red',
+                        badgeText: twitch.connected ? 'Online' : 'Offline',
                         details: [
-                            { icon: 'fa-user', text: `Channel: ${statusData.twitch.channel}` },
-                            { icon: 'fa-eye', text: `Viewer: ${statusData.twitch.viewers}` }
+                            { icon: 'fa-user', text: `Channel: ${twitch.channel || '-'}` },
+                            { icon: 'fa-eye', text: `Viewer: ${twitch.viewers || '-'}` }
                         ]
                     },
                     {
                         icon: 'fa-discord',
-                        iconColor: statusData.discord.status === 'online' ? 'green' : 'red',
+                        iconColor: discord.status === 'online' ? 'green' : discord.status === 'warning' ? 'yellow' : 'red',
                         title: '💬 Discord',
-                        status: statusData.discord.connected ? '🟢 Verbunden' : '🔴 Getrennt',
-                        statusClass: statusData.discord.connected ? 'online' : 'offline',
-                        badge: statusData.discord.connected ? 'green' : 'red',
-                        badgeText: statusData.discord.connected ? 'Verbunden' : 'Getrennt',
+                        status: discord.connected ? '🟢 Online' : '🔴 Offline',
+                        statusClass: discord.connected ? 'online' : 'offline',
+                        badge: discord.connected ? 'green' : 'red',
+                        badgeText: discord.connected ? 'Online' : 'Offline',
                         details: [
-                            { icon: 'fa-server', text: `Server: ${statusData.discord.server}` },
-                            { icon: 'fa-users', text: `Mitglieder: ${statusData.discord.members}` }
+                            { icon: 'fa-server', text: `Server: ${discord.server || '-'}` },
+                            { icon: 'fa-users', text: `Mitglieder: ${discord.members || '-'}` }
                         ]
                     },
                     {
                         icon: 'fa-database',
-                        iconColor: statusData.database.status === 'online' ? 'green' : 'red',
+                        iconColor: database.status === 'online' ? 'green' : 'red',
                         title: '🗄️ Datenbank',
-                        status: statusData.database.connected ? '🟢 Verbunden' : '🔴 Getrennt',
-                        statusClass: statusData.database.connected ? 'online' : 'offline',
-                        badge: statusData.database.connected ? 'green' : 'red',
-                        badgeText: statusData.database.connected ? 'Verbunden' : 'Getrennt',
+                        status: database.connected ? '🟢 Online' : '🔴 Offline',
+                        statusClass: database.connected ? 'online' : 'offline',
+                        badge: database.connected ? 'green' : 'red',
+                        badgeText: database.connected ? 'Online' : 'Offline',
                         details: [
-                            { icon: 'fa-sync', text: `Letzte Sync: ${statusData.database.lastSync}` }
+                            { icon: 'fa-sync', text: `Status: ${database.lastSync || '-'}` }
                         ]
                     }
                 ];
@@ -324,25 +474,42 @@
                     </div>
                 `).join('');
 
-                // Letzte Aktualisierung
                 const now = new Date();
                 document.getElementById('lastUpdated').textContent =
                     `🔄 Zuletzt aktualisiert: ${now.toLocaleString('de-DE')}`;
             }
 
             // ============================================================
-            // LIVE-UPDATE SIMULATION (alle 30 Sekunden)
+            // UPDATE ALLE 30 SEKUNDEN
             // ============================================================
-            renderStatus();
 
-            // Hier könntest du später eine echte API abfragen
-            setInterval(() => {
-                // StatusData könnte hier neu geladen werden
-                // renderStatus();
-            }, 30000);
+            async function updateAllStatus() {
+                try {
+                    const [twitch, spotify, discord, database] = await Promise.all([
+                        checkTwitchStatus(),
+                        checkSpotifyStatus(),
+                        checkDiscordStatus(),
+                        checkDatabaseStatus()
+                    ]);
 
-            console.log('📊 Bot-Status Seite geladen!');
+                    renderStatus(twitch, spotify, discord, database);
+
+                } catch (error) {
+                    console.error('Fehler beim Updaten:', error);
+                    document.getElementById('lastUpdated').textContent = '⚠️ Fehler beim Aktualisieren';
+                }
+            }
+
+            // ============================================================
+            // START
+            // ============================================================
+
+            updateAllStatus();
+            setInterval(updateAllStatus, 30000);
+
+            console.log('📊 Bot-Status Seite mit öffentlichen APIs geladen!');
         })();
     </script>
+
 </body>
 </html>
