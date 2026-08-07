@@ -143,7 +143,7 @@
         /* ===== HEADER ===== */
         .header {
             text-align: center;
-            margin-bottom: 48px;
+            margin-bottom: 30px;
             position: relative;
         }
 
@@ -325,6 +325,163 @@
             transform: translateY(-3px);
         }
 
+        /* ===== SLIDER / CAROUSEL ===== */
+        .slider-section {
+            margin: 10px 0 40px;
+            position: relative;
+        }
+
+        .slider-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 24px;
+            background: rgba(255, 60, 0, 0.04);
+            border: 1px solid rgba(255, 100, 0, 0.10);
+            padding: 0 60px;
+        }
+
+        .slider-track {
+            display: flex;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 20px 0;
+        }
+
+        .slider-slide {
+            min-width: 100%;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .slider-slide .slide-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: #f0e0d0;
+            padding: 24px 32px;
+            border-radius: 20px;
+            background: rgba(255, 60, 0, 0.04);
+            border: 1px solid rgba(255, 100, 0, 0.06);
+            transition: all 0.3s ease;
+            min-width: 180px;
+            flex: 1;
+            max-width: 250px;
+        }
+        .slider-slide .slide-item:hover {
+            border-color: rgba(255, 150, 0, 0.3);
+            background: rgba(255, 60, 0, 0.08);
+            transform: translateY(-6px);
+            box-shadow: 0 20px 60px rgba(255, 80, 0, 0.10);
+        }
+
+        .slider-slide .slide-item .icon {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+        }
+        .slider-slide .slide-item .icon.fire { color: #ff6a00; }
+        .slider-slide .slide-item .icon.green { color: #00ff88; }
+        .slider-slide .slide-item .icon.purple { color: #9146ff; }
+        .slider-slide .slide-item .icon.blue { color: #5865F2; }
+        .slider-slide .slide-item .icon.gold { color: #ffcc00; }
+        .slider-slide .slide-item .icon.pink { color: #ff44aa; }
+
+        .slider-slide .slide-item .title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-align: center;
+        }
+        .slider-slide .slide-item .desc {
+            font-size: 0.75rem;
+            color: #8a7a70;
+            text-align: center;
+            margin-top: 4px;
+        }
+        .slider-slide .slide-item .badge {
+            margin-top: 10px;
+            font-size: 0.6rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 4px 14px;
+            border-radius: 40px;
+            background: rgba(255, 80, 0, 0.10);
+            border: 1px solid rgba(255, 100, 0, 0.10);
+            color: #ff8c00;
+        }
+        .slider-slide .slide-item .badge.green { background: rgba(0, 255, 136, 0.10); color: #00ff88; border-color: rgba(0, 255, 136, 0.10); }
+        .slider-slide .slide-item .badge.purple { background: rgba(145, 70, 255, 0.10); color: #9146ff; border-color: rgba(145, 70, 255, 0.10); }
+        .slider-slide .slide-item .badge.gold { background: rgba(255, 204, 0, 0.10); color: #ffcc00; border-color: rgba(255, 204, 0, 0.10); }
+
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 60, 0, 0.10);
+            border: 1px solid rgba(255, 100, 0, 0.10);
+            color: #f0e0d0;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+        .slider-btn:hover {
+            background: rgba(255, 60, 0, 0.20);
+            border-color: rgba(255, 150, 0, 0.3);
+            transform: translateY(-50%) scale(1.05);
+        }
+        .slider-btn.prev { left: 12px; }
+        .slider-btn.next { right: 12px; }
+
+        .slider-dots {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 14px;
+        }
+        .slider-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 100, 0, 0.15);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 0;
+        }
+        .slider-dot.active {
+            background: #ff6a00;
+            box-shadow: 0 0 20px rgba(255, 80, 0, 0.4);
+            width: 28px;
+            border-radius: 10px;
+        }
+        .slider-dot:hover {
+            background: rgba(255, 100, 0, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .slider-container { padding: 0 10px; }
+            .slider-btn { width: 34px; height: 34px; font-size: 0.9rem; }
+            .slider-btn.prev { left: 4px; }
+            .slider-btn.next { right: 4px; }
+            .slider-slide .slide-item { padding: 16px 20px; min-width: 140px; max-width: 200px; }
+            .slider-slide .slide-item .icon { font-size: 2rem; }
+            .slider-slide { gap: 14px; }
+        }
+        @media (max-width: 480px) {
+            .slider-slide .slide-item { min-width: 120px; max-width: 160px; padding: 12px 14px; }
+            .slider-slide .slide-item .title { font-size: 0.9rem; }
+            .slider-slide .slide-item .desc { font-size: 0.65rem; }
+        }
+
         /* ===== PARTNER ===== */
         .partner-section {
             background: rgba(255, 60, 0, 0.04);
@@ -385,7 +542,6 @@
         }
         .avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
         
-        /* ===== LEUCHTENDE KRONE FÜR IMBURNI ===== */
         .crown-owner {
             position: absolute;
             top: -12px;
@@ -407,7 +563,6 @@
         .sname b { font-size: 1rem; color: #f0e0d0; }
         .sname span { font-size: 0.7rem; color: rgba(238, 220, 210, 0.4); }
 
-        /* Owner/Developer Labels */
         .owner-label {
             display: inline-flex;
             align-items: center;
@@ -646,7 +801,7 @@
             justify-content: center;
         }
 
-        /* ===== OVERLAYS (Datenschutz & Nutzungsbedingungen) ===== */
+        /* ===== OVERLAYS ===== */
         .overlay {
             display: none;
             position: fixed;
@@ -682,17 +837,9 @@
             position: relative;
             box-shadow: 0 40px 120px rgba(0, 0, 0, 0.8), 0 0 80px rgba(255, 80, 0, 0.05);
         }
-        .modal::-webkit-scrollbar {
-            width: 4px;
-        }
-        .modal::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 4px;
-        }
-        .modal::-webkit-scrollbar-thumb {
-            background: rgba(255, 100, 0, 0.3);
-            border-radius: 4px;
-        }
+        .modal::-webkit-scrollbar { width: 4px; }
+        .modal::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.02); border-radius: 4px; }
+        .modal::-webkit-scrollbar-thumb { background: rgba(255, 100, 0, 0.3); border-radius: 4px; }
 
         .modal-close {
             position: absolute;
@@ -775,10 +922,6 @@
             color: #ff8c00;
             border: 1px solid rgba(255, 100, 0, 0.10);
         }
-        .modal .modal-content .highlight {
-            color: #ff8c00;
-            font-weight: 600;
-        }
 
         .open-btn {
             background: none;
@@ -791,9 +934,7 @@
             align-items: center;
             gap: 6px;
         }
-        .open-btn:hover {
-            color: #ff8c00;
-        }
+        .open-btn:hover { color: #ff8c00; }
 
         /* ===== FOOTER ===== */
         .footer {
@@ -887,6 +1028,74 @@
                 <a href="https://discord.gg/ENneVkA3Py" target="_blank" class="btn btn--discord"><i class="fab fa-discord"></i> Discord beitreten</a>
             </div>
         </header>
+
+        <!-- ===== SLIDER / CAROUSEL ===== -->
+        <section class="slider-section">
+            <div class="slider-container" id="sliderContainer">
+                <button class="slider-btn prev" id="sliderPrev"><i class="fas fa-chevron-left"></i></button>
+                <div class="slider-track" id="sliderTrack">
+                    <!-- Slide 1 -->
+                    <div class="slider-slide">
+                        <a href="status.html" class="slide-item">
+                            <div class="icon green"><i class="fas fa-server"></i></div>
+                            <div class="title">Bot-Status</div>
+                            <div class="desc">Live-Status &amp; Verbindungen</div>
+                            <span class="badge green">Jetzt ansehen</span>
+                        </a>
+                        <a href="updates.html" class="slide-item">
+                            <div class="icon gold"><i class="fas fa-sync-alt"></i></div>
+                            <div class="title">Updates</div>
+                            <div class="desc">Changelog &amp; Neuerungen</div>
+                            <span class="badge gold">Jetzt ansehen</span>
+                        </a>
+                        <a href="#apply" class="slide-item">
+                            <div class="icon fire"><i class="fas fa-hand-paper"></i></div>
+                            <div class="title">Zugang beantragen</div>
+                            <div class="desc">Kostenlos &amp; schnell</div>
+                            <span class="badge">Jetzt beantragen</span>
+                        </a>
+                        <a href="https://discord.gg/ENneVkA3Py" target="_blank" class="slide-item">
+                            <div class="icon blue"><i class="fab fa-discord"></i></div>
+                            <div class="title">Discord</div>
+                            <div class="desc">Support &amp; Community</div>
+                            <span class="badge">Beitreten</span>
+                        </a>
+                    </div>
+                    <!-- Slide 2 -->
+                    <div class="slider-slide">
+                        <a href="#features" class="slide-item">
+                            <div class="icon purple"><i class="fas fa-cube"></i></div>
+                            <div class="title">Features</div>
+                            <div class="desc">Alle Funktionen im Überblick</div>
+                            <span class="badge purple">Entdecken</span>
+                        </a>
+                        <a href="#commands" class="slide-item">
+                            <div class="icon pink"><i class="fas fa-terminal"></i></div>
+                            <div class="title">Befehle</div>
+                            <div class="desc">!song, !vol, !coins &amp; mehr</div>
+                            <span class="badge">Alle anzeigen</span>
+                        </a>
+                        <a href="https://twitch.tv/ImBurni" target="_blank" class="slide-item">
+                            <div class="icon fire"><i class="fab fa-twitch"></i></div>
+                            <div class="title">ImBurni</div>
+                            <div class="desc">Zum Streamer</div>
+                            <span class="badge">Folgen</span>
+                        </a>
+                        <a href="https://twitch.tv/Lero_361" target="_blank" class="slide-item">
+                            <div class="icon purple"><i class="fab fa-twitch"></i></div>
+                            <div class="title">Lero_361</div>
+                            <div class="desc">Partner-Streamer</div>
+                            <span class="badge">Folgen</span>
+                        </a>
+                    </div>
+                </div>
+                <button class="slider-btn next" id="sliderNext"><i class="fas fa-chevron-right"></i></button>
+            </div>
+            <div class="slider-dots" id="sliderDots">
+                <button class="slider-dot active" data-index="0"></button>
+                <button class="slider-dot" data-index="1"></button>
+            </div>
+        </section>
 
         <!-- ===== PARTNER ===== -->
         <section class="partner-section">
@@ -990,7 +1199,7 @@
         </section>
 
         <!-- ===== COMMANDS ===== -->
-        <section class="commands-section">
+        <section class="commands-section" id="commands">
             <h2><i class="fas fa-terminal"></i> Befehle</h2>
             <div class="sub">
                 <span><i class="fas fa-user"></i> Alle</span>
@@ -1109,7 +1318,7 @@
                     <p>Wir behalten uns das Recht vor, Funktionen jederzeit zu ergänzen, anzupassen oder zu entfernen. Ebenso kann der Betrieb des Bots jederzeit ohne vorherige Ankündigung eingeschränkt oder eingestellt werden.</p>
 
                     <h3>5. Haftung</h3>
-                    <p>Die Nutzung des Bots erfolgt auf eigenes Risiko. Für Schäden, Datenverluste, entgangene Gewinne oder sonstige direkte oder indirekte Schäden, die aus der Nutzung oder Nichtverfügbarkeit des Bots entstehen, übernehmen wir – soweit gesetzlich zulässig – keine Haftung. Bei Vorsatz oder grober Fahrlässigkeit gelten die gesetzlichen Vorschriften.</p>
+                    <p>Die Nutzung des Bots erfolgt auf eigenes Risiko. Für Schäden, Datenverluste, entgangene Gewinne oder sonstige direkte oder indirekte Schäden, die aus der Nutzung oder Nichtverfügbarkeit des Bots entstehen, übernehmen wir – soweit gesetzlich zulässig – keine Haftung. Bei Vorsatz oder großer Fahrlässigkeit gelten die gesetzlichen Vorschriften.</p>
 
                     <h3>6. Datenschutz</h3>
                     <p>Informationen zur Verarbeitung personenbezogener Daten findest du in unserer Datenschutzerklärung.</p>
@@ -1134,6 +1343,8 @@
             <div class="footer-links">
                 <a href="#features"><i class="fas fa-cube"></i> Features</a>
                 <a href="#apply"><i class="fas fa-hand-paper"></i> Zugang</a>
+                <a href="status.html"><i class="fas fa-server"></i> Bot-Status</a>
+                <a href="updates.html"><i class="fas fa-sync-alt"></i> Updates</a>
                 <a href="https://discord.gg/ENneVkA3Py" target="_blank"><i class="fab fa-discord"></i> Discord</a>
                 <a href="https://twitch.tv/ImBurni" target="_blank"><i class="fab fa-twitch"></i> ImBurni</a>
                 <a href="https://twitch.tv/Lero_361" target="_blank"><i class="fab fa-twitch"></i> Lero_361</a>
@@ -1155,7 +1366,105 @@
         (function() {
             'use strict';
 
-            // ===== STREAMER LISTE =====
+            // ============================================
+            // SLIDER / CAROUSEL
+            // ============================================
+            const track = document.getElementById('sliderTrack');
+            const slides = track.querySelectorAll('.slider-slide');
+            const dots = document.querySelectorAll('.slider-dot');
+            const prevBtn = document.getElementById('sliderPrev');
+            const nextBtn = document.getElementById('sliderNext');
+            let currentIndex = 0;
+            let totalSlides = slides.length;
+            let autoSlideInterval = null;
+
+            function goToSlide(index) {
+                if (index < 0) index = totalSlides - 1;
+                if (index >= totalSlides) index = 0;
+                currentIndex = index;
+                track.style.transform = `translateX(-${index * 100}%)`;
+                
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === index);
+                });
+            }
+
+            function nextSlide() {
+                goToSlide(currentIndex + 1);
+            }
+
+            function prevSlide() {
+                goToSlide(currentIndex - 1);
+            }
+
+            function startAutoSlide() {
+                if (autoSlideInterval) clearInterval(autoSlideInterval);
+                autoSlideInterval = setInterval(nextSlide, 5000);
+            }
+
+            function stopAutoSlide() {
+                if (autoSlideInterval) {
+                    clearInterval(autoSlideInterval);
+                    autoSlideInterval = null;
+                }
+            }
+
+            // Event Listener
+            prevBtn.addEventListener('click', function() {
+                stopAutoSlide();
+                prevSlide();
+                startAutoSlide();
+            });
+
+            nextBtn.addEventListener('click', function() {
+                stopAutoSlide();
+                nextSlide();
+                startAutoSlide();
+            });
+
+            dots.forEach((dot) => {
+                dot.addEventListener('click', function() {
+                    stopAutoSlide();
+                    const index = parseInt(this.getAttribute('data-index'));
+                    goToSlide(index);
+                    startAutoSlide();
+                });
+            });
+
+            // Touch Support für Mobile
+            let touchStartX = 0;
+            let touchEndX = 0;
+            const container = document.getElementById('sliderContainer');
+
+            container.addEventListener('touchstart', function(e) {
+                touchStartX = e.changedTouches[0].screenX;
+                stopAutoSlide();
+            });
+
+            container.addEventListener('touchend', function(e) {
+                touchEndX = e.changedTouches[0].screenX;
+                const diff = touchStartX - touchEndX;
+                if (Math.abs(diff) > 50) {
+                    if (diff > 0) {
+                        nextSlide();
+                    } else {
+                        prevSlide();
+                    }
+                }
+                startAutoSlide();
+            });
+
+            // Pause bei Hover
+            container.addEventListener('mouseenter', stopAutoSlide);
+            container.addEventListener('mouseleave', startAutoSlide);
+
+            // Start
+            goToSlide(0);
+            startAutoSlide();
+
+            // ============================================
+            // STREAMER LISTE
+            // ============================================
             const STREAMERS = [
                 { 
                     login: 'ImBurni', 
