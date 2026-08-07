@@ -274,7 +274,7 @@
             'use strict';
 
             // ============================================================
-            // BOT-STATUS
+            // BOT-STATUS (wird vom Plugin überschrieben)
             // ============================================================
             const botStatus = {
                 name: 'ImBurniBot',
@@ -285,7 +285,7 @@
             };
 
             // ============================================================
-            // API STATUS CHECKS (NUR SPOTIFY & DATENBANK)
+            // API STATUS CHECKS
             // ============================================================
 
             async function checkSpotifyStatus() {
@@ -314,7 +314,7 @@
                             badgeText: 'Offline'
                         };
                     }
-                } catch (error) {
+                } catch {
                     return {
                         name: 'Spotify',
                         icon: 'fa-spotify',
@@ -354,7 +354,7 @@
                             badgeText: 'Offline'
                         };
                     }
-                } catch (error) {
+                } catch {
                     return {
                         name: 'Datenbank',
                         icon: 'fa-database',
@@ -367,7 +367,7 @@
             }
 
             // ============================================================
-            // RENDER FUNKTION
+            // RENDER
             // ============================================================
 
             function renderBotStatus() {
