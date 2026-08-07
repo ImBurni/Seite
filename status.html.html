@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Bot-Status · ImBurniBot</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0a0a0f;
+            color: #fff;
+            min-height: 100vh;
+            padding: 40px 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(ellipse at 20% 50%, rgba(255, 80, 0, 0.20) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 30%, rgba(255, 150, 0, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 100%, rgba(200, 50, 0, 0.10) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+            animation: firePulse 4s ease-in-out infinite alternate;
+        }
+        @keyframes firePulse {
+            0% { opacity: 0.8; }
+            100% { opacity: 1.2; }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 100, 0, 0.10);
+        }
+
+        .back-link {
+            color: #8a7a70;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .back-link:hover { color: #ff8c00; }
+
+        .header h1 {
+            font-size: 2.2rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #ff6a00, #ff4500, #ff8c00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Status Grid */
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-top: 20px;
+        }
+
+        .status-card {
+            background: rgba(255, 60, 0, 0.04);
+            border: 1px solid rgba(255, 100, 0, 0.08);
+            border-radius: 24px;
+            padding: 28px 24px;
+            transition: all 0.3s ease;
+        }
+        .status-card:hover {
+            border-color: rgba(255, 150, 0, 0.20);
+            transform: translateY(-4px);
+        }
+
+        .status-card .icon {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+            display: inline-block;
+        }
+        .status-card .icon.green { color: #00ff88; }
+        .status-card .icon.red { color: #ff4444; }
+        .status-card .icon.yellow { color: #ffcc00; }
+        .status-card .icon.gray { color: #665a50; }
+
+        .status-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #f0e0d0;
+            margin-bottom: 4px;
+        }
+
+        .status-card .status-text {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin: 6px 0 4px;
+        }
+        .status-card .status-text.online { color: #00ff88; }
+        .status-card .status-text.offline { color: #ff4444; }
+        .status-card .status-text.warning { color: #ffcc00; }
+
+        .status-card .detail {
+            font-size: 0.8rem;
+            color: #8a7a70;
+            margin-top: 8px;
+            border-top: 1px solid rgba(255, 100, 0, 0.06);
+            padding-top: 10px;
+        }
+
+        .status-card .detail span {
+            display: inline-block;
+            margin-right: 16px;
+        }
+        .status-card .detail i { width: 16px; color: #ff6a00; }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 14px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 6px;
+        }
+        .badge.green { background: rgba(0, 255, 136, 0.12); color: #00ff88; border: 1px solid rgba(0, 255, 136, 0.15); }
+        .badge.red { background: rgba(255, 68, 68, 0.12); color: #ff4444; border: 1px solid rgba(255, 68, 68, 0.15); }
+        .badge.yellow { background: rgba(255, 204, 0, 0.12); color: #ffcc00; border: 1px solid rgba(255, 204, 0, 0.15); }
+        .badge.gray { background: rgba(255, 255, 255, 0.04); color: #665a50; border: 1px solid rgba(255, 255, 255, 0.06); }
+
+        /* Footer */
+        .footer {
+            margin-top: 60px;
+            text-align: center;
+            font-size: 0.85rem;
+            color: #5a4a40;
+            border-top: 1px solid rgba(255, 100, 0, 0.06);
+            padding-top: 30px;
+        }
+        .footer a { color: #8a7a70; text-decoration: none; transition: color 0.2s; }
+        .footer a:hover { color: #ff8c00; }
+
+        .last-updated {
+            font-size: 0.75rem;
+            color: #5a4a40;
+            margin-top: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 { font-size: 1.6rem; }
+            .status-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Zurück</a>
+            <h1><i class="fas fa-server" style="color: #ff6a00; -webkit-text-fill-color: #ff6a00;"></i> Bot-Status</h1>
+        </div>
+
+        <!-- Status Grid -->
+        <div class="status-grid" id="statusGrid">
+            <!-- Wird per JS befüllt -->
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <a href="index.html"><i class="fas fa-home"></i> Zurück zur Hauptseite</a>
+            <div class="last-updated" id="lastUpdated">🔄 Wird geladen…</div>
+        </footer>
+    </div>
+
+    <script>
+        (function() {
+            'use strict';
+
+            // ============================================================
+            // BOT-STATUS DATEN (Hier kannst du die Werte anpassen)
+            // ============================================================
+            const statusData = {
+                bot: {
+                    name: 'ImBurniBot',
+                    status: 'online',      // 'online' | 'offline' | 'warning'
+                    uptime: '12h 34m',
+                    version: 'v2.4.1',
+                    lastRestart: 'Heute, 08:15 Uhr'
+                },
+                spotify: {
+                    status: 'online',
+                    connected: true,
+                    currentSong: 'Songname - Künstler',
+                    device: 'PC (Windows)'
+                },
+                twitch: {
+                    status: 'online',
+                    connected: true,
+                    channel: 'ImBurni',
+                    viewers: 42
+                },
+                discord: {
+                    status: 'online',
+                    connected: true,
+                    server: 'ImBurni Community',
+                    members: 127
+                },
+                database: {
+                    status: 'online',
+                    connected: true,
+                    lastSync: 'Vor 2 Minuten'
+                }
+            };
+
+            // ============================================================
+            // RENDER FUNKTION
+            // ============================================================
+            function renderStatus() {
+                const grid = document.getElementById('statusGrid');
+
+                const cards = [
+                    {
+                        icon: 'fa-robot',
+                        iconColor: statusData.bot.status === 'online' ? 'green' : statusData.bot.status === 'warning' ? 'yellow' : 'red',
+                        title: '🤖 Bot',
+                        status: statusData.bot.status === 'online' ? '🟢 Online' : statusData.bot.status === 'warning' ? '🟡 Achtung' : '🔴 Offline',
+                        statusClass: statusData.bot.status === 'online' ? 'online' : statusData.bot.status === 'warning' ? 'warning' : 'offline',
+                        badge: statusData.bot.status === 'online' ? 'green' : statusData.bot.status === 'warning' ? 'yellow' : 'red',
+                        badgeText: statusData.bot.status === 'online' ? 'Aktiv' : statusData.bot.status === 'warning' ? 'Warnung' : 'Inaktiv',
+                        details: [
+                            { icon: 'fa-clock', text: `Uptime: ${statusData.bot.uptime}` },
+                            { icon: 'fa-tag', text: `Version: ${statusData.bot.version}` },
+                            { icon: 'fa-redo', text: `Neustart: ${statusData.bot.lastRestart}` }
+                        ]
+                    },
+                    {
+                        icon: 'fa-spotify',
+                        iconColor: statusData.spotify.status === 'online' ? 'green' : 'red',
+                        title: '🎵 Spotify',
+                        status: statusData.spotify.connected ? '🟢 Verbunden' : '🔴 Getrennt',
+                        statusClass: statusData.spotify.connected ? 'online' : 'offline',
+                        badge: statusData.spotify.connected ? 'green' : 'red',
+                        badgeText: statusData.spotify.connected ? 'Verbunden' : 'Getrennt',
+                        details: [
+                            { icon: 'fa-music', text: `Song: ${statusData.spotify.currentSong}` },
+                            { icon: 'fa-device', text: `Gerät: ${statusData.spotify.device}` }
+                        ]
+                    },
+                    {
+                        icon: 'fa-twitch',
+                        iconColor: statusData.twitch.status === 'online' ? 'green' : 'red',
+                        title: '📺 Twitch',
+                        status: statusData.twitch.connected ? '🟢 Verbunden' : '🔴 Getrennt',
+                        statusClass: statusData.twitch.connected ? 'online' : 'offline',
+                        badge: statusData.twitch.connected ? 'green' : 'red',
+                        badgeText: statusData.twitch.connected ? 'Verbunden' : 'Getrennt',
+                        details: [
+                            { icon: 'fa-user', text: `Channel: ${statusData.twitch.channel}` },
+                            { icon: 'fa-eye', text: `Viewer: ${statusData.twitch.viewers}` }
+                        ]
+                    },
+                    {
+                        icon: 'fa-discord',
+                        iconColor: statusData.discord.status === 'online' ? 'green' : 'red',
+                        title: '💬 Discord',
+                        status: statusData.discord.connected ? '🟢 Verbunden' : '🔴 Getrennt',
+                        statusClass: statusData.discord.connected ? 'online' : 'offline',
+                        badge: statusData.discord.connected ? 'green' : 'red',
+                        badgeText: statusData.discord.connected ? 'Verbunden' : 'Getrennt',
+                        details: [
+                            { icon: 'fa-server', text: `Server: ${statusData.discord.server}` },
+                            { icon: 'fa-users', text: `Mitglieder: ${statusData.discord.members}` }
+                        ]
+                    },
+                    {
+                        icon: 'fa-database',
+                        iconColor: statusData.database.status === 'online' ? 'green' : 'red',
+                        title: '🗄️ Datenbank',
+                        status: statusData.database.connected ? '🟢 Verbunden' : '🔴 Getrennt',
+                        statusClass: statusData.database.connected ? 'online' : 'offline',
+                        badge: statusData.database.connected ? 'green' : 'red',
+                        badgeText: statusData.database.connected ? 'Verbunden' : 'Getrennt',
+                        details: [
+                            { icon: 'fa-sync', text: `Letzte Sync: ${statusData.database.lastSync}` }
+                        ]
+                    }
+                ];
+
+                grid.innerHTML = cards.map(card => `
+                    <div class="status-card">
+                        <div class="icon ${card.iconColor}"><i class="fab ${card.icon}"></i></div>
+                        <h3>${card.title}</h3>
+                        <div class="status-text ${card.statusClass}">${card.status}</div>
+                        <span class="badge ${card.badge}">${card.badgeText}</span>
+                        <div class="detail">
+                            ${card.details.map(d => `<span><i class="fas ${d.icon}"></i> ${d.text}</span>`).join('')}
+                        </div>
+                    </div>
+                `).join('');
+
+                // Letzte Aktualisierung
+                const now = new Date();
+                document.getElementById('lastUpdated').textContent =
+                    `🔄 Zuletzt aktualisiert: ${now.toLocaleString('de-DE')}`;
+            }
+
+            // ============================================================
+            // LIVE-UPDATE SIMULATION (alle 30 Sekunden)
+            // ============================================================
+            renderStatus();
+
+            // Hier könntest du später eine echte API abfragen
+            setInterval(() => {
+                // StatusData könnte hier neu geladen werden
+                // renderStatus();
+            }, 30000);
+
+            console.log('📊 Bot-Status Seite geladen!');
+        })();
+    </script>
+</body>
+</html>
