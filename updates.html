@@ -290,7 +290,26 @@
                 const container = document.getElementById('updateList');
 
                 container.innerHTML = updates.map(update => `
-                    <div class="update-card">
+                            <div class="update-card">
+            <div>
+                <span class="version">v2.5.0</span>
+                <span class="date"><i class="far fa-calendar-alt"></i> 07.08.2026</span>
+                <span class="tag stable">Stable</span>
+            </div>
+            <div class="title">API Status + Update hinzugefügt</div>
+            <ul class="changes">
+                        <li class="added">🔥 Die</li>
+                        <li class="added">🔥 Website</li>
+                        <li class="added">🔥 geht</li>
+                        <li class="added">🔥 wieder</li>
+                        <li class="added">🔥 und</li>
+                        <li class="added">🔥 hat</li>
+                        <li class="added">🔥 ein</li>
+                        <li class="added">🔥 Funktionsupdate</li>
+                        <li class="added">🔥 bekommen</li>
+            </ul>
+        </div>
+<div class="update-card">
                         <div>
                             <span class="version">${update.version}</span>
                             <span class="date"><i class="far fa-calendar-alt"></i> ${update.date}</span>
