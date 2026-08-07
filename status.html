@@ -77,82 +77,142 @@
             -webkit-text-fill-color: transparent;
         }
 
-        .status-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 24px;
-            margin-top: 20px;
-        }
-
-        .status-card {
+        .bot-status-card {
             background: rgba(255, 60, 0, 0.04);
-            border: 1px solid rgba(255, 100, 0, 0.08);
-            border-radius: 24px;
-            padding: 28px 24px;
+            border: 1px solid rgba(255, 100, 0, 0.12);
+            border-radius: 32px;
+            padding: 40px 36px;
+            margin-bottom: 30px;
+            text-align: center;
             transition: all 0.3s ease;
         }
-        .status-card:hover {
-            border-color: rgba(255, 150, 0, 0.20);
+        .bot-status-card:hover {
+            border-color: rgba(255, 150, 0, 0.25);
             transform: translateY(-4px);
         }
 
-        .status-card .icon {
-            font-size: 2.5rem;
+        .bot-status-card .bot-icon {
+            font-size: 4rem;
             margin-bottom: 12px;
-            display: inline-block;
         }
-        .status-card .icon.green { color: #00ff88; }
-        .status-card .icon.red { color: #ff4444; }
-        .status-card .icon.yellow { color: #ffcc00; }
-        .status-card .icon.gray { color: #665a50; }
+        .bot-status-card .bot-icon.green { color: #00ff88; }
+        .bot-status-card .bot-icon.red { color: #ff4444; }
+        .bot-status-card .bot-icon.yellow { color: #ffcc00; }
 
-        .status-card h3 {
-            font-size: 1.1rem;
-            font-weight: 700;
+        .bot-status-card .bot-name {
+            font-size: 1.8rem;
+            font-weight: 800;
             color: #f0e0d0;
-            margin-bottom: 4px;
         }
 
-        .status-card .status-text {
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin: 6px 0 4px;
+        .bot-status-card .bot-status-text {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin: 8px 0 4px;
         }
-        .status-card .status-text.online { color: #00ff88; }
-        .status-card .status-text.offline { color: #ff4444; }
-        .status-card .status-text.warning { color: #ffcc00; }
+        .bot-status-card .bot-status-text.online { color: #00ff88; }
+        .bot-status-card .bot-status-text.offline { color: #ff4444; }
+        .bot-status-card .bot-status-text.warning { color: #ffcc00; }
 
-        .status-card .detail {
-            font-size: 0.8rem;
-            color: #8a7a70;
-            margin-top: 8px;
-            border-top: 1px solid rgba(255, 100, 0, 0.06);
-            padding-top: 10px;
-        }
-
-        .status-card .detail span {
+        .bot-status-card .bot-badge {
             display: inline-block;
-            margin-right: 16px;
-        }
-        .status-card .detail i { width: 16px; color: #ff6a00; }
-
-        .badge {
-            display: inline-block;
-            padding: 4px 14px;
+            padding: 6px 24px;
             border-radius: 40px;
-            font-size: 0.7rem;
+            font-size: 0.8rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.5px;
             margin-top: 6px;
         }
-        .badge.green { background: rgba(0, 255, 136, 0.12); color: #00ff88; border: 1px solid rgba(0, 255, 136, 0.15); }
-        .badge.red { background: rgba(255, 68, 68, 0.12); color: #ff4444; border: 1px solid rgba(255, 68, 68, 0.15); }
-        .badge.yellow { background: rgba(255, 204, 0, 0.12); color: #ffcc00; border: 1px solid rgba(255, 204, 0, 0.15); }
-        .badge.gray { background: rgba(255, 255, 255, 0.04); color: #665a50; border: 1px solid rgba(255, 255, 255, 0.06); }
+        .bot-status-card .bot-badge.green { background: rgba(0, 255, 136, 0.12); color: #00ff88; border: 1px solid rgba(0, 255, 136, 0.15); }
+        .bot-status-card .bot-badge.red { background: rgba(255, 68, 68, 0.12); color: #ff4444; border: 1px solid rgba(255, 68, 68, 0.15); }
+        .bot-status-card .bot-badge.yellow { background: rgba(255, 204, 0, 0.12); color: #ffcc00; border: 1px solid rgba(255, 204, 0, 0.15); }
+
+        .bot-status-card .bot-details {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 16px;
+            font-size: 0.9rem;
+            color: #8a7a70;
+        }
+        .bot-status-card .bot-details span i { color: #ff6a00; margin-right: 6px; }
+
+        .api-section {
+            margin-top: 10px;
+        }
+
+        .api-section .api-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #8a7a70;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+            border-bottom: 1px solid rgba(255, 100, 0, 0.06);
+            padding-bottom: 10px;
+        }
+
+        .api-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+        }
+
+        .api-item {
+            background: rgba(255, 60, 0, 0.03);
+            border: 1px solid rgba(255, 100, 0, 0.06);
+            border-radius: 16px;
+            padding: 14px 18px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            transition: all 0.3s ease;
+        }
+        .api-item:hover {
+            border-color: rgba(255, 150, 0, 0.15);
+        }
+
+        .api-item .api-icon {
+            font-size: 1.3rem;
+            width: 32px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+        .api-item .api-icon.green { color: #00ff88; }
+        .api-item .api-icon.red { color: #ff4444; }
+        .api-item .api-icon.yellow { color: #ffcc00; }
+
+        .api-item .api-info {
+            flex: 1;
+            min-width: 0;
+        }
+        .api-item .api-info .api-name {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #f0e0d0;
+        }
+        .api-item .api-info .api-status {
+            font-size: 0.75rem;
+            color: #8a7a70;
+        }
+        .api-item .api-info .api-status .online { color: #00ff88; }
+        .api-item .api-info .api-status .offline { color: #ff4444; }
+
+        .api-item .api-badge {
+            font-size: 0.55rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 2px 10px;
+            border-radius: 40px;
+            flex-shrink: 0;
+        }
+        .api-item .api-badge.green { background: rgba(0, 255, 136, 0.10); color: #00ff88; border: 1px solid rgba(0, 255, 136, 0.08); }
+        .api-item .api-badge.red { background: rgba(255, 68, 68, 0.10); color: #ff4444; border: 1px solid rgba(255, 68, 68, 0.08); }
 
         .footer {
-            margin-top: 60px;
+            margin-top: 40px;
             text-align: center;
             font-size: 0.85rem;
             color: #5a4a40;
@@ -168,16 +228,21 @@
             margin-top: 8px;
         }
 
-        .status-loading {
+        .loading-text {
             text-align: center;
-            padding: 40px;
             color: #8a7a70;
+            padding: 20px;
             grid-column: 1 / -1;
         }
 
         @media (max-width: 768px) {
             .header h1 { font-size: 1.6rem; }
-            .status-grid { grid-template-columns: 1fr; }
+            .bot-status-card { padding: 28px 20px; }
+            .bot-status-card .bot-icon { font-size: 3rem; }
+            .bot-status-card .bot-name { font-size: 1.4rem; }
+            .bot-status-card .bot-status-text { font-size: 1.1rem; }
+            .bot-status-card .bot-details { gap: 14px; font-size: 0.8rem; }
+            .api-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -189,10 +254,12 @@
             <h1><i class="fas fa-server" style="color: #ff6a00; -webkit-text-fill-color: #ff6a00;"></i> Bot-Status</h1>
         </div>
 
-        <div class="status-grid" id="statusGrid">
-            <div class="status-loading">
-                <i class="fas fa-spinner fa-spin" style="font-size: 2rem;"></i>
-                <p style="margin-top: 12px;">Lade Status...</p>
+        <div class="bot-status-card" id="botStatusCard"></div>
+
+        <div class="api-section">
+            <div class="api-title"><i class="fas fa-plug"></i> Öffentliche API-Status</div>
+            <div class="api-grid" id="apiGrid">
+                <div class="loading-text"><i class="fas fa-spinner fa-spin"></i> Lade API-Status...</div>
             </div>
         </div>
 
@@ -207,146 +274,60 @@
             'use strict';
 
             // ============================================================
-            // BOT-STATUS (wird vom Plugin gesetzt - NUR DAS WIRD GEÄNDERT!)
+            // BOT-STATUS
             // ============================================================
-            const statusData = {
-                bot: {
-        name: 'ImBurniBot',
-        status: 'warning',
-        uptime: 'Aktiv',
-        version: 'v2.4.1',
-        lastRestart: '07.08.2026, 17:04 Uhr'
-    }
+            const botStatus = {
+                name: 'ImBurniBot',
+                status: 'online',
+                uptime: 'Aktiv',
+                version: 'v2.4.1',
+                lastRestart: '07.08.2026, 16:24 Uhr'
             };
 
             // ============================================================
-            // ÖFFENTLICHE API STATUS CHECKS
+            // API STATUS CHECKS (NUR SPOTIFY & DATENBANK)
             // ============================================================
-
-            async function checkTwitchStatus() {
-                try {
-                    const [uptimeRes, viewersRes] = await Promise.all([
-                        fetch('https://decapi.me/twitch/uptime/imburni', { cache: 'no-store' }),
-                        fetch('https://decapi.me/twitch/viewercount/imburni', { cache: 'no-store' })
-                    ]);
-
-                    const uptime = await uptimeRes.text();
-                    const viewers = await viewersRes.text();
-
-                    const isLive = uptime && !uptime.toLowerCase().includes('offline') && !uptime.includes('404');
-                    const viewerCount = parseInt(viewers) || 0;
-
-                    return {
-                        status: isLive ? 'online' : 'offline',
-                        connected: true,
-                        channel: 'ImBurni',
-                        viewers: isLive ? `${viewerCount}` : 'Offline',
-                        detail: isLive ? `🟢 LIVE (${viewerCount} Viewer)` : '🔴 Offline'
-                    };
-                } catch (error) {
-                    return {
-                        status: 'offline',
-                        connected: false,
-                        channel: 'ImBurni',
-                        viewers: 'Fehler',
-                        detail: '❌ API nicht erreichbar'
-                    };
-                }
-            }
 
             async function checkSpotifyStatus() {
                 try {
-                    // Öffentlicher Spotify Web API Status
-                    // Wir prüfen den Status der Spotify API
                     const res = await fetch('https://api.spotify.com/v1/search?q=test&type=track&limit=1', {
+                        cache: 'no-store',
                         headers: { 'Accept': 'application/json' }
                     });
                     
-                    if (res.status === 200) {
+                    if (res.status === 200 || res.status === 401 || res.status === 403) {
                         return {
+                            name: 'Spotify',
+                            icon: 'fa-spotify',
                             status: 'online',
-                            connected: true,
-                            currentSong: '✅ API erreichbar',
-                            device: 'Public API',
-                            detail: '🟢 API erreichbar'
-                        };
-                    } else if (res.status === 401 || res.status === 403) {
-                        return {
-                            status: 'warning',
-                            connected: false,
-                            currentSong: '🟡 API benötigt Auth',
-                            device: 'Public API',
-                            detail: '🟡 Authentifizierung erforderlich'
+                            detail: 'API erreichbar',
+                            badge: 'green',
+                            badgeText: 'Online'
                         };
                     } else {
                         return {
+                            name: 'Spotify',
+                            icon: 'fa-spotify',
                             status: 'offline',
-                            connected: false,
-                            currentSong: '❌ API nicht erreichbar',
-                            device: 'Public API',
-                            detail: `🔴 Status: ${res.status}`
+                            detail: `Status: ${res.status}`,
+                            badge: 'red',
+                            badgeText: 'Offline'
                         };
                     }
                 } catch (error) {
                     return {
+                        name: 'Spotify',
+                        icon: 'fa-spotify',
                         status: 'offline',
-                        connected: false,
-                        currentSong: '❌ API nicht erreichbar',
-                        device: 'Public API',
-                        detail: '🔴 Spotify API offline'
-                    };
-                }
-            }
-
-            async function checkDiscordStatus() {
-                try {
-                    // Öffentlicher Discord Server Widget
-                    const res = await fetch('https://discord.com/api/v10/guilds/744192376393957396/widget.json', {
-                        cache: 'no-store'
-                    });
-                    
-                    if (res.status === 200) {
-                        const data = await res.json();
-                        const members = data.members ? data.members.length : 0;
-                        const presence = data.presence_count || 0;
-                        return {
-                            status: 'online',
-                            connected: true,
-                            server: 'ImBurni Community',
-                            members: `${members} Mitglieder (${presence} online)`,
-                            detail: `🟢 Online (${members} Mitglieder)`
-                        };
-                    } else if (res.status === 404) {
-                        return {
-                            status: 'offline',
-                            connected: false,
-                            server: 'Widget deaktiviert',
-                            members: '-',
-                            detail: '🔴 Discord Widget deaktiviert'
-                        };
-                    } else {
-                        return {
-                            status: 'warning',
-                            connected: false,
-                            server: 'API Fehler',
-                            members: '-',
-                            detail: `🟡 Status: ${res.status}`
-                        };
-                    }
-                } catch (error) {
-                    return {
-                        status: 'offline',
-                        connected: false,
-                        server: 'Nicht erreichbar',
-                        members: '-',
-                        detail: '🔴 Discord API offline'
+                        detail: 'Nicht erreichbar',
+                        badge: 'red',
+                        badgeText: 'Offline'
                     };
                 }
             }
 
             async function checkDatabaseStatus() {
                 try {
-                    // GitHub API Status (Datenbank-Server)
                     const start = Date.now();
                     const res = await fetch('https://api.github.com/rate_limit', {
                         cache: 'no-store',
@@ -356,25 +337,31 @@
                     
                     if (res.status === 200) {
                         return {
+                            name: 'Datenbank',
+                            icon: 'fa-database',
                             status: 'online',
-                            connected: true,
-                            lastSync: `${ping}ms Ping`,
-                            detail: `🟢 Online (${ping}ms)`
+                            detail: `${ping}ms Ping`,
+                            badge: 'green',
+                            badgeText: 'Online'
                         };
                     } else {
                         return {
-                            status: 'warning',
-                            connected: false,
-                            lastSync: `Status: ${res.status}`,
-                            detail: `🟡 Status: ${res.status}`
+                            name: 'Datenbank',
+                            icon: 'fa-database',
+                            status: 'offline',
+                            detail: `Status: ${res.status}`,
+                            badge: 'red',
+                            badgeText: 'Offline'
                         };
                     }
                 } catch (error) {
                     return {
+                        name: 'Datenbank',
+                        icon: 'fa-database',
                         status: 'offline',
-                        connected: false,
-                        lastSync: '❌ Nicht erreichbar',
-                        detail: '🔴 GitHub API offline'
+                        detail: 'Nicht erreichbar',
+                        badge: 'red',
+                        badgeText: 'Offline'
                     };
                 }
             }
@@ -383,119 +370,70 @@
             // RENDER FUNKTION
             // ============================================================
 
-            function renderStatus(twitch, spotify, discord, database) {
-                const grid = document.getElementById('statusGrid');
+            function renderBotStatus() {
+                const card = document.getElementById('botStatusCard');
 
-                const botStatus = statusData.bot.status || 'online';
-                const botMap = {
+                const statusMap = {
                     'online': { icon: 'green', text: '🟢 Online', class: 'online', badge: 'green', badgeText: 'Aktiv' },
                     'offline': { icon: 'red', text: '🔴 Offline', class: 'offline', badge: 'red', badgeText: 'Inaktiv' },
                     'warning': { icon: 'yellow', text: '🟡 Achtung', class: 'warning', badge: 'yellow', badgeText: 'Warnung' }
                 };
-                const bot = botMap[botStatus] || botMap['online'];
 
-                const cards = [
-                    {
-                        icon: 'fa-robot',
-                        iconColor: bot.icon,
-                        title: '🤖 Bot',
-                        status: bot.text,
-                        statusClass: bot.class,
-                        badge: bot.badge,
-                        badgeText: bot.badgeText,
-                        details: [
-                            { icon: 'fa-clock', text: `Uptime: ${statusData.bot.uptime || 'Aktiv'}` },
-                            { icon: 'fa-tag', text: `Version: ${statusData.bot.version || 'v2.4.1'}` },
-                            { icon: 'fa-redo', text: `Neustart: ${statusData.bot.lastRestart || '-'}` }
-                        ]
-                    },
-                    {
-                        icon: 'fa-spotify',
-                        iconColor: spotify.status === 'online' ? 'green' : spotify.status === 'warning' ? 'yellow' : 'red',
-                        title: '🎵 Spotify',
-                        status: spotify.connected ? '🟢 Online' : '🔴 Offline',
-                        statusClass: spotify.connected ? 'online' : 'offline',
-                        badge: spotify.connected ? 'green' : 'red',
-                        badgeText: spotify.connected ? 'Online' : 'Offline',
-                        details: [
-                            { icon: 'fa-music', text: `Status: ${spotify.currentSong || '-'}` },
-                            { icon: 'fa-device', text: `API: ${spotify.device || '-'}` }
-                        ]
-                    },
-                    {
-                        icon: 'fa-twitch',
-                        iconColor: twitch.status === 'online' ? 'green' : 'red',
-                        title: '📺 Twitch',
-                        status: twitch.connected ? '🟢 Online' : '🔴 Offline',
-                        statusClass: twitch.connected ? 'online' : 'offline',
-                        badge: twitch.connected ? 'green' : 'red',
-                        badgeText: twitch.connected ? 'Online' : 'Offline',
-                        details: [
-                            { icon: 'fa-user', text: `Channel: ${twitch.channel || '-'}` },
-                            { icon: 'fa-eye', text: `Viewer: ${twitch.viewers || '-'}` }
-                        ]
-                    },
-                    {
-                        icon: 'fa-discord',
-                        iconColor: discord.status === 'online' ? 'green' : discord.status === 'warning' ? 'yellow' : 'red',
-                        title: '💬 Discord',
-                        status: discord.connected ? '🟢 Online' : '🔴 Offline',
-                        statusClass: discord.connected ? 'online' : 'offline',
-                        badge: discord.connected ? 'green' : 'red',
-                        badgeText: discord.connected ? 'Online' : 'Offline',
-                        details: [
-                            { icon: 'fa-server', text: `Server: ${discord.server || '-'}` },
-                            { icon: 'fa-users', text: `Mitglieder: ${discord.members || '-'}` }
-                        ]
-                    },
-                    {
-                        icon: 'fa-database',
-                        iconColor: database.status === 'online' ? 'green' : 'red',
-                        title: '🗄️ Datenbank',
-                        status: database.connected ? '🟢 Online' : '🔴 Offline',
-                        statusClass: database.connected ? 'online' : 'offline',
-                        badge: database.connected ? 'green' : 'red',
-                        badgeText: database.connected ? 'Online' : 'Offline',
-                        details: [
-                            { icon: 'fa-sync', text: `Status: ${database.lastSync || '-'}` }
-                        ]
-                    }
-                ];
+                const s = statusMap[botStatus.status] || statusMap['online'];
 
-                grid.innerHTML = cards.map(card => `
-                    <div class="status-card">
-                        <div class="icon ${card.iconColor}"><i class="fab ${card.icon}"></i></div>
-                        <h3>${card.title}</h3>
-                        <div class="status-text ${card.statusClass}">${card.status}</div>
-                        <span class="badge ${card.badge}">${card.badgeText}</span>
-                        <div class="detail">
-                            ${card.details.map(d => `<span><i class="fas ${d.icon}"></i> ${d.text}</span>`).join('')}
+                card.innerHTML = `
+                    <div class="bot-icon ${s.icon}"><i class="fas fa-robot"></i></div>
+                    <div class="bot-name">${botStatus.name}</div>
+                    <div class="bot-status-text ${s.class}">${s.text}</div>
+                    <span class="bot-badge ${s.badge}">${s.badgeText}</span>
+                    <div class="bot-details">
+                        <span><i class="fas fa-clock"></i> Uptime: ${botStatus.uptime}</span>
+                        <span><i class="fas fa-tag"></i> Version: ${botStatus.version}</span>
+                        <span><i class="fas fa-redo"></i> Neustart: ${botStatus.lastRestart}</span>
+                    </div>
+                `;
+            }
+
+            function renderApiStatus(apis) {
+                const grid = document.getElementById('apiGrid');
+
+                grid.innerHTML = apis.map(api => `
+                    <div class="api-item">
+                        <div class="api-icon ${api.status === 'online' ? 'green' : 'red'}">
+                            <i class="fab ${api.icon}"></i>
                         </div>
+                        <div class="api-info">
+                            <div class="api-name">${api.name}</div>
+                            <div class="api-status">
+                                <span class="${api.status}">${api.status === 'online' ? '🟢 Online' : '🔴 Offline'}</span>
+                                <span style="color: #665a50; margin-left: 6px;">· ${api.detail}</span>
+                            </div>
+                        </div>
+                        <span class="api-badge ${api.badge}">${api.badgeText}</span>
                     </div>
                 `).join('');
-
-                const now = new Date();
-                document.getElementById('lastUpdated').textContent =
-                    `🔄 Zuletzt aktualisiert: ${now.toLocaleString('de-DE')}`;
             }
 
             // ============================================================
-            // UPDATE ALLE 30 SEKUNDEN
+            // UPDATE
             // ============================================================
 
             async function updateAllStatus() {
                 try {
-                    const [twitch, spotify, discord, database] = await Promise.all([
-                        checkTwitchStatus(),
+                    const [spotify, database] = await Promise.all([
                         checkSpotifyStatus(),
-                        checkDiscordStatus(),
                         checkDatabaseStatus()
                     ]);
 
-                    renderStatus(twitch, spotify, discord, database);
+                    renderBotStatus();
+                    renderApiStatus([spotify, database]);
+
+                    const now = new Date();
+                    document.getElementById('lastUpdated').textContent =
+                        `🔄 Zuletzt aktualisiert: ${now.toLocaleString('de-DE')}`;
 
                 } catch (error) {
-                    console.error('Fehler beim Updaten:', error);
+                    console.error('Fehler:', error);
                     document.getElementById('lastUpdated').textContent = '⚠️ Fehler beim Aktualisieren';
                 }
             }
@@ -504,10 +442,11 @@
             // START
             // ============================================================
 
+            renderBotStatus();
             updateAllStatus();
             setInterval(updateAllStatus, 30000);
 
-            console.log('📊 Bot-Status Seite mit öffentlichen APIs geladen!');
+            console.log('📊 Bot-Status Seite geladen!');
         })();
     </script>
 
