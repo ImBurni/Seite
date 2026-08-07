@@ -1029,7 +1029,7 @@
             </div>
         </header>
 
-        <!-- ===== SLIDER / CAROUSEL ===== -->
+        <!-- ===== SLIDER / CAROUSEL - NUR MIT STATUS ===== -->
         <section class="slider-section">
             <div class="slider-container" id="sliderContainer">
                 <button class="slider-btn prev" id="sliderPrev"><i class="fas fa-chevron-left"></i></button>
@@ -1041,12 +1041,6 @@
                             <div class="title">Bot-Status</div>
                             <div class="desc">Live-Status &amp; Verbindungen</div>
                             <span class="badge green">Jetzt ansehen</span>
-                        </a>
-                        <a href="updates.html" class="slide-item">
-                            <div class="icon gold"><i class="fas fa-sync-alt"></i></div>
-                            <div class="title">Updates</div>
-                            <div class="desc">Changelog &amp; Neuerungen</div>
-                            <span class="badge gold">Jetzt ansehen</span>
                         </a>
                         <a href="#apply" class="slide-item">
                             <div class="icon fire"><i class="fas fa-hand-paper"></i></div>
@@ -1060,15 +1054,15 @@
                             <div class="desc">Support &amp; Community</div>
                             <span class="badge">Beitreten</span>
                         </a>
-                    </div>
-                    <!-- Slide 2 -->
-                    <div class="slider-slide">
                         <a href="#features" class="slide-item">
                             <div class="icon purple"><i class="fas fa-cube"></i></div>
                             <div class="title">Features</div>
                             <div class="desc">Alle Funktionen im Überblick</div>
                             <span class="badge purple">Entdecken</span>
                         </a>
+                    </div>
+                    <!-- Slide 2 -->
+                    <div class="slider-slide">
                         <a href="#commands" class="slide-item">
                             <div class="icon pink"><i class="fas fa-terminal"></i></div>
                             <div class="title">Befehle</div>
@@ -1084,6 +1078,12 @@
                         <a href="https://twitch.tv/Lero_361" target="_blank" class="slide-item">
                             <div class="icon purple"><i class="fab fa-twitch"></i></div>
                             <div class="title">Lero_361</div>
+                            <div class="desc">Partner-Streamer</div>
+                            <span class="badge">Folgen</span>
+                        </a>
+                        <a href="https://twitch.tv/lucilas1" target="_blank" class="slide-item">
+                            <div class="icon pink"><i class="fab fa-twitch"></i></div>
+                            <div class="title">lucilas1</div>
                             <div class="desc">Partner-Streamer</div>
                             <span class="badge">Folgen</span>
                         </a>
@@ -1344,7 +1344,6 @@
                 <a href="#features"><i class="fas fa-cube"></i> Features</a>
                 <a href="#apply"><i class="fas fa-hand-paper"></i> Zugang</a>
                 <a href="status.html"><i class="fas fa-server"></i> Bot-Status</a>
-                <a href="updates.html"><i class="fas fa-sync-alt"></i> Updates</a>
                 <a href="https://discord.gg/ENneVkA3Py" target="_blank"><i class="fab fa-discord"></i> Discord</a>
                 <a href="https://twitch.tv/ImBurni" target="_blank"><i class="fab fa-twitch"></i> ImBurni</a>
                 <a href="https://twitch.tv/Lero_361" target="_blank"><i class="fab fa-twitch"></i> Lero_361</a>
@@ -1409,7 +1408,6 @@
                 }
             }
 
-            // Event Listener
             prevBtn.addEventListener('click', function() {
                 stopAutoSlide();
                 prevSlide();
@@ -1431,7 +1429,6 @@
                 });
             });
 
-            // Touch Support für Mobile
             let touchStartX = 0;
             let touchEndX = 0;
             const container = document.getElementById('sliderContainer');
@@ -1454,11 +1451,9 @@
                 startAutoSlide();
             });
 
-            // Pause bei Hover
             container.addEventListener('mouseenter', stopAutoSlide);
             container.addEventListener('mouseleave', startAutoSlide);
 
-            // Start
             goToSlide(0);
             startAutoSlide();
 
