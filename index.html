@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="ImBurni_Bot Community Edition / ImBurni_Bot 1.2.3 – Twitch, Spotify, Discord und Community-Automation.">
+<title>ImBurni_Bot · Community Edition 1.2.3</title>
+<style>
+:root{--bg:#080a0f;--panel:#10141d;--panel2:#151b27;--text:#f5f7fb;--muted:#9da8ba;--green:#1ed760;--purple:#9146ff;--line:#252c39;--glow:rgba(30,215,96,.22)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:radial-gradient(circle at 20% 0%,#17261e 0,transparent 32%),radial-gradient(circle at 90% 10%,#201439 0,transparent 28%),var(--bg);color:var(--text)}
+a{color:inherit;text-decoration:none}.wrap{width:min(1180px,92%);margin:auto}
+nav{position:sticky;top:0;z-index:10;backdrop-filter:blur(18px);background:rgba(8,10,15,.78);border-bottom:1px solid rgba(255,255,255,.06)}nav .wrap{height:70px;display:flex;align-items:center;justify-content:space-between}.brand{font-weight:900;letter-spacing:-.5px}.brand b{color:var(--green)}.navlinks{display:flex;gap:24px;color:var(--muted);font-size:14px}.navlinks a:hover{color:white}
+.hero{padding:110px 0 75px;text-align:center}.badge{display:inline-flex;gap:8px;align-items:center;padding:8px 13px;border:1px solid rgba(30,215,96,.35);background:rgba(30,215,96,.08);border-radius:999px;color:#83f5aa;font-size:13px;font-weight:700}
+.hero h1{font-size:clamp(44px,8vw,88px);line-height:.96;letter-spacing:-4px;margin:25px auto 20px;max-width:1000px}.hero h1 span{background:linear-gradient(90deg,var(--green),#72f2a0,#b694ff);-webkit-background-clip:text;color:transparent}.hero p{max-width:760px;margin:0 auto;color:var(--muted);font-size:19px;line-height:1.65}
+.actions{display:flex;justify-content:center;gap:12px;margin-top:32px;flex-wrap:wrap}.btn{padding:13px 19px;border-radius:12px;font-weight:800;border:1px solid var(--line);background:#141923}.btn.primary{background:var(--green);color:#071109;border-color:var(--green);box-shadow:0 12px 45px var(--glow)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:25px auto 80px}.stat{padding:24px;background:rgba(16,20,29,.82);border:1px solid var(--line);border-radius:18px}.stat strong{display:block;font-size:30px}.stat span{color:var(--muted);font-size:13px}
+section{padding:55px 0}.eyebrow{color:var(--green);font-size:12px;font-weight:900;letter-spacing:2px;text-transform:uppercase}h2{font-size:clamp(32px,5vw,52px);letter-spacing:-2px;margin:9px 0 13px}.lead{color:var(--muted);max-width:720px;line-height:1.7}
+.feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:30px}.feature{padding:28px;border:1px solid var(--line);background:linear-gradient(145deg,rgba(21,27,39,.94),rgba(12,15,22,.94));border-radius:20px}.feature .icon{font-size:28px}.feature h3{margin:17px 0 8px}.feature p,.plugin-card p{color:var(--muted);line-height:1.6;font-size:14px}
+.plugins{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:30px}.plugin-card{padding:22px;border:1px solid var(--line);background:rgba(16,20,29,.78);border-radius:18px;transition:.2s}.plugin-card:hover{transform:translateY(-3px);border-color:#394355}.plugin-top{display:flex;align-items:center;gap:10px}.plugin-top h3{margin:0}.dot{width:9px;height:9px;background:var(--green);border-radius:50%;box-shadow:0 0 15px var(--green)}.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}.chip{font:12px Consolas,monospace;padding:6px 8px;background:#090c12;border:1px solid #242b37;border-radius:8px;color:#cbd4e2}.chip.muted{color:#7e8999}
+.commandbox{margin-top:30px;padding:26px;border-radius:20px;background:#0b0e14;border:1px solid var(--line)}.commandbox .chips{margin:0}.architecture{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:14px;align-items:center;margin-top:32px}.node{padding:26px;text-align:center;border-radius:18px;background:var(--panel);border:1px solid var(--line)}.arrow{color:var(--green);font-size:25px}
+.notice{margin-top:30px;padding:18px 20px;border-left:3px solid var(--purple);background:rgba(145,70,255,.08);color:#c8bfdc;border-radius:8px}
+footer{margin-top:70px;padding:38px 0;border-top:1px solid var(--line);color:var(--muted);font-size:13px}footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+@media(max-width:850px){.stats{grid-template-columns:repeat(2,1fr)}.feature-grid,.plugins{grid-template-columns:1fr}.architecture{grid-template-columns:1fr}.arrow{transform:rotate(90deg)}.navlinks{display:none}.hero h1{letter-spacing:-2px}}
+
+.legal-links{display:flex;gap:9px;flex-wrap:wrap;align-items:center}
+.legal-link{border:1px solid var(--line);background:#111620;color:#c7d0dd;padding:8px 11px;border-radius:9px;font-size:12px;cursor:pointer;font-family:inherit}
+.legal-link:hover{color:#fff;border-color:#465164}
+.legal-modal{display:none;position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.76);backdrop-filter:blur(7px);padding:24px}
+.legal-modal.open{display:flex;align-items:center;justify-content:center}
+.legal-box{width:min(780px,100%);max-height:84vh;overflow:auto;background:#10141d;border:1px solid #303846;border-radius:20px;box-shadow:0 25px 100px rgba(0,0,0,.55)}
+.legal-head{position:sticky;top:0;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:18px 22px;background:rgba(16,20,29,.97);border-bottom:1px solid var(--line)}
+.legal-head h3{margin:0;font-size:20px}.legal-close{border:1px solid var(--line);background:#181e29;color:white;width:34px;height:34px;border-radius:9px;cursor:pointer;font-size:20px}
+.legal-content{padding:22px;color:#b6c0cf;line-height:1.65;font-size:14px}.legal-content strong{color:#f5f7fb}
+body.modal-open{overflow:hidden}
+
+</style>
+</head>
+<body>
+<nav><div class="wrap"><div class="brand">IMBURNI_<b>BOT</b></div><div class="navlinks"><a href="#features">Features</a><a href="#plugins">Plugins</a><a href="#commands">Commands</a><a href="#technik">Technik</a></div></div></nav>
+
+<header class="hero wrap">
+  <div class="badge">● COMMUNITY EDITION · VERSION 1.2.3</div>
+  <h1>Dein Stream.<br><span>Ein Bot für alles.</span></h1>
+  <p>ImBurni_Bot verbindet Twitch, Spotify, Discord und Community-Funktionen in einem modularen Bot-System. Songwünsche, Schutz, Ränge, Raids, Support und mehr – zentral für den Stream.</p>
+  <div class="actions"><a class="btn primary" href="https://discord.gg/ENneVkA3Py" target="_blank" rel="noopener noreferrer">Jetzt beantragen</a><a class="btn" href="#plugins">Alle Plugins ansehen</a><a class="btn" href="#commands">Commands entdecken</a></div>
+</header>
+
+<main class="wrap">
+<div class="stats">
+  <div class="stat"><strong>14</strong><span>Plugin-Module</span></div>
+  <div class="stat"><strong>51+</strong><span>erkannte Chat-Commands</span></div>
+  <div class="stat"><strong>1.2.3</strong><span>Community Edition</span></div>
+  <div class="stat"><strong>24/7</strong><span>Stream-Automation</span></div>
+</div>
+
+<section id="features">
+ <div class="eyebrow">Highlights</div><h2>Gebaut für Community-Streams.</h2>
+ <p class="lead">Der Loader erkennt Plugins automatisch. Dadurch können Funktionen ergänzt und aktualisiert werden, ohne die komplette Bot-Logik jedes Mal neu aufzubauen.</p>
+ <div class="feature-grid">
+   <div class="feature"><div class="icon">🎵</div><h3>Spotify & Songwünsche</h3><p>Songrequests, Punkte, Channel-Points, Skip-Funktionen, Songfilter, Lautstärke und Spotify-Verknüpfung.</p></div>
+   <div class="feature"><div class="icon">💜</div><h3>Twitch Community</h3><p>Followage, Raids, Ränge, VoteSkip, Challenges und automatische Verarbeitung von Chat-Events.</p></div>
+   <div class="feature"><div class="icon">🛡️</div><h3>Schutz & Verwaltung</h3><p>Anti-Followbot, Lizenzprüfung, Verifikation, Bans und zentrale Channel-Zuordnung.</p></div>
+   <div class="feature"><div class="icon">🎫</div><h3>Discord Support</h3><p>Ticket- und Verifikationssystem sowie Plugin-Anfragen und Update-Kommunikation über Discord.</p></div>
+   <div class="feature"><div class="icon">📺</div><h3>OBS Overlay</h3><p>Spotify-Informationen können als Browser-Overlay im Stream dargestellt werden – inklusive laufender Wiedergabeinformationen.</p></div>
+   <div class="feature"><div class="icon">🧩</div><h3>Plugin Loader</h3><p>Module werden automatisch geladen und können eigene Setup-, Message- und Event-Funktionen bereitstellen.</p></div>
+ </div>
+</section>
+
+<section id="plugins">
+ <div class="eyebrow">Module</div><h2>Die Plugin-Sammlung.</h2>
+ <p class="lead">Diese Übersicht wurde direkt aus den bereitgestellten Bot- und Plugin-Dateien zusammengestellt.</p>
+ <div class="plugins">
+    <article class="plugin-card">
+      <div class="plugin-top"><span class="dot"></span><h3>Anti-Followbot</h3></div>
+      <p>EventSub-basierter Schutz gegen Followbot-Angriffe mit Burst-Erkennung, Allowlist und API-schonender Prüfung.</p>
+      <div class="chips"><span class="chip">!followallow</span><span class="chip">!followguard</span><span class="chip">!followguardoff</span><span class="chip">!followguardon</span><span class="chip">!followunallow</span></div>
+    </article>
+    <article class="plugin-card">
+      <div class="plugin-top"><span class="dot"></span><h3>Discord Support</h3></div>
+      <p>Support-, Ticket- und Verifikationssystem für die Community mit Discord-Anbindung.</p>
+      <div class="chips"><span class="chip">!discord</span><span class="chip">!mytickets</span><span class="chip">!status</span><span class="chip">!support</span><span class="chip">!ticket</span><span class="chip">!tickets</span><span class="chip">!unverify</span><span class="chip">!verify</span></div>
+    </article>
+    <article class="plugin-card">
+      <div class="plugin-top"><span class="dot"></span><h3>Followage</h3></div>
+      <p>Zeigt, wie lange ein Zuschauer dem Twitch-Kanal bereits folgt.</p>
+      <div class="chips"><span class="chip">!follow</span><span class="chip">!followage</span><span class="chip">!follower</span></div>
+    </article>
+    <article class="plugin-card">
+      <div class="plugin-top"><span class="dot"></span><h3>Lizenzsystem</h3></div>
+      <p>Zentrale Lizenzprüfung für freigeschaltete Channels mit Änderungsprüfung.</p>
+      <div class="chips"><span class="chip muted">Automatisch</span></div>
+    </article>
+    <article class="plugin-card">
+      <div class="plugin-top"><span class="dot"></span><h3>1S Challenge</h3></div>
+      <p>Rocket-League Ranked-1v1-Challenges mit Fortschritt, Wins, Losses und Streaks.</p>
+      <div class="chips"><span class="chip">!1sStart</span><span class="chip">!1sstart</span><span class="chip">!1sstatus</span><span class="chip">!1sStatus</span><span class="chip">!1sStop</span><span class="chip">!1sstop</span></div>
+    </article>
+    <article class="plugin-card">
+      <div class="plugin-top"><span class="dot"></span><h3>Plugin-Anfragen</h3></div>
+      <p>Community-System für Plugin-Wünsche und Anfragen mit Discord-/GitHub-Anbindung.</p>
+      <div class="chips"><span class="chip">!coins</span><span class="chip">!give</span><span class="chip">!ping</span><span class="chip">!stats</span><span class="chip">!top</span><span class="chip">!verify</span></div>
+    </article>
+    <article class="plugin-card">
+      <div class="plugin-top"><span class="dot"></span><h3>Raid</h3></div>
+      <p>Erkennt und verarbeitet Twitch-Raids über EventSub.</p>
+      <div class="chips"><span class="chip">!raid</span></div>
+    </article>
+    <article class="plugin-card">
+      <div class="plugin-top"><span class="dot"></span><h3>Rangsystem</h3></div>
+      <p>Ränge und Belohnungen auf Basis von Songwünschen – inklusive Discord-Rollen.</p>
+      <div class="chips"><span class="chip">!rang</span><span class="chip">!rank</span><span class="chip">!rank-reset</span><span class="chip">!ranks</span></div>
+    </article>
+    <article class="plugin-card">
+      <div class="plugin-top"><span class="dot"></span><h3>Songfilter</h3></div>
+      <p>Blockiert Playlists, Alben und zu lange Songs; maximale Songlänge: 6 Minuten.</p>
+      <div class="chips"><span class="chip">!song</span></div>
+    </article>
+    <article class="plugin-card">
+      <div class="plugin-top"><span class="dot"></span><h3>Spotify</h3></div>
+      <p>Songwünsche, Spotify-Verknüpfung, Punkte, Channel-Points, Bans, Verifikation und Wiedergabesteuerung.</p>
+      <div class="chips"><span class="chip">!bans</span><span class="chip">!entbannen</span><span class="chip">!punkte</span><span class="chip">!resetwarnings</span><span class="chip">!skip</span><span class="chip">!song</span><span class="chip">!songs</span><span class="chip">!spotifyconfig</span><span class="chip">!spotifylogin</span><span class="chip">!spotifyreset</span><span class="chip">!verify</span><span class="chip">!verwarnung</span><span class="chip">!verwarnungen</span></div>
+    </article>
+    <article class="plugin-card">
+      <div class="plugin-top"><span class="dot"></span><h3>Update</h3></div>
+      <p>Sendet Bot-Updates über einen geschützten Twitch-Befehl an Discord.</p>
+      <div class="chips"><span class="chip">!update</span></div>
+    </article>
+    <article class="plugin-card">
+      <div class="plugin-top"><span class="dot"></span><h3>Volume &amp; Mute</h3></div>
+      <p>Steuert Spotify-Lautstärke, Pause und Wiedergabe direkt über Twitch-Chatbefehle.</p>
+      <div class="chips"><span class="chip">!mute</span><span class="chip">!play</span><span class="chip">!vol</span></div>
+    </article>
+    <article class="plugin-card">
+      <div class="plugin-top"><span class="dot"></span><h3>VoteSkip</h3></div>
+      <p>Community-Voting zum Überspringen eines Songs; 3 Stimmen reichen für einen Skip.</p>
+      <div class="chips"><span class="chip">!voteskip</span><span class="chip">!votestatus</span></div>
+    </article>
+    <article class="plugin-card">
+      <div class="plugin-top"><span class="dot"></span><h3>Website Status</h3></div>
+      <p>Kann den öffentlichen Bot-Status per Twitch-Befehl auf online, offline oder problem setzen.</p>
+      <div class="chips"><span class="chip">!website</span></div>
+    </article></div>
+</section>
+
+<section id="commands">
+ <div class="eyebrow">Twitch Chat</div><h2>Commands auf einen Blick.</h2>
+ <p class="lead">Je nach Berechtigung, Konfiguration und verbundenem Dienst stehen unterschiedliche Befehle zur Verfügung.</p>
+ <div class="commandbox"><div class="chips"><span class="chip">!1sStart</span><span class="chip">!1sstart</span><span class="chip">!1sStatus</span><span class="chip">!1sstatus</span><span class="chip">!1sStop</span><span class="chip">!1sstop</span><span class="chip">!bans</span><span class="chip">!coins</span><span class="chip">!discord</span><span class="chip">!entbannen</span><span class="chip">!follow</span><span class="chip">!followage</span><span class="chip">!followallow</span><span class="chip">!follower</span><span class="chip">!followguard</span><span class="chip">!followguardoff</span><span class="chip">!followguardon</span><span class="chip">!followunallow</span><span class="chip">!give</span><span class="chip">!mute</span><span class="chip">!mytickets</span><span class="chip">!ping</span><span class="chip">!play</span><span class="chip">!punkte</span><span class="chip">!raid</span><span class="chip">!rang</span><span class="chip">!rank</span><span class="chip">!rank-reset</span><span class="chip">!ranks</span><span class="chip">!resetwarnings</span><span class="chip">!skip</span><span class="chip">!song</span><span class="chip">!songs</span><span class="chip">!spotifyconfig</span><span class="chip">!spotifylogin</span><span class="chip">!spotifyreset</span><span class="chip">!stats</span><span class="chip">!status</span><span class="chip">!support</span><span class="chip">!ticket</span><span class="chip">!tickets</span><span class="chip">!top</span><span class="chip">!unverify</span><span class="chip">!update</span><span class="chip">!verify</span><span class="chip">!verwarnung</span><span class="chip">!verwarnungen</span><span class="chip">!vol</span><span class="chip">!voteskip</span><span class="chip">!votestatus</span><span class="chip">!website</span></div></div>
+</section>
+
+<section id="technik">
+ <div class="eyebrow">System</div><h2>Wie ImBurni_Bot zusammenspielt.</h2>
+ <div class="architecture">
+   <div class="node"><strong>💬 Twitch</strong><br><small>Chat · EventSub · Broadcaster</small></div><div class="arrow">→</div>
+   <div class="node"><strong>🤖 ImBurni_Bot</strong><br><small>Loader · Plugins · Regeln</small></div><div class="arrow">→</div>
+   <div class="node"><strong>🎵 Spotify / Discord / OBS</strong><br><small>Musik · Community · Overlay</small></div>
+ </div>
+ 
+</section>
+
+</main>
+
+
+<footer><div class="wrap">
+  <span>ImBurni_Bot Community Edition · Version 1.2.3</span>
+  <div class="legal-links"><a class="legal-link" href="https://discord.gg/ENneVkA3Py" target="_blank" rel="noopener noreferrer" style="color:#83f5aa;border-color:rgba(30,215,96,.35)">Jetzt beantragen</a>
+    <button class="legal-link" onclick="openLegal('impressumModal')">Impressum</button>
+    <button class="legal-link" onclick="openLegal('privacyModal')">Datenschutz</button>
+    <button class="legal-link" onclick="openLegal('termsModal')">Nutzungsbedingungen</button>
+  </div>
+</div></footer>
+
+
+<div class="legal-modal" id="impressumModal" onclick="backdropClose(event)">
+ <div class="legal-box">
+  <div class="legal-head"><h3>Impressum</h3><button class="legal-close" onclick="closeLegal()">×</button></div>
+  <div class="legal-content"><p><strong>Angaben zum Anbieter</strong></p>
+  <p>ImBurni<br>
+  c/o NextLevelNation<br>
+  Inh. Christian Steinbach<br>
+  Stettener Weg 2<br>
+  89584 Ehingen (Donau)<br>
+  Deutschland</p></div>
+ </div>
+</div>
+
+<div class="legal-modal" id="privacyModal" onclick="backdropClose(event)">
+ <div class="legal-box">
+  <div class="legal-head"><h3>Datenschutzerklärung</h3><button class="legal-close" onclick="closeLegal()">×</button></div>
+  <div class="legal-content"><p><strong>1. Verantwortlicher</strong><br>
+  ImBurni<br>
+  c/o NextLevelNation<br>
+  Inh. Christian Steinbach<br>
+  Stettener Weg 2<br>
+  89584 Ehingen (Donau)<br>
+  Deutschland</p>
+
+  <p><strong>2. Bereitstellung der Website und Server-Logfiles</strong><br>
+  Beim Aufruf dieser Website kann der Hosting-Anbieter technisch erforderliche Zugriffsdaten verarbeiten. Dazu können insbesondere IP-Adresse, Datum und Uhrzeit des Abrufs, aufgerufene Datei, übertragene Datenmenge, Referrer, Browsertyp, Betriebssystem und HTTP-Status gehören. Die Verarbeitung erfolgt zur sicheren und technisch fehlerfreien Bereitstellung der Website auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO. Das berechtigte Interesse liegt in der sicheren und stabilen Bereitstellung dieses Internetangebots. Die Speicherdauer richtet sich nach der technisch erforderlichen Dauer und den Vorgaben des eingesetzten Hosting-Anbieters.</p>
+
+  <p><strong>3. Cookies und lokale Speichertechniken</strong><br>
+  Diese Website setzt selbst keine Analyse-, Werbe- oder Tracking-Cookies ein. Soweit der Hosting-Anbieter technisch notwendige Speichertechniken verwendet, erfolgt dies ausschließlich im für den Betrieb erforderlichen Umfang.</p>
+
+  <p><strong>4. ImBurni_Bot und verbundene Dienste</strong><br>
+  Bei Nutzung des ImBurni_Bot können – abhängig von den aktivierten Funktionen – Daten über Twitch, Spotify und Discord verarbeitet werden. Hierzu können insbesondere Benutzername, Benutzer-ID, Channel-Zuordnung, Chatbefehle, Songwünsche, Follow- und Raid-Informationen, Punkte- und Rangdaten, Verifikationsdaten, Ticket- und Plugin-Anfrage-Inhalte sowie Informationen zur Spotify-Wiedergabe gehören. Die Verarbeitung dient der Ausführung der jeweils vom Nutzer oder Channel-Betreiber verwendeten Bot-Funktion. Rechtsgrundlage ist je nach Nutzung Art. 6 Abs. 1 lit. b DSGVO oder Art. 6 Abs. 1 lit. f DSGVO.</p>
+
+  <p><strong>5. Twitch, Spotify, Discord und GitHub</strong><br>
+  Für einzelne Bot-Funktionen werden Schnittstellen und Dienste von Twitch, Spotify, Discord und GitHub eingesetzt. Werden entsprechende Funktionen genutzt, können Daten an den jeweiligen Anbieter übermittelt und dort nach dessen eigenen Datenschutzbestimmungen verarbeitet werden. Eine Übermittlung in Staaten außerhalb der Europäischen Union beziehungsweise des Europäischen Wirtschaftsraums kann dabei nicht ausgeschlossen werden. Die Verarbeitung durch ImBurni_Bot erfolgt nur im für die jeweilige Funktion erforderlichen Umfang.</p>
+
+  <p><strong>6. Speicherdauer</strong><br>
+  Personenbezogene Daten werden nur so lange gespeichert, wie dies für die jeweilige Bot-Funktion, die Sicherheit des Dienstes oder die Erfüllung gesetzlicher Pflichten erforderlich ist. Entfällt der Verarbeitungszweck und bestehen keine gesetzlichen Aufbewahrungspflichten, werden die betreffenden Daten gelöscht oder anonymisiert.</p>
+
+  <p><strong>7. Rechtsgrundlagen</strong><br>
+  Soweit eine Einwilligung erteilt wurde, erfolgt die Verarbeitung auf Grundlage von Art. 6 Abs. 1 lit. a DSGVO. Soweit die Verarbeitung zur Erfüllung einer Vereinbarung oder zur Bereitstellung einer angeforderten Funktion erforderlich ist, erfolgt sie auf Grundlage von Art. 6 Abs. 1 lit. b DSGVO. Gesetzlich erforderliche Verarbeitungen beruhen auf Art. 6 Abs. 1 lit. c DSGVO. Im Übrigen kann die Verarbeitung auf Art. 6 Abs. 1 lit. f DSGVO beruhen, insbesondere zur sicheren, stabilen und missbrauchsfreien Bereitstellung des Bots und der Website.</p>
+
+  <p><strong>8. Rechte betroffener Personen</strong><br>
+  Betroffene Personen haben nach Maßgabe der DSGVO insbesondere das Recht auf Auskunft (Art. 15 DSGVO), Berichtigung (Art. 16 DSGVO), Löschung (Art. 17 DSGVO), Einschränkung der Verarbeitung (Art. 18 DSGVO), Datenübertragbarkeit (Art. 20 DSGVO) sowie Widerspruch gegen Verarbeitungen auf Grundlage berechtigter Interessen (Art. 21 DSGVO). Eine erteilte Einwilligung kann jederzeit mit Wirkung für die Zukunft widerrufen werden.</p>
+
+  <p><strong>9. Beschwerderecht</strong><br>
+  Betroffene Personen haben gemäß Art. 77 DSGVO das Recht, sich bei einer Datenschutzaufsichtsbehörde zu beschweren. Dies gilt insbesondere bei der Aufsichtsbehörde des gewöhnlichen Aufenthaltsorts, des Arbeitsplatzes oder des Orts des mutmaßlichen Verstoßes.</p>
+
+  <p><strong>10. Automatisierte Entscheidungsfindung</strong><br>
+  Eine automatisierte Entscheidungsfindung im Sinne von Art. 22 DSGVO findet durch diese Website nicht statt.</p>
+
+  <p><strong>11. Stand</strong><br>September 2026</p></div>
+ </div>
+</div>
+
+<div class="legal-modal" id="termsModal" onclick="backdropClose(event)">
+ <div class="legal-box">
+  <div class="legal-head"><h3>Nutzungsbedingungen</h3><button class="legal-close" onclick="closeLegal()">×</button></div>
+  <div class="legal-content"><p><strong>1. Geltungsbereich</strong><br>
+  Diese Nutzungsbedingungen gelten für die unentgeltliche Nutzung von ImBurni_Bot einschließlich seiner Twitch-, Spotify-, Discord-, Community-, Plugin- und Overlay-Funktionen.</p>
+
+  <p><strong>2. Leistungsumfang</strong><br>
+  ImBurni_Bot stellt automatisierte Funktionen für Streams und Communities bereit. Der konkrete Funktionsumfang richtet sich nach der jeweils eingesetzten Version, den aktivierten Plugins, vorhandenen Berechtigungen und der Verfügbarkeit der angebundenen Plattformen.</p>
+
+  <p><strong>3. Unentgeltlichkeit</strong><br>
+  Die auf dieser Website beschriebene Nutzung von ImBurni_Bot wird unentgeltlich angeboten. Aus der unentgeltlichen Bereitstellung entsteht kein Anspruch auf einen bestimmten Funktionsumfang, eine bestimmte Verfügbarkeit oder die dauerhafte Fortführung einzelner Funktionen.</p>
+
+  <p><strong>4. Zulässige Nutzung</strong><br>
+  Der Bot darf ausschließlich rechtmäßig und entsprechend seiner vorgesehenen Funktionen verwendet werden. Untersagt sind insbesondere missbräuchliche Nutzung, Manipulationsversuche, Umgehung technischer Schutzmaßnahmen oder Sperren, Angriffe auf den Dienst oder angebundene Systeme sowie die Nutzung zur Verbreitung rechtswidriger Inhalte.</p>
+
+  <p><strong>5. Nutzerinhalte</strong><br>
+  Für Inhalte, die Nutzer über Chatbefehle, Songwünsche, Support-Tickets, Plugin-Anfragen oder vergleichbare Funktionen übermitteln, ist der jeweilige Nutzer verantwortlich. Inhalte können entfernt und Funktionen für einzelne Nutzer eingeschränkt werden, wenn dies zur Einhaltung gesetzlicher Vorgaben, zum Schutz anderer Nutzer oder zur Sicherstellung des Betriebs erforderlich ist.</p>
+
+  <p><strong>6. Drittanbieter</strong><br>
+  Funktionen von ImBurni_Bot können von Twitch, Spotify, Discord, GitHub oder anderen technischen Diensten abhängen. Für deren Leistungen, Inhalte, Verfügbarkeit und Änderungen gelten die Bedingungen der jeweiligen Anbieter. Änderungen oder Ausfälle solcher Dienste können dazu führen, dass Funktionen von ImBurni_Bot vorübergehend oder dauerhaft nicht verfügbar sind.</p>
+
+  <p><strong>7. Verfügbarkeit und Änderungen</strong><br>
+  Der Betreiber ist berechtigt, ImBurni_Bot zu warten, zu aktualisieren, Funktionen zu verändern, einzuschränken oder einzustellen. Eine ununterbrochene und fehlerfreie Verfügbarkeit wird nicht geschuldet.</p>
+
+  <p><strong>8. Haftung</strong><br>
+  Für Vorsatz und grobe Fahrlässigkeit haftet der Betreiber nach den gesetzlichen Vorschriften. Bei einfacher Fahrlässigkeit haftet der Betreiber nur bei Verletzung einer wesentlichen Pflicht und beschränkt auf den vorhersehbaren, typischerweise eintretenden Schaden. Die Haftung wegen Verletzung von Leben, Körper oder Gesundheit sowie eine gesetzlich zwingende Haftung bleiben unberührt.</p>
+
+  <p><strong>9. Urheber- und Nutzungsrechte</strong><br>
+  Inhalte, Gestaltung, Bot-Code und sonstige Bestandteile von ImBurni_Bot dürfen nur im Rahmen der jeweils eingeräumten Nutzungsrechte verwendet werden. Rechte Dritter an Marken, Plattformen, Musik, Grafiken und sonstigen Inhalten bleiben unberührt.</p>
+
+  <p><strong>10. Schlussbestimmungen</strong><br>
+  Es gilt das Recht der Bundesrepublik Deutschland unter Ausschluss des UN-Kaufrechts, soweit dem keine zwingenden verbraucherschützenden Vorschriften entgegenstehen. Zwingende gesetzliche Rechte der Nutzer bleiben unberührt.</p>
+
+  <p><strong>Stand:</strong> September 2026</p></div>
+ </div>
+</div>
+
+<script>
+function openLegal(id) {
+  document.getElementById(id).classList.add('open');
+  document.body.classList.add('modal-open');
+}
+function closeLegal() {
+  document.querySelectorAll('.legal-modal.open').forEach(x=>x.classList.remove('open'));
+  document.body.classList.remove('modal-open');
+}
+function backdropClose(e) {
+  if (e.target.classList.contains('legal-modal')) closeLegal();
+}
+document.addEventListener('keydown', e => { if(e.key === 'Escape') closeLegal(); });
+</script>
+
+</body></html>
